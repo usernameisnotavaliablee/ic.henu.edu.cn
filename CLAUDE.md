@@ -20,7 +20,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 ## 协作与 Git 工作流
 
 - 两人开发，GitHub 私有仓库协作。
-- `main` 分支受保护、不直接推送；每人开 `feature/xxx` 分支，用 Pull Request 合并并互相检查。
+- **`main` 分支不设保护，可直接推送**（2026-10-09 用户取消原有的「保护 main、禁止直接推送」规则）。需要并行开发时，可自行开 `feature/xxx` 分支。
 - 用 Issues 分任务、Projects 看进度。
 - 提交前先 `git pull`；提交信息写清楚（如「新增首页轮播」）。
 - 密码、密钥、数据库文件不得提交。
