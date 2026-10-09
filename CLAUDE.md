@@ -42,7 +42,9 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ```
 docs/
-├── 教师简历汇总.md
+├── IC学院官网所需素材.md      # 官网所需内容清单 + 素材收集进度表（对外索取素材用）
+├── 教师简历汇总.md            # 教师简历底稿
+├── 河大各学院官网调研.md       # 26 个学院官网技术栈/栏目/后台调研
 └── assets/teachers/          # 教师照片 + source-html/ 源页面存档
 ```
 
