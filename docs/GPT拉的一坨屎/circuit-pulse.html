@@ -1,0 +1,647 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="dark">
+  <meta name="theme-color" content="#0a0a0a">
+  <title>主板光波 · 精细构图 v0.2</title>
+  <style>
+    :root {
+      --blue: #4474c2;
+      --paper: #0a0a0a;
+      --ink: #d7d7d7;
+      --muted: #929292;
+      --line: #303030;
+      font-family: "PingFang SC", "Microsoft YaHei", sans-serif;
+      color: var(--ink);
+      background: var(--paper);
+      color-scheme: dark;
+    }
+    * { box-sizing: border-box; }
+    body { margin: 0; }
+    button, input { font: inherit; }
+    button, summary, input { -webkit-tap-highlight-color: transparent; }
+    :focus-visible { outline: 2px solid var(--blue); outline-offset: 5px; }
+    main {
+      width: min(100%, 1520px);
+      min-height: 100svh;
+      margin-inline: auto;
+      padding: clamp(16px, 3vw, 48px);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+    .caption {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      gap: 16px;
+      padding-block: 0 20px;
+      border-bottom: 1px solid var(--line);
+    }
+    h1 { margin: 0; font-size: 16px; font-weight: 500; letter-spacing: .12em; }
+    .caption p { margin: 0; color: var(--muted); font-size: 12px; letter-spacing: .05em; }
+    figure { margin: 0; }
+    .stage { position: relative; aspect-ratio: 16 / 9; margin-block: 20px; }
+    canvas { display: block; width: 100%; height: 100%; }
+    canvas[hidden] { display: none; }
+    .fallback { padding: 24px; color: var(--ink); line-height: 1.8; }
+    .fallback:not([hidden]) { position: absolute; inset: 0; background: #171717; }
+    .toolbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 12px 24px;
+      border-top: 1px solid var(--line);
+      padding-top: 12px;
+    }
+    .status { margin: 0; font-size: 12px; color: var(--muted); line-height: 1.8; text-wrap: pretty; }
+    .controls { display: flex; align-items: center; gap: 20px; margin-left: auto; }
+    .toggle { display: flex; align-items: center; gap: 9px; min-height: 44px; font-size: 13px; cursor: pointer; }
+    input[type="checkbox"] { width: 16px; height: 16px; accent-color: var(--blue); margin: 0; }
+    details { position: relative; }
+    summary { cursor: pointer; padding: 12px 0 12px 12px; min-height: 44px; font-size: 13px; }
+    summary:hover, .toggle:hover { color: white; }
+    summary:active { color: var(--blue); }
+    .tweaks {
+      position: absolute;
+      right: 0;
+      bottom: calc(100% + 12px);
+      width: min(260px, calc(100vw - 32px));
+      padding: 20px;
+      border: 1px solid #404040;
+      border-radius: 4px;
+      background: #151515;
+      box-shadow: 0 8px 24px #0006;
+      z-index: 1;
+    }
+    .tweaks label { display: flex; justify-content: space-between; font-size: 13px; }
+    input[type="range"] { display: block; width: 100%; min-height: 44px; margin: 8px 0 0; accent-color: var(--blue); }
+    .tweaks p { font-size: 12px; margin: 6px 0 0; line-height: 1.6; color: var(--muted); }
+    .controls[hidden] { display: none; }
+    @media (max-width: 560px) {
+      .caption { gap: 8px; flex-wrap: wrap; padding-bottom: 16px; }
+      h1 { font-size: 14px; }
+      .caption p { font-size: 11px; }
+      .stage { margin-block: 28px; }
+      .toolbar { gap: 4px; }
+      .status { flex-basis: 100%; }
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <header class="caption">
+      <h1>主板 · 精细构图</h1>
+      <p>平面俯视 / 构图 02</p>
+    </header>
+    <figure aria-labelledby="preview-caption">
+      <div class="stage">
+        <canvas role="img" aria-label="精细的深色平面主板，包含 CPU 插座、供电阵列、四条内存槽、PCIe 扩展槽、M.2 模组、芯片组、接口及密集贴片元件。蓝色光波沿板面与铜走线扩散。当前为静态构图。">
+          深色平面电路板与蓝色光波的静态概念图。浏览器需支持 Canvas 才能查看。
+        </canvas>
+        <p class="fallback" hidden role="status">当前浏览器无法显示 Canvas 构图。请使用支持 Canvas 的浏览器打开此文件。</p>
+        <noscript><p class="fallback">请启用 JavaScript 查看本地构图。文件不加载任何外部资源。</p></noscript>
+      </div>
+      <figcaption class="toolbar" id="preview-caption">
+        <p class="status">构图 v0.2 · 原创主板概念，非实物或可生产设计</p>
+        <div class="controls" hidden>
+          <label class="toggle"><input id="waves-visible" type="checkbox" checked>显示光波</label>
+          <details>
+            <summary>Tweaks</summary>
+            <div class="tweaks">
+              <label for="intensity">光强 <output id="intensity-value" for="intensity">60%</output></label>
+              <input id="intensity" type="range" min="0" max="100" value="60" step="5">
+              <p>当前只确认构图与光感。节律、播放与进度控制将在动效版加入。</p>
+            </div>
+          </details>
+        </div>
+      </figcaption>
+    </figure>
+  </main>
+  <script>
+    (() => {
+      'use strict';
+      const W = 1600, H = 900;
+      const BLUE = { h: 217.142857, s: 50.806452, l: 51.372549 };
+      const BOARD = { x: 48, y: 36, w: 1504, h: 828 };
+      const canvas = document.querySelector('canvas');
+      const ctx = canvas.getContext('2d');
+      const baseCanvas = document.createElement('canvas');
+      const copperCanvas = document.createElement('canvas');
+      const lightCanvas = document.createElement('canvas');
+      const base = baseCanvas.getContext('2d');
+      const copper = copperCanvas.getContext('2d');
+      const light = lightCanvas.getContext('2d');
+      if (![ctx, base, copper, light].every(Boolean)) {
+        canvas.hidden = true;
+        document.querySelector('.fallback').hidden = false;
+        return;
+      }
+      const intensity = document.querySelector('#intensity');
+      const visible = document.querySelector('#waves-visible');
+      const sources = [
+        { x: 657, y: 344, phase: 0, reach: 316, strength: 1 },
+        { x: 1127, y: 651.5, phase: 250, reach: 225, strength: .72 },
+        { x: 488, y: 352, phase: 120, reach: 158, strength: .58 },
+        { x: 615, y: 196, phase: 330, reach: 162, strength: .48 },
+        { x: 638, y: 521, phase: 190, reach: 176, strength: .54 },
+        { x: 1258, y: 734, phase: 400, reach: 158, strength: .52 },
+        { x: 231, y: 702, phase: 70, reach: 166, strength: .48 },
+        { x: 1367, y: 390, phase: 290, reach: 172, strength: .52 }
+      ];
+      let scale = 1, compact = false, routeCount = 0, smdCount = 0;
+      const cuts = [];
+      const keepouts = [
+        [100, 90, 220, 440], [354, 74, 419, 84],
+        [394, 158, 393, 78], [391, 252, 112, 221],
+        [521, 219, 274, 268], [919, 125, 244, 402],
+        [1226, 163, 73, 330], [420, 489, 500, 66],
+        [404, 567, 611, 49], [435, 638, 536, 27],
+        [405, 683, 610, 43], [405, 763, 610, 38],
+        [1041, 560, 175, 185], [1320, 559, 185, 160],
+        [228, 550, 100, 100], [137, 654, 159, 94],
+        [1216, 697, 88, 78], [1322, 344, 91, 92]
+      ];
+      function blue(l = BLUE.l, a = 1) { return 'hsla(' + BLUE.h + ',' + BLUE.s + '%,' + l + '%,' + a + ')'; }
+      function line(c, points, color, width = 1) {
+        c.beginPath();
+        points.forEach((p, i) => i ? c.lineTo(p[0], p[1]) : c.moveTo(p[0], p[1]));
+        c.strokeStyle = color; c.lineWidth = width; c.stroke();
+      }
+      function polygon(c, points, fill, stroke, width = 1) {
+        c.beginPath();
+        points.forEach((p, i) => i ? c.lineTo(p[0], p[1]) : c.moveTo(p[0], p[1]));
+        c.closePath();
+        if (fill) { c.fillStyle = fill; c.fill(); }
+        if (stroke) { c.lineWidth = width; c.strokeStyle = stroke; c.stroke(); }
+      }
+      function box(c, x, y, w, h, fill, stroke, width = 1) {
+        if (fill) { c.fillStyle = fill; c.fillRect(x, y, w, h); }
+        if (stroke) { c.lineWidth = width; c.strokeStyle = stroke; c.strokeRect(x, y, w, h); }
+      }
+      function disc(c, x, y, radius, fill, stroke, width = 1) {
+        c.beginPath(); c.arc(x, y, radius, 0, Math.PI * 2);
+        if (fill) { c.fillStyle = fill; c.fill(); }
+        if (stroke) { c.lineWidth = width; c.strokeStyle = stroke; c.stroke(); }
+      }
+      function boardPath(c) {
+        const x = BOARD.x, y = BOARD.y, r = x + BOARD.w, b = y + BOARD.h;
+        c.beginPath(); c.moveTo(x + 18, y); c.lineTo(r - 18, y);
+        c.lineTo(r, y + 18); c.lineTo(r, b - 26); c.lineTo(r - 26, b);
+        c.lineTo(x + 15, b); c.lineTo(x, b - 15); c.lineTo(x, y + 18); c.closePath();
+      }
+      function metal(x, y, w, h, dim = false) {
+        const g = base.createLinearGradient(x, y, x + w, y + h);
+        g.addColorStop(0, dim ? '#363636' : '#9d9d9d');
+        g.addColorStop(.34, dim ? '#4a4a4a' : '#c7c7c7');
+        g.addColorStop(.56, dim ? '#2d2d2d' : '#888888');
+        g.addColorStop(1, dim ? '#414141' : '#b0b0b0');
+        return g;
+      }
+      function label(text, x, y, size = 8, color = '#939393', rotate = 0) {
+        base.save(); base.translate(x, y); base.rotate(rotate);
+        base.font = size + 'px "SFMono-Regular", Consolas, monospace';
+        base.fillStyle = color; base.fillText(text, 0, 0); base.restore();
+      }
+      function reserve(x, y, w, h) { cuts.push([x - 1, y - 1, w + 2, h + 2]); }
+      function via(x, y, r = 1.65, bright = false) {
+        disc(base, x, y, r, '#111111', bright ? '#787878' : '#424242', .7);
+        disc(base, x, y, .55, '#090909');
+        disc(copper, x, y, r + .25, null, blue(65), 1);
+      }
+      function route(points, index = 0, width = .65) {
+        // Copper is a drawing, not a routed electrical design. Every bend is 45° / 90°.
+        for (let i = 1; i < points.length; i++) {
+          const dx = Math.abs(points[i][0] - points[i - 1][0]);
+          const dy = Math.abs(points[i][1] - points[i - 1][1]);
+          if (dx > .01 && dy > .01 && Math.abs(dx - dy) > .01) throw new Error('Non-octilinear route ' + routeCount);
+        }
+        line(base, points, index % 6 === 0 ? blue(24, .78) : blue(18, .66), width);
+        line(copper, points, blue(63), width + .6);
+        const p = points[points.length - 1]; via(p[0], p[1]); routeCount++;
+      }
+      function screw(x, y, radius = 5) {
+        disc(base, x, y, radius + 1.8, '#161616', '#4c4c4c', .8);
+        disc(base, x, y, radius, metal(x - radius, y - radius, radius * 2, radius * 2), '#aaaaaa', .5);
+        line(base, [[x - radius * .5, y], [x + radius * .5, y]], '#292929', 1.2);
+        line(base, [[x, y - radius * .5], [x, y + radius * .5]], '#292929', 1.2);
+      }
+      function smd(x, y, w = 9, h = 4, vertical = false, ceramic = false) {
+        base.save(); base.translate(x, y); if (vertical) base.rotate(Math.PI / 2);
+        box(base, -w / 2 - 1, -h / 2 - .7, w + 2, h + 1.4, '#363636');
+        box(base, -w / 2, -h / 2, w, h, '#858585');
+        box(base, -w / 2 + 2, -h / 2, w - 4, h, ceramic ? '#545454' : '#1c1c1c');
+        line(base, [[-w / 2 + 2, -h / 2], [w / 2 - 2, -h / 2]], '#747474', .5);
+        base.restore(); smdCount++;
+      }
+      function chip(x, y, w, h, pins = 12, mark = '') {
+        reserve(x - w / 2 - 7, y - h / 2 - 7, w + 14, h + 14);
+        box(base, x - w / 2 - 10, y - h / 2 - 10, w + 20, h + 20, null, '#626262', .55);
+        for (let i = 0; i < pins; i++) {
+          const dx = (i - (pins - 1) / 2) * (w - 8) / pins;
+          const dy = (i - (pins - 1) / 2) * (h - 8) / pins;
+          box(base, x + dx - .8, y - h / 2 - 6, 1.6, 7, '#a4a4a4');
+          box(base, x + dx - .8, y + h / 2 - 1, 1.6, 7, '#8a8a8a');
+          box(base, x - w / 2 - 6, y + dy - .8, 7, 1.6, '#929292');
+          box(base, x + w / 2 - 1, y + dy - .8, 7, 1.6, '#929292');
+        }
+        box(base, x - w / 2, y - h / 2, w, h, '#181818', '#595959', .8);
+        box(base, x - w / 2 + 2, y - h / 2 + 2, w - 4, h - 4, null, '#2b2b2b', .6);
+        disc(base, x - w / 2 + 5, y - h / 2 + 5, 1.1, '#b0b0b0');
+        if (mark) label(mark, x - w / 2 + 7, y + 2, Math.min(7.5, w / mark.length), '#858585');
+      }
+      function cap(x, y, radius = 11) {
+        reserve(x - radius - 2, y - radius - 2, radius * 2 + 4, radius * 2 + 4);
+        box(base, x - radius + 1, y - radius - 2, radius * 2 - 2, radius * 2 + 4, '#424242');
+        disc(base, x, y, radius + 1, '#101010', '#535353', .8);
+        disc(base, x, y, radius - 1, metal(x - radius, y - radius, radius * 2, radius * 2), '#999999', .6);
+        disc(base, x, y, radius - 3, null, '#6f6f6f', .65);
+        line(base, [[x - radius * .56, y], [x + radius * .56, y]], '#575757', .85);
+        line(base, [[x, y - radius * .56], [x, y + radius * .56]], '#575757', .85);
+      }
+      function header(x, y, cols, rows = 2, pitch = 8, vertical = false) {
+        base.save(); base.translate(x, y); if (vertical) base.rotate(Math.PI / 2);
+        const w = cols * pitch + 9, h = rows * pitch + 8;
+        box(base, -3, -3, w + 6, h + 6, '#343434', '#666666', .6);
+        box(base, 0, 0, w, h, '#161616', '#555555', 1);
+        box(base, 3, 3, w - 6, h - 6, '#090909', '#2e2e2e', .8);
+        for (let c = 0; c < cols; c++) for (let r = 0; r < rows; r++) {
+          box(base, 7 + c * pitch, 6 + r * pitch, 3.1, 3.1, '#a9a9a9', '#c0c0c0', .35);
+        }
+        box(base, w / 2 - 5, -3, 10, 5, '#515151');
+        base.restore();
+        if (vertical) reserve(x - h - 4, y - 4, h + 8, w + 8);
+        else reserve(x - 4, y - 4, w + 8, h + 8);
+      }
+      function powerSocket() {
+        const x = 1238, y = 225, w = 46, h = 153;
+        reserve(x - 6, y - 5, w + 14, h + 10);
+        box(base, x - 4, y - 4, w + 8, h + 8, '#363636', '#8d8d8d', .7);
+        box(base, x, y, w, h, '#292929', '#686868', .8);
+        for (let row = 0; row < 12; row++) for (let col = 0; col < 2; col++) {
+          const px = x + 6 + col * 19, py = y + 6 + row * 11.8;
+          polygon(base, [[px + 2, py], [px + 12, py], [px + 12, py + 8], [px, py + 8], [px, py + 2]], '#080808', '#737373', .6);
+          box(base, px + 3, py + 5, 5, 1.1, '#999999');
+        }
+        box(base, x - 7, y + h / 2 - 12, 7, 24, '#414141', '#959595', .6);
+        line(base, [[x + 3, y + 2], [x + w - 3, y + 2]], '#a8a8a8', .7);
+      }
+      function heatsink(x, y, w, h, vertical = false) {
+        reserve(x, y, w, h);
+        box(base, x, y, w, h, metal(x, y, w, h, true), '#686868', .8);
+        box(base, x + 4, y + 4, w - 8, h - 8, '#252525', '#555555', .7);
+        if (vertical) {
+          for (let a = x + 9; a < x + w - 7; a += 5) {
+            line(base, [[a, y + 8], [a, y + h - 8]], '#111111', 2.4);
+            line(base, [[a + 1.8, y + 8], [a + 1.8, y + h - 8]], '#5b5b5b', .6);
+          }
+        } else {
+          for (let a = y + 10; a < y + h - 7; a += 5) {
+            line(base, [[x + 8, a], [x + w - 8, a]], '#111111', 2.4);
+            line(base, [[x + 8, a + 1.8], [x + w - 8, a + 1.8]], '#626262', .6);
+          }
+        }
+        screw(x + 8, y + 8, 3.5); screw(x + w - 8, y + h - 8, 3.5);
+      }
+      function dimm(x, y, h, index) {
+        reserve(x - 7, y - 16, 43, h + 33);
+        const lightSlot = index % 2 === 1;
+        box(base, x - 4, y - 3, 34, h + 6, '#343434', '#747474', .6);
+        box(base, x, y, 26, h, lightSlot ? '#4a4a4a' : '#232323', '#727272', .8);
+        box(base, x + 8, y + 8, 10, h - 16, '#090909', '#686868', .65);
+        for (let i = 0; i < 90; i++) {
+          const py = y + 12 + i * (h - 24) / 90;
+          box(base, x + 4, py, 4, 1.15, '#a5a5a5');
+          box(base, x + 18, py, 4, 1.15, '#989898');
+        }
+        box(base, x + 6, y + h * .56, 14, 5, '#808080');
+        for (const py of [y - 13, y + h - 1]) {
+          polygon(base, [[x - 3, py], [x + 29, py], [x + 26, py + 14], [x, py + 14]], lightSlot ? '#888888' : '#4a4a4a', '#a3a3a3', .6);
+          box(base, x + 4, py + 3, 18, 5, '#333333');
+        }
+        label('DIMM_' + (index < 2 ? 'A' : 'B') + (index % 2 + 1), x + 36, y + 100, 7.3, '#a4a4a4', Math.PI / 2);
+      }
+      function pcie(x, y, w, reinforced = false) {
+        reserve(x - 7, y - 4, w + 35, 36);
+        box(base, x - 3, y - 3, w + 6, 31, '#212121', '#808080', .7);
+        box(base, x, y, w, 25, reinforced ? metal(x, y, w, 25) : '#3d3d3d', '#8b8b8b', .7);
+        box(base, x + 5, y + 7, w - 10, 11, '#080808', '#5e5e5e', .7);
+        for (let i = 0; i < 112; i++) {
+          const px = x + 9 + i * (w - 18) / 112;
+          box(base, px, y + 5, 1.3, 4.7, '#ababab');
+          box(base, px, y + 16.3, 1.3, 4.7, '#8e8e8e');
+        }
+        box(base, x + 69, y + 3, 7, 18, '#707070');
+        polygon(base, [[x + w, y - 3], [x + w + 27, y - 3], [x + w + 21, y + 26], [x + w, y + 26]], '#3a3a3a', '#808080', .8);
+        line(base, [[x + w + 5, y + 3], [x + w + 19, y + 3], [x + w + 15, y + 16]], '#a0a0a0', .7);
+        screw(x + 4, y + 12, 1.6);
+      }
+      function socket() {
+        const x = 537, y = 221, w = 244, h = 246;
+        reserve(x - 13, y - 18, w + 33, h + 32);
+        box(base, x - 10, y - 10, w + 20, h + 20, '#141414', '#747474', .65);
+        box(base, x + 7, y + 7, w - 14, h - 14, '#353535', '#8c8c8c', .6);
+        box(base, x + 18, y + 17, w - 36, h - 34, '#202020', '#676767', .8);
+        for (let row = 0; row < 37; row++) for (let col = 0; col < 35; col++) {
+          const px = x + 23 + col * 5.8, py = y + 22 + row * 5.5;
+          if (col >= 11 && col <= 23 && row >= 12 && row <= 25) continue;
+          line(base, [[px, py + 2], [px + 1.9, py], [px + 3.1, py + 1]], (row + col) % 4 ? '#777777' : '#adadad', .7);
+        }
+        // Exposed central package is deliberately conceptual, not a vendor CPU model.
+        box(base, 618, 306, 79, 80, '#151515', '#777777', 1);
+        box(base, 628, 316, 59, 60, '#1b1b1b', blue(36), .7);
+        for (let r = 0; r < 5; r++) for (let c = 0; c < 5; c++) {
+          box(base, 633 + c * 10, 321 + r * 10, 7, 7, blue(18 + (c + r) % 3 * 3), '#373737', .35);
+        }
+        const rail = metal(x, y, w, h);
+        polygon(base, [[x - 5, y + 5], [x + 15, y - 12], [x + w - 16, y - 12], [x + w + 4, y + 5], [x + w - 7, y + 20], [x + 6, y + 20]], rail, '#bdbdbd', .7);
+        polygon(base, [[x - 5, y + h - 7], [x + 6, y + h - 21], [x + w - 7, y + h - 21], [x + w + 5, y + h - 7], [x + w - 15, y + h + 10], [x + 13, y + h + 10]], rail, '#bdbdbd', .7);
+        box(base, x - 5, y + 5, 11, h - 12, rail, '#9c9c9c', .7);
+        box(base, x + w - 7, y + 5, 11, h - 12, rail, '#9c9c9c', .7);
+        line(base, [[x + w + 15, y + 9], [x + w + 15, y + h - 18], [x + w + 28, y + h - 5], [x + w + 28, y + h + 12], [x + w + 5, y + h + 12]], '#383838', 5);
+        line(base, [[x + w + 15, y + 9], [x + w + 15, y + h - 18], [x + w + 28, y + h - 5], [x + w + 28, y + h + 12], [x + w + 5, y + h + 12]], '#adadad', 2.2);
+        for (const p of [[x + 3, y - 3], [x + w - 3, y - 3], [x + 3, y + h + 2], [x + w - 3, y + h + 2]]) screw(...p, 5.4);
+        polygon(base, [[x + 25, y + h + 21], [x + 34, y + h + 21], [x + 25, y + h + 12]], '#aeaeae');
+        label('CPU SOCKET', x + 80, y + h + 29, 8.5, '#b1b1b1');
+      }
+      function drawCopper() {
+        for (let i = 0; i < 50; i++) {
+          const y = 258 + i * 3.7, knee = 819 + (i % 25) * 2.5;
+          const turn = i < 25 ? -45 : 45;
+          route([[779, y], [knee, y], [knee + 45, y + turn], [952 + i % 4 * 51, y + turn]], i, .7);
+        }
+        for (let i = 0; i < 46; i++) {
+          const x = 554 + i * 4.2, knee = 479 + i % 12 * 2.3, dx = i < 23 ? -61 : 65;
+          route([[x, 464], [x, knee], [x + dx, knee + Math.abs(dx)], [x + dx, 573 + i % 3 * 4]], i);
+        }
+        for (let i = 0; i < 26; i++) {
+          const x = 997 + i * 3.2, y = 471 + i * 2.2;
+          route([[1132, y], [1219 + i * 2, y], [1259 + i * 2, y + 40], [1396, y + 40]], i);
+          route([[x, 743], [x, 775 + i % 4 * 4], [x + 30, 805 + i % 4 * 4], [1220 + i % 5 * 13, 805 + i % 4 * 4]], i);
+        }
+        for (let i = 0; i < 32; i++) {
+          const y = 613 + i * 2.9;
+          route([[977, y], [1007 + i * 1.8, y], [1041 + i * 1.8, y + 34], [1125, y + 34]], i);
+        }
+        for (let i = 0; i < 20; i++) {
+          const y = 153 + i * 9.8;
+          route([[1319, y], [1380 + i % 5 * 9, y], [1410 + i % 5 * 9, y + 30], [1499, y + 30]], i);
+          const x = 325 + i * 7;
+          route([[x, 496], [x, 512 + i % 5 * 4], [x - 30, 542 + i % 5 * 4], [270, 542 + i % 5 * 4]], i);
+        }
+        for (let i = 0; i < 12; i++) {
+          const y = 662 + i * 4;
+          route([[234, y], [291 + i * 3, y], [315 + i * 3, y + 24], [384, y + 24]], i);
+        }
+        // Local fan-outs and vias: quieter than the principal signal bundles.
+        for (let n = 0; n < 180; n++) {
+          const x = 85 + (n * 137 % 1416), y = 73 + (n * 79 % 737);
+          if (keepouts.some(r => x > r[0] - 8 && x < r[0] + r[2] + 8 && y > r[1] - 8 && y < r[1] + r[3] + 8)) continue;
+          const len = 7 + n % 5 * 4;
+          route([[x, y], [x + len, y], [x + len + 8, y + 8]], n, .55);
+          via(x - 4, y + 5, 1.3);
+        }
+      }
+      function drawPassives() {
+        for (let row = 0; row < 48; row++) for (let col = 0; col < 82; col++) {
+          const x = 90 + col * 17.2, y = 76 + row * 15.7;
+          const seed = (row * 137 + col * 71 + row * col * 13) % 31;
+          if (seed > (compact ? 8 : 11)) continue;
+          if (keepouts.some(r => x > r[0] - 7 && x < r[0] + r[2] + 7 && y > r[1] - 7 && y < r[1] + r[3] + 7)) continue;
+          const vertical = seed % 3 === 0;
+          smd(x, y, seed % 4 === 0 ? 12 : 8, seed % 4 === 0 ? 5 : 3.7, vertical, seed % 3 === 1);
+          if (seed % 3 === 0 && !compact) smd(x + (vertical ? 5 : 0), y + (vertical ? 0 : 5), 7, 3.4, vertical, true);
+          if (seed % 5 === 0) via(x + 7, y + 7, 1.4, true);
+        }
+      }
+      function drawPower() {
+        heatsink(245, 231, 115, 263, true);
+        heatsink(359, 72, 414, 58);
+        label('VRM', 271, 220, 9, '#a5a5a5');
+        header(285, 65, 4, 2, 10); label('CPU_PWR', 277, 59, 7.5);
+        for (let i = 0; i < 9; i++) {
+          const x = 398 + i * 41;
+          chip(x + 12, 146, 20, 10, 5);
+          reserve(x - 3, 162, 31, 21);
+          box(base, x - 3, 162, 31, 21, metal(x, 162, 31, 21, true), '#777777', .7);
+          box(base, x + 1, 165, 23, 13, '#3c3c3c', '#575757', .45);
+          line(base, [[x + 6, 171], [x + 17, 171]], '#7f7f7f', .7);
+          cap(x + 12, 196, 10.5);
+          smd(x + 31, 195, 7, 3.5, true, true);
+        }
+        for (let i = 0; i < 6; i++) {
+          const y = 274 + i * 39;
+          chip(402, y, 15, 20, 5);
+          reserve(420, y - 13, 32, 27);
+          box(base, 420, y - 13, 32, 27, metal(420, y - 13, 32, 27, true), '#777777', .6);
+          box(base, 424, y - 9, 24, 19, '#393939', '#646464', .5);
+          cap(488, y, 11.8);
+          smd(465, y + 10, 8, 4, true);
+          smd(461, y - 9, 8, 4, true, true);
+        }
+      }
+      function drawIO() {
+        heatsink(143, 100, 86, 404, true);
+        for (const [y, h, ports] of [[111, 56, 1], [178, 66, 2], [254, 72, 2], [337, 62, 1], [411, 75, 3]]) {
+          reserve(66, y, 74, h);
+          box(base, 66, y, 74, h, metal(66, y, 74, h), '#b5b5b5', .7);
+          box(base, 71, y + 4, 60, h - 8, '#2a2a2a', '#676767', .65);
+          for (let p = 0; p < ports; p++) {
+            const py = y + 8 + p * (h - 12) / ports;
+            box(base, 76, py, 42, (h - 18) / ports, '#090909', '#aaaaaa', .6);
+            line(base, [[79, py + 5], [112, py + 5]], '#626262', 2.8);
+          }
+          box(base, 132, y + h / 2 - 5, 7, 10, '#c0c0c0');
+        }
+        label('REAR I/O', 158, 526, 8.2);
+      }
+      function drawStorage() {
+        // M.2 module: exposed controller and flash packages, not a branded product.
+        reserve(432, 497, 476, 49);
+        polygon(base, [[441, 497], [896, 497], [904, 505], [904, 538], [896, 546], [441, 546], [431, 536], [431, 507]], '#1a1a1a', '#828282', .8);
+        for (let i = 0; i < 28; i++) box(base, 891, 502 + i * 1.34, 11, .8, '#b1b1b1');
+        chip(638, 521, 37, 30, 10);
+        for (const x of [494, 548, 721, 776, 831]) {
+          box(base, x - 19, 505, 38, 32, '#111111', '#595959', .7);
+          line(base, [[x - 12, 516], [x + 9, 516]], '#484848', .6);
+        }
+        screw(442, 521, 5.8);
+        label('M.2', 441, 485, 8.2);
+        heatsink(445, 639, 501, 21);
+        label('M.2', 446, 633, 7.5);
+        for (let i = 0; i < 3; i++) for (let j = 0; j < 2; j++) {
+          const x = 1325 + j * 79, y = 567 + i * 45;
+          reserve(x, y, 66, 36);
+          box(base, x, y, 66, 36, '#333333', '#858585', .7);
+          box(base, x + 5, y + 6, 56, 24, '#101010', '#555555', .8);
+          line(base, [[x + 12, y + 12], [x + 48, y + 12], [x + 48, y + 23]], '#aeaeae', 1.9);
+          for (let p = 0; p < 7; p++) box(base, x + 13 + p * 5, y + 22, 2, 4, '#8f8f8f');
+        }
+        label('SATA', 1327, 554, 8);
+      }
+      function drawChipset() {
+        const x = 1048, y = 568, w = 158, h = 167;
+        reserve(x, y, w, h);
+        polygon(base, [[x + 13, y], [x + w, y], [x + w, y + h - 13], [x + w - 13, y + h], [x, y + h], [x, y + 13]], metal(x, y, w, h, true), '#888888', .8);
+        base.save();
+        base.beginPath(); base.rect(x + 7, y + 7, w - 14, h - 14); base.clip();
+        for (let d = -150; d < 180; d += 8) {
+          line(base, [[x + d, y], [x + d + h, y + h]], '#101010', 3);
+          line(base, [[x + d + 2.5, y], [x + d + h + 2.5, y + h]], '#6e6e6e', .6);
+        }
+        base.restore();
+        box(base, x + 45, y + 64, 73, 31, '#232323', '#757575', .6);
+        label('CHIPSET', x + 53, y + 83, 8.8, '#a7a7a7');
+        screw(x + 12, y + 13, 4); screw(x + w - 12, y + h - 13, 4);
+      }
+      function drawBase() {
+        routeCount = 0; smdCount = 0; cuts.length = 0;
+        for (const c of [base, copper]) {
+          c.setTransform(1, 0, 0, 1, 0, 0); c.clearRect(0, 0, c.canvas.width, c.canvas.height);
+          c.setTransform(scale, 0, 0, scale, 0, 0);
+        }
+        box(base, 0, 0, W, H, '#0a0a0a');
+        boardPath(base); base.fillStyle = '#151515'; base.fill();
+        base.strokeStyle = '#656565'; base.lineWidth = 1.15; base.stroke();
+        base.save(); boardPath(base); base.clip();
+        // Deterministic substrate grain; no external texture and no frame-to-frame noise.
+        if (!compact) for (let i = 0; i < 17000; i++) {
+          const x = 53 + (i * 941 % 1487), y = 40 + (i * 557 % 817);
+          box(base, x, y, .65, .65, i % 3 === 0 ? '#242424' : '#0f0f0f');
+        }
+        box(base, 64, 51, 1472, 796, null, '#2e2e2e', .7);
+        drawCopper(); drawPassives(); drawIO(); drawPower(); socket();
+        for (let i = 0; i < 4; i++) dimm(933 + i * 54, 154, 339, i);
+        label('MEMORY', 933, 122, 8.5);
+        powerSocket();
+        label('ATX_PWR', 1300, 237, 8, '#b0b0b0', Math.PI / 2);
+        header(1281, 411, 10, 2, 7, true);
+        label('USB_HEADER', 1301, 420, 7, '#a0a0a0', Math.PI / 2);
+        for (let i = 0; i < 7; i++) cap(1205, 225 + i * 34, 9.3);
+        chip(1367, 390, 59, 55, 15, 'CONTROL');
+        header(1360, 237, 5, 2, 9); label('USB', 1360, 226, 7);
+        drawStorage();
+        pcie(422, 580, 551, true); label('PCIEX16', 425, 568, 8);
+        pcie(422, 691, 551); label('PCIEX16', 425, 681, 7.5);
+        pcie(422, 770, 551); label('PCIEX16', 425, 760, 7.5);
+        drawChipset();
+        // RTC battery and isolated audio corner.
+        reserve(233, 553, 91, 91);
+        disc(base, 278, 598, 43, '#101010', '#888888', 1.2);
+        disc(base, 278, 598, 35, metal(243, 563, 70, 70), '#b7b7b7', 1);
+        disc(base, 278, 598, 30, null, '#777777', .65);
+        line(base, [[272, 589], [284, 589]], '#696969', 1.4);
+        line(base, [[278, 583], [278, 595]], '#696969', 1.4);
+        label('RTC', 269, 612, 7.5, '#5a5a5a');
+        box(base, 304, 587, 17, 25, metal(304, 587, 17, 25), '#b0b0b0', .5);
+        line(base, [[123, 551], [182, 551], [208, 577], [208, 643], [313, 748], [313, 804]], blue(35, .58), 1.2);
+        chip(231, 702, 54, 49, 13, 'AUDIO');
+        for (const [x, y] of [[151, 658], [175, 658], [151, 691], [175, 691], [151, 724], [175, 724], [226, 754], [256, 754]]) cap(x, y, 9.2);
+        header(138, 794, 5, 2, 8); label('HD_AUDIO', 138, 785, 7.5);
+        chip(1258, 734, 53, 47, 14, 'SUPER I/O');
+        for (const [x, title, cols] of [[358, 'FAN', 4], [502, 'USB', 9], [688, 'USB', 9], [901, 'FRONT PANEL', 9], [1140, 'FAN', 4], [1322, 'PANEL', 9]]) {
+          header(x, 813, cols, 2, 7.5); label(title, x, 806, 7.5);
+        }
+        header(846, 81, 4, 1, 8); label('CPU_FAN', 840, 73, 7.2);
+        header(1381, 111, 4, 1, 8); label('FAN', 1381, 101, 7);
+        for (const [x, y] of [[84, 74], [827, 68], [1513, 74], [83, 538], [1027, 540], [1513, 495], [83, 820], [1025, 820], [1513, 820]]) {
+          reserve(x - 10, y - 10, 20, 20);
+          disc(base, x, y, 10, '#303030', '#909090', .8);
+          disc(base, x, y, 5.5, '#090909', '#a3a3a3', 1);
+          for (let a = 0; a < 8; a++) {
+            const t = a * Math.PI / 4;
+            disc(base, x + Math.cos(t) * 8, y + Math.sin(t) * 8, .8, '#b0b0b0');
+          }
+        }
+        base.restore();
+        // Components occlude the luminous copper, so no traces shine through housings.
+        for (const rect of cuts) copper.clearRect(...rect);
+      }
+      function waveRadius(age, reach) { return Math.max(0, Math.min(1, age / 1200)) * reach; }
+      function drawWaveMask(source, age, amplitude) {
+        if (age <= 0 || age >= 1200) return;
+        const radius = waveRadius(age, source.reach);
+        const width = source === sources[0] ? 29 : 20;
+        const strength = Math.sin(Math.PI * age / 1200) * (1 - age / 1700) * source.strength * amplitude;
+        const g = light.createRadialGradient(source.x, source.y, Math.max(0, radius - width), source.x, source.y, radius + width);
+        g.addColorStop(0, 'rgba(255,255,255,0)');
+        g.addColorStop(.42, 'rgba(255,255,255,' + strength * .35 + ')');
+        g.addColorStop(.54, 'rgba(255,255,255,' + strength + ')');
+        g.addColorStop(.69, 'rgba(255,255,255,' + strength * .3 + ')');
+        g.addColorStop(1, 'rgba(255,255,255,0)');
+        disc(light, source.x, source.y, radius + width, g);
+      }
+      function render() {
+        ctx.setTransform(1, 0, 0, 1, 0, 0); ctx.clearRect(0, 0, canvas.width, canvas.height);
+        ctx.drawImage(baseCanvas, 0, 0);
+        if (!visible.checked || Number(intensity.value) === 0) return;
+        const power = Number(intensity.value) / 100;
+        light.setTransform(1, 0, 0, 1, 0, 0); light.clearRect(0, 0, lightCanvas.width, lightCanvas.height);
+        light.setTransform(scale, 0, 0, scale, 0, 0);
+        // ponytail: single representative frame, not a hidden or prematurely built animation engine.
+        for (const source of sources) {
+          const age = 830 - source.phase;
+          drawWaveMask(source, age, 1); drawWaveMask(source, age - 160, .5);
+        }
+        light.setTransform(1, 0, 0, 1, 0, 0);
+        light.globalCompositeOperation = 'source-in'; light.drawImage(copperCanvas, 0, 0);
+        light.globalCompositeOperation = 'source-over';
+        ctx.globalAlpha = Math.min(.96, power * 1.35); ctx.drawImage(lightCanvas, 0, 0); ctx.globalAlpha = 1;
+        ctx.setTransform(scale, 0, 0, scale, 0, 0);
+        ctx.save(); boardPath(ctx); ctx.clip();
+        for (const source of sources) {
+          const age = 830 - source.phase, r = waveRadius(age, source.reach), band = 24;
+          const glow = ctx.createRadialGradient(source.x, source.y, Math.max(0, r - band), source.x, source.y, r + band);
+          glow.addColorStop(0, blue(BLUE.l, 0));
+          glow.addColorStop(.52, blue(BLUE.l, .19 * source.strength * power));
+          glow.addColorStop(1, blue(BLUE.l, 0));
+          disc(ctx, source.x, source.y, r + band, glow);
+          const local = ctx.createRadialGradient(source.x, source.y, 3, source.x, source.y, source === sources[0] ? 126 : 45);
+          local.addColorStop(0, blue(62, .15 * power * source.strength));
+          local.addColorStop(1, blue(BLUE.l, 0));
+          disc(ctx, source.x, source.y, source === sources[0] ? 126 : 45, local);
+        }
+        ctx.restore();
+      }
+      function selfCheck() {
+        const assert = (ok, message) => { if (!ok) throw new Error('Motherboard v0.2: ' + message); };
+        assert(W / H === 16 / 9, '画幅必须为 16:9');
+        base.fillStyle = blue(); assert(base.fillStyle === '#4474c2', '主色不符');
+        assert(sources.length === 8, '波源数量不符');
+        assert(new Set(sources.map(s => s.phase)).size === sources.length, '错峰不得重合');
+        assert(routeCount > 200, '关键走线缺失');
+        assert(smdCount > 200, '元件绘制不完整');
+        for (const s of sources) {
+          assert(s.phase >= 0 && s.phase <= 400, '相位超出范围');
+          assert(s.x > BOARD.x && s.x < BOARD.x + BOARD.w && s.y > BOARD.y && s.y < BOARD.y + BOARD.h, '波源越界');
+          assert(cuts.some(r => s.x >= r[0] && s.x <= r[0] + r[2] && s.y >= r[1] && s.y <= r[1] + r[3]), '波源必须落在元件上');
+          assert(waveRadius(-1, s.reach) === 0 && waveRadius(1300, s.reach) === s.reach, '半径边界错误');
+          assert(waveRadius(600, s.reach) === s.reach / 2, '半程半径错误');
+        }
+        document.documentElement.dataset.checks = 'passed';
+        document.documentElement.dataset.revision = '0.2';
+      }
+      function resize() {
+        const width = canvas.getBoundingClientRect().width;
+        if (!width) return;
+        const dpr = Math.min(window.devicePixelRatio || 1, 2);
+        canvas.width = Math.floor(width * dpr); canvas.height = Math.round(width * H / W * dpr);
+        for (const c of [baseCanvas, copperCanvas, lightCanvas]) { c.width = canvas.width; c.height = canvas.height; }
+        scale = canvas.width / W; compact = width < 600;
+        drawBase(); selfCheck(); render();
+      }
+      visible.addEventListener('change', render);
+      intensity.addEventListener('input', () => {
+        document.querySelector('#intensity-value').value = intensity.value + '%'; render();
+      });
+      document.querySelector('.controls').hidden = false;
+      resize();
+      if (typeof ResizeObserver !== 'undefined') new ResizeObserver(resize).observe(canvas);
+      window.addEventListener('resize', resize);
+    })();
+  </script>
+</body>
+</html>
