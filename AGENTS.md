@@ -1,6 +1,6 @@
-# CLAUDE.md
+# AGENTS.md
 
-This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+This file provides guidance to Codex (Codex.ai/code) when working with code in this repository.
 
 ## 项目概述
 
@@ -33,10 +33,10 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## 文件与材料归档（重要）
 
-**所有产出材料一律直接放进本仓库工作区的子目录**（如 `docs/` 下），不要放在 `~/ClaudeCode` 等仓库外的临时目录。理由：这些材料要随仓库一起推到 GitHub，方便两人协作与后续接手。
+**所有产出材料一律直接放进本仓库工作区的子目录**（如 `docs/` 下），不要放在 `~/Codex` 等仓库外的临时目录。理由：这些材料要随仓库一起推到 GitHub，方便两人协作与后续接手。
 
 - 文档、调研报告、图片、HTML 存档等**全部入 `docs/` 子目录**并纳入版本管理。
-- **临时中间文件**可用 `~/ClaudeCode`，但任务结束前必须把有价值的成果移回工作区，并清理仓库外的残留。
+- **临时中间文件**可用 `~/Codex`，但任务结束前必须把有价值的成果移回工作区，并清理仓库外的残留。
 - **子 Agent 的产出同样适用**：分派任务时应在 prompt 里指定产出目录为工作区内的路径；若子 Agent 把文件写到了工作区外，**任务完成后必须移回工作区**。
 - 当前目录约定：
 

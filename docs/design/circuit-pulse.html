@@ -1,0 +1,433 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="dark">
+  <meta name="theme-color" content="#0a0a0a">
+  <title>电路板光波 · 构图 v0</title>
+  <style>
+    :root {
+      --blue: #4474c2;
+      --paper: #0a0a0a;
+      --ink: #d7d7d7;
+      --muted: #929292;
+      --line: #303030;
+      font-family: "PingFang SC", "Microsoft YaHei", sans-serif;
+      color: var(--ink);
+      background: var(--paper);
+      color-scheme: dark;
+    }
+    * { box-sizing: border-box; }
+    body { margin: 0; }
+    button, input { font: inherit; }
+    button, summary, input { -webkit-tap-highlight-color: transparent; }
+    :focus-visible { outline: 2px solid var(--blue); outline-offset: 5px; }
+    main {
+      width: min(100%, 1520px);
+      min-height: 100svh;
+      margin-inline: auto;
+      padding: clamp(16px, 3vw, 48px);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+    .caption {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      gap: 16px;
+      padding-block: 0 20px;
+      border-bottom: 1px solid var(--line);
+    }
+    h1 { margin: 0; font-size: 16px; font-weight: 500; letter-spacing: .12em; }
+    .caption p { margin: 0; color: var(--muted); font-size: 12px; letter-spacing: .05em; }
+    figure { margin: 0; }
+    .stage { position: relative; aspect-ratio: 16 / 9; margin-block: 24px; }
+    canvas { display: block; width: 100%; height: 100%; }
+    canvas[hidden] { display: none; }
+    .fallback { padding: 24px; color: var(--ink); line-height: 1.8; }
+    .fallback:not([hidden]) { position: absolute; inset: 0; background: #171717; }
+    .toolbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 12px 24px;
+      border-top: 1px solid var(--line);
+      padding-top: 12px;
+    }
+    .status { margin: 0; font-size: 12px; color: var(--muted); line-height: 1.8; text-wrap: pretty; }
+    .controls { display: flex; align-items: center; gap: 20px; margin-left: auto; }
+    .toggle { display: flex; align-items: center; gap: 9px; min-height: 44px; font-size: 13px; cursor: pointer; }
+    input[type="checkbox"] { width: 16px; height: 16px; accent-color: var(--blue); margin: 0; }
+    details { position: relative; }
+    summary { cursor: pointer; padding: 12px 0 12px 12px; min-height: 44px; font-size: 13px; }
+    summary:hover, .toggle:hover { color: white; }
+    summary:active { color: var(--blue); }
+    .tweaks {
+      position: absolute;
+      right: 0;
+      bottom: calc(100% + 12px);
+      width: min(260px, calc(100vw - 32px));
+      padding: 20px;
+      border: 1px solid #404040;
+      border-radius: 4px;
+      background: #151515;
+      box-shadow: 0 8px 24px #0006;
+      z-index: 1;
+    }
+    .tweaks label { display: flex; justify-content: space-between; font-size: 13px; }
+    input[type="range"] { display: block; width: 100%; min-height: 44px; margin: 8px 0 0; accent-color: var(--blue); }
+    .tweaks p { font-size: 12px; margin: 6px 0 0; line-height: 1.6; color: var(--muted); }
+    .controls[hidden] { display: none; }
+    @media (max-width: 560px) {
+      .caption { gap: 8px; flex-wrap: wrap; padding-bottom: 16px; }
+      h1 { font-size: 14px; }
+      .caption p { font-size: 11px; }
+      .stage { margin-block: 28px; }
+      .toolbar { gap: 4px; }
+      .status { flex-basis: 100%; }
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <header class="caption">
+      <h1>电路板 · 光波构图</h1>
+      <p>平面俯视 / #4474C2</p>
+    </header>
+    <figure aria-labelledby="preview-caption">
+      <div class="stage">
+        <canvas role="img" aria-label="深色平面电路板，中央芯片与周边芯片、电容各自向外扩散蓝色双重光波。当前为静态构图，不自动播放。">
+          深色平面电路板与蓝色光波的静态概念图。浏览器需支持 Canvas 才能查看。
+        </canvas>
+        <p class="fallback" hidden role="status">当前浏览器无法显示 Canvas 构图。请使用支持 Canvas 的浏览器打开此文件。</p>
+        <noscript><p class="fallback">请启用 JavaScript 查看本地构图。文件不加载任何外部资源。</p></noscript>
+      </div>
+      <figcaption class="toolbar" id="preview-caption">
+        <p class="status">构图 v0 · 静态概念图，非真实电路设计</p>
+        <div class="controls" hidden>
+          <label class="toggle"><input id="waves-visible" type="checkbox" checked>显示光波</label>
+          <details>
+            <summary>Tweaks</summary>
+            <div class="tweaks">
+              <label for="intensity">光强 <output id="intensity-value" for="intensity">60%</output></label>
+              <input id="intensity" type="range" min="0" max="100" value="60" step="5">
+              <p>当前只确认构图与光感。节律、播放与进度控制将在动效版加入。</p>
+            </div>
+          </details>
+        </div>
+      </figcaption>
+    </figure>
+  </main>
+  <script>
+    (() => {
+      'use strict';
+      const WIDTH = 1440;
+      const HEIGHT = 810;
+      const BLUE = { h: 217.142857, s: 50.806452, l: 51.372549 };
+      const board = { x: 38, y: 30, w: 1364, h: 750 };
+      const sources = [
+        { x: 720, y: 405, kind: 'main', w: 164, h: 164, phase: 0, strength: 1, reach: 254 },
+        { x: 348, y: 253, kind: 'chip', w: 102, h: 76, phase: 110, strength: .66, reach: 180 },
+        { x: 1080, y: 527, kind: 'chip', w: 114, h: 84, phase: 250, strength: .70, reach: 198 },
+        { x: 1070, y: 217, kind: 'capacitor', r: 26, phase: 340, strength: .58, reach: 166 },
+        { x: 343, y: 565, kind: 'capacitor', r: 29, phase: 180, strength: .62, reach: 184 },
+        { x: 541, y: 651, kind: 'capacitor', r: 19, phase: 400, strength: .46, reach: 152 },
+        { x: 923, y: 156, kind: 'capacitor', r: 18, phase: 70, strength: .46, reach: 152 }
+      ];
+      const canvas = document.querySelector('canvas');
+      const context = canvas.getContext('2d');
+      const backing = document.createElement('canvas');
+      const base = backing.getContext('2d');
+      if (!context || !base) {
+        canvas.hidden = true;
+        document.querySelector('.fallback').hidden = false;
+        return;
+      }
+      const intensity = document.querySelector('#intensity');
+      const visible = document.querySelector('#waves-visible');
+      let scale = 1;
+      let compact = false;
+
+      function blue(lightness = BLUE.l, alpha = 1) {
+        return `hsla(${BLUE.h}, ${BLUE.s}%, ${lightness}%, ${alpha})`;
+      }
+      function outline(ctx, x, y, w, h, cut = 8) {
+        ctx.beginPath();
+        ctx.moveTo(x + cut, y);
+        ctx.lineTo(x + w - cut, y);
+        ctx.lineTo(x + w, y + cut);
+        ctx.lineTo(x + w, y + h - cut);
+        ctx.lineTo(x + w - cut, y + h);
+        ctx.lineTo(x + cut, y + h);
+        ctx.lineTo(x, y + h - cut);
+        ctx.lineTo(x, y + cut);
+        ctx.closePath();
+      }
+      function dot(ctx, x, y, radius, fill, stroke) {
+        ctx.beginPath();
+        ctx.arc(x, y, radius, 0, Math.PI * 2);
+        if (fill) { ctx.fillStyle = fill; ctx.fill(); }
+        if (stroke) { ctx.strokeStyle = stroke; ctx.stroke(); }
+      }
+      function line(ctx, points, color, width = 1) {
+        ctx.beginPath();
+        points.forEach(([x, y], i) => i ? ctx.lineTo(x, y) : ctx.moveTo(x, y));
+        ctx.strokeStyle = color;
+        ctx.lineWidth = width;
+        ctx.stroke();
+      }
+      function via(ctx, x, y, bright = false) {
+        ctx.lineWidth = 1;
+        dot(ctx, x, y, 3, '#101010', blue(bright ? 40 : 25));
+        dot(ctx, x, y, 1, blue(37));
+      }
+      function route(points, index = 0) {
+        line(base, points, blue(index % 4 === 0 ? 28 : 19), index % 4 === 0 ? 1.3 : 1);
+        const end = points[points.length - 1];
+        via(base, end[0], end[1], index % 4 === 0);
+      }
+      function resistor(x, y, vertical = false, length = 28) {
+        base.save();
+        base.translate(x, y);
+        if (vertical) base.rotate(Math.PI / 2);
+        base.fillStyle = '#656565';
+        base.fillRect(-length / 2, -4, 5, 8);
+        base.fillRect(length / 2 - 5, -4, 5, 8);
+        base.fillStyle = '#242424';
+        base.fillRect(-length / 2 + 5, -5, length - 10, 10);
+        base.strokeStyle = '#414141';
+        base.lineWidth = .8;
+        base.strokeRect(-length / 2 + 5, -5, length - 10, 10);
+        base.restore();
+      }
+      function chip(source) {
+        const { x, y, w, h, kind } = source;
+        const main = kind === 'main';
+        const pins = main ? 16 : 10;
+        base.lineWidth = 1;
+        base.strokeStyle = '#363636';
+        base.strokeRect(x - w / 2 - 19, y - h / 2 - 19, w + 38, h + 38);
+        for (let i = 0; i < pins; i++) {
+          const dx = (i - (pins - 1) / 2) * ((w - 24) / pins);
+          const dy = (i - (pins - 1) / 2) * ((h - 20) / pins);
+          base.fillStyle = i % 3 === 0 ? '#717171' : '#515151';
+          base.fillRect(x + dx - 2, y - h / 2 - 13, 4, 13);
+          base.fillRect(x + dx - 2, y + h / 2, 4, 13);
+          base.fillRect(x - w / 2 - 13, y + dy - 2, 13, 4);
+          base.fillRect(x + w / 2, y + dy - 2, 13, 4);
+        }
+        outline(base, x - w / 2, y - h / 2, w, h, main ? 8 : 4);
+        base.fillStyle = main ? '#181818' : '#141414';
+        base.fill();
+        base.strokeStyle = main ? '#666666' : '#575757';
+        base.stroke();
+        base.strokeStyle = '#303030';
+        base.strokeRect(x - w / 2 + 7, y - h / 2 + 7, w - 14, h - 14);
+        dot(base, x - w / 2 + 15, y - h / 2 + 15, 2, '#848484');
+        if (main) {
+          base.fillStyle = '#111111';
+          base.fillRect(x - 42, y - 42, 84, 84);
+          base.strokeStyle = blue(34);
+          base.strokeRect(x - 42, y - 42, 84, 84);
+          base.strokeStyle = blue(22);
+          base.strokeRect(x - 33, y - 33, 66, 66);
+          for (let col = 0; col < 4; col++) {
+            for (let row = 0; row < 4; row++) {
+              base.fillStyle = blue(12 + (col + row) % 3 * 2);
+              base.fillRect(x - 26 + col * 14, y - 26 + row * 14, 10, 10);
+            }
+          }
+        } else {
+          line(base, [[x - 16, y - 3], [x + 16, y - 3]], '#464646');
+          line(base, [[x - 16, y + 4], [x + 5, y + 4]], '#343434');
+        }
+      }
+      function capacitor(source) {
+        const { x, y, r } = source;
+        base.fillStyle = '#656565';
+        base.fillRect(x - r - 8, y - 7, 16, 14);
+        base.fillRect(x + r - 8, y - 7, 16, 14);
+        base.lineWidth = 1;
+        dot(base, x, y, r + 5, '#111111', '#454545');
+        dot(base, x, y, r, '#252525', '#777777');
+        dot(base, x, y, r - 4, '#303030', '#555555');
+        line(base, [[x - r * .52, y], [x + r * .52, y]], '#838383', 1.2);
+        line(base, [[x, y - r * .52], [x, y + r * .52]], '#838383', 1.2);
+      }
+      function drawBase() {
+        base.setTransform(1, 0, 0, 1, 0, 0);
+        base.clearRect(0, 0, backing.width, backing.height);
+        base.setTransform(scale, 0, 0, scale, 0, 0);
+        base.fillStyle = '#0a0a0a';
+        base.fillRect(0, 0, WIDTH, HEIGHT);
+        outline(base, board.x, board.y, board.w, board.h, 22);
+        base.fillStyle = '#101010';
+        base.fill();
+        base.strokeStyle = '#373737';
+        base.lineWidth = 1;
+        base.stroke();
+        base.save();
+        base.clip();
+        if (!compact) {
+          for (let x = 62; x < 1390; x += 20) {
+            for (let y = 54; y < 770; y += 20) dot(base, x, y, .5, '#222222');
+          }
+        }
+        outline(base, 54, 46, 1332, 718, 16);
+        base.strokeStyle = '#242424';
+        base.stroke();
+
+        // Fixed, orthogonal / 45° routing. Decorative concept, not an electrical schematic.
+        for (let i = 0; i < 14; i++) {
+          const y = 345 + i * 9;
+          const bend = 568 - i * 7;
+          const endX = 166 + (i % 5) * 16;
+          const rise = i < 7 ? -70 : 80;
+          route([[625, y], [bend, y], [bend - Math.abs(rise), y + rise], [endX, y + rise]], i);
+          const rightBend = 870 + i * 7;
+          const fall = i < 7 ? -92 : 104;
+          route([[815, y], [rightBend, y], [rightBend + Math.abs(fall), y + fall], [1234 + i % 4 * 18, y + fall]], i + 2);
+        }
+        for (let i = 0; i < 14; i++) {
+          const x = 662 + i * 9;
+          const top = 254 - i % 7 * 10;
+          const bottom = 542 + i % 7 * 10;
+          const dx = i < 7 ? -74 : 82;
+          route([[x, 310], [x, top], [x + dx, top - Math.abs(dx)], [x + dx, 91 + i % 3 * 12]], i);
+          route([[x, 500], [x, bottom], [x + dx, bottom + Math.abs(dx)], [x + dx, 714 - i % 3 * 12]], i + 1);
+        }
+        for (let i = 0; i < 8; i++) {
+          const x = 311 + i * 10;
+          route([[x, 201], [x, 146 - i * 5], [x + 48, 98 - i * 5], [487 + i * 8, 98 - i * 5]], i);
+          const end = 1281 - i * 10;
+          route([[1022 + i * 14, 585], [1022 + i * 14, 652 + i * 6], [1062 + i * 14, 692 + i * 6], [end, 692 + i * 6]], i);
+        }
+        const extraRoutes = [
+          [[1062, 217], [1020, 217], [982, 255], [892, 255]],
+          [[1078, 217], [1185, 217], [1215, 187], [1215, 114]],
+          [[343, 565], [343, 641], [307, 677], [157, 677]],
+          [[373, 565], [433, 565], [472, 526], [590, 526]],
+          [[541, 651], [491, 651], [459, 683], [398, 683]],
+          [[923, 156], [995, 156], [1025, 126], [1101, 126]],
+          [[179, 143], [217, 143], [248, 174], [248, 222]],
+          [[184, 529], [243, 529], [267, 553], [267, 611]],
+          [[1246, 398], [1320, 398], [1344, 422], [1344, 559]]
+        ];
+        extraRoutes.forEach((points, i) => route(points, i));
+        for (let i = 0; i < 6; i++) {
+          resistor(467, 215 + i * 19);
+          resistor(944, 483 + i * 20);
+          resistor(550 + i * 21, 166, true, 24);
+          resistor(864 + i * 20, 659, true, 24);
+        }
+        [[231, 239], [230, 446], [459, 457], [959, 211], [1122, 350], [1192, 589], [451, 591], [599, 589]].forEach(([x, y], i) => {
+          resistor(x, y, i % 2 === 0, 24);
+          if (!compact) resistor(x + 18, y + 18, i % 2 === 0, 20);
+        });
+        // Flat edge pads and mounting holes anchor the image as a physical PCB.
+        for (let i = 0; i < 12; i++) {
+          base.fillStyle = i % 3 ? '#535353' : '#6a6a6a';
+          base.fillRect(123 + i * 13, 42, 8, 24);
+          base.fillRect(1095 + i * 13, 744, 8, 24);
+        }
+        [[77, 70], [1363, 70], [77, 740], [1363, 740]].forEach(([x, y]) => {
+          base.lineWidth = 1;
+          dot(base, x, y, 12, '#171717', '#4b4b4b');
+          dot(base, x, y, 6, '#090909', '#626262');
+        });
+        sources.forEach(source => source.kind === 'capacitor' ? capacitor(source) : chip(source));
+        base.restore();
+      }
+      function waveRadius(age, reach) {
+        return Math.max(0, Math.min(1, age / 1200)) * reach;
+      }
+      function drawWave(source, age, amplitude) {
+        if (age <= 0 || age >= 1200) return;
+        const radius = waveRadius(age, source.reach);
+        const fade = Math.sin(Math.PI * age / 1200) * (1 - age / 1600);
+        const alpha = source.strength * amplitude * fade * Number(intensity.value) / 100;
+        const band = source.kind === 'main' ? 14 : 11;
+        const inner = Math.max(0, radius - band);
+        const glow = context.createRadialGradient(source.x, source.y, inner, source.x, source.y, radius + band);
+        glow.addColorStop(0, blue(BLUE.l, 0));
+        glow.addColorStop(.38, blue(BLUE.l, alpha * .19));
+        glow.addColorStop(.5, blue(62, alpha * .82));
+        glow.addColorStop(.60, blue(BLUE.l, alpha * .24));
+        glow.addColorStop(1, blue(BLUE.l, 0));
+        dot(context, source.x, source.y, radius + band, glow);
+        context.globalAlpha = alpha * .8;
+        context.lineWidth = 1.15;
+        dot(context, source.x, source.y, radius, null, blue(65));
+        context.globalAlpha = 1;
+      }
+      function render() {
+        context.setTransform(1, 0, 0, 1, 0, 0);
+        context.clearRect(0, 0, canvas.width, canvas.height);
+        context.drawImage(backing, 0, 0);
+        context.setTransform(scale, 0, 0, scale, 0, 0);
+        if (!visible.checked) return;
+        context.save();
+        outline(context, board.x, board.y, board.w, board.h, 22);
+        context.clip();
+        // ponytail: v0 freezes a single 780 ms frame. Add playback only after visual approval.
+        for (const source of sources) {
+          const age = 780 - source.phase;
+          drawWave(source, age, 1);
+          drawWave(source, age - 160, .5);
+          const radius = source.kind === 'main' ? 142 : source.kind === 'chip' ? 91 : 57;
+          const halo = context.createRadialGradient(source.x, source.y, 0, source.x, source.y, radius);
+          halo.addColorStop(0, blue(BLUE.l, .12 * source.strength * Number(intensity.value) / 100));
+          halo.addColorStop(1, blue(BLUE.l, 0));
+          dot(context, source.x, source.y, radius, halo);
+        }
+        context.restore();
+      }
+      function resize() {
+        const width = canvas.getBoundingClientRect().width;
+        if (!width) return;
+        const ratio = Math.min(window.devicePixelRatio || 1, 2);
+        canvas.width = Math.floor(width * ratio);
+        canvas.height = Math.round(width * HEIGHT / WIDTH * ratio);
+        backing.width = canvas.width;
+        backing.height = canvas.height;
+        scale = canvas.width / WIDTH;
+        compact = width < 600;
+        drawBase();
+        render();
+      }
+      function selfCheck() {
+        const assert = (condition, message) => { if (!condition) throw new Error(`Circuit v0: ${message}`); };
+        assert(WIDTH / HEIGHT === 16 / 9, '画幅必须为 16:9');
+        base.fillStyle = blue();
+        assert(base.fillStyle === '#4474c2', '主色必须准确还原为 #4474C2');
+        assert(sources.length === 7, '波源数量不符');
+        assert(new Set(sources.map(source => source.phase)).size === sources.length, '错峰不能重合');
+        for (const source of sources) {
+          assert(source.phase >= 0 && source.phase <= 400, '相位超出 0–400ms');
+          const halfWidth = source.w ? source.w / 2 + 20 : source.r + 9;
+          const halfHeight = source.h ? source.h / 2 + 20 : source.r + 9;
+          assert(source.x - halfWidth >= board.x && source.x + halfWidth <= board.x + board.w, '元件越过横向板界');
+          assert(source.y - halfHeight >= board.y && source.y + halfHeight <= board.y + board.h, '元件越过纵向板界');
+          assert(waveRadius(-1, source.reach) === 0, '负时间的波半径应为零');
+          assert(waveRadius(600, source.reach) === source.reach / 2, '半程波半径错误');
+          assert(waveRadius(1300, source.reach) === source.reach, '波半径必须钳制');
+        }
+        document.documentElement.dataset.checks = 'passed';
+      }
+      selfCheck();
+      visible.addEventListener('change', render);
+      intensity.addEventListener('input', () => {
+        document.querySelector('#intensity-value').value = `${intensity.value}%`;
+        render();
+      });
+      document.querySelector('.controls').hidden = false;
+      resize();
+      if (typeof ResizeObserver !== 'undefined') new ResizeObserver(resize).observe(canvas);
+      window.addEventListener('resize', resize);
+    })();
+  </script>
+</body>
+</html>
