@@ -19,9 +19,8 @@ board_path=asset_dir/'网站风格方向示意.png'
 # These are original layout sketches, not screenshots of completed websites.
 board=Image.new('RGB',(1600,1100),'white')
 draw=ImageDraw.Draw(board)
-font_path='C:/Windows/Fonts/msyh.ttc'
-bold_path='C:/Windows/Fonts/msyhbd.ttc'
-def font(n,bold=False):return ImageFont.truetype(bold_path if bold else font_path,n)
+font_path='C:/Windows/Fonts/simsun.ttc'
+def font(n,bold=False):return ImageFont.truetype(font_path,n)
 def txt(x,y,t,n=24,fill='#23313d',bold=False):draw.text((x,y),t,font=font(n,bold),fill=fill)
 styles=[
     ('A  稳重学院风','红白为主  规整正式','#923642','#F7F3F0'),
@@ -80,6 +79,14 @@ for i,(name,desc,accent,pale) in enumerate(styles):
         txt(x+541,y+322,'新闻通知',25,accent,True)
         draw.line((x+28,y+372,x+w-28,y+372),fill='#DDE3E7',width=7)
 board.save(board_path)
+
+# Regenerate only the illustration without rebuilding the user's current Word.
+if '--board-only' in sys.argv:
+    print(board_path)
+    sys.exit(0)
+
+if output.exists():
+    raise SystemExit('当前 Word 已存在，请使用 update_teacher_packet.py 原位调整，不能覆盖用户最新修改。')
 
 doc=Document(docs/'历史版本'/'三位教师简历与照片_人工核验稿.docx')
 for child in list(doc._element.body):
