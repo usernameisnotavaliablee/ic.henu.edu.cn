@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="560" viewBox="0 0 1600 560" fill="none">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="560" x2="1600" y2="0" gradientUnits="userSpaceOnUse"><stop stop-color="#082c52"/><stop offset="1" stop-color="#1b6192"/></linearGradient>
+    <linearGradient id="chip" x1="940" y1="80" x2="1300" y2="400" gradientUnits="userSpaceOnUse"><stop stop-color="#468db8"/><stop offset=".5" stop-color="#163e66"/><stop offset="1" stop-color="#307aa5"/></linearGradient>
+    <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse"><path d="M40 0H0V40" stroke="#7ec7eb" stroke-opacity=".09"/></pattern>
+    <pattern id="pins" width="20" height="20" patternUnits="userSpaceOnUse"><path d="M5 0V20" stroke="#8fc9e4" stroke-width="5"/></pattern>
+  </defs>
+  <path fill="url(#bg)" d="M0 0h1600v560H0z"/><path fill="url(#grid)" d="M0 0h1600v560H0z"/>
+  <g stroke="#69b9df" stroke-width="2" opacity=".45">
+    <path d="M0 100h320l100 100h400l90 90h160M0 420h530l85-85h260M610 0v95l80 80h280M750 560V435l100-100h150M1120 0v110M1180 0v110M1280 0v65l-40 40v75M1600 80h-180l-100 100h-65M1600 180h-125l-90 90h-100M1600 400h-225l-70-70h-80M1600 480h-330l-50-50V350M1080 560V400M1160 560V410M1440 560V500l-140-140"/>
+    <path d="M0 135h315l100 100h420M0 450h540l90-90h205M780 0v65l80 80h70M1210 0v95M1600 210h-110l-65 65M1600 430h-240l-45-45M1110 560V430" opacity=".45"/>
+  </g>
+  <g fill="#8edbfa" opacity=".7"><circle cx="420" cy="200" r="4"/><circle cx="610" cy="95" r="4"/><circle cx="750" cy="435" r="4"/><circle cx="1420" cy="80" r="4"/><circle cx="1375" cy="400" r="4"/><circle cx="1440" cy="500" r="4"/></g>
+  <g transform="translate(1085 272) rotate(-18)">
+    <rect x="-160" y="-178" width="320" height="356" rx="8" fill="url(#pins)"/>
+    <rect x="-160" y="-178" width="320" height="356" rx="8" fill="url(#pins)" transform="rotate(90)"/>
+    <rect x="-151" y="-151" width="302" height="302" rx="12" fill="#062643" stroke="#84bfdc" stroke-width="2"/>
+    <rect x="-133" y="-133" width="266" height="266" rx="6" fill="url(#chip)" stroke="#6fb0d3"/>
+    <path d="M-111-111H111V111H-111zM-98-98H98V98H-98z" stroke="#76b8db" stroke-opacity=".5"/>
+    <path d="M-77-77H-4V-4H-77zM5-77H77V-4H5zM-77 5H-4V77H-77zM5 5H77V77H5z" fill="#599fc3" fill-opacity=".16" stroke="#75b4d5" stroke-opacity=".4"/>
+    <text x="0" y="19" text-anchor="middle" font-family="Arial, sans-serif" font-size="58" letter-spacing="5" fill="#d4edfc">IC</text>
+    <circle cx="-119" cy="119" r="4" fill="#a7e0fa"/>
+  </g>
+</svg>

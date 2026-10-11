@@ -1,0 +1,151 @@
+{
+  "archive_sha256": "5cc0a19d39b2b84e69a30dab8b92ae2f40bd5e323e58aa037a36a51a96d96e73",
+  "scope": "Source/templates/components and selected school media; no portable editor or full media collection",
+  "files": [
+    {
+      "path": "boda-component-templates/article-detail.html",
+      "size": 4770,
+      "sha256": "c230216f31853bfb2a6c31b3e9cbd27f6a21e1779f2f5f7b700a7b0392409c27"
+    },
+    {
+      "path": "boda-component-templates/README.txt",
+      "size": 493,
+      "sha256": "4aeb9216dd3506b4600375cafa61f5349456bef448a23d4b710488c57e517253"
+    },
+    {
+      "path": "scripts/build-site.js",
+      "size": 12148,
+      "sha256": "d8617df09f86cb62a9510e0cdb714b6444b648f2e3cc51e9708dcb01843e702b"
+    },
+    {
+      "path": "scripts/build-boda-site.js",
+      "size": 6316,
+      "sha256": "4f4b52bc6aa81be7da46687e224f60b13dd8266937dd7e0d49d746060e9f9055"
+    },
+    {
+      "path": "src/templates/partials/header.html",
+      "size": 8763,
+      "sha256": "c0aced107b9eaaf07e68e4ea6d7c52c7c8ec01b5a8cb87645a986e1f427f52fe"
+    },
+    {
+      "path": "src/templates/partials/footer.html",
+      "size": 4814,
+      "sha256": "ea6c5e5624aac928cf7a760140ef32be146063de9094a7535ef75549881b2138"
+    },
+    {
+      "path": "src/templates/document.html",
+      "size": 807,
+      "sha256": "fb52cb063e0eb50245ad297f97ac80bbd7e0af9ee44363e3b01c825f0dbb94cd"
+    },
+    {
+      "path": "src/templates/page.html",
+      "size": 66,
+      "sha256": "886ffdb6808542ce32c6ec0fc61f9362252dc5efefb2a078d818451be3a07b12"
+    },
+    {
+      "path": "src/data/site.js",
+      "size": 19068,
+      "sha256": "075f3bb4aa79cdfd4c1249158560c26035352b30c0f1b0f8ceb9258d7f4d34a7"
+    },
+    {
+      "path": "src/data/detail-pages.js",
+      "size": 100134,
+      "sha256": "34b9817a966fd9b9b1199fe69043abb6a0e4223ae64b7326f5e1d47174a40db2"
+    },
+    {
+      "path": "src/content/overview/careers.html",
+      "size": 19666,
+      "sha256": "50f9885dabdb306651f818ec39d21d71f17cbb177ab2a13beddd3f4609429f13"
+    },
+    {
+      "path": "src/content/overview/contact.html",
+      "size": 3899,
+      "sha256": "a182786df1b51b1eb47a593ba93afaa3f531a838f4bb3b0fdb77e67aff6f387e"
+    },
+    {
+      "path": "src/content/overview/faculty.html",
+      "size": 5615,
+      "sha256": "e94b3a74251377a4d38710429e9f69d8a2a85f0e68ab10bd82becfb18158b93f"
+    },
+    {
+      "path": "src/content/overview/index.html",
+      "size": 25437,
+      "sha256": "9251430f312bc3e46a4154e0b3b3a222d712319200550ec8cee94959e38f9f1f"
+    },
+    {
+      "path": "src/content/overview/links.html",
+      "size": 1331,
+      "sha256": "6d9cdd66f8bdbf71d1d1cdc4128140f8c71b9cb263f5469e5bd8c5164acd8e23"
+    },
+    {
+      "path": "src/content/overview/news.html",
+      "size": 5921,
+      "sha256": "fdae9df4d8e42ce8d8c951ce9fa5f649241ad0542dd9e86c5550b21dbe39dce4"
+    },
+    {
+      "path": "src/content/overview/notices.html",
+      "size": 5273,
+      "sha256": "b925578e0b5bae35043ee4f7ca115276408a383e8477e41fdf4901c42cf37bc5"
+    },
+    {
+      "path": "src/content/overview/public-service.html",
+      "size": 38826,
+      "sha256": "82da5267d078eb3eeb8fe05275d810de9e207ef7069758755db19dd3cd288df0"
+    },
+    {
+      "path": "src/content/overview/science-innovation.html",
+      "size": 12330,
+      "sha256": "2e391b37e47db730ccb46e2d3e2f34345aa463ad27b1b3893ad90d0343c6edff"
+    },
+    {
+      "path": "src/content/overview/talent-cultivation.html",
+      "size": 17807,
+      "sha256": "e545abf488f74050cf8d92108f0e69b8f3409d541e776f94546f6acbcacd9904"
+    },
+    {
+      "path": "src/content/overview/about.html",
+      "size": 5976,
+      "sha256": "83f0c924b83bd6ee9cba5e19e1e1cee812a5a4e687e2eecca928a52f081cac5c"
+    },
+    {
+      "path": "src/css/style.css",
+      "size": 288429,
+      "sha256": "70f38c69c6a98165f141a18ef71dc4003e282d0eebc47b156aec68a7211d3eba"
+    },
+    {
+      "path": "src/js/main.js",
+      "size": 9108,
+      "sha256": "328aeafaeb61d60cdfd8d35af82bbbfde7a3ea08a645a9f12353a2f4682bf4cd"
+    },
+    {
+      "path": "src/assets/henu-logo-clean.png",
+      "size": 361992,
+      "sha256": "2a77d5e6298925a2172b7538343cd4e2250cb8aae2e1be3e94887f82a4e3ca84"
+    },
+    {
+      "path": "src/assets/henu-logo.png",
+      "size": 307109,
+      "sha256": "c310c6976a830fdf13a3fddd30e75bf06e7dca8d2946856dec5063384831ff33"
+    },
+    {
+      "path": "src/assets/campus-gate-2026.jpg",
+      "size": 405096,
+      "sha256": "fa29c0b41e0ebe110a838a153330e44f4d80e6d9af686aa86d831c04e5cac7a1"
+    },
+    {
+      "path": "BODA_CMS_COMPONENT_TEMPLATES.md",
+      "size": 5950,
+      "sha256": "a092830ada9a5ecf747b5e6abfb9a4c3f5654dcc11efdb1f6bf877f2d3cda81f"
+    },
+    {
+      "path": "DEPLOYMENT.md",
+      "size": 3426,
+      "sha256": "d9b75d6014c348b98c4fdd2dbca70079beba286c33881c2664447daecd363aa6"
+    },
+    {
+      "path": "EDITOR_GUIDE.md",
+      "size": 3469,
+      "sha256": "94cf41ef206a4c42a7100688fb13551dde12823a6148e78fe4b676f205f4de76"
+    }
+  ]
+}

@@ -1,0 +1,79 @@
+<!--
+  博达文章内容页模板
+  用途：在“栏目管理 → 新闻/通知 → 内容页模板”中粘贴本文件内容。
+  新闻和通知栏目可以共用此模板；不要把本文件当作普通列表页上传。
+-->
+<style>
+.detail-copy .detail-meta{color:#47556c !important;font-size:15px !important;line-height:1.65 !important;}
+.detail-copy .lead{color:#47556c !important;font-size:clamp(17px,1.28vw,19px) !important;line-height:1.82 !important;margin:0 0 18px !important;}
+.detail-copy h2{margin:12px 0 18px !important;color:#061846 !important;font-size:clamp(26px,3vw,32px) !important;font-weight:700 !important;line-height:1.3 !important;}
+.detail-copy h3{margin:10px 0 14px !important;color:#061846 !important;font-size:clamp(20px,1.8vw,24px) !important;font-weight:700 !important;line-height:1.35 !important;}
+.detail-copy h4{margin:8px 0 12px !important;color:#061846 !important;font-size:clamp(17px,1.4vw,20px) !important;font-weight:700 !important;}
+.detail-copy p{color:#47556c !important;font-size:clamp(16px,1.25vw,18px) !important;line-height:1.85 !important;margin:0 0 16px !important;}
+.detail-copy img{max-width:100% !important;height:auto !important;border-radius:6px !important;margin:10px 0 !important;}
+.detail-copy a{color:#0b32ac !important;text-decoration:underline !important;}
+.detail-copy a:hover{color:#785eff !important;}
+.detail-copy ul,.detail-copy ol{margin:0 0 16px !important;padding-left:2em !important;color:#47556c !important;font-size:clamp(16px,1.25vw,18px) !important;line-height:1.85 !important;}
+.detail-copy li{margin:4px 0 !important;color:#47556c !important;}
+.detail-copy table{width:100% !important;border-collapse:collapse !important;margin:14px 0 !important;font-size:clamp(15px,1.1vw,17px) !important;}
+.detail-copy table th,.detail-copy table td{border:1px solid #d8e0ec !important;padding:8px 12px !important;text-align:left !important;color:#47556c !important;}
+.detail-copy table th{background:#f7f9ff !important;color:#061846 !important;font-weight:700 !important;}
+.detail-copy blockquote{margin:14px 0 !important;padding:10px 18px !important;border-left:3px solid #0b32ac !important;background:#f7f9ff !important;color:#47556c !important;font-size:clamp(16px,1.25vw,18px) !important;line-height:1.85 !important;}
+.boda-article-attachments{margin:24px 0 0;padding:18px 22px;background:#f7f9ff;border-left:3px solid #0b32ac;}
+.boda-article-attachments ul{margin:0 !important;padding-left:1.4em !important;}
+.boda-article-neighbors{display:flex;justify-content:space-between;gap:18px;margin:28px 0 0;flex-wrap:wrap;}
+</style>
+
+<section class="detail-hero achievement-detail-hero" style="background-image:url('assets/rocket-distant.jpg')">
+  <div class="detail-hero-overlay"></div>
+  <div class="container detail-hero-inner">
+    <div class="breadcrumb">
+      <a href="index.jsp"><span data-lang-zh>首页</span><span data-lang-en>Home</span></a>
+      /
+      <a href="${columnUrl!}">${columnName!}</a>
+    </div>
+    <span class="eyebrow"><span data-lang-zh>文章详情</span><span data-lang-en>Article Detail</span></span>
+    <h1>${showTitle!}</h1>
+    <div class="en-line"><span data-lang-zh>${columnName!}</span><span data-lang-en>${columnName!}</span></div>
+  </div>
+</section>
+
+<section class="detail-section achievement-detail-section">
+  <div class="container detail-layout">
+    <article class="detail-copy">
+      <div class="detail-meta">
+        <#if showSource?has_content>发布来源：${showSource!} · </#if>
+        发布时间：${showDate!}
+        <#if columnName?has_content> · 栏目：${columnName!}</#if>
+        <#if showAuthor?has_content> · 作者：${showAuthor!}</#if>
+      </div>
+
+      <#if showAbstract?has_content>
+      <p class="lead">${showAbstract!}</p>
+      </#if>
+
+      <!-- 博达一键排版要求：正文必须放在这个 id 对应的容器中。 -->
+      <div id="${vsb_contentid}">${content}</div>
+
+      <p><a class="card-more" href="${columnUrl!}"><span data-lang-zh>返回列表</span><span data-lang-en>Back to List</span> →</a></p>
+
+      <#if hasAttach>
+      <div class="boda-article-attachments">
+        <strong><span data-lang-zh>附件</span><span data-lang-en>Attachments</span></strong>
+        <ul>
+          <#list list_attach as attach>
+          <li><a href="${attach.fileUrl}" target="_blank" rel="noopener">${attach.fileName}</a></li>
+          </#list>
+        </ul>
+      </div>
+      </#if>
+
+      <#if hasPreNews || hasNextNews>
+      <div class="boda-article-neighbors">
+        <#if hasPreNews><a href="${preNewsUrl}">上一条：${preNewsShowTitle}</a></#if>
+        <#if hasNextNews><a href="${nextNewsUrl}">下一条：${nextNewsShowTitle}</a></#if>
+      </div>
+      </#if>
+    </article>
+  </div>
+</section>

@@ -1,0 +1,68 @@
+{{footerOpenTag}}
+  <div class="footer-top">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-col footer-brand">
+          <a class="brand" href="{{homeHref}}" style="display:inline-flex;">
+            <img class="brand-mark" src="assets/college-emblem-clean.png" style="border-radius:50%;object-fit:cover;" alt="{{collegeNameWithUniversity}} 院徽">
+            <span class="brand-text"><span class="cn">{{collegeName}}</span></span>
+          </a>
+        </div>
+      <div class="footer-col">
+          <h6><span data-lang-zh>学院概览</span><span data-lang-en>Overview</span></h6>
+          <ul>
+            <li><a href="science-innovation.html"><span data-lang-zh>科学与创新</span><span data-lang-en>Research &amp; Innovation</span></a></li>
+            <li><a href="talent-cultivation.html"><span data-lang-zh>人才培养</span><span data-lang-en>Talent Cultivation</span></a></li>
+            <li><a href="faculty.html"><span data-lang-zh>师资队伍</span><span data-lang-en>Faculty</span></a></li>
+            <li><a href="public-service.html"><span data-lang-zh>公共服务</span><span data-lang-en>Public Service</span></a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h6><span data-lang-zh>关于学院</span><span data-lang-en>About</span></h6>
+          <ul>
+            <li><a href="about.html"><span data-lang-zh>关于我们</span><span data-lang-en>About Us</span></a></li>
+            <li><a href="contact.html"><span data-lang-zh>联系我们</span><span data-lang-en>Contact</span></a></li>
+            <li><a href="careers.html"><span data-lang-zh>人才招聘</span><span data-lang-en>Careers</span></a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h6><span data-lang-zh>资讯</span><span data-lang-en>News &amp; Info</span></h6>
+          <ul>
+            <li><a href="{{footerNewsHref}}"><span data-lang-zh>新闻</span><span data-lang-en>News</span></a></li>
+            <li><a href="{{footerNoticeHref}}"><span data-lang-zh>通知</span><span data-lang-en>Notices</span></a></li>
+            <li><a href="links.html"><span data-lang-zh>友情链接</span><span data-lang-en>{{footerLinksEn}}</span></a></li>
+          </ul>
+        </div>
+      </div>
+      {{footerCmsComment}}
+      <div class="footer-contact-pills">
+        <a class="contact-pill" href="mailto:dzblatai@henu.edu.cn">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 7l9 6 9-6"/><rect x="3" y="5" width="18" height="14" rx="2"/></svg>
+          <span data-lang-zh>人才招聘邮箱</span><span data-lang-en>Recruitment Email</span> <span>{{email}}</span>
+        </a>
+        <a class="contact-pill" href="{{phoneHref}}">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="{{phoneIconPath}}"/></svg>
+          <span data-lang-zh>固定电话</span><span data-lang-en>Office Phone</span> <span>{{phone}}</span>
+        </a>
+        <a class="contact-pill" href="https://uri.amap.com/search?keyword=%E6%B2%B3%E5%8D%97%E5%A4%A7%E5%AD%A6%E9%83%91%E5%B7%9E%E6%A0%A1%E5%8C%BA&amp;city=%E9%83%91%E5%B7%9E%E5%B8%82&amp;src=website&amp;coordinate=gaode&amp;callnative=1" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 21s7-6.5 7-12a7 7 0 10-14 0c0 5.5 7 12 7 12z"/><circle cx="12" cy="9" r="2.5"/></svg>
+          <span data-lang-zh>通讯地址</span><span data-lang-en>Address</span> <span><span data-lang-zh>{{addressZh}}</span><span data-lang-en>{{addressEn}}</span></span>
+        </a>
+      </div>
+    </div>
+  </div>
+  <div class="footer-search-band">
+    <div class="container footer-search-inner">
+      <a class="brand" href="https://www.henu.edu.cn/" target="_blank" rel="noopener" style="display:inline-flex;">
+        <img class="brand-mark" style="border-radius:50%;object-fit:cover;" src="assets/henu-logo-clean.png" alt="河南大学">
+        <span class="brand-text"><span class="cn">河南大学</span></span>
+      </a>
+      <form class="site-search" role="search" action="#" onsubmit="return false;"><input type="search"{{footerSearchAttrs}} placeholder="搜索网站" aria-label="搜索网站"><button type="submit" aria-label="搜索"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg></button></form>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <div class="container">
+      <span>&copy; 2026 <span data-lang-zh>河南大学{{collegeName}} 版权所有</span><span data-lang-en>{{copyrightEn}}</span></span>
+    </div>
+  </div>
+{{footerCloseTag}}
