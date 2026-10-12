@@ -22,19 +22,33 @@ build/
 # 环境变量与密钥（.env.example 等模板仍可提交）
 .env
 .env.local
+*.env
 *.pem
 *.key
 id_rsa*
+id_ed25519*
+id_ecdsa*
+*.p12
+*.pfx
+access.txt
 
 # SQLite 数据库文件（只提交建表/迁移脚本）
 *.sqlite
 *.sqlite3
 *.db
+*.db-*
 
 # 上传文件与日志
 uploads/
 storage/uploads/
 *.log
+/logs/
+/backups/
+/backend/media/
+*.bak
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
 
 # 原始参考归档保留本地，源码核查结论记录在设计稿
 /低空学院参考代码.tar.gz
@@ -49,7 +63,10 @@ storage/uploads/
 *.sqlite-*
 .env.*
 !.env.example
+!*.env.example
+!.env.*.example
 
 # 说明：队友曾在 main 上把 AGENTS.md 加入忽略规则（视为本地指令文件）。
 # 用户 2026-10-12 明确要求更新 AGENTS.md 中的项目状态与目录约定并保留协作/安全规则，
-# 因此该文件继续纳入版本管理，此处不设忽略。若后续决定不入库，删除文件并恢复上一行即可。
+# 因此该文件继续纳入版本管理，此处不设忽略；HANDOFF.md 也作为交接入口提交。
+# 忽略规则不会自动移除已经跟踪的文件，提交前仍需审查 git ls-files。
