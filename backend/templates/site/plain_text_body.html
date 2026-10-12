@@ -1,0 +1,2 @@
+{% load content_slots %}
+{% for part in body|content_paragraphs %}{% if part.heading %}<h3>{{ part.text }}</h3>{% else %}<p>{{ part.text|linebreaksbr }}</p>{% endif %}{% endfor %}

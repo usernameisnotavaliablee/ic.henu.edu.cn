@@ -37,6 +37,24 @@ class WorkflowTests(TestCase):
         self.assertContains(self.client.get('/news-demo.html'), '预览测试')
         self.assertNotContains(self.client.get('/news-demo.html'), '还未批准的新标题')
 
+    def test_news_and_notice_headings_match_review_without_executing_html(self):
+        body = '## 说明性质\r\n\r\n第一行\r\n第二行\r\n\r\n## <script>alert(1)</script>\r\n\r\n正文中的 ## 保持原样'
+        for category in ['news', 'notice']:
+            with self.subTest(category=category):
+                self.article = save_draft(Article(slug=f'{category}-heading-test', category=category,
+                    title='小标题测试', summary='摘要', body=body), 0, self.editor)
+                self.publish()
+                self.client.force_login(self.reviewer)
+                for url in [self.article.get_absolute_url(), reverse('admin:content_article_review', args=[self.article.pk])]:
+                    response = self.client.get(url)
+                    self.assertContains(response, '<h3>说明性质</h3>', html=True)
+                    self.assertContains(response, '<p>第一行<br>第二行</p>', html=True)
+                    self.assertContains(response, '<h3>&lt;script&gt;alert(1)&lt;/script&gt;</h3>', html=True)
+                    self.assertContains(response, '<p>正文中的 ## 保持原样</p>', html=True)
+                    self.assertNotContains(response, '<script>alert(1)</script>')
+                    self.assertNotContains(response, '## 说明性质')
+                self.assertEqual(Publication.objects.get(article=self.article).body, body)
+
     def test_editor_cannot_review_even_via_forged_request(self):
         with self.assertRaises(PermissionDenied):
             review_article(self.article.pk, self.article.revision, self.editor, 'approve')
