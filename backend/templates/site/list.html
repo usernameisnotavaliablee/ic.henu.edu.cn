@@ -1,6 +1,6 @@
 {% extends "site/generated/frame.html" %}
 {% block body %}
-<nav class="list-tabs" aria-label="资讯分类"><a href="news.html"{% if category == 'news' %} aria-current="page"{% endif %}>学院新闻</a><a href="notices.html"{% if category == 'notice' %} aria-current="page"{% endif %}>通知公告</a></nav>
+{% include "site/news_tabs.html" %}
 <p class="page-note">开发预览 · 仅展示已批准的内容，未接入学校正式发布。</p>
 <ul class="article-list">{% for item in page %}<li><a href="{{ item.get_absolute_url }}"><h2>{{ item.title }}</h2><p>{{ item.summary }}</p><span class="preview-label">{{ item.date|date:"Y-m-d"|default:"日期待提供" }}{% if item.is_placeholder %} · 内容占位{% endif %}</span></a></li>{% empty %}<li>暂无已批准的内容。</li>{% endfor %}</ul>
 <nav class="pagination" aria-label="{% if category == 'news' %}新闻{% else %}通知{% endif %}列表分页">
