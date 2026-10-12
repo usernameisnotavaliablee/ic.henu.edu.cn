@@ -6,6 +6,12 @@ const root = path.resolve(__dirname, '..');
 const src = path.join(root, 'src');
 const output = path.join(root, 'preview');
 const site = require('../src/data/site');
+const collections = require('../src/data/collections');
+const collectionFor = key => collections.find(c => c.legacyKeys.includes(key));
+const collectionHref = href => {
+  const [page, anchor] = href.split('#');
+  return anchor ? collectionFor(page.replace('.html', '') + '.' + anchor)?.url || href : href;
+};
 require('./build-chip-art');
 const read = relative => fs.readFileSync(path.join(src, relative), 'utf8');
 const escape = value => String(value).replace(/[&<>"']/g, char => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[char]));
@@ -43,7 +49,12 @@ const routeCatalog = {};
 function crumbs(file, title, active) {
   const parents = [];
   const navName = new Map(site.navigation);
-  if (active !== file && navName.has(active)) parents.push({ href: active, label: navName.get(active) });
+  const collection = collections.find(c => c.url === file);
+  if (collection) {
+    if (collection.page !== active) parents.push({ href: active, label: navName.get(active) });
+    parents.push({ href: collection.page, label: site.pages[collection.page].title });
+  }
+  if (!collection && active !== file && navName.has(active)) parents.push({ href: active, label: navName.get(active) });
   if (file.startsWith('news-')) parents.push({ href: 'news.html', label: '学院新闻' });
   if (file.startsWith('notice-')) parents.push({ href: 'notices.html', label: '通知公告' });
   if (file === 'notices.html') parents.push({ href: 'news.html', label: '新闻通知' });
@@ -58,7 +69,7 @@ function navigationItems(items, active, prefix = 'nav', depth = 0) {
     const current = href === active && depth === 0;
     const submenu = children?.length ? `<button class="subnav-toggle" type="button" aria-controls="${id}" aria-expanded="false" aria-label="展开${escape(label)}子栏目"><span aria-hidden="true">${depth ? '›' : '+'}</span></button>` : '';
     const links = children?.length ? `<ul class="subnav" id="${id}" aria-label="${escape(label)}子栏目">${navigationItems(children, active, id, depth + 1)}</ul>` : '';
-    return `<li class="nav-item"><div class="nav-item-heading"><a href="${escape(href)}"${current ? ' aria-current="page"' : ''}>${escape(label)}</a>${submenu}</div>${links}</li>`;
+    return `<li class="nav-item"><div class="nav-item-heading"><a href="${escape(collectionHref(href))}"${current ? ' aria-current="page"' : ''}>${escape(label)}</a>${submenu}</div>${links}</li>`;
   }).join('\n');
 }
 function sitemapItems(items) {
@@ -72,7 +83,7 @@ function page(file, title, content, active = file) {
     pageKind: file === 'index.html' ? 'home' : 'inner',
     description: escape(`${site.name}基础前端预览，内容和素材待审定。`),
     header: render(read('templates/partials/header.html'), { ...shared, navigation, headerState: file === 'index.html' ? '' : ' is-compact' }),
-    footer: render(read('templates/partials/footer.html'), shared), content: loadingMedia(content),
+    footer: render(read('templates/partials/footer.html'), shared), content: loadingMedia(content.replace(/href="([^"]+)"/g, (_, href) => `href="${collectionHref(href)}"`)),
     pageScripts: '',
   });
   if (/{{[a-zA-Z0-9_]+}}/.test(html)) throw new Error(`Unresolved template value in ${file}`);
@@ -115,6 +126,13 @@ const homeParts = {
   teachers: teacherCards() + teacherVacancies,
 };
 const homeContent = parts => `<h1 class="sr-only">${escape(site.name)}</h1>` + render(read('content/home.html'), parts);
+function collectionPreview(c) {
+  return `<section class="collection-preview" id="${c.anchor}" data-collection="${c.key}"><div class="collection-heading"><div><p class="collection-kicker">${c.layout === 'cards' ? '探索与了解' : '信息与动态'}</p><h2>${escape(c.title)}</h2></div><a href="${c.url}">查看全部 <span aria-hidden="true">↗</span></a></div>${previewItems(c, c.url)}</section>`;
+}
+function previewItems(c, href) {
+  const covers = ['oscilloscope-waveform.jpg', 'microscopy-instruments.jpg', 'wafer-closeup.jpg'];
+  return `<div class="collection-items collection-items--${c.layout}">` + Array.from({ length: 3 }, (_, i) => `<a class="collection-item" href="${href}">${c.layout === 'cards' ? `<img src="assets/${covers[i]}" alt="学科配图示意，非学院设施或成果" width="640" height="360" loading="lazy">` : ''}<div class="collection-item-copy"><span class="collection-meta">版式占位 · 日期待提供</span><h3>${escape(c.title)} · 内容位置 ${String(i + 1).padStart(2, '0')}</h3><p>这里展示该条内容的简要介绍，发布后可点击查看独立详情。</p><span class="collection-read">${href === c.url ? '进入栏目' : '查看详情版式'} →</span></div></a>`).join('') + '</div>';
+}
 page('index.html', '首页', homeContent(homeParts));
 
 for (const [file, config] of Object.entries(site.pages)) {
@@ -130,11 +148,35 @@ for (const [file, config] of Object.entries(site.pages)) {
     if (file === 'talent-cultivation.html' && i === 1) body += '<div class="research-topics"><a href="admissions.html#section-1"><h3>本科生招生</h3><p>招生信息待学校与学院审定。</p></a><a href="admissions.html#section-2"><h3>研究生招生</h3><p>招生目录与报考信息待提供。</p></a><a href="admissions.html#section-3"><h3>就业指导</h3><p>就业指导与服务信息待提供。</p></a><a href="community.html"><h3>师生园地</h3><p>师生活动与学生风采待提供。</p></a></div>';
     if (file === 'public-service.html') body = '<div class="research-topics"><a href="regulations.html"><h3>制度建设与办事流程</h3><p>规章制度与办事指引待提供。</p></a><a href="https://www.henu.edu.cn/" target="_blank" rel="noopener"><h3>学校官网</h3><p>了解河南大学资讯与校园服务。</p></a><a href="site-map.html"><h3>网站导航</h3><p>查看学院网站全部栏目与师资入口。</p></a><a href="contact.html"><h3>联系学院</h3><p>学院联系方式待统一发布。</p></a></div>';
     const key = `${file.replace('.html', '')}.section-${i + 1}`;
+    const collection = collectionFor(key);
+    if (collection) {
+      // 保留旧锚点；平台概览与介绍归同一个集合，不生成重复正文。
+      const html = key === collection.key ? collectionPreview(collection) : `<span id="section-${i + 1}" class="legacy-anchor"></span>`;
+      contentSlots.push({ key, label: config.title + ' / ' + section, anchor: `section-${i + 1}`, html, collection: collection.key });
+      return html;
+    }
     const html = `<section class="placeholder-block" id="section-${i + 1}" data-content-key="${key}"><h2>${escape(section)}</h2>${body}</section>`;
     contentSlots.push({ key, label: config.title + ' / ' + section, anchor: `section-${i + 1}`, html });
     return html;
   }).join('');
-  inner(file, config.title, config.english, photograph + previewNote + sections, config.active || file);
+  const relatedPages = { 'science-innovation.html': [['research-platforms.html', '研究平台'], ['research-groups.html', '课题组']], 'talent-cultivation.html': [['admissions.html', '招生就业'], ['community.html', '师生园地']], 'public-service.html': [['regulations.html', '制度建设与办事流程'], ['site-map.html', '网站导航'], ['contact.html', '联系学院']] };
+  const links = (relatedPages[file] || []).map(([href, title]) => `<a href="${href}"><h3>${title}</h3><span>进入栏目 →</span></a>`).join('');
+  inner(file, config.title, config.english, photograph + previewNote + (links ? `<nav class="research-topics" aria-label="相关栏目">${links}</nav>` : '') + sections, config.active || file);
+}
+
+for (const c of collections) {
+  c.active = site.pages[c.page].active || c.page;
+  const siblings = collections.filter(other => other.page === c.page);
+  const side = `<aside class="collection-sidebar"><h2>${escape(site.pages[c.page].title)}</h2><nav aria-label="同级栏目">${siblings.map(s => `<a href="${s.url}"${s.key === c.key ? ' aria-current="page"' : ''}>${escape(s.title)}</a>`).join('')}</nav></aside>`;
+  const detailFile = `layout-${c.slug}.html`;
+  const empty = '<p class="page-note">本地版式预览：以下是布局占位，不是已发布的业务内容。运行版从后台读取真实条目。</p>' + previewItems(c, detailFile);
+  inner(c.url, c.title, '', `<div class="collection-layout">${side}<div>${empty}</div></div>`, c.active);
+  c.parents = routeCatalog[c.slug].parents;
+  inner(detailFile, c.title + '详情版式', '', `<article class="article"><p class="page-note">此页面只用于检查栏目到详情的层级。正式正文由后台录入。</p><h2>内容标题待填写</h2><p class="article-meta">日期待填写 · 来源待填写</p><p>这里展示完整内容；列表页只展示标题、摘要和配图，不再直接铺开全文。</p>${c.key === 'science-innovation.section-1' ? '<h2>相关课题组</h2><p>在后台为多个课题组选择这个研究方向后，这里显示相应卡片。</p><a href="research-groups-section-1.html">查看课题组列表 →</a>' : ''}<a class="back-link" href="${c.url}">← 返回${escape(c.title)}</a></article>`, c.active);
+  // 详情版式明确显示中间层级，静态占位不进入服务端业务路由。
+  const chain = [...c.parents, {href: c.url, label: c.title}].map(p => `<a href="${p.href}">${escape(p.label)}</a><span aria-hidden="true"> / </span>`).join('');
+  pages.set(detailFile, pages.get(detailFile).replace(/(<nav class="breadcrumb"[^>]*>)[\s\S]*?<\/nav>/, `$1<a href="index.html">首页</a><span aria-hidden="true"> / </span>${chain}<span aria-current="page">详情版式</span></nav>`));
+  delete routeCatalog[detailFile.replace('.html', '')];
 }
 
 for (const [file, title, items, slot] of [['news.html', '学院新闻', site.news, 'news-list'], ['notices.html', '通知公告', site.notices, 'notice-list']]) {
@@ -198,9 +240,12 @@ function serverChrome(html) {
   return serverLinks(html);
 }
 for (const [file, html] of pages) {
+  if (file.startsWith('layout-')) continue;
   let dynamic = html;
   for (const slot of contentSlots) {
-    dynamic = dynamic.replace(loadingMedia(slot.html), `{% content_block '${slot.key}' as entry %}{% if entry %}{% include "site/content_block.html" with anchor="${slot.anchor}" %}{% else %}${loadingMedia(slot.html)}{% endif %}`);
+    if (slot.collection) {
+      if (slot.key === slot.collection) dynamic = dynamic.replace(loadingMedia(slot.html), `{% collection_preview '${slot.collection}' %}`);
+    } else dynamic = dynamic.replace(loadingMedia(slot.html), `{% content_block '${slot.key}' as entry %}{% if entry %}{% include "site/content_block.html" with anchor="${slot.anchor}" %}{% else %}${loadingMedia(slot.html)}{% endif %}`);
   }
   fs.writeFileSync(path.join(templates, file), '{% load content_slots %}\n' + serverChrome(dynamic));
 }
@@ -217,7 +262,7 @@ frame = frame.replace(/(<li class="nav-item"><div class="nav-item-heading"><a hr
 fs.writeFileSync(path.join(templates, 'frame.html'), serverChrome(frame));
 const teacherBody = t => ['## 个人简介', t.intro, ...t.sections.flatMap(s => ['## ' + s.title, ...(s.paragraphs || []), ...(s.items || [])]), '## 联系方式', ...['email', 'secondaryEmail', 'phone', 'group'].filter(k => t[k]).map(k => ({ email: '电子邮箱', secondaryEmail: '其他邮箱', phone: '联系电话', group: '课题组主页' })[k] + '：' + t[k])].join('\n\n');
 fs.writeFileSync(path.join(server, 'content-catalog.json'), JSON.stringify({
-  slots: Object.fromEntries([...contentSlots.map(s => [s.key, s.label]), ...Object.keys(slideDefaults).map((key, i) => [key, `首页轮播 / 第${i + 1}张`])]), routes: routeCatalog, defaults: slideDefaults,
+  slots: Object.fromEntries([...contentSlots.map(s => [s.key, s.label]), ...Object.keys(slideDefaults).map((key, i) => [key, `首页轮播 / 第${i + 1}张`])]), routes: routeCatalog, defaults: slideDefaults, collections,
   site: { college: site.college, english: site.english, motto: '明德 · 新民 · 止于至善', image: 'henu-logo.png', address: '', phone: '', email: '', account_name: '', qr_image: '' },
   teachers: site.teachers.map((t, i) => ({ key: 'teacher-' + t.slug, title: t.name, subtitle: t.title + ' · ' + t.field, summary: t.intro, body: teacherBody(t), image: t.image.replace('assets/', ''), image_alt: t.name + '照片', source_url: t.source, source_label: t.sourceLabel, sort_order: i, is_visible: true })),
 }, null, 2) + '\n');

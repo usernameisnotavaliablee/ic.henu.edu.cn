@@ -1,5 +1,6 @@
 {% extends "admin/change_list.html" %}
 {% block content %}
+<div class="module"><h2>栏目列表内容</h2><p><a href="{% url 'admin:content_contententry_add' %}?key=__new_entry__">新增栏目文章／研究方向／研究平台／课题组 →</a></p><p>每个栏目可以添加多条内容。选择所属栏目，填写标题、日期、摘要和正文；课题组还可关联已发布的研究方向。保存草稿后，在列表勾选并发布。</p></div>
 <details class="module" open><summary>待填内容位置（点击新增或编辑）</summary>
 <p>保存仅更新草稿。核对后在列表勾选条目，执行“发布到预览前台”；发布权限由管理员分配。新教师可点右上角新增。</p>
 <ul>{% for slot in content_slots %}<li><a href="{{ slot.url }}">{{ slot.label }}</a></li>{% endfor %}</ul></details>

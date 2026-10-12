@@ -6,6 +6,8 @@ ROOT = Path(__file__).resolve().parents[2]  # 仓库根目录（frontend/scripts
 DEST = ROOT / 'frontend/src/assets'
 REFERENCE = ROOT / 'docs/内部资料/参考源码/低空学院/src/assets'
 JOBS = [
+    (ROOT / 'docs/assets/site-media/oscilloscope-waveform.jpg', 'oscilloscope-waveform.jpg', (1400, 1000)),
+    (ROOT / 'docs/assets/site-media/microscopy-instruments.jpg', 'microscopy-instruments.jpg', (1400, 1000)),
     (ROOT / 'docs/assets/网站工作室.png', 'web-studio.png', (180, 180)),
     (REFERENCE / 'henu-logo-clean.png', 'henu-logo.png', (160, 160)),
     (REFERENCE / 'campus-gate-2026.jpg', 'campus-gate.jpg', (1440, 810)),

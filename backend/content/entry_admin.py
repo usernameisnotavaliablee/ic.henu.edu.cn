@@ -9,7 +9,7 @@ from .models import ContentEntry
 
 class ContentEntryForm(forms.ModelForm):
     key = forms.ChoiceField(label='内容位置')
-    teacher_slug = forms.SlugField(label='新教师地址标识', required=False, max_length=90, help_text='仅新增教师填写，例如 teacher-li-ming；创建后固定。')
+    teacher_slug = forms.SlugField(label='新增条目地址标识', required=False, max_length=90, help_text='教师使用teacher-开头；栏目文章/团队/方向使用entry-开头，例如entry-career-guide。创建后固定。')
 
     class Meta:
         model = ContentEntry
@@ -18,9 +18,20 @@ class ContentEntryForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         if 'key' in self.fields:
-            self.fields['key'].choices = [('', '请选择'), ('site', '站点信息／联系方式／公众号／院徽院训')] + list(catalog()['slots'].items()) + [(t['key'], '教师：' + t['title']) for t in catalog()['teachers']] + [('__new_teacher__', '新增教师')]
+            self.fields['key'].choices = [('', '请选择'), ('__new_entry__', '新增栏目文章／方向／平台／课题组'), ('site', '站点信息／联系方式／公众号／院徽院训')] + list(catalog()['slots'].items()) + [(t['key'], '教师：' + t['title']) for t in catalog()['teachers']] + [('__new_teacher__', '新增教师')]
             if self.instance.pk and self.instance.key not in dict(self.fields['key'].choices):
                 self.fields['key'].choices.append((self.instance.key, self.instance.title))
+        if 'collection' in self.fields:
+            self.fields['collection'] = forms.ChoiceField(label='所属列表栏目', required=False, choices=[('', '固定位置或教师无需选择')] + [(c['key'], catalog()['slots'][c['key']]) for c in catalog().get('collections', [])])
+        if 'direction' in self.fields:
+            choices = [('', '暂不关联')]
+            for row in ContentEntry.objects.exclude(published={}):
+                snap = row.published
+                if snap.get('is_visible', True) and (snap.get('collection') == 'science-innovation.section-1' or row.key == 'science-innovation.section-1'):
+                    choices.append((row.key, snap.get('title', row.key)))
+            if self.instance.direction and self.instance.direction not in dict(choices):
+                choices.append((self.instance.direction, self.instance.direction + '（已撤下，请调整关联）'))
+            self.fields['direction'] = forms.ChoiceField(label='课题组关联研究方向', required=False, choices=choices)
         for name in ('image', 'qr_image'):
             if name in self.fields:
                 self.fields[name] = forms.ChoiceField(label=self.fields[name].label, choices=asset_choices(), required=False, help_text='从本站已归档图片选择。新照片或二维码放入运行版 assets 后刷新此页面即可选取。')
@@ -31,10 +42,11 @@ class ContentEntryForm(forms.ModelForm):
 
     def clean(self):
         values = super().clean()
-        if values.get('key') == '__new_teacher__':
+        if values.get('key') in ('__new_teacher__', '__new_entry__'):
+            prefix = 'teacher-' if values['key'] == '__new_teacher__' else 'entry-'
             key = values.get('teacher_slug', '')
-            if not key.startswith('teacher-'):
-                self.add_error('teacher_slug', '请填写 teacher- 开头的地址标识。')
+            if not key.startswith(prefix):
+                self.add_error('teacher_slug', '请填写 ' + prefix + ' 开头的地址标识。')
             values['key'] = key
         return values
 
@@ -43,7 +55,8 @@ class ContentEntryForm(forms.ModelForm):
 class ContentEntryAdmin(admin.ModelAdmin):
     form = ContentEntryForm
     change_list_template = 'admin/content_entries.html'
-    list_display = ('title', 'key', 'sort_order', 'publication_state', 'updated_at')
+    list_display = ('title', 'key', 'collection', 'sort_order', 'publication_state', 'updated_at')
+    list_filter = ('collection',)
     search_fields = ('title', 'key')
     actions = ['publish_selected']
     readonly_fields = ('updated_at', 'publication_state')
@@ -69,7 +82,7 @@ class ContentEntryAdmin(admin.ModelAdmin):
         if key == 'site':
             fields += ['college', 'english', 'motto', 'image', 'image_alt', 'address', 'phone', 'email', 'account_name', 'qr_image', 'body']
         else:
-            fields += ['subtitle', 'summary', 'body', 'date', 'image', 'image_alt', 'source_label', 'source_url', 'sort_order', 'is_visible']
+            fields += ['collection', 'direction', 'subtitle', 'summary', 'body', 'date', 'image', 'image_alt', 'source_label', 'source_url', 'sort_order', 'is_visible']
         return fields + ['publication_state', 'updated_at']
 
     def get_changeform_initial_data(self, request):

@@ -147,6 +147,285 @@
       "active": "careers.html",
       "parents": []
     },
+    "science-innovation-section-1": {
+      "title": "研究方向",
+      "english": "",
+      "active": "science-innovation.html",
+      "parents": [
+        {
+          "href": "science-innovation.html",
+          "label": "科学与创新"
+        }
+      ]
+    },
+    "science-innovation-section-2": {
+      "title": "研究进展",
+      "english": "",
+      "active": "science-innovation.html",
+      "parents": [
+        {
+          "href": "science-innovation.html",
+          "label": "科学与创新"
+        }
+      ]
+    },
+    "science-innovation-section-3": {
+      "title": "学术交流",
+      "english": "",
+      "active": "science-innovation.html",
+      "parents": [
+        {
+          "href": "science-innovation.html",
+          "label": "科学与创新"
+        }
+      ]
+    },
+    "research-platforms-section-1": {
+      "title": "研究平台",
+      "english": "",
+      "active": "science-innovation.html",
+      "parents": [
+        {
+          "href": "science-innovation.html",
+          "label": "科学与创新"
+        },
+        {
+          "href": "research-platforms.html",
+          "label": "研究平台"
+        }
+      ]
+    },
+    "research-groups-section-1": {
+      "title": "课题组",
+      "english": "",
+      "active": "science-innovation.html",
+      "parents": [
+        {
+          "href": "science-innovation.html",
+          "label": "科学与创新"
+        },
+        {
+          "href": "research-groups.html",
+          "label": "课题组"
+        }
+      ]
+    },
+    "regulations-section-1": {
+      "title": "规章制度",
+      "english": "",
+      "active": "public-service.html",
+      "parents": [
+        {
+          "href": "public-service.html",
+          "label": "公共服务"
+        },
+        {
+          "href": "regulations.html",
+          "label": "制度建设"
+        }
+      ]
+    },
+    "regulations-section-2": {
+      "title": "办事流程",
+      "english": "",
+      "active": "public-service.html",
+      "parents": [
+        {
+          "href": "public-service.html",
+          "label": "公共服务"
+        },
+        {
+          "href": "regulations.html",
+          "label": "制度建设"
+        }
+      ]
+    },
+    "party-building-section-1": {
+      "title": "党建动态",
+      "english": "",
+      "active": "party-building.html",
+      "parents": [
+        {
+          "href": "party-building.html",
+          "label": "党建党务"
+        }
+      ]
+    },
+    "party-building-section-2": {
+      "title": "学习园地",
+      "english": "",
+      "active": "party-building.html",
+      "parents": [
+        {
+          "href": "party-building.html",
+          "label": "党建党务"
+        }
+      ]
+    },
+    "admissions-section-1": {
+      "title": "本科生招生",
+      "english": "",
+      "active": "talent-cultivation.html",
+      "parents": [
+        {
+          "href": "talent-cultivation.html",
+          "label": "人才培养"
+        },
+        {
+          "href": "admissions.html",
+          "label": "招生就业"
+        }
+      ]
+    },
+    "admissions-section-2": {
+      "title": "研究生招生",
+      "english": "",
+      "active": "talent-cultivation.html",
+      "parents": [
+        {
+          "href": "talent-cultivation.html",
+          "label": "人才培养"
+        },
+        {
+          "href": "admissions.html",
+          "label": "招生就业"
+        }
+      ]
+    },
+    "admissions-section-3": {
+      "title": "就业指导",
+      "english": "",
+      "active": "talent-cultivation.html",
+      "parents": [
+        {
+          "href": "talent-cultivation.html",
+          "label": "人才培养"
+        },
+        {
+          "href": "admissions.html",
+          "label": "招生就业"
+        }
+      ]
+    },
+    "community-section-1": {
+      "title": "师生活动",
+      "english": "",
+      "active": "talent-cultivation.html",
+      "parents": [
+        {
+          "href": "talent-cultivation.html",
+          "label": "人才培养"
+        },
+        {
+          "href": "community.html",
+          "label": "师生园地"
+        }
+      ]
+    },
+    "community-section-2": {
+      "title": "学生风采",
+      "english": "",
+      "active": "talent-cultivation.html",
+      "parents": [
+        {
+          "href": "talent-cultivation.html",
+          "label": "人才培养"
+        },
+        {
+          "href": "community.html",
+          "label": "师生园地"
+        }
+      ]
+    },
+    "ic-world-section-1": {
+      "title": "学科科普",
+      "english": "",
+      "active": "science-innovation.html",
+      "parents": [
+        {
+          "href": "science-innovation.html",
+          "label": "科学与创新"
+        },
+        {
+          "href": "ic-world.html",
+          "label": "芯片天地"
+        }
+      ]
+    },
+    "ic-world-section-2": {
+      "title": "芯片与微纳世界",
+      "english": "",
+      "active": "science-innovation.html",
+      "parents": [
+        {
+          "href": "science-innovation.html",
+          "label": "科学与创新"
+        },
+        {
+          "href": "ic-world.html",
+          "label": "芯片天地"
+        }
+      ]
+    },
+    "media-section-1": {
+      "title": "媒体报道",
+      "english": "",
+      "active": "news.html",
+      "parents": [
+        {
+          "href": "news.html",
+          "label": "新闻通知"
+        },
+        {
+          "href": "media.html",
+          "label": "媒体掠影"
+        }
+      ]
+    },
+    "talent-cultivation-section-1": {
+      "title": "学科与专业",
+      "english": "",
+      "active": "talent-cultivation.html",
+      "parents": [
+        {
+          "href": "talent-cultivation.html",
+          "label": "人才培养"
+        }
+      ]
+    },
+    "talent-cultivation-section-2": {
+      "title": "课程与培养方案",
+      "english": "",
+      "active": "talent-cultivation.html",
+      "parents": [
+        {
+          "href": "talent-cultivation.html",
+          "label": "人才培养"
+        }
+      ]
+    },
+    "public-service-section-1": {
+      "title": "服务指南",
+      "english": "",
+      "active": "public-service.html",
+      "parents": [
+        {
+          "href": "public-service.html",
+          "label": "公共服务"
+        }
+      ]
+    },
+    "careers-section-1": {
+      "title": "人才招聘信息",
+      "english": "",
+      "active": "careers.html",
+      "parents": [
+        {
+          "href": "careers.html",
+          "label": "人才招聘"
+        }
+      ]
+    },
     "news": {
       "title": "学院新闻",
       "english": "NEWS",
@@ -408,6 +687,457 @@
       "image_alt": "硅晶圆表面近景，通用学科示意"
     }
   },
+  "collections": [
+    {
+      "key": "science-innovation.section-1",
+      "page": "science-innovation.html",
+      "title": "研究方向",
+      "layout": "cards",
+      "slug": "science-innovation-section-1",
+      "url": "science-innovation-section-1.html",
+      "anchor": "section-1",
+      "legacyKeys": [
+        "science-innovation.section-1"
+      ],
+      "active": "science-innovation.html",
+      "parents": [
+        {
+          "href": "science-innovation.html",
+          "label": "科学与创新"
+        }
+      ]
+    },
+    {
+      "key": "science-innovation.section-2",
+      "page": "science-innovation.html",
+      "title": "研究进展",
+      "layout": "list",
+      "slug": "science-innovation-section-2",
+      "url": "science-innovation-section-2.html",
+      "anchor": "section-2",
+      "legacyKeys": [
+        "science-innovation.section-2"
+      ],
+      "active": "science-innovation.html",
+      "parents": [
+        {
+          "href": "science-innovation.html",
+          "label": "科学与创新"
+        }
+      ]
+    },
+    {
+      "key": "science-innovation.section-3",
+      "page": "science-innovation.html",
+      "title": "学术交流",
+      "layout": "list",
+      "slug": "science-innovation-section-3",
+      "url": "science-innovation-section-3.html",
+      "anchor": "section-3",
+      "legacyKeys": [
+        "science-innovation.section-3"
+      ],
+      "active": "science-innovation.html",
+      "parents": [
+        {
+          "href": "science-innovation.html",
+          "label": "科学与创新"
+        }
+      ]
+    },
+    {
+      "key": "research-platforms.section-1",
+      "page": "research-platforms.html",
+      "title": "研究平台",
+      "layout": "cards",
+      "slug": "research-platforms-section-1",
+      "url": "research-platforms-section-1.html",
+      "anchor": "section-1",
+      "legacyKeys": [
+        "research-platforms.section-1",
+        "research-platforms.section-2"
+      ],
+      "active": "science-innovation.html",
+      "parents": [
+        {
+          "href": "science-innovation.html",
+          "label": "科学与创新"
+        },
+        {
+          "href": "research-platforms.html",
+          "label": "研究平台"
+        }
+      ]
+    },
+    {
+      "key": "research-groups.section-1",
+      "page": "research-groups.html",
+      "title": "课题组",
+      "layout": "cards",
+      "slug": "research-groups-section-1",
+      "url": "research-groups-section-1.html",
+      "anchor": "section-1",
+      "legacyKeys": [
+        "research-groups.section-1",
+        "research-groups.section-2"
+      ],
+      "active": "science-innovation.html",
+      "parents": [
+        {
+          "href": "science-innovation.html",
+          "label": "科学与创新"
+        },
+        {
+          "href": "research-groups.html",
+          "label": "课题组"
+        }
+      ]
+    },
+    {
+      "key": "regulations.section-1",
+      "page": "regulations.html",
+      "title": "规章制度",
+      "layout": "list",
+      "slug": "regulations-section-1",
+      "url": "regulations-section-1.html",
+      "anchor": "section-1",
+      "legacyKeys": [
+        "regulations.section-1"
+      ],
+      "active": "public-service.html",
+      "parents": [
+        {
+          "href": "public-service.html",
+          "label": "公共服务"
+        },
+        {
+          "href": "regulations.html",
+          "label": "制度建设"
+        }
+      ]
+    },
+    {
+      "key": "regulations.section-2",
+      "page": "regulations.html",
+      "title": "办事流程",
+      "layout": "list",
+      "slug": "regulations-section-2",
+      "url": "regulations-section-2.html",
+      "anchor": "section-2",
+      "legacyKeys": [
+        "regulations.section-2"
+      ],
+      "active": "public-service.html",
+      "parents": [
+        {
+          "href": "public-service.html",
+          "label": "公共服务"
+        },
+        {
+          "href": "regulations.html",
+          "label": "制度建设"
+        }
+      ]
+    },
+    {
+      "key": "party-building.section-1",
+      "page": "party-building.html",
+      "title": "党建动态",
+      "layout": "list",
+      "slug": "party-building-section-1",
+      "url": "party-building-section-1.html",
+      "anchor": "section-1",
+      "legacyKeys": [
+        "party-building.section-1"
+      ],
+      "active": "party-building.html",
+      "parents": [
+        {
+          "href": "party-building.html",
+          "label": "党建党务"
+        }
+      ]
+    },
+    {
+      "key": "party-building.section-2",
+      "page": "party-building.html",
+      "title": "学习园地",
+      "layout": "list",
+      "slug": "party-building-section-2",
+      "url": "party-building-section-2.html",
+      "anchor": "section-2",
+      "legacyKeys": [
+        "party-building.section-2"
+      ],
+      "active": "party-building.html",
+      "parents": [
+        {
+          "href": "party-building.html",
+          "label": "党建党务"
+        }
+      ]
+    },
+    {
+      "key": "admissions.section-1",
+      "page": "admissions.html",
+      "title": "本科生招生",
+      "layout": "list",
+      "slug": "admissions-section-1",
+      "url": "admissions-section-1.html",
+      "anchor": "section-1",
+      "legacyKeys": [
+        "admissions.section-1"
+      ],
+      "active": "talent-cultivation.html",
+      "parents": [
+        {
+          "href": "talent-cultivation.html",
+          "label": "人才培养"
+        },
+        {
+          "href": "admissions.html",
+          "label": "招生就业"
+        }
+      ]
+    },
+    {
+      "key": "admissions.section-2",
+      "page": "admissions.html",
+      "title": "研究生招生",
+      "layout": "list",
+      "slug": "admissions-section-2",
+      "url": "admissions-section-2.html",
+      "anchor": "section-2",
+      "legacyKeys": [
+        "admissions.section-2"
+      ],
+      "active": "talent-cultivation.html",
+      "parents": [
+        {
+          "href": "talent-cultivation.html",
+          "label": "人才培养"
+        },
+        {
+          "href": "admissions.html",
+          "label": "招生就业"
+        }
+      ]
+    },
+    {
+      "key": "admissions.section-3",
+      "page": "admissions.html",
+      "title": "就业指导",
+      "layout": "list",
+      "slug": "admissions-section-3",
+      "url": "admissions-section-3.html",
+      "anchor": "section-3",
+      "legacyKeys": [
+        "admissions.section-3"
+      ],
+      "active": "talent-cultivation.html",
+      "parents": [
+        {
+          "href": "talent-cultivation.html",
+          "label": "人才培养"
+        },
+        {
+          "href": "admissions.html",
+          "label": "招生就业"
+        }
+      ]
+    },
+    {
+      "key": "community.section-1",
+      "page": "community.html",
+      "title": "师生活动",
+      "layout": "list",
+      "slug": "community-section-1",
+      "url": "community-section-1.html",
+      "anchor": "section-1",
+      "legacyKeys": [
+        "community.section-1"
+      ],
+      "active": "talent-cultivation.html",
+      "parents": [
+        {
+          "href": "talent-cultivation.html",
+          "label": "人才培养"
+        },
+        {
+          "href": "community.html",
+          "label": "师生园地"
+        }
+      ]
+    },
+    {
+      "key": "community.section-2",
+      "page": "community.html",
+      "title": "学生风采",
+      "layout": "cards",
+      "slug": "community-section-2",
+      "url": "community-section-2.html",
+      "anchor": "section-2",
+      "legacyKeys": [
+        "community.section-2"
+      ],
+      "active": "talent-cultivation.html",
+      "parents": [
+        {
+          "href": "talent-cultivation.html",
+          "label": "人才培养"
+        },
+        {
+          "href": "community.html",
+          "label": "师生园地"
+        }
+      ]
+    },
+    {
+      "key": "ic-world.section-1",
+      "page": "ic-world.html",
+      "title": "学科科普",
+      "layout": "list",
+      "slug": "ic-world-section-1",
+      "url": "ic-world-section-1.html",
+      "anchor": "section-1",
+      "legacyKeys": [
+        "ic-world.section-1"
+      ],
+      "active": "science-innovation.html",
+      "parents": [
+        {
+          "href": "science-innovation.html",
+          "label": "科学与创新"
+        },
+        {
+          "href": "ic-world.html",
+          "label": "芯片天地"
+        }
+      ]
+    },
+    {
+      "key": "ic-world.section-2",
+      "page": "ic-world.html",
+      "title": "芯片与微纳世界",
+      "layout": "cards",
+      "slug": "ic-world-section-2",
+      "url": "ic-world-section-2.html",
+      "anchor": "section-2",
+      "legacyKeys": [
+        "ic-world.section-2"
+      ],
+      "active": "science-innovation.html",
+      "parents": [
+        {
+          "href": "science-innovation.html",
+          "label": "科学与创新"
+        },
+        {
+          "href": "ic-world.html",
+          "label": "芯片天地"
+        }
+      ]
+    },
+    {
+      "key": "media.section-1",
+      "page": "media.html",
+      "title": "媒体报道",
+      "layout": "list",
+      "slug": "media-section-1",
+      "url": "media-section-1.html",
+      "anchor": "section-1",
+      "legacyKeys": [
+        "media.section-1"
+      ],
+      "active": "news.html",
+      "parents": [
+        {
+          "href": "news.html",
+          "label": "新闻通知"
+        },
+        {
+          "href": "media.html",
+          "label": "媒体掠影"
+        }
+      ]
+    },
+    {
+      "key": "talent-cultivation.section-1",
+      "page": "talent-cultivation.html",
+      "title": "学科与专业",
+      "layout": "cards",
+      "slug": "talent-cultivation-section-1",
+      "url": "talent-cultivation-section-1.html",
+      "anchor": "section-1",
+      "legacyKeys": [
+        "talent-cultivation.section-1"
+      ],
+      "active": "talent-cultivation.html",
+      "parents": [
+        {
+          "href": "talent-cultivation.html",
+          "label": "人才培养"
+        }
+      ]
+    },
+    {
+      "key": "talent-cultivation.section-2",
+      "page": "talent-cultivation.html",
+      "title": "课程与培养方案",
+      "layout": "list",
+      "slug": "talent-cultivation-section-2",
+      "url": "talent-cultivation-section-2.html",
+      "anchor": "section-2",
+      "legacyKeys": [
+        "talent-cultivation.section-2"
+      ],
+      "active": "talent-cultivation.html",
+      "parents": [
+        {
+          "href": "talent-cultivation.html",
+          "label": "人才培养"
+        }
+      ]
+    },
+    {
+      "key": "public-service.section-1",
+      "page": "public-service.html",
+      "title": "服务指南",
+      "layout": "list",
+      "slug": "public-service-section-1",
+      "url": "public-service-section-1.html",
+      "anchor": "section-1",
+      "legacyKeys": [
+        "public-service.section-1"
+      ],
+      "active": "public-service.html",
+      "parents": [
+        {
+          "href": "public-service.html",
+          "label": "公共服务"
+        }
+      ]
+    },
+    {
+      "key": "careers.section-1",
+      "page": "careers.html",
+      "title": "人才招聘信息",
+      "layout": "list",
+      "slug": "careers-section-1",
+      "url": "careers-section-1.html",
+      "anchor": "section-1",
+      "legacyKeys": [
+        "careers.section-1"
+      ],
+      "active": "careers.html",
+      "parents": [
+        {
+          "href": "careers.html",
+          "label": "人才招聘"
+        }
+      ]
+    }
+  ],
   "site": {
     "college": "集成电路与微纳电子学院",
     "english": "School of Integrated Circuits and Micro-Nano Electronics",

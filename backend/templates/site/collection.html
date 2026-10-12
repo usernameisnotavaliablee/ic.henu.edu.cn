@@ -1,0 +1,5 @@
+{% extends "site/generated/frame.html" %}
+{% block body %}<div class="collection-layout"><aside class="collection-sidebar"><h2>栏目导航</h2><nav aria-label="同级栏目">{% for sibling in siblings %}<a href="/{{ sibling.url }}"{% if sibling.key == collection.key %} aria-current="page"{% endif %}>{{ sibling.title }}</a>{% endfor %}</nav></aside><div>
+{% include "site/collection_items.html" with items=page %}
+<nav class="pagination" aria-label="栏目分页"><p>共 {{ page.paginator.count }} 条 · 第 {{ page.number }} / {{ page.paginator.num_pages }} 页</p><div class="pagination-links">{% if page.has_previous %}<a href="?page={{ page.previous_page_number }}">上一页</a>{% endif %}{% if page.has_next %}<a href="?page={{ page.next_page_number }}">下一页</a>{% endif %}</div></nav>
+</div></div>{% endblock %}
