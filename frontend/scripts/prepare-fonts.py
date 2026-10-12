@@ -53,7 +53,7 @@ def required_characters():
         parser.feed(page.read_text(encoding='utf-8'))
         characters.update(parser.characters)
     if not characters:
-        raise SystemExit('未找到已构建的楷体区域，请先运行 node docs/frontend/scripts/build-site.js。')
+        raise SystemExit('未找到已构建的楷体区域，请先运行 node frontend/scripts/build-site.js。')
     return ''.join(sorted(characters))
 
 
@@ -114,7 +114,7 @@ def main():
         '@font-face { font-family: "IC WenKai"; font-style: normal; font-weight: 400; font-display: swap; '
         f'src: url("../assets/{name}") format("{font_format}"); }}\n'
         '.brand-motto, .editorial-heading h2, .feature-intro, .footer-campus p { '
-        'font-family: "IC WenKai", "STKaiti", "KaiTi", serif; }\n', encoding='utf-8')
+        'font-family: var(--font-kai); font-weight: 400; font-synthesis: none; }\n', encoding='utf-8')
     info = {'family': 'LXGW WenKai TC', 'license': 'SIL OFL 1.1', 'source_css': url,
             'source_font': match[1], 'source_license': LICENSE_URL, 'characters': characters,
             'files': {f.relative_to(ROOT).as_posix(): hashlib.sha256(f.read_bytes()).hexdigest()

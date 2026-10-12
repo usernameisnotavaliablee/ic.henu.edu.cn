@@ -19,7 +19,7 @@ const check = (name, ok) => { assert.ok(ok, name); checks.push(name); console.lo
     check('删除两类暂停按钮', await page.locator('[data-pause], [data-motion-toggle]').count() === 0);
     check('开源楷体实际加载', await page.evaluate(async () => (await document.fonts.load('400 30px "IC WenKai"', '学院新闻')).length > 0));
     check('程老师首位', await page.locator('.faculty-card h3').first().textContent() === '程纲');
-    check('技术支持链接正确', await page.getByRole('link', { name: '技术支持：河南大学网站工作室' }).getAttribute('href') === 'http://wz.henu.edu.cn/');
+    check('技术支持链接正确', await page.getByRole('link', { name: '技术支持：河南大学网站工作室' }).getAttribute('href') === 'https://hdwzgzs.cn/');
     const education = page.locator('.main-nav > ul > .nav-item').filter({ has: page.locator(':scope > .nav-item-heading > a[href="talent-cultivation.html"]') });
     await education.locator(':scope > .nav-item-heading > a').hover();
     const admissions = education.locator('.nav-item').filter({ has: page.locator(':scope > .nav-item-heading > a[href="admissions.html"]') });

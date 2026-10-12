@@ -1,0 +1,17 @@
+{
+  "url": "https://hdwzgzs.cn/studio#Prologue",
+  "status": 200,
+  "title": "河南大学网站工作室 | HENU Web Studio",
+  "responses": 49,
+  "bad": [],
+  "failed": [
+    "https://cdn.busuanzi.cc/api.php :: net::ERR_FAILED"
+  ],
+  "consoleErrors": [
+    "Access to fetch at 'https://cdn.busuanzi.cc/api.php' from origin 'https://hdwzgzs.cn' has been blocked by CORS policy: No 'Access-Control-Allow-Origin' header i",
+    "Failed to load resource: net::ERR_FAILED",
+    "TypeError: Failed to fetch\n    at https://cdn.busuanzi.cc/busuanzi/3.6.9/busuanzi.min.js:1:120\n    at https://cdn.busuanzi.cc/busuanzi/3.6.9/busuanzi.min.js:1:3"
+  ],
+  "images": 45,
+  "badImages": 0
+}

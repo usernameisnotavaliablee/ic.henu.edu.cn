@@ -1,0 +1,407 @@
+{
+  "base": "http://47.94.146.53:8099",
+  "checks": 60,
+  "failures": [],
+  "consoleErrors": [
+    "The Cross-Origin-Opener-Policy header has been ignored, because the URL's origin was untrustworthy. It was defined either in the final response or a redirect. P",
+    "The Cross-Origin-Opener-Policy header has been ignored, because the URL's origin was untrustworthy. It was defined either in the final response or a redirect. P",
+    "The Cross-Origin-Opener-Policy header has been ignored, because the URL's origin was untrustworthy. It was defined either in the final response or a redirect. P",
+    "The Cross-Origin-Opener-Policy header has been ignored, because the URL's origin was untrustworthy. It was defined either in the final response or a redirect. P",
+    "The Cross-Origin-Opener-Policy header has been ignored, because the URL's origin was untrustworthy. It was defined either in the final response or a redirect. P",
+    "The Cross-Origin-Opener-Policy header has been ignored, because the URL's origin was untrustworthy. It was defined either in the final response or a redirect. P",
+    "The Cross-Origin-Opener-Policy header has been ignored, because the URL's origin was untrustworthy. It was defined either in the final response or a redirect. P",
+    "The Cross-Origin-Opener-Policy header has been ignored, because the URL's origin was untrustworthy. It was defined either in the final response or a redirect. P",
+    "The Cross-Origin-Opener-Policy header has been ignored, because the URL's origin was untrustworthy. It was defined either in the final response or a redirect. P",
+    "The Cross-Origin-Opener-Policy header has been ignored, because the URL's origin was untrustworthy. It was defined either in the final response or a redirect. P",
+    "The Cross-Origin-Opener-Policy header has been ignored, because the URL's origin was untrustworthy. It was defined either in the final response or a redirect. P",
+    "The Cross-Origin-Opener-Policy header has been ignored, because the URL's origin was untrustworthy. It was defined either in the final response or a redirect. P",
+    "The Cross-Origin-Opener-Policy header has been ignored, because the URL's origin was untrustworthy. It was defined either in the final response or a redirect. P",
+    "The Cross-Origin-Opener-Policy header has been ignored, because the URL's origin was untrustworthy. It was defined either in the final response or a redirect. P",
+    "The Cross-Origin-Opener-Policy header has been ignored, because the URL's origin was untrustworthy. It was defined either in the final response or a redirect. P",
+    "The Cross-Origin-Opener-Policy header has been ignored, because the URL's origin was untrustworthy. It was defined either in the final response or a redirect. P",
+    "The Cross-Origin-Opener-Policy header has been ignored, because the URL's origin was untrustworthy. It was defined either in the final response or a redirect. P",
+    "The Cross-Origin-Opener-Policy header has been ignored, because the URL's origin was untrustworthy. It was defined either in the final response or a redirect. P",
+    "The Cross-Origin-Opener-Policy header has been ignored, because the URL's origin was untrustworthy. It was defined either in the final response or a redirect. P",
+    "The Cross-Origin-Opener-Policy header has been ignored, because the URL's origin was untrustworthy. It was defined either in the final response or a redirect. P",
+    "The Cross-Origin-Opener-Policy header has been ignored, because the URL's origin was untrustworthy. It was defined either in the final response or a redirect. P",
+    "The Cross-Origin-Opener-Policy header has been ignored, because the URL's origin was untrustworthy. It was defined either in the final response or a redirect. P",
+    "The Cross-Origin-Opener-Policy header has been ignored, because the URL's origin was untrustworthy. It was defined either in the final response or a redirect. P",
+    "The Cross-Origin-Opener-Policy header has been ignored, because the URL's origin was untrustworthy. It was defined either in the final response or a redirect. P",
+    "The Cross-Origin-Opener-Policy header has been ignored, because the URL's origin was untrustworthy. It was defined either in the final response or a redirect. P",
+    "The Cross-Origin-Opener-Policy header has been ignored, because the URL's origin was untrustworthy. It was defined either in the final response or a redirect. P",
+    "The Cross-Origin-Opener-Policy header has been ignored, because the URL's origin was untrustworthy. It was defined either in the final response or a redirect. P",
+    "The Cross-Origin-Opener-Policy header has been ignored, because the URL's origin was untrustworthy. It was defined either in the final response or a redirect. P",
+    "The Cross-Origin-Opener-Policy header has been ignored, because the URL's origin was untrustworthy. It was defined either in the final response or a redirect. P",
+    "The Cross-Origin-Opener-Policy header has been ignored, because the URL's origin was untrustworthy. It was defined either in the final response or a redirect. P",
+    "The Cross-Origin-Opener-Policy header has been ignored, because the URL's origin was untrustworthy. It was defined either in the final response or a redirect. P",
+    "The Cross-Origin-Opener-Policy header has been ignored, because the URL's origin was untrustworthy. It was defined either in the final response or a redirect. P",
+    "The Cross-Origin-Opener-Policy header has been ignored, because the URL's origin was untrustworthy. It was defined either in the final response or a redirect. P",
+    "The Cross-Origin-Opener-Policy header has been ignored, because the URL's origin was untrustworthy. It was defined either in the final response or a redirect. P",
+    "The Cross-Origin-Opener-Policy header has been ignored, because the URL's origin was untrustworthy. It was defined either in the final response or a redirect. P",
+    "The Cross-Origin-Opener-Policy header has been ignored, because the URL's origin was untrustworthy. It was defined either in the final response or a redirect. P",
+    "The Cross-Origin-Opener-Policy header has been ignored, because the URL's origin was untrustworthy. It was defined either in the final response or a redirect. P",
+    "The Cross-Origin-Opener-Policy header has been ignored, because the URL's origin was untrustworthy. It was defined either in the final response or a redirect. P",
+    "The Cross-Origin-Opener-Policy header has been ignored, because the URL's origin was untrustworthy. It was defined either in the final response or a redirect. P",
+    "The Cross-Origin-Opener-Policy header has been ignored, because the URL's origin was untrustworthy. It was defined either in the final response or a redirect. P",
+    "The Cross-Origin-Opener-Policy header has been ignored, because the URL's origin was untrustworthy. It was defined either in the final response or a redirect. P"
+  ],
+  "failedRequests": [],
+  "fonts": [
+    {
+      "u": "http://47.94.146.53:8099/assets/ic-kai-headings-f73cfd7ba50e.ttf",
+      "s": 200,
+      "ct": "font/ttf"
+    },
+    {
+      "u": "http://47.94.146.53:8099/assets/ic-kai-headings-f73cfd7ba50e.ttf",
+      "s": 200,
+      "ct": "font/ttf"
+    },
+    {
+      "u": "http://47.94.146.53:8099/assets/ic-kai-headings-f73cfd7ba50e.ttf",
+      "s": 200,
+      "ct": "font/ttf"
+    },
+    {
+      "u": "http://47.94.146.53:8099/assets/ic-kai-headings-f73cfd7ba50e.ttf",
+      "s": 200,
+      "ct": "font/ttf"
+    },
+    {
+      "u": "http://47.94.146.53:8099/assets/ic-kai-headings-f73cfd7ba50e.ttf",
+      "s": 200,
+      "ct": "font/ttf"
+    },
+    {
+      "u": "http://47.94.146.53:8099/assets/ic-kai-headings-f73cfd7ba50e.ttf",
+      "s": 200,
+      "ct": "font/ttf"
+    },
+    {
+      "u": "http://47.94.146.53:8099/assets/ic-kai-headings-f73cfd7ba50e.ttf",
+      "s": 200,
+      "ct": "font/ttf"
+    },
+    {
+      "u": "http://47.94.146.53:8099/assets/ic-kai-headings-f73cfd7ba50e.ttf",
+      "s": 200,
+      "ct": "font/ttf"
+    },
+    {
+      "u": "http://47.94.146.53:8099/assets/ic-kai-headings-f73cfd7ba50e.ttf",
+      "s": 200,
+      "ct": "font/ttf"
+    },
+    {
+      "u": "http://47.94.146.53:8099/assets/ic-kai-headings-f73cfd7ba50e.ttf",
+      "s": 200,
+      "ct": "font/ttf"
+    },
+    {
+      "u": "http://47.94.146.53:8099/assets/ic-kai-headings-f73cfd7ba50e.ttf",
+      "s": 200,
+      "ct": "font/ttf"
+    },
+    {
+      "u": "http://47.94.146.53:8099/assets/ic-kai-headings-f73cfd7ba50e.ttf",
+      "s": 200,
+      "ct": "font/ttf"
+    },
+    {
+      "u": "http://47.94.146.53:8099/assets/ic-kai-headings-f73cfd7ba50e.ttf",
+      "s": 200,
+      "ct": "font/ttf"
+    },
+    {
+      "u": "http://47.94.146.53:8099/assets/ic-kai-headings-f73cfd7ba50e.ttf",
+      "s": 200,
+      "ct": "font/ttf"
+    },
+    {
+      "u": "http://47.94.146.53:8099/assets/ic-kai-headings-f73cfd7ba50e.ttf",
+      "s": 200,
+      "ct": "font/ttf"
+    },
+    {
+      "u": "http://47.94.146.53:8099/assets/ic-kai-headings-f73cfd7ba50e.ttf",
+      "s": 200,
+      "ct": "font/ttf"
+    },
+    {
+      "u": "http://47.94.146.53:8099/assets/ic-kai-headings-f73cfd7ba50e.ttf",
+      "s": 200,
+      "ct": "font/ttf"
+    },
+    {
+      "u": "http://47.94.146.53:8099/assets/ic-kai-headings-f73cfd7ba50e.ttf",
+      "s": 200,
+      "ct": "font/ttf"
+    },
+    {
+      "u": "http://47.94.146.53:8099/assets/ic-kai-headings-f73cfd7ba50e.ttf",
+      "s": 200,
+      "ct": "font/ttf"
+    },
+    {
+      "u": "http://47.94.146.53:8099/assets/ic-kai-headings-f73cfd7ba50e.ttf",
+      "s": 200,
+      "ct": "font/ttf"
+    },
+    {
+      "u": "http://47.94.146.53:8099/assets/ic-kai-headings-f73cfd7ba50e.ttf",
+      "s": 200,
+      "ct": "font/ttf"
+    },
+    {
+      "u": "http://47.94.146.53:8099/assets/ic-kai-headings-f73cfd7ba50e.ttf",
+      "s": 200,
+      "ct": "font/ttf"
+    },
+    {
+      "u": "http://47.94.146.53:8099/assets/ic-kai-headings-f73cfd7ba50e.ttf",
+      "s": 200,
+      "ct": "font/ttf"
+    },
+    {
+      "u": "http://47.94.146.53:8099/assets/ic-kai-headings-f73cfd7ba50e.ttf",
+      "s": 200,
+      "ct": "font/ttf"
+    },
+    {
+      "u": "http://47.94.146.53:8099/assets/ic-kai-headings-f73cfd7ba50e.ttf",
+      "s": 200,
+      "ct": "font/ttf"
+    },
+    {
+      "u": "http://47.94.146.53:8099/assets/ic-kai-headings-f73cfd7ba50e.ttf",
+      "s": 200,
+      "ct": "font/ttf"
+    },
+    {
+      "u": "http://47.94.146.53:8099/assets/ic-kai-headings-f73cfd7ba50e.ttf",
+      "s": 200,
+      "ct": "font/ttf"
+    },
+    {
+      "u": "http://47.94.146.53:8099/assets/ic-kai-headings-f73cfd7ba50e.ttf",
+      "s": 200,
+      "ct": "font/ttf"
+    },
+    {
+      "u": "http://47.94.146.53:8099/assets/ic-kai-headings-f73cfd7ba50e.ttf",
+      "s": 200,
+      "ct": "font/ttf"
+    },
+    {
+      "u": "http://47.94.146.53:8099/assets/ic-kai-headings-f73cfd7ba50e.ttf",
+      "s": 200,
+      "ct": "font/ttf"
+    },
+    {
+      "u": "http://47.94.146.53:8099/assets/ic-kai-headings-f73cfd7ba50e.ttf",
+      "s": 200,
+      "ct": "font/ttf"
+    },
+    {
+      "u": "http://47.94.146.53:8099/assets/ic-kai-headings-f73cfd7ba50e.ttf",
+      "s": 200,
+      "ct": "font/ttf"
+    },
+    {
+      "u": "http://47.94.146.53:8099/assets/ic-kai-headings-f73cfd7ba50e.ttf",
+      "s": 200,
+      "ct": "font/ttf"
+    },
+    {
+      "u": "http://47.94.146.53:8099/assets/ic-kai-headings-f73cfd7ba50e.ttf",
+      "s": 200,
+      "ct": "font/ttf"
+    },
+    {
+      "u": "http://47.94.146.53:8099/assets/ic-kai-headings-f73cfd7ba50e.ttf",
+      "s": 200,
+      "ct": "font/ttf"
+    },
+    {
+      "u": "http://47.94.146.53:8099/assets/ic-kai-headings-f73cfd7ba50e.ttf",
+      "s": 200,
+      "ct": "font/ttf"
+    },
+    {
+      "u": "http://47.94.146.53:8099/assets/ic-kai-headings-f73cfd7ba50e.ttf",
+      "s": 200,
+      "ct": "font/ttf"
+    },
+    {
+      "u": "http://47.94.146.53:8099/assets/ic-kai-headings-f73cfd7ba50e.ttf",
+      "s": 200,
+      "ct": "font/ttf"
+    }
+  ],
+  "styles": [
+    {
+      "u": "http://47.94.146.53:8099/css/style.css?v=20261012-14",
+      "s": 200
+    },
+    {
+      "u": "http://47.94.146.53:8099/css/style.css?v=20261012-14",
+      "s": 200
+    },
+    {
+      "u": "http://47.94.146.53:8099/css/style.css?v=20261012-14",
+      "s": 200
+    },
+    {
+      "u": "http://47.94.146.53:8099/css/style.css?v=20261012-14",
+      "s": 200
+    },
+    {
+      "u": "http://47.94.146.53:8099/css/style.css?v=20261012-14",
+      "s": 200
+    },
+    {
+      "u": "http://47.94.146.53:8099/css/style.css?v=20261012-14",
+      "s": 200
+    },
+    {
+      "u": "http://47.94.146.53:8099/css/style.css?v=20261012-14",
+      "s": 200
+    },
+    {
+      "u": "http://47.94.146.53:8099/css/style.css?v=20261012-14",
+      "s": 200
+    },
+    {
+      "u": "http://47.94.146.53:8099/css/style.css?v=20261012-14",
+      "s": 200
+    },
+    {
+      "u": "http://47.94.146.53:8099/css/style.css?v=20261012-14",
+      "s": 200
+    },
+    {
+      "u": "http://47.94.146.53:8099/css/style.css?v=20261012-14",
+      "s": 200
+    },
+    {
+      "u": "http://47.94.146.53:8099/css/style.css?v=20261012-14",
+      "s": 200
+    },
+    {
+      "u": "http://47.94.146.53:8099/css/style.css?v=20261012-14",
+      "s": 200
+    },
+    {
+      "u": "http://47.94.146.53:8099/css/style.css?v=20261012-14",
+      "s": 200
+    },
+    {
+      "u": "http://47.94.146.53:8099/css/style.css?v=20261012-14",
+      "s": 200
+    },
+    {
+      "u": "http://47.94.146.53:8099/css/style.css?v=20261012-14",
+      "s": 200
+    },
+    {
+      "u": "http://47.94.146.53:8099/css/style.css?v=20261012-14",
+      "s": 200
+    },
+    {
+      "u": "http://47.94.146.53:8099/css/style.css?v=20261012-14",
+      "s": 200
+    },
+    {
+      "u": "http://47.94.146.53:8099/css/style.css?v=20261012-14",
+      "s": 200
+    },
+    {
+      "u": "http://47.94.146.53:8099/css/style.css?v=20261012-14",
+      "s": 200
+    },
+    {
+      "u": "http://47.94.146.53:8099/css/style.css?v=20261012-14",
+      "s": 200
+    },
+    {
+      "u": "http://47.94.146.53:8099/css/style.css?v=20261012-14",
+      "s": 200
+    },
+    {
+      "u": "http://47.94.146.53:8099/css/style.css?v=20261012-14",
+      "s": 200
+    },
+    {
+      "u": "http://47.94.146.53:8099/css/style.css?v=20261012-14",
+      "s": 200
+    },
+    {
+      "u": "http://47.94.146.53:8099/css/style.css?v=20261012-14",
+      "s": 200
+    },
+    {
+      "u": "http://47.94.146.53:8099/css/style.css?v=20261012-14",
+      "s": 200
+    },
+    {
+      "u": "http://47.94.146.53:8099/css/style.css?v=20261012-14",
+      "s": 200
+    },
+    {
+      "u": "http://47.94.146.53:8099/css/style.css?v=20261012-14",
+      "s": 200
+    },
+    {
+      "u": "http://47.94.146.53:8099/css/style.css?v=20261012-14",
+      "s": 200
+    },
+    {
+      "u": "http://47.94.146.53:8099/css/style.css?v=20261012-14",
+      "s": 200
+    },
+    {
+      "u": "http://47.94.146.53:8099/css/style.css?v=20261012-14",
+      "s": 200
+    },
+    {
+      "u": "http://47.94.146.53:8099/css/style.css?v=20261012-14",
+      "s": 200
+    },
+    {
+      "u": "http://47.94.146.53:8099/css/style.css?v=20261012-14",
+      "s": 200
+    },
+    {
+      "u": "http://47.94.146.53:8099/css/style.css?v=20261012-14",
+      "s": 200
+    },
+    {
+      "u": "http://47.94.146.53:8099/css/style.css?v=20261012-14",
+      "s": 200
+    },
+    {
+      "u": "http://47.94.146.53:8099/css/style.css?v=20261012-14",
+      "s": 200
+    },
+    {
+      "u": "http://47.94.146.53:8099/css/style.css?v=20261012-14",
+      "s": 200
+    },
+    {
+      "u": "http://47.94.146.53:8099/css/style.css?v=20261012-14",
+      "s": 200
+    },
+    {
+      "u": "http://47.94.146.53:8099/css/style.css?v=20261012-14",
+      "s": 200
+    },
+    {
+      "u": "http://47.94.146.53:8099/css/style.css?v=20261012-14",
+      "s": 200
+    },
+    {
+      "u": "http://47.94.146.53:8099/css/style.css?v=20261012-14",
+      "s": 200
+    }
+  ]
+}

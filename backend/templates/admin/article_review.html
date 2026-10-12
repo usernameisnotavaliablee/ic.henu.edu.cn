@@ -6,7 +6,7 @@
 <p>{{ article.summary }}</p>
 <p>来源：{{ article.source }} · 日期：{{ article.date|default:"待提供" }}{% if article.is_placeholder %} · 示例内容{% endif %}</p>
 <img src="/assets/{{ article.image }}" alt="{{ article.image_alt }}" width="420">
-<div>{{ article.body|linebreaks }}</div>
+<div>{% include "site/plain_text_body.html" with body=article.body only %}</div>
 {% if can_review %}<form method="post">{% csrf_token %}{{ form.as_p }}<button type="submit">确认此操作</button></form>{% else %}<p>当前账号可查看草稿，审核需审核员账号。</p>{% endif %}
 <p><a href="{% url 'admin:content_article_change' article.pk %}">返回草稿</a> · <a href="{{ article.get_absolute_url }}">查看前台已批准版本</a></p>
 {% endblock %}

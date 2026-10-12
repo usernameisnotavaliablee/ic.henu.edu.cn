@@ -20,7 +20,7 @@ class ArticleFields(models.Model):
     category = models.CharField('栏目', max_length=10, choices=[('news', '学院新闻'), ('notice', '通知公告')])
     title = models.CharField('标题', max_length=160)
     summary = models.CharField('摘要', max_length=400)
-    body = models.TextField('正文', validators=[MaxLengthValidator(30000)], help_text='纯文本，空行分段；HTML会作为文字显示，不运行脚本。')
+    body = models.TextField('正文', validators=[MaxLengthValidator(30000)], help_text='纯文本，空行分段；小标题独占一段，以 ## 加空格开头，前后用空行分隔；HTML会作为文字显示，不运行脚本。')
     source = models.CharField('来源', max_length=100, default='学院提供（待核对）')
     date = models.DateField('展示日期', null=True, blank=True)
     image = models.CharField('配图', max_length=80, choices=IMAGE_CHOICES, default='chip-banner.svg')

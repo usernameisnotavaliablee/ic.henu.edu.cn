@@ -70,7 +70,7 @@ module.exports = {
     'research-platforms.html': { title: '研究平台', english: '', active: 'science-innovation.html', sections: ['平台概览', '平台介绍'] },
     'research-groups.html': { title: '课题组', english: '', active: 'science-innovation.html', sections: ['团队概览', '课题组介绍'] },
     'regulations.html': { title: '制度建设', english: '', active: 'public-service.html', sections: ['规章制度', '办事流程'] },
-    'party-building.html': { title: '党建党务', english: '', sections: ['党建动态', '学习园地'] },
+    'party-building.html': { title: '党建党务', english: 'PARTY BUILDING', sections: ['党建动态', '学习园地'] },
     'admissions.html': { title: '招生就业', english: '', active: 'talent-cultivation.html', sections: ['本科生招生', '研究生招生', '就业指导'] },
     'community.html': { title: '师生园地', english: '', active: 'talent-cultivation.html', sections: ['师生活动', '学生风采'] },
     'ic-world.html': { title: '芯片天地', english: '', active: 'science-innovation.html', sections: ['学科科普', '芯片与微纳世界'] },

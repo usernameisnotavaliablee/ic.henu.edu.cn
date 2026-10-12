@@ -137,7 +137,7 @@
   }
 
   // 不拦截原生滚轮：连续快滚能跨屏；手势停止后再柔和吸附。
-  if (isHome) {
+  if (isHome || document.querySelector('[data-overview-section]')) {
     const pagedDesktop = window.matchMedia('(min-width: 1100px) and (min-height: 600px) and (hover: hover) and (pointer: fine)');
     let wheelAt = 0;
     let gestureDistance = 0;
@@ -151,7 +151,7 @@
       const maximum = root.scrollHeight - innerHeight;
       // 过高区块提供起点与末端停靠；中间阅读区不强迫翻屏。
       const stops = [0, maximum];
-      const sections = [...document.querySelectorAll('[data-home-section], .site-footer')];
+      const sections = [...document.querySelectorAll('[data-home-section], [data-overview-section], .site-footer')];
       for (const section of sections) {
         const top = section.getBoundingClientRect().top + scrollY - offset;
         const bottom = top + section.offsetHeight - available;
@@ -164,6 +164,8 @@
       const before = points.filter(point => point <= scrollY).at(-1) ?? 0;
       const after = points.find(point => point > scrollY) ?? maximum;
       const target = fast ? (scrollY - before < after - scrollY ? before : after) : direction > 0 ? after : before;
+      // 内页只在分区边缘附近柔和对齐，避免跳过顶部介绍或长内容。
+      if (!isHome && Math.abs(target - scrollY) > Math.min(240, available * .3)) return;
       glideTo(target);
     };
     window.addEventListener('wheel', event => {
@@ -192,20 +194,20 @@
   reducedMotion.addEventListener('change', () => { motionPaused = reducedMotion.matches; syncMotion(); });
   syncMotion();
 
-  // 同一套 SVG 光流用于首页、科研和内页；离屏、后台和减少动态效果时停止。
-  const chipVisuals = [...document.querySelectorAll('[data-chip-visual]')];
-  const syncChips = () => chipVisuals.forEach(el => {
+  // 芯片光流与内页背景字共用可见性控制；离屏、后台和减少动态效果时停止。
+  const animatedVisuals = [...document.querySelectorAll('[data-chip-visual], [data-overview-section]')];
+  const syncVisuals = () => animatedVisuals.forEach(el => {
     el.classList.toggle('is-animating', el.dataset.inView === 'true' && !document.hidden && !motionPaused && !reducedMotion.matches);
   });
   if ('IntersectionObserver' in window) {
-    const chipObserver = new IntersectionObserver(entries => {
+    const visualObserver = new IntersectionObserver(entries => {
       entries.forEach(entry => { entry.target.dataset.inView = String(entry.isIntersecting); });
-      syncChips();
+      syncVisuals();
     });
-    chipVisuals.forEach(el => chipObserver.observe(el));
+    animatedVisuals.forEach(el => visualObserver.observe(el));
   }
-  document.addEventListener('visibilitychange', syncChips);
-  window.addEventListener('ic:motion', syncChips);
+  document.addEventListener('visibilitychange', syncVisuals);
+  window.addEventListener('ic:motion', syncVisuals);
 
   // 图片新闻：左侧标题与右侧大图联动，所有链接仍可直接进入详情。
   const gallery = document.querySelector('[data-news-gallery]');

@@ -3,5 +3,5 @@
 {% if entry.subtitle %}<p class="teacher-title">{{ entry.subtitle }}</p>{% endif %}
 {% if entry.summary and not hide_summary %}<p>{{ entry.summary|linebreaksbr }}</p>{% endif %}
 {% if entry.image %}<figure class="article-photo"><img src="/assets/{{ entry.image }}" alt="{{ entry.image_alt }}" loading="lazy"></figure>{% endif %}
-{% for part in entry.body|content_paragraphs %}{% if part.heading %}<h3>{{ part.text }}</h3>{% else %}<p>{{ part.text|linebreaksbr }}</p>{% endif %}{% endfor %}
+{% include "site/plain_text_body.html" with body=entry.body only %}
 {% if entry.source_url %}<p class="profile-source">资料来源：<a href="{{ entry.source_url }}" target="_blank" rel="noopener">{{ entry.source_label|default:'来源页面' }}</a></p>{% endif %}

@@ -73,7 +73,7 @@ check('三级招生菜单进入三个独立列表', len(education.all(lambda n: 
 for name, page in pages.items():
     ids = {n.attrs['id'] for n in page.all(lambda n: 'id' in n.attrs)}
     buttons = page.all(lambda n: n.has('subnav-toggle'))
-    check(name + '多级菜单目标完整、保留技术支持、无暂停按钮', all(b.attrs.get('aria-controls') in ids for b in buttons) and len(page.all(lambda n: n.attrs.get('href') == 'http://wz.henu.edu.cn/')) == 1 and not page.all(lambda n: 'data-pause' in n.attrs or 'data-motion-toggle' in n.attrs))
+    check(name + '多级菜单目标完整、保留技术支持、无暂停按钮', all(b.attrs.get('aria-controls') in ids for b in buttons) and len(page.all(lambda n: n.attrs.get('href') == 'https://hdwzgzs.cn/')) == 1 and not page.all(lambda n: 'data-pause' in n.attrs or 'data-motion-toggle' in n.attrs))
     for frame in page.all(lambda n: 'data-media' in n.attrs):
         assert len(frame.all(lambda n: n.tag == 'img')) == 1, name
         assert len(frame.all(lambda n: 'data-media-status' in n.attrs)) == 1, name
@@ -106,7 +106,7 @@ for key in catalog['slots']:
         assert ("collection_preview '" + collection['key'] + "'" if collection else "content_block '" + key + "'") in generated, key
 check('后台目录每个内容位置都有前台读取入口', True)
 check('动态页面共享联系与公众号配置', 'site_info.address' in frame and 'site/wechat.html' in frame and 'site_info.address' in server_home)
-check('数据库首页和文章外框同步新导航及加载脚本', all('招生就业' in html and 'js/media-loading.js' in html and 'http://wz.henu.edu.cn/' in html for html in [frame, server_home]))
+check('数据库首页和文章外框同步新导航及加载脚本', all('招生就业' in html and 'js/media-loading.js' in html and 'https://hdwzgzs.cn/' in html for html in [frame, server_home]))
 for file in ['home_pictures.html', 'detail.html']:
     source = (DOCS / 'backend/templates/site' / file).read_text(encoding='utf-8')
     check(file + '数据库图片复用加载反馈', 'data-media' in source and 'site/media_status.html' in source)

@@ -1,76 +1,57 @@
-# 47.94.146.53 隔离部署与恢复
+# 预览环境部署、备份与回退
 
-## 2026-10-12 当前打包检查
+本说明描述当前开发预览，不代表正式学校站点部署方案。历史过程已保留在 docs/历史版本/交付整理前_20261012/；最新实测依据为[小标题修复部署回执](../docs/内部资料/ClaudeCode小标题修复部署回执_20261012.md)。
 
-公网release `20261012.2` 的分页、48条演示内容和网页楷体已由Claude Code部署。Codex随后仅修正本地资源检查，未再次部署。实际使用清单见[公网与多设备人工核验清单](../docs/内部资料/公网与多设备人工核验清单.md)。
+## 当前部署基线
 
-- `python deployment/package_preview.py --check`：按字体清单核对构建后的 `frontend/preview` 字体与CSS、许可证及运行包白名单；失败则不能打包。只预检，不覆盖已有包。去掉 `--check` 才生成运行包。
-- `python deployment/check_showcase_offline.py`：在工作区检查48条演示材料，配图必须存在于实际运行目录 `frontend/preview/assets`。
-- `python deployment/test_release_assets.py`：离线回归缺清单、漏构建、缺字体/许可证、过期文件和只存在源码配图等情形。
-- 运行包只包含运行文件，保留不携带 `frontend/src` 的约定；准备字体和重建前端在工作区进行。新增检查无需安装依赖，也不要求为此重新部署当前正常网站。
-
-以下保留历次部署过程；旧的“公网未完成”等表述以最新部署记录为准。
-
-2026-10-12最新用户安排：允许直接在本项目服务器隔离目录安装和运行测试，本机不新增环境。安装依赖前先报告包、用途、位置和影响并等待确认；先完成私有8095部署和后台功能演示，专项安全验收、公网入口与Git提交推送后置。因此下文“本地全部测试后再打包”不是本轮私有测试部署的前置条件；从当前未提交工作区构建白名单包，在服务器跑系统/迁移检查与功能测试即可推进私有演示，仍须明确安全和其他未验收项。详细最新顺序见[ClaudeCode接续提示词](../docs/内部资料/ClaudeCode接续提示词.md)。
-
-2026-10-12 执行结果：**私有 8095 部分已实际部署并验收**。`/srv/ic-college` 已创建，白名单包
-（80 文件，SHA256 `25aec2f2…`）已上传校验并解压为 `releases/20261012.1`，venv 依赖已装并锁定，
-migrate/bootstrap_preview/collectstatic 已执行，`ic-preview.service` 监听 `127.0.0.1:8095`，
-功能闭环 27 项、测试 25 项全部通过。部署前后基线对照显示原站与既有服务（nginx、web-backend、FRP、
-docker、php8.1-fpm）状态、端口、原站响应字节与 nginx 配置哈希均未变化。
-完整证据见[服务器私有部署验收记录](../docs/内部资料/服务器私有部署验收记录.md)。
-
-2026-10-12 第二轮：**公网只读前台也已实际部署**。按用户要求采用「公网 IP + 端口」方式（80 已被原站占用、
-计划中的 8096 被云安全组拦截），最终选定 **8099** 作为项目专属公网端口：
-`ic-public-preview.service`（`IC_PUBLIC_ONLY=1`，仅监听 `127.0.0.1:8096`）已启用，
-新增 nginx 站点 `/etc/nginx/sites-available/ic-public` 监听 `0.0.0.0:8099` 反代到 8096，
-`ufw allow 8099/tcp`，阿里云安全组由用户加入方向 8099 规则。
-交付地址 **http://47.94.146.53:8099/**；管理后台仍只在 `127.0.0.1:8095` 走 SSH 隧道。
-前后台隔离、公网同步与草稿不外泄均已实测通过，详见
-[服务器公网前台部署验收记录](../docs/内部资料/服务器公网前台部署验收记录.md)。
-
-**仍然未执行**：HTTPS 入口、业务库恢复演练、Git 提交推送。
-下面第 8—9 步中，**通过反向代理提供的受保护公网入口已用 HTTP 方式完成**（尚无 HTTPS、无访问口令）；
-其余（测试域名、证书、只读 8096 的 HTTPS 化）待入口确定后再做。
-
-## 隔离约定
-
-| 用途 | 位置 |
+| 项目 | 当前记录 |
 |---|---|
-| 已有主站，不能覆盖 | `/srv/web/public` |
-| 已有后端，不能重启 | `/home/admin/web/backend`、`web-backend.service`、127.0.0.1:8080 |
-| FRP，不能占用 | 443 |
-| 本项目独立根目录 | `/srv/ic-college` |
-| 版本代码 | `/srv/ic-college/releases/<版本>`，`current`指向当前版本 |
-| 本项目Python环境 | `/srv/ic-college/venv` |
-| 数据、密钥、备份 | `/srv/ic-college/shared/data`、`shared/backups` |
-| 私有后台 | `ic-preview.service`，127.0.0.1:8095 |
-| 公网只读预览后端 | `ic-public-preview.service`，127.0.0.1:8096 |
+| 公网 | http://47.94.146.53:8099/，HTTP 开发预览 |
+| release | /srv/ic-college/releases/20261012.8 |
+| 运行代码 | 15e8dac；回执提交 73dce92 |
+| 服务 | ic-preview：127.0.0.1:8095；ic-public-preview：127.0.0.1:8096 |
+| 代理 | 项目专属 nginx 8099 → 8096；不代理后台 8095 |
+| 环境 | /srv/ic-college/venv |
+| 数据 | /srv/ic-college/shared/data |
+| 备份 | /srv/ic-college/shared/backups |
+| 迁移 | 0001—0005；0005 SQL no-op |
 
-只启动私有8095即可用SSH隧道完整演示。公网入口须使用确认的测试域名、可用HTTPS端口及访问保护；历史要求不允许覆盖已有80/443入口。当前未取得这些入口配置，因此不能编造公网链接，也不能将管理端口直接开放。
+密码、密钥和实际 env 文件通过私密渠道交接。后台仅通过 SSH 隧道访问：`ssh -N -L 8095:127.0.0.1:8095 <已授权用户>@47.94.146.53`。隧道需持续运行，与本地 Django 不能同时占用 8095。
 
-## 部署步骤
+public.env.example 是未来 HTTPS 场景模板，不是当前 HTTP 实际配置；不要原样覆盖已有 shared/public.env。当前 TLS/正式域名和正式上线事项由后续对接处理。
 
-1. 使用已有SSH密钥与已有主机指纹，只读确认登录用户、sudo权限、磁盘、内存、监听端口、上述现有服务和目录。保存不含敏感信息的核验结论。若8095或8096已占用，先重新选定空闲回环端口。
-2. 本地依赖安装和测试全部通过后运行 `python deployment/package_preview.py`，检查 `sandbox/deploy/manifest.json`。包只含前端输出、预览服务和部署脚本，不含数据库、凭据、原始参考包、教师底稿或全局环境。
-3. 在独立根目录创建 `releases/<版本>`、`shared/data`、`shared/backups` 和本项目低权限系统用户 `ic-preview`；代码归root所有，运行用户只读；shared归运行用户所有，目录700。上传白名单包并验证SHA256后解压到该版本目录。
-4. 用服务器已有Python3.10建立本项目venv，安装锁定依赖；若系统缺少venv支持，停止并记录实际需求，不随意升级系统Python。
-5. 按 `preview.env.example` 建立受限配置（600），设置 `IC_DATA_DIR`，用 `prepare_local.py` 初始化密钥。以运行用户执行 migrate、bootstrap_preview、collectstatic。新口令只保存在服务器私有shared目录，不打印到日志、不在部署包内传输本地口令。
-6. 先建立current链接，安装 `ic-preview.service`。校验服务文件后只启动该新服务，检查 `curl http://127.0.0.1:8095/healthz`。验证旧站HTTP响应及旧服务状态与部署前一致。
-7. 本机通过 `ssh -N -L 8095:127.0.0.1:8095 <已核实用户名>@47.94.146.53` 建隧道，再访问本机8095完成编辑、审核与前台演示。此处不预填未知登录用户名。
-8. 受保护HTTPS公网入口确定后，按 `public.env.example` 建立600权限的 `shared/public.env`，填入真实测试域名。公共 `preview.env` 保持 `IC_HTTPS=0`，仅公网实例通过 `public.env` 覆盖为1，避免私有后台的SSH隧道登录被HTTPS重定向打断。
-9. 启动独立只读8096服务，反向代理只接 `127.0.0.1:8096`，使用实际请求的Host，且必须通过 `proxy_set_header X-Forwarded-Proto $scheme;` 覆盖客户端传来的同名头。Waitress仅在公网HTTPS实例信任127.0.0.1的这一协议头，并据此设置WSGI协议，避免Django反复重定向；不信任转发的客户端IP。代理入口的HTTP请求应在代理层转为HTTPS，HTTPS还需访问保护。外部访问 `/preview-admin/` 必须404；不能代理8095。验证HTTPS首页无重定向循环、私有隧道仍可登录，并再次检查已有站点和FRP不受影响。
+## 后续发布顺序
 
-服务仅使用127.0.0.1，Django DEBUG关闭；不采用runserver。数据库、密钥和备份不在公开目录。systemd配置设置独立用户、资源上限和文件系统访问边界，尚未在远端执行验证。
+1. 核对分支、已提交代码和远端，保留队友修改。构建 `node frontend/scripts/build-site.js`，完成相应功能检查。
+2. `python deployment/package_preview.py --check` 校验实际运行资源和字体清单。去掉 --check 才生成 sandbox/deploy/ic-preview.tar.gz 和 manifest.json；这会更新本地部署包。
+3. 记录 current 指向，备份当前业务库与必要配置，在新的 releases/<版本> 解压并核对包哈希。代码与持久化数据分离，保留旧 release。
+4. 使用 /srv/ic-college/venv，沿用 shared 中已有环境设置和 IC_DATA_DIR，在新 release 执行 check、迁移检查、必要的 migrate、collectstatic 和测试。读取配置前确认是本项目路径；不要运行 bootstrap/seed。
+5. 验证后切换 current，仅重启 ic-preview 和 ic-public-preview，核对 healthz、动态正文、后台隔离和运行版本；失败切回原 release。迁移含数据变更时需另行评估回退，不能套用 0005 的 no-op 结论。
+6. 保存回执：提交哈希、release、资源版本、检查结果、备份与回退位置。不能声称更新了队友电脑上的本地仓库。
+
+只操作 /srv/ic-college 及本项目服务，不覆盖原站、不改 FRP 或其他 nginx 站点。本轮交付整理没有执行发布。
 
 ## 备份与恢复
 
-使用 `sqlite_backup.py backup <源库> <新备份文件>`。该脚本通过SQLite一致性接口复制，自动检查完整性与外键；拒绝覆盖已有文件，不能简单复制活动WAL数据库文件。
+```text
+python deployment/sqlite_backup.py backup <已有源库> <新的备份路径>
+python deployment/sqlite_backup.py verify <已有备份路径>
+```
 
-恢复时仅停止 `ic-preview` 和 `ic-public-preview` 两个项目服务，先另存故障库的完整备份；用backup命令将选定备份复制成新数据库，verify通过后在shared/data内切换数据库文件，保持600权限，再启动项目服务。核对文章数量、已批准内容、登录及healthz。不要停止Nginx、FRP或原web-backend。
+backup 使用 SQLite 一致性备份接口，校验完整性和外键，拒绝覆盖已有目标。活动 WAL 库不要直接只复制主文件。备份不进入 Git，不通过聊天传输。
 
-本轮标准库测试已验证“活动WAL数据库→一致性备份→复制恢复→查询内容一致”，并验证拒绝覆盖；完整Django业务库的恢复演练仍待环境运行后执行。正式定时备份与保留7份策略应在完成首次恢复演练后启用。
+恢复操作应先在隔离目录验证业务数据、页面及账号能用；生产恢复另行安排窗口。生产操作先停止本项目两个服务、另存当前完整库，再从备份生成新恢复文件，校验后切换并恢复正确属主/权限；保留原文件和回退路径，不能覆盖同期新增内容。配套保留密钥、环境配置与所用版本素材。完整生产恢复演练尚未完成。
 
-## 版本回退
+## 当前版本回退基线
 
-更新前记录current指向、备份数据库、保存旧发布包。新版本迁移先在备份副本验证；失败时停止本项目服务，恢复匹配版本数据库，将current切回旧版本后重启本项目。首次部署没有旧版本时，停止本项目两个服务即可隔离，不删除旧站文件或改旧站配置。
+根据最新回执，20261012.8 可切回 20261012.7 并重启本项目两个服务；0005 为 no-op，可保留迁移记录。对应部署前备份为 shared/backups/ic-preview-before-heading-fix-20261012.sqlite3，旧版本指向与服务记录在 shared/backups/release-before-heading-fix/。
+
+这里只记录已有方案，未在本轮执行线上回退。后续版本必须以其实际迁移和备份重新判断。
+
+## 辅助检查
+
+- test_backup.py：标准库临时 WAL 样例的备份/恢复/拒绝覆盖测试，不是完整业务库恢复演练。
+- test_release_assets.py：运行字体及配图资源检查的 7 项回归。
+- check_showcase_offline.py：早期 48 条演示材料的离线检查，不代表当前线上 80 条发布快照的数量或质量。
+
+安全专项、备份计划/保留策略与多角色人工验证交队友承接，详见[交接验收记录](../docs/内部资料/交接验收记录_20261012.md)。

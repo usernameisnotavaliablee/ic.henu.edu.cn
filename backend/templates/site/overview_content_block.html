@@ -1,0 +1,9 @@
+<section class="overview-section{% if muted %} overview-section--muted{% endif %}" id="{{ anchor }}" data-overview-section>
+  <span class="section-watermark section-watermark--{% if muted %}left{% else %}right{% endif %}" aria-hidden="true">{{ watermark }}</span>
+  <div class="container">
+    <div class="editorial-heading"><div><span lang="en">{{ watermark }}</span><h2>{{ heading }}</h2></div></div>
+    <div class="overview-prose">
+      {% if entry.is_visible %}{% if entry.title != heading %}<h3>{{ entry.title }}</h3>{% endif %}{% include "site/entry_body.html" %}{% else %}<p>本栏目资料待更新。</p>{% endif %}
+    </div>
+  </div>
+</section>
