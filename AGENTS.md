@@ -8,7 +8,18 @@ This file provides guidance to Codex (Codex.ai/code) when working with code in t
 
 ## 当前状态
 
-仓库处于初始化阶段：无代码、无构建/测试/lint 脚本，仅 `README.md`。技术栈**尚未确定**，不要擅自选定——必须先与用户确认。
+（2026-10-12 更新，取代此前的"初始化阶段"描述）
+
+技术栈已确定并经用户确认：**Django 5.2 + SQLite + Waitress**，前端为构建生成的静态页面。
+正式官网仍走学校博达站群，本项目是团队开发预览。
+
+- 代码分布：`frontend/`（前端源码与运行资源）、`backend/`（Django 应用）、`deployment/`（部署与打包）。
+- 在线环境：公网只读前台 `http://47.94.146.53:8099/`；后台 `127.0.0.1:8095` 仅回环 + SSH 隧道。
+- 服务器隔离目录 `/srv/ic-college`：`releases/<版本>`、`current`、`venv`、`shared/data`、`shared/backups`。
+- 本轮部署与录入的实测结果见
+  [Claude Code 本轮回执](docs/内部资料/ClaudeCode本轮部署与内容充实回执_20261012.md)；
+  交付文档与接口文档由 Codex/GPT 编写。
+- 当前分支 `codex/site-development`。
 
 ## 关键决策（已确定，不可自行更改）
 
@@ -33,20 +44,30 @@ This file provides guidance to Codex (Codex.ai/code) when working with code in t
 
 ## 文件与材料归档（重要）
 
-**所有产出材料一律直接放进本仓库工作区的子目录**（如 `docs/` 下），不要放在 `~/Codex` 等仓库外的临时目录。理由：这些材料要随仓库一起推到 GitHub，方便两人协作与后续接手。
+**所有产出材料一律放进本仓库工作区**，不要放在 `~/Codex` 等仓库外的临时目录。
+理由：这些材料要随仓库一起推到 GitHub，方便两人协作与后续接手。
 
-- 文档、调研报告、图片、HTML 存档等**全部入 `docs/` 子目录**并纳入版本管理。
-- **临时中间文件**可用 `~/Codex`，但任务结束前必须把有价值的成果移回工作区，并清理仓库外的残留。
-- **子 Agent 的产出同样适用**：分派任务时应在 prompt 里指定产出目录为工作区内的路径；若子 Agent 把文件写到了工作区外，**任务完成后必须移回工作区**。
-- 当前目录约定：
+- **临时中间文件**可用 `~/Codex` 或仓库内已 gitignore 的 `sandbox/`；任务结束前必须把有价值的成果
+  移回工作区，并清理仓库外的残留。
+- **子 Agent 的产出同样适用**：分派任务时应在 prompt 里指定产出目录为工作区内的路径。
+
+**目录约定（2026-10-12 起，取代此前"所有产出都放 docs/"的旧规则，该调整已获用户授权）：**
 
 ```
-docs/
-├── IC学院官网所需素材.md      # 官网所需内容清单 + 素材收集进度表（对外索取素材用）
-├── 教师简历汇总.md            # 教师简历底稿
-├── 河大各学院官网调研.md       # 26 个学院官网技术栈/栏目/后台调研
-└── assets/teachers/          # 教师照片 + source-html/ 源页面存档
+frontend/     前端源码 src/、运行资源 preview/、构建与检查脚本、licenses/、qa/（验收证据）
+backend/      Django 应用：config/、content/、templates/、迁移、测试、requirements
+deployment/   部署、打包、服务单元、环境模板、备份与验收脚本
+docs/         文档与素材档案
+  assets/         教师照片、来源网页存档、设计稿（素材来源记录）
+  内部资料/       交接、验收记录、调研报告、参考源码、样片、排版检查
+  发给老师/       对外沟通稿
+  历史版本/       旧版文档
+sandbox/      本地沙盒、虚拟环境、部署包、临时文件（gitignore，不入库）
 ```
+
+**判断归属**：正式运行素材归对应应用（`frontend/`、`backend/`）；参考素材与来源记录归 `docs/`；
+文档、调研、交付与接口说明归 `docs/`。临时文件、虚拟环境、数据库、凭据、日志、部署包、
+上传文件与大体积原始视频**不得提交 Git**。
 
 ## 工作方式
 

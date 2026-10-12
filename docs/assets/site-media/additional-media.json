@@ -1,0 +1,32 @@
+[
+  {
+    "id": "oscilloscope-waveform",
+    "file": "oscilloscope-waveform.jpg",
+    "title": "示波器正弦波形示意",
+    "author": "Pittigrilli",
+    "license": "CC BY-SA 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0/",
+    "source": "https://commons.wikimedia.org/wiki/File:Sine_wave_10_kHz_displayed_on_analog_oscilloscope.jpg",
+    "originalUrl": "https://upload.wikimedia.org/wikipedia/commons/0/0f/Sine_wave_10_kHz_displayed_on_analog_oscilloscope.jpg",
+    "description": "校外电子测量示意照片：Tektronix 7613 模拟示波器上的 10 kHz 正弦波。用于人才培养或课程实验配图，是演示占位素材，不代表本院设备、实验教学成果或测量数据。原图重新压缩为 JPEG，未裁切。",
+    "width": 1333,
+    "height": 1076,
+    "placeholder": true,
+    "verifiedOn": "2026-10-12"
+  },
+  {
+    "id": "microscopy-instruments",
+    "file": "microscopy-instruments.jpg",
+    "title": "微纳表征仪器示意",
+    "author": "ZEISS Microscopy",
+    "license": "CC BY-SA 2.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0/",
+    "source": "https://commons.wikimedia.org/wiki/File:Correlative_Microscopy_with_ZEISS_Shuttle%26Find_-_MERLIN_and_LSM_800_(16292616486).jpg",
+    "originalUrl": "https://upload.wikimedia.org/wikipedia/commons/d/dd/Correlative_Microscopy_with_ZEISS_Shuttle%26Find_-_MERLIN_and_LSM_800_%2816292616486%29.jpg",
+    "description": "校外仪器示意照片：ZEISS MERLIN 电子显微镜与 LSM 800 光学显微镜组合展示。用于科学与创新、微纳表征配图，是演示占位素材，不代表本院采购、拥有或使用这些设备；来源机构不为本站背书。已等比例缩放压缩，未裁切。",
+    "width": 1800,
+    "height": 825,
+    "placeholder": true,
+    "verifiedOn": "2026-10-12"
+  }
+]
