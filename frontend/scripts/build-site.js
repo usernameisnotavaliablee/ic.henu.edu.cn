@@ -132,7 +132,7 @@ function newsTabs(active) {
   return '<nav class="list-tabs" aria-label="资讯分类">' + [['news.html', '学院新闻'], ['notices.html', '通知公告'], ['media.html', '媒体掠影']].map(([url, title]) => `<a href="${url}"${url === active ? ' aria-current="page"' : ''}>${title}</a>`).join('') + '</nav>';
 }
 function collectionPreview(c) {
-  return `<section class="collection-preview" id="${c.anchor}" data-collection="${c.key}"><div class="collection-heading"><div><p class="collection-kicker">${c.layout === 'cards' ? '探索与了解' : '信息与动态'}</p><h2>${escape(c.title)}</h2></div><a href="${c.url}">查看全部 <span aria-hidden="true">↗</span></a></div>${previewItems(c, c.url)}</section>`;
+  return `<section class="collection-preview overview-section${c.position % 2 === 0 ? ' overview-section--muted' : ''}" id="${c.anchor}" data-overview-section data-collection="${c.key}"><span class="section-watermark section-watermark--${c.position % 2 === 0 ? 'left' : 'right'}" aria-hidden="true">${c.watermark}</span><div class="container"><div class="editorial-heading"><div><span lang="en">${c.watermark}</span><h2>${escape(c.title)}</h2></div><a href="${c.url}">查看全部 <span aria-hidden="true">↗</span></a></div>${previewItems(c, c.url)}</div></section>`;
 }
 function previewItems(c, href) {
   const covers = ['oscilloscope-waveform.jpg', 'microscopy-instruments.jpg', 'wafer-closeup.jpg'];
@@ -160,22 +160,32 @@ for (const [file, config] of Object.entries(site.pages)) {
       contentSlots.push({ key, label: config.title + ' / ' + section, anchor: `section-${i + 1}`, html, collection: collection.key });
       return html;
     }
+    if (file === 'about.html') {
+      const watermark = ['INTRODUCTION', 'ORGANIZATION', 'LEADERSHIP'][i];
+      const muted = i % 2 === 1;
+      const html = `<section class="overview-section${muted ? ' overview-section--muted' : ''}" id="section-${i + 1}" data-overview-section data-content-key="${key}"><span class="section-watermark section-watermark--${muted ? 'left' : 'right'}" aria-hidden="true">${watermark}</span><div class="container"><div class="editorial-heading"><div><span lang="en">${watermark}</span><h2>${escape(section)}</h2></div></div><div class="overview-prose">${body}</div>${i === 0 ? photograph : ''}</div></section>`;
+      contentSlots.push({ key, label: config.title + ' / ' + section, anchor: `section-${i + 1}`, html, overview: true, title: section, watermark, muted });
+      return html;
+    }
     const html = `<section class="placeholder-block" id="section-${i + 1}" data-content-key="${key}"><h2>${escape(section)}</h2>${body}</section>`;
     contentSlots.push({ key, label: config.title + ' / ' + section, anchor: `section-${i + 1}`, html });
     return html;
   }).join('');
   const relatedPages = { 'science-innovation.html': [['research-platforms.html', '研究平台'], ['research-groups.html', '课题组']], 'talent-cultivation.html': [['admissions.html', '招生就业'], ['community.html', '师生园地']], 'public-service.html': [['regulations.html', '制度建设与办事流程'], ['site-map.html', '网站导航'], ['contact.html', '联系学院']] };
   const links = (relatedPages[file] || []).map(([href, title]) => `<a href="${href}"><h3>${title}</h3><span>进入栏目 →</span></a>`).join('');
-  inner(file, config.title, config.english, (file === 'media.html' ? newsTabs(file) : '') + photograph + previewNote + (links ? `<nav class="research-topics" aria-label="相关栏目">${links}</nav>` : '') + sections, config.active || file);
+  const isOverview = file === 'about.html' || collections.some(c => c.page === file);
+  const related = (relatedPages[file] || []).map(([href, title]) => `<a href="${href}">${title}<span aria-hidden="true"> ↗</span></a>`).join('');
+  const overview = (file === 'media.html' ? newsTabs(file) : '') + previewNote + `<div class="overview-sections">${sections}</div>` + (related ? `<nav class="overview-related" aria-label="相关栏目"><span>相关栏目</span>${related}</nav>` : '');
+  inner(file, config.title, config.english, isOverview ? overview : (file === 'media.html' ? newsTabs(file) : '') + photograph + previewNote + (links ? `<nav class="research-topics" aria-label="相关栏目">${links}</nav>` : '') + sections, config.active || file);
 }
 
 for (const c of collections) {
   c.active = site.pages[c.page].active || c.page;
   const siblings = collections.filter(other => other.page === c.page);
-  const side = `<aside class="collection-sidebar"><h2>${escape(site.pages[c.page].title)}</h2><nav aria-label="同级栏目">${siblings.map(s => `<a href="${s.url}"${s.key === c.key ? ' aria-current="page"' : ''}>${escape(s.title)}</a>`).join('')}</nav></aside>`;
+  const side = siblings.length > 1 ? `<aside class="collection-sidebar"><h2>${escape(site.pages[c.page].title)}</h2><nav aria-label="同级栏目">${siblings.map(s => `<a href="${s.url}"${s.key === c.key ? ' aria-current="page"' : ''}>${escape(s.title)}</a>`).join('')}</nav></aside>` : '';
   const detailFile = `layout-${c.slug}.html`;
   const empty = '<p class="page-note">本地版式预览：以下是布局占位，不是已发布的业务内容。运行版从后台读取真实条目。</p>' + previewItems(c, detailFile);
-  inner(c.url, c.title, '', `${c.page === 'media.html' ? newsTabs('media.html') : ''}<div class="collection-layout">${side}<div>${empty}</div></div>`, c.active);
+  inner(c.url, c.title, '', `${c.page === 'media.html' ? newsTabs('media.html') : ''}<div class="${side ? 'collection-layout' : 'collection-single'}">${side}<div>${empty}</div></div>`, c.active);
   c.parents = routeCatalog[c.slug].parents;
   inner(detailFile, c.title + '详情版式', '', `<article class="article"><p class="page-note">此页面只用于检查栏目到详情的层级。正式正文由后台录入。</p><h2>内容标题待填写</h2><p class="article-meta">日期待填写 · 来源待填写</p><p>这里展示完整内容；列表页只展示标题、摘要和配图，不再直接铺开全文。</p>${c.key === 'science-innovation.section-1' ? '<h2>相关课题组</h2><p>在后台为多个课题组选择这个研究方向后，这里显示相应卡片。</p><a href="research-groups-section-1.html">查看课题组列表 →</a>' : ''}<a class="back-link" href="${c.url}">← 返回${escape(c.title)}</a></article>`, c.active);
   // 详情版式明确显示中间层级，静态占位不进入服务端业务路由。
@@ -250,6 +260,8 @@ for (const [file, html] of pages) {
   for (const slot of contentSlots) {
     if (slot.collection) {
       if (slot.key === slot.collection) dynamic = dynamic.replace(loadingMedia(slot.html), `{% collection_preview '${slot.collection}' %}`);
+    } else if (slot.overview) {
+      dynamic = dynamic.replace(loadingMedia(slot.html), `{% content_block '${slot.key}' as entry %}{% if entry %}{% include "site/overview_content_block.html" with anchor="${slot.anchor}" heading="${slot.title}" watermark="${slot.watermark}" muted=${slot.muted ? 'True' : 'False'} %}{% else %}${loadingMedia(slot.html)}{% endif %}`);
     } else dynamic = dynamic.replace(loadingMedia(slot.html), `{% content_block '${slot.key}' as entry %}{% if entry %}{% include "site/content_block.html" with anchor="${slot.anchor}" %}{% else %}${loadingMedia(slot.html)}{% endif %}`);
   }
   fs.writeFileSync(path.join(templates, file), '{% load content_slots %}\n' + serverChrome(dynamic));

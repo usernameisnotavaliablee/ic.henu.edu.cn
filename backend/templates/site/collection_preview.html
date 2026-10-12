@@ -1,4 +1,5 @@
-<section class="collection-preview" id="{{ collection.anchor }}" data-collection="{{ collection.key }}">
-<div class="collection-heading"><div><p class="collection-kicker">{% if collection.layout == 'cards' %}探索与了解{% else %}信息与动态{% endif %}</p><h2>{{ collection.title }}</h2></div><a href="/{{ collection.url }}">查看全部（{{ total }}） ↗</a></div>
+<section class="collection-preview overview-section{% if collection.position|divisibleby:2 %} overview-section--muted{% endif %}" id="{{ collection.anchor }}" data-overview-section data-collection="{{ collection.key }}">
+<span class="section-watermark section-watermark--{% if collection.position|divisibleby:2 %}left{% else %}right{% endif %}" aria-hidden="true">{{ collection.watermark }}</span>
+<div class="container"><div class="editorial-heading"><div><span lang="en">{{ collection.watermark }}</span><h2>{{ collection.title }}</h2></div><a href="/{{ collection.url }}">查看全部（{{ total }}） <span aria-hidden="true">↗</span></a></div>
 {% include "site/collection_items.html" %}
-</section>
+</div></section>

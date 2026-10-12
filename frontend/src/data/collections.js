@@ -15,6 +15,7 @@ const rows = [
 module.exports = rows.map(([page, index, title, layout]) => ({
   key: `${page}.section-${index}`, page: `${page}.html`, title, layout,
   slug: `${page}-section-${index}`, url: `${page}-section-${index}.html`,
-  anchor: `section-${index}`,
+  anchor: `section-${index}`, position: index,
+  watermark: ({'science-innovation': ['RESEARCH', 'PROGRESS', 'EXCHANGE'], 'talent-cultivation': ['EDUCATION', 'CURRICULUM'], admissions: ['ADMISSIONS', 'GRADUATE', 'CAREERS'], community: ['CAMPUS', 'STUDENTS'], regulations: ['POLICY', 'SERVICES'], 'party-building': ['PARTY', 'LEARNING'], 'research-platforms': ['PLATFORMS'], 'research-groups': ['TEAMS'], 'ic-world': ['SCIENCE', 'MICRO NANO'], media: ['MEDIA'], 'public-service': ['SERVICES'], careers: ['CAREERS']})[page][index - 1],
   legacyKeys: [ `${page}.section-${index}`, ...(['research-platforms', 'research-groups'].includes(page) ? [`${page}.section-2`] : []) ],
 }));
