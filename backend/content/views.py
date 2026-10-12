@@ -37,6 +37,25 @@ def listing(request, category):
 
 @require_safe
 def detail_or_page(request, slug):
+    from .collections import definitions, items, resolve, get_collection
+    collection = next((c for c in definitions() if c['slug'] == slug), None)
+    if collection:
+        page = Paginator(items(request, collection['key']), 9 if collection['layout'] == 'cards' else 10).get_page(request.GET.get('page'))
+        return render(request, 'site/collection.html', {
+            'collection': collection, 'page': page, 'page_heading': collection['title'],
+            'active_page': collection['active'], 'breadcrumbs': collection['parents'],
+            'siblings': [c for c in definitions() if c['page'] == collection['page']],
+        })
+    if slug.startswith(('entry-', 'record-')):
+        collection, entry = resolve(request, slug)
+        if not entry:
+            raise Http404
+        related = [r for r in items(request, 'research-groups.section-1') if r.get('direction') == entry['key']]
+        return render(request, 'site/collection_detail.html', {
+            'entry': entry, 'collection': collection, 'related': related, 'group_collection': get_collection('research-groups.section-1'),
+            'page_heading': entry['title'], 'active_page': collection['active'],
+            'breadcrumbs': collection['parents'] + [{'href': collection['url'], 'label': collection['title']}],
+        })
     if slug == 'faculty':
         return render(request, 'site/faculty.html', {'page_heading': '师资队伍', 'page_english': 'FACULTY', 'teachers': teachers(request), 'active_page': 'faculty.html'})
     if slug.startswith('teacher-'):

@@ -1,0 +1,4 @@
+<section class="collection-preview" id="{{ collection.anchor }}" data-collection="{{ collection.key }}">
+<div class="collection-heading"><div><p class="collection-kicker">{% if collection.layout == 'cards' %}探索与了解{% else %}信息与动态{% endif %}</p><h2>{{ collection.title }}</h2></div><a href="/{{ collection.url }}">查看全部（{{ total }}） ↗</a></div>
+{% include "site/collection_items.html" %}
+</section>

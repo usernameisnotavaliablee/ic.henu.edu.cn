@@ -1,4 +1,4 @@
-module.exports = [
+module.exports = [...require('../../../docs/assets/site-media/additional-media.json'),
   {
     "id": "wafer-closeup",
     "title": "硅晶圆近景",

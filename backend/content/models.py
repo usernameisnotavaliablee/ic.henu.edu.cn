@@ -9,6 +9,10 @@ IMAGE_CHOICES = [
     ('campus-courtyard.jpg', '校园庭院（占位）'), ('campus-landscape.jpg', '校园风光（占位）'),
     ('campus-building.jpg', '校园楼宇（占位）'), ('wafer-closeup.jpg', '硅晶圆（学科示意）'),
     ('cleanroom-lcn.jpg', '校外洁净室（示意）'),
+    ('oscilloscope-waveform.jpg', '示波器波形（校外示意）'),
+    ('microscopy-instruments.jpg', '微纳表征仪器（校外示意）'),
+    ('wafer-12inch.jpg', '12英寸晶圆（学科示意）'),
+    ('wafer-display.jpg', '晶圆与器件展品（科普示意）'),
 ]
 
 class ArticleFields(models.Model):
@@ -76,6 +80,8 @@ CONTENT_FIELDS = ('slug', 'category', 'title', 'summary', 'body', 'source', 'dat
 
 
 class ContentEntry(models.Model):
+    collection = models.CharField('所属列表栏目', max_length=100, blank=True, help_text='新增栏目文章、方向、平台或团队时选择；每个栏目可新增多条。')
+    direction = models.CharField('关联研究方向', max_length=100, blank=True, help_text='课题组可关联一条已发布的研究方向。')
     key = models.CharField('内容位置', max_length=100, unique=True, help_text='从页面位置选择；新增教师使用 teacher- 开头的英文标识。保存后不可更换。')
     title = models.CharField('标题／姓名', max_length=160)
     subtitle = models.CharField('副标题／职称', max_length=200, blank=True)
@@ -107,8 +113,19 @@ class ContentEntry(models.Model):
         from .editable import catalog, asset_choices
         super().clean()
         allowed = catalog()['slots']
-        if self.key != 'site' and self.key not in allowed and not re.fullmatch(r'teacher-[a-z0-9]+(?:-[a-z0-9]+)*', self.key):
+        if self.key != 'site' and self.key not in allowed and not re.fullmatch(r'(teacher|entry)-[a-z0-9]+(?:-[a-z0-9]+)*', self.key):
             raise ValidationError({'key': '请选择现有栏目位置，或使用 teacher- 开头的教师标识。'})
+        collections = {c['key']: c for c in catalog().get('collections', [])}
+        if self.key.startswith('entry-') and self.collection not in collections:
+            raise ValidationError({'collection': '新增条目必须选择有效栏目。'})
+        if not self.key.startswith('entry-') and self.collection:
+            raise ValidationError({'collection': '原有固定位置无需选择栏目；请通过新增栏目条目创建多篇内容。'})
+        if self.direction:
+            target = type(self).objects.filter(key=self.direction).first()
+            snapshot = target.published if target else {}
+            target_collection = snapshot.get('collection') or ('science-innovation.section-1' if self.direction == 'science-innovation.section-1' else '')
+            if self.collection != 'research-groups.section-1' or target_collection != 'science-innovation.section-1' or not snapshot.get('is_visible', False):
+                raise ValidationError({'direction': '请选择已发布的研究方向，仅课题组使用此关联。'})
         if self.pk and type(self).objects.filter(pk=self.pk).exclude(key=self.key).exists():
             raise ValidationError({'key': '内容位置不能更换，请新增对应条目。'})
         assets = dict(asset_choices())

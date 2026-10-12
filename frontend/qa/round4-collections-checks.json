@@ -1,0 +1,32 @@
+{
+  "base": "http://47.94.146.53:8099",
+  "itemCounts": {
+    "admissions-section-1": 3,
+    "admissions-section-2": 3,
+    "admissions-section-3": 10,
+    "science-innovation-section-1": 4,
+    "science-innovation-section-2": 4,
+    "science-innovation-section-3": 4,
+    "research-platforms-section-1": 5,
+    "research-groups-section-1": 7,
+    "regulations-section-1": 4,
+    "regulations-section-2": 4,
+    "party-building-section-1": 4,
+    "party-building-section-2": 4,
+    "community-section-1": 4,
+    "community-section-2": 4,
+    "ic-world-section-1": 4,
+    "ic-world-section-2": 4,
+    "media-section-1": 4,
+    "talent-cultivation-section-1": 4,
+    "talent-cultivation-section-2": 4,
+    "public-service-section-1": 4,
+    "careers-section-1": 4
+  },
+  "admissionsPaginationUrl": "http://47.94.146.53:8099/admissions-section-3.html?page=2",
+  "admissionsPagination": "共 12 条 · 第 1 / 2 页 下一页",
+  "sampleDetailUrl": "http://47.94.146.53:8099/entry-career-resume-ability.html",
+  "directionDetailUrl": "http://47.94.146.53:8099/entry-direction-circuit-system.html",
+  "checks": 53,
+  "failures": []
+}

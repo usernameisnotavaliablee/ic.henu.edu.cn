@@ -1,0 +1,6 @@
+<div class="collection-items collection-items--{{ collection.layout }}">
+{% for item in items %}<a class="collection-item" href="/{{ item.url }}">
+{% if collection.layout == 'cards' %}{% if item.image %}<img src="/assets/{{ item.image }}" alt="{{ item.image_alt }}" loading="lazy" width="640" height="360">{% else %}<div class="collection-cover" aria-hidden="true">{{ collection.title }}</div>{% endif %}{% endif %}
+<div class="collection-item-copy"><span class="collection-meta">{{ item.date|default:'日期待提供' }}{% if item.source_label %} · {{ item.source_label }}{% endif %}</span><h3>{{ item.title }}</h3><p>{{ item.summary|truncatechars:140 }}</p><span class="collection-read">查看详情 →</span></div></a>
+{% empty %}<div class="collection-empty-state"><p>暂无已发布内容，资料将陆续更新。</p></div>{% endfor %}
+</div>
