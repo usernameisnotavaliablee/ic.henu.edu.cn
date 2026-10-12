@@ -1,0 +1,174 @@
+{
+  "checks": [
+    {
+      "path": ".env",
+      "expected_ignored": true,
+      "actual_ignored": true,
+      "passed": true
+    },
+    {
+      "path": ".env.production",
+      "expected_ignored": true,
+      "actual_ignored": true,
+      "passed": true
+    },
+    {
+      "path": "preview.env",
+      "expected_ignored": true,
+      "actual_ignored": true,
+      "passed": true
+    },
+    {
+      "path": "deployment/public.env",
+      "expected_ignored": true,
+      "actual_ignored": true,
+      "passed": true
+    },
+    {
+      "path": "backend/ic-preview.db-wal",
+      "expected_ignored": true,
+      "actual_ignored": true,
+      "passed": true
+    },
+    {
+      "path": "backend/ic-preview.db-shm",
+      "expected_ignored": true,
+      "actual_ignored": true,
+      "passed": true
+    },
+    {
+      "path": "backend/ic-preview.sqlite3-journal",
+      "expected_ignored": true,
+      "actual_ignored": true,
+      "passed": true
+    },
+    {
+      "path": "sandbox/data/ic-preview.sqlite3",
+      "expected_ignored": true,
+      "actual_ignored": true,
+      "passed": true
+    },
+    {
+      "path": "sandbox/conda-envs/font-tools/python.exe",
+      "expected_ignored": true,
+      "actual_ignored": true,
+      "passed": true
+    },
+    {
+      "path": "sandbox/deploy/ic-preview.tar.gz",
+      "expected_ignored": true,
+      "actual_ignored": true,
+      "passed": true
+    },
+    {
+      "path": "uploads/photo.jpg",
+      "expected_ignored": true,
+      "actual_ignored": true,
+      "passed": true
+    },
+    {
+      "path": "backend/media/photo.jpg",
+      "expected_ignored": true,
+      "actual_ignored": true,
+      "passed": true
+    },
+    {
+      "path": "logs/access.json",
+      "expected_ignored": true,
+      "actual_ignored": true,
+      "passed": true
+    },
+    {
+      "path": "backups/dump.sql",
+      "expected_ignored": true,
+      "actual_ignored": true,
+      "passed": true
+    },
+    {
+      "path": "backend/access.txt",
+      "expected_ignored": true,
+      "actual_ignored": true,
+      "passed": true
+    },
+    {
+      "path": "id_ed25519",
+      "expected_ignored": true,
+      "actual_ignored": true,
+      "passed": true
+    },
+    {
+      "path": "private.pfx",
+      "expected_ignored": true,
+      "actual_ignored": true,
+      "passed": true
+    },
+    {
+      "path": "node_modules/example/index.js",
+      "expected_ignored": true,
+      "actual_ignored": true,
+      "passed": true
+    },
+    {
+      "path": "deployment/preview.env.example",
+      "expected_ignored": false,
+      "actual_ignored": false,
+      "passed": true
+    },
+    {
+      "path": "deployment/public.env.example",
+      "expected_ignored": false,
+      "actual_ignored": false,
+      "passed": true
+    },
+    {
+      "path": ".env.example",
+      "expected_ignored": false,
+      "actual_ignored": false,
+      "passed": true
+    },
+    {
+      "path": ".env.production.example",
+      "expected_ignored": false,
+      "actual_ignored": false,
+      "passed": true
+    },
+    {
+      "path": "sandbox/README.md",
+      "expected_ignored": false,
+      "actual_ignored": false,
+      "passed": true
+    },
+    {
+      "path": "HANDOFF.md",
+      "expected_ignored": false,
+      "actual_ignored": false,
+      "passed": true
+    },
+    {
+      "path": "AGENTS.md",
+      "expected_ignored": false,
+      "actual_ignored": false,
+      "passed": true
+    },
+    {
+      "path": "backend/content/migrations/0005_article_body_heading_help.py",
+      "expected_ignored": false,
+      "actual_ignored": false,
+      "passed": true
+    },
+    {
+      "path": "frontend/src/assets/ic-kai-headings-f73cfd7ba50e.ttf",
+      "expected_ignored": false,
+      "actual_ignored": false,
+      "passed": true
+    },
+    {
+      "path": "frontend/qa/current-design-browser.json",
+      "expected_ignored": false,
+      "actual_ignored": false,
+      "passed": true
+    }
+  ],
+  "tracked_but_now_ignored": [],
+  "passed": true
+}
