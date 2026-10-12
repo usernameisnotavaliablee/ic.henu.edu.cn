@@ -1,0 +1,104 @@
+{
+  "date": "2026-10-12",
+  "scope": "All 22 static pages, 2 generated backend templates and shared static chip image; source consistency only, not browser QA",
+  "pages": [
+    {
+      "page": "frontend/preview/about.html",
+      "matching_inline_chips": 1
+    },
+    {
+      "page": "frontend/preview/careers.html",
+      "matching_inline_chips": 1
+    },
+    {
+      "page": "frontend/preview/contact.html",
+      "matching_inline_chips": 1
+    },
+    {
+      "page": "frontend/preview/faculty.html",
+      "matching_inline_chips": 1
+    },
+    {
+      "page": "frontend/preview/image-credits.html",
+      "matching_inline_chips": 1
+    },
+    {
+      "page": "frontend/preview/index.html",
+      "matching_inline_chips": 2
+    },
+    {
+      "page": "frontend/preview/news-preview-1.html",
+      "matching_inline_chips": 1
+    },
+    {
+      "page": "frontend/preview/news-preview-2.html",
+      "matching_inline_chips": 1
+    },
+    {
+      "page": "frontend/preview/news-preview-3.html",
+      "matching_inline_chips": 1
+    },
+    {
+      "page": "frontend/preview/news-preview-4.html",
+      "matching_inline_chips": 1
+    },
+    {
+      "page": "frontend/preview/news.html",
+      "matching_inline_chips": 1
+    },
+    {
+      "page": "frontend/preview/notice-preview-1.html",
+      "matching_inline_chips": 1
+    },
+    {
+      "page": "frontend/preview/notice-preview-2.html",
+      "matching_inline_chips": 1
+    },
+    {
+      "page": "frontend/preview/notice-preview-3.html",
+      "matching_inline_chips": 1
+    },
+    {
+      "page": "frontend/preview/notices.html",
+      "matching_inline_chips": 1
+    },
+    {
+      "page": "frontend/preview/public-service.html",
+      "matching_inline_chips": 1
+    },
+    {
+      "page": "frontend/preview/science-innovation.html",
+      "matching_inline_chips": 1
+    },
+    {
+      "page": "frontend/preview/site-map.html",
+      "matching_inline_chips": 1
+    },
+    {
+      "page": "frontend/preview/talent-cultivation.html",
+      "matching_inline_chips": 1
+    },
+    {
+      "page": "frontend/preview/teacher-cheng-gang.html",
+      "matching_inline_chips": 1
+    },
+    {
+      "page": "frontend/preview/teacher-zhang-jinlong.html",
+      "matching_inline_chips": 1
+    },
+    {
+      "page": "frontend/preview/teacher-zheng-haiwu.html",
+      "matching_inline_chips": 1
+    },
+    {
+      "page": "preview-server/templates/site/generated/frame.html",
+      "matching_inline_chips": 1
+    },
+    {
+      "page": "preview-server/templates/site/generated/home.html",
+      "matching_inline_chips": 2
+    }
+  ],
+  "shared_svg": "passed",
+  "total_inline_chips": 26
+}

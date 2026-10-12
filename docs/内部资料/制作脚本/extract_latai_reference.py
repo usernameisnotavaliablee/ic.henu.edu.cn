@@ -13,6 +13,8 @@ FILES = {
     "BODA_CMS_COMPONENT_TEMPLATES.md", "DEPLOYMENT.md", "EDITOR_GUIDE.md",
     "src/assets/henu-logo-clean.png", "src/assets/henu-logo.png",
     "src/assets/campus-gate-2026.jpg",
+    "src/assets/faculty-hero-campus.png", "src/assets/contact-hero-cropped.png",
+    "src/assets/kechuang-xilou.jpg",
 }
 
 

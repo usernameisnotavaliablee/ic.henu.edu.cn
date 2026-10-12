@@ -1,0 +1,20 @@
+{
+  "scope": "offline-only",
+  "news": 24,
+  "notices": 24,
+  "unique_slugs": 48,
+  "long_articles": 6,
+  "python_ast_checked": [
+    "backend/content/demo_content.py",
+    "backend/content/management/commands/seed_showcase.py",
+    "backend/content/views.py",
+    "backend/content/test_showcase.py",
+    "frontend/scripts/prepare-fonts.py",
+    "deployment/package_preview.py",
+    "deployment/release_assets.py"
+  ],
+  "django_tests": "not-run-by-this-script",
+  "image_assets_checked": "frontend/preview/assets",
+  "font_assets": "check-with-prepare-fonts.py --check-and-package-preview.py",
+  "server_deployment": "not-checked"
+}

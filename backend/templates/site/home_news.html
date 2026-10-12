@@ -1,0 +1,1 @@
+{% for item in news %}<li><a class="news-select{% if forloop.first %} is-active{% endif %}" data-news-select href="{{ item.get_absolute_url }}"><div><h3>{{ item.title }}</h3><span>{{ item.date|date:"Y-m-d"|default:"日期待提供" }}</span></div><p>{{ item.summary }}</p></a></li>{% empty %}<li class="page-note">暂无已批准的新闻。</li>{% endfor %}

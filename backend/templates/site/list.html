@@ -1,0 +1,19 @@
+{% extends "site/generated/frame.html" %}
+{% block body %}
+<nav class="list-tabs" aria-label="资讯分类"><a href="news.html"{% if category == 'news' %} aria-current="page"{% endif %}>学院新闻</a><a href="notices.html"{% if category == 'notice' %} aria-current="page"{% endif %}>通知公告</a></nav>
+<p class="page-note">开发预览 · 仅展示已批准的内容，未接入学校正式发布。</p>
+<ul class="article-list">{% for item in page %}<li><a href="{{ item.get_absolute_url }}"><h2>{{ item.title }}</h2><p>{{ item.summary }}</p><span class="preview-label">{{ item.date|date:"Y-m-d"|default:"日期待提供" }}{% if item.is_placeholder %} · 内容占位{% endif %}</span></a></li>{% empty %}<li>暂无已批准的内容。</li>{% endfor %}</ul>
+<nav class="pagination" aria-label="{% if category == 'news' %}新闻{% else %}通知{% endif %}列表分页">
+  <p class="pagination-summary">共 {{ page.paginator.count }} 条 · 每页 {{ page.paginator.per_page }} 条 · 第 {{ page.number }} / {{ page.paginator.num_pages }} 页</p>
+  {% if page.paginator.num_pages > 1 %}
+  <div class="pagination-links">
+    {% if page.has_previous %}<a href="?page=1" aria-label="前往第一页">首页</a><a href="?page={{ page.previous_page_number }}" rel="prev">上一页</a>{% else %}<span aria-disabled="true">首页</span><span aria-disabled="true">上一页</span>{% endif %}
+    {% for number in page_numbers %}{% if number == page.paginator.ELLIPSIS %}<span class="pagination-ellipsis">{{ number }}</span>{% elif number == page.number %}<span aria-current="page" aria-label="当前第 {{ number }} 页">{{ number }}</span>{% else %}<a href="?page={{ number }}" aria-label="前往第 {{ number }} 页">{{ number }}</a>{% endif %}{% endfor %}
+    {% if page.has_next %}<a href="?page={{ page.next_page_number }}" rel="next">下一页</a><a href="?page={{ page.paginator.num_pages }}" aria-label="前往最后一页">末页</a>{% else %}<span aria-disabled="true">下一页</span><span aria-disabled="true">末页</span>{% endif %}
+  </div>
+  <form class="pagination-jump" method="get" action="{% if category == 'news' %}{% url 'news' %}{% else %}{% url 'notices' %}{% endif %}">
+    <label for="page-number">跳至第</label><input id="page-number" name="page" type="number" inputmode="numeric" min="1" max="{{ page.paginator.num_pages }}" step="1" value="{{ page.number }}" required aria-label="页码，1 至 {{ page.paginator.num_pages }}"><span>页</span><button type="submit">跳转</button>
+  </form>
+  {% endif %}
+</nav>
+{% endblock %}

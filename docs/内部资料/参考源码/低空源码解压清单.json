@@ -118,6 +118,16 @@
       "sha256": "328aeafaeb61d60cdfd8d35af82bbbfde7a3ea08a645a9f12353a2f4682bf4cd"
     },
     {
+      "path": "src/assets/contact-hero-cropped.png",
+      "size": 1892134,
+      "sha256": "d9ea0b67e8d7f7efe19a1aac60c09df3fc741cfe839f860ca796487900e8110d"
+    },
+    {
+      "path": "src/assets/faculty-hero-campus.png",
+      "size": 3689820,
+      "sha256": "9e647413a5154df1d54a0e82f2681639e44ae7f5629cf621f2192398bcd8e6df"
+    },
+    {
       "path": "src/assets/henu-logo-clean.png",
       "size": 361992,
       "sha256": "2a77d5e6298925a2172b7538343cd4e2250cb8aae2e1be3e94887f82a4e3ca84"
@@ -126,6 +136,11 @@
       "path": "src/assets/henu-logo.png",
       "size": 307109,
       "sha256": "c310c6976a830fdf13a3fddd30e75bf06e7dca8d2946856dec5063384831ff33"
+    },
+    {
+      "path": "src/assets/kechuang-xilou.jpg",
+      "size": 290835,
+      "sha256": "35f5f5ff0b18b289a0815a291f6be65b7223fdb3dff7bd8dd5ae4e2d6a90e579"
     },
     {
       "path": "src/assets/campus-gate-2026.jpg",

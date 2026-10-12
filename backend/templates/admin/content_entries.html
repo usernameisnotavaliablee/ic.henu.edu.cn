@@ -1,0 +1,7 @@
+{% extends "admin/change_list.html" %}
+{% block content %}
+<details class="module" open><summary>待填内容位置（点击新增或编辑）</summary>
+<p>保存仅更新草稿。核对后在列表勾选条目，执行“发布到预览前台”；发布权限由管理员分配。新教师可点右上角新增。</p>
+<ul>{% for slot in content_slots %}<li><a href="{{ slot.url }}">{{ slot.label }}</a></li>{% endfor %}</ul></details>
+{{ block.super }}
+{% endblock %}

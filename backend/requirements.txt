@@ -1,0 +1,6 @@
+# -*- coding: utf-8 -*-
+# 安装时使用 5.2 LTS 最新安全补丁；成功安装后生成 requirements.lock。
+Django>=5.2,<5.3
+whitenoise>=6.9,<7
+waitress>=3,<4
+django-axes>=8,<9

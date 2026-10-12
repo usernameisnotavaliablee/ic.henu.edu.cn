@@ -38,3 +38,14 @@ storage/uploads/
 
 # 原始参考归档保留本地，源码核查结论记录在设计稿
 /低空学院参考代码.tar.gz
+
+# 用户暂缓使用的 344MB CPU 原视频；保留本地，不进入普通 Git 提交
+/docs/assets/芯片 主板 电路 CPU 处理器 免费商用4K超清视频素材【合集】/
+
+# 仓库内隔离环境（本地沙盒、虚拟环境、部署包、临时文件）：只提交说明，不提交运行时与凭据
+/sandbox/*
+!/sandbox/README.md
+*.sqlite3-*
+*.sqlite-*
+.env.*
+!.env.example
