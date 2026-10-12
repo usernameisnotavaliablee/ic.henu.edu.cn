@@ -1,0 +1,48 @@
+<header class="site-header">
+  <div class="header-utility">
+    <div class="container">
+      <a class="utility-home-link" href="https://www.henu.edu.cn/" target="_blank" rel="noopener">
+        <img class="henu-icon" src="assets/henu-logo-clean.png" alt="河南大学">
+        <span class="full">{{utilityHome}}</span>
+      </a>
+
+      <button class="language-switch" id="lang-toggle" aria-label="切换语言 / Switch Language" title="中 / EN">中</button>
+      <form class="site-search" role="search" action="#" onsubmit="return false;"><input type="search" data-placeholder-zh="搜索网站" data-placeholder-en="Search..." placeholder="搜索网站" aria-label="搜索网站"><button type="submit" aria-label="搜索"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg></button></form>
+    </div>
+  </div>
+  <div class="header-main">
+    <div class="container">
+      <a class="brand" href="{{homeHref}}">
+        <img class="brand-mark" src="assets/college-emblem-clean.png" style="border-radius:50%;object-fit:cover;" alt="{{collegeNameWithUniversity}} 院徽">
+        <span class="brand-text">
+          <span class="cn">{{collegeName}}</span>
+          <span class="en">College of Low-Altitude Technology &amp; Aerospace Information</span>
+        </span>
+      </a>
+      <nav class="main-nav" aria-label="主导航">
+        <ul>
+          <li>
+            <a class="nav-top-link{{scienceActive}}" href="{{navScienceHref}}"><span data-lang-zh>{{navScienceZh}}</span><span data-lang-en>{{navScienceEn}}</span></a>
+            <div class="mega science-mega-compact"><div class="mega-col"><a href="{{navScienceHref}}#units"><span data-lang-zh>创新单元</span><span data-lang-en>Innovation Units</span><span class="sub"><span data-lang-zh>低空技术 · 空天信息</span><span data-lang-en>Low-Altitude Tech · Aerospace Info</span></span></a><a href="{{navScienceHref}}#projects"><span data-lang-zh>科研项目</span><span data-lang-en>Research Projects</span><span class="sub"><span data-lang-zh>国家级 · 省部级重大项目</span><span data-lang-en>National · Provincial Key Projects</span></span></a><a href="{{navScienceHref}}#achievements"><span data-lang-zh>创新成果</span><span data-lang-en>Innovation Outcomes</span><span class="sub"><span data-lang-zh>平台、装备与数据系统</span><span data-lang-en>Platforms, Equipment &amp; Data Systems</span></span></a></div><div class="mega-feature" style="background-image:url('assets/rocket-distant.jpg')"><div class="txt"><b><span data-lang-zh>海南商业航天发射场</span><span data-lang-en>Hainan Commercial Spaceport</span></b><span><span data-lang-zh>学院科研成果的产业化应用场景之一</span><span data-lang-en>An industrialization showcase for our research</span></span></div></div></div>
+          </li>
+          <li>
+            <a class="nav-top-link{{talentActive}}" href="{{navTalentHref}}"><span data-lang-zh>{{navTalentZh}}</span><span data-lang-en>{{navTalentEn}}</span></a>
+            <div class="mega"><div class="mega-col"><h5><span data-lang-zh>培养支持</span><span data-lang-en>Development Support</span></h5><a href="{{navTalentHref}}#discipline"><span data-lang-zh>学科专业</span><span data-lang-en>Disciplines</span><span class="sub"><span data-lang-zh>本科 · 硕士 · 博士贯通培养</span><span data-lang-en>Bachelor · Master · Doctoral Pathway</span></span></a><a href="{{navTalentHref}}#practice"><span data-lang-zh>科创实践</span><span data-lang-en>Innovation Practice</span><span class="sub"><span data-lang-zh>科研训练 · 工程项目 · 学科竞赛</span><span data-lang-en>Research Training · Engineering Projects · Competitions</span></span></a><a href="{{navTalentHref}}#scholarship"><span data-lang-zh>奖助学金</span><span data-lang-en>Scholarships</span><span class="sub"><span data-lang-zh>国家 · 学校 · 学院三级体系</span><span data-lang-en>National · University · College Tiers</span></span></a><a href="{{navTalentHref}}#international"><span data-lang-zh>国际交流</span><span data-lang-en>International Exchange</span><span class="sub"><span data-lang-zh>互换学习 · 海外访学 · 联合培养</span><span data-lang-en>Exchange · Visiting · Joint Programs</span></span></a><a href="{{navTalentHref}}#graduate"><span data-lang-zh>博士后和研究生</span><span data-lang-en>Postdoctoral Researchers &amp; Graduate Students</span><span class="sub"><span data-lang-zh>博士后与研究生培养</span><span data-lang-en>Postdoctoral and Graduate Education</span></span></a></div><div class="mega-feature" style="background-image:url('assets/drone-team.jpg')"><div class="txt"><b><span data-lang-zh>奖助体系与国际交流</span><span data-lang-en>Scholarships &amp; Exchange</span></b><span><span data-lang-zh>以多层次保障与开放交流支持学生成长</span><span data-lang-en>Multi-tier support and open exchange for student growth</span></span></div></div></div>
+          </li>
+          <li>
+            <a class="nav-top-link{{facultyActive}}" href="{{navFacultyHref}}"><span data-lang-zh>{{navFacultyZh}}</span><span data-lang-en>{{navFacultyEn}}</span></a>
+            <div class="mega"><div class="mega-col"><a href="{{navFacultyHref}}#academicians"><span data-lang-zh>院士</span><span data-lang-en>Academicians</span><span class="sub"><span data-lang-zh>学术引领</span><span data-lang-en>Academic Leadership</span></span></a><a href="{{navFacultyHref}}#national-talent"><span data-lang-zh>国家级人才</span><span data-lang-en>{{facultyNationalEn}}</span><span class="sub"><span data-lang-zh>杰青 · 优青等</span><span data-lang-en>Outstanding Youth Scholars</span></span></a></div><div class="mega-col"><a href="{{navFacultyHref}}#{{facultyAnchor}}"><span data-lang-zh>教师队伍</span><span data-lang-en>Faculty</span><span class="sub"><span data-lang-zh>学科带头人与中青年骨干</span><span data-lang-en>Discipline Leaders &amp; Young Core</span></span></a></div><div class="mega-feature" style="background-image:url('{{facultyFeatureBg}}')"><div class="txt"><b><span data-lang-zh>空天信息实验团队</span><span data-lang-en>{{facultyFeatureEn}}</span></b><span><span data-lang-zh>在洁净间里组装下一颗卫星载荷</span><span data-lang-en>Assembling the next satellite payload in the clean room</span></span></div></div></div>
+          </li>
+          <li>
+            <a class="nav-top-link{{publicActive}}" href="{{navPublicHref}}"><span data-lang-zh>{{navPublicZh}}</span><span data-lang-en>{{navPublicEn}}</span></a>
+            <div class="mega"><div class="mega-col"><a href="{{navPublicHref}}#drone-service"><span data-lang-zh>无人机服务</span><span data-lang-en>UAV Services</span><span class="sub"><span data-lang-zh>应用场景</span><span data-lang-en>Ten Major Application Scenarios</span></span></a><a href="{{navPublicHref}}#drone-training"><span data-lang-zh>无人机培训</span><span data-lang-en>UAV Training</span><span class="sub"><span data-lang-zh>飞手 · 装配调试 · 检修</span><span data-lang-en>Pilot · Assembly · Maintenance</span></span></a></div><div class="mega-col"><a href="{{navPublicHref}}#remote-sensing-data"><span data-lang-zh>空天信息服务</span><span data-lang-en>Aerospace Info Services</span><span class="sub"><span data-lang-zh>标准化数据产品与服务体系</span><span data-lang-en>Standardized Data Products &amp; Services</span></span></a></div><div class="mega-feature" style="background-image:url('assets/rocket-tall.jpg')"><div class="txt"><b><span data-lang-zh>海南商发垂直总装测试厂房</span><span data-lang-en>Vertical Assembly &amp; Test Facility</span></b><span><span data-lang-zh>低空与空天技术走向产业的关键一环</span><span data-lang-en>A critical link from research to industry</span></span></div></div></div>
+          </li>
+          <li><a class="nav-top-link{{aboutActive}}" href="{{navAboutHref}}"><span data-lang-zh>{{navAboutZh}}</span><span data-lang-en>{{navAboutEn}}</span></a></li>
+          <li><a class="nav-top-link{{contactActive}}" href="{{navContactHref}}"><span data-lang-zh>{{navContactZh}}</span><span data-lang-en>{{navContactEn}}</span></a></li>
+          <li><a class="nav-top-link nav-cta{{careersActive}}" href="{{navCareersHref}}"><span data-lang-zh>{{navCareersZh}}</span><span data-lang-en>{{navCareersEn}}</span></a></li>
+        </ul>
+      </nav>
+      <button class="nav-toggle" aria-label="打开菜单" aria-expanded="false"><span></span><span></span><span></span></button>
+    </div>
+  </div>
+</header>

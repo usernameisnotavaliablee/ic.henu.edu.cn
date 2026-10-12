@@ -35,3 +35,6 @@ id_rsa*
 uploads/
 storage/uploads/
 *.log
+
+# 原始参考归档保留本地，源码核查结论记录在设计稿
+/低空学院参考代码.tar.gz

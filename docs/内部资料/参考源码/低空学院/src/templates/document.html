@@ -1,0 +1,20 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>{{title}}</title>
+<meta name="description" content="{{description}}">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Ma+Shan+Zheng&family=Noto+Sans+SC:wght@400;500;700;900&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="{{cssHref}}">
+</head>
+<body{{bodyClass}} data-page="{{fileName}}">
+<a class="skip-link" href="#main">跳转到主要内容</a>
+<div data-site-header></div>
+<script src="js/site-shell.js"></script>
+{{page}}
+<script src="js/main.js"></script>
+</body>
+</html>
