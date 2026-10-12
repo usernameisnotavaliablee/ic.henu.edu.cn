@@ -1,0 +1,30 @@
+[Unit]
+Description=IC college private development preview
+After=network.target
+
+[Service]
+Type=simple
+User=ic-preview
+Group=ic-preview
+WorkingDirectory=/srv/ic-college/current/backend
+EnvironmentFile=/srv/ic-college/shared/preview.env
+Environment=IC_PUBLIC_ONLY=0
+Environment=IC_PORT=8095
+Environment=PYTHONDONTWRITEBYTECODE=1
+ExecStart=/srv/ic-college/venv/bin/python serve.py
+Restart=on-failure
+RestartSec=5
+UMask=0077
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectSystem=strict
+ProtectHome=true
+ReadWritePaths=/srv/ic-college/shared
+RestrictAddressFamilies=AF_UNIX AF_INET AF_INET6
+CapabilityBoundingSet=
+LockPersonality=true
+MemoryMax=384M
+TasksMax=64
+
+[Install]
+WantedBy=multi-user.target

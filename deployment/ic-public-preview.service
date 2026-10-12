@@ -1,0 +1,31 @@
+[Unit]
+Description=IC college read-only public preview backend
+After=network.target ic-preview.service
+
+[Service]
+Type=simple
+User=ic-preview
+Group=ic-preview
+WorkingDirectory=/srv/ic-college/current/backend
+EnvironmentFile=/srv/ic-college/shared/preview.env
+EnvironmentFile=/srv/ic-college/shared/public.env
+Environment=IC_PUBLIC_ONLY=1
+Environment=IC_PORT=8096
+Environment=PYTHONDONTWRITEBYTECODE=1
+ExecStart=/srv/ic-college/venv/bin/python serve.py
+Restart=on-failure
+RestartSec=5
+UMask=0077
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectSystem=strict
+ProtectHome=true
+ReadOnlyPaths=/srv/ic-college/shared/data
+RestrictAddressFamilies=AF_UNIX AF_INET AF_INET6
+CapabilityBoundingSet=
+LockPersonality=true
+MemoryMax=256M
+TasksMax=48
+
+[Install]
+WantedBy=multi-user.target

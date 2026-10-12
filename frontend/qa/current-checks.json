@@ -1,0 +1,75 @@
+{
+  "date": "2026-10-12",
+  "branch": "codex/site-development",
+  "static_build": {
+    "status": "passed",
+    "pages": 22
+  },
+  "links": {
+    "status": "passed",
+    "references": 1169
+  },
+  "syntax": "passed",
+  "sqlite_wal_backup_restore": "passed",
+  "package": {
+    "status": "passed",
+    "files": 80,
+    "private_files": "excluded"
+  },
+  "django_business_security_tests": {
+    "status": "not_run",
+    "authored": 25,
+    "reason": "Dependency install blocked by automatic approval service 503"
+  },
+  "browser_visual_interaction": {
+    "status": "not_completed",
+    "edge": "Crashpad launch failure before assertions",
+    "iab": "Homepage AX structure read; subsequent QA API blocked by approval 503"
+  },
+  "remote_deployment": "not_executed",
+  "commit_push": "not_done: git pull cannot write .git/FETCH_HEAD; approval service remains unavailable",
+  "overall_mvp": "incomplete",
+  "python_syntax_files": 24,
+  "git_diff_check": "passed",
+  "https_proxy_runtime": "not_run",
+  "revision_note": "2026-10-12接续：2D四面非对称排线与稀疏双向光点；UTF-8安装修复；视频暂缓",
+  "chip_art": {
+    "geometry": "2D, asymmetric trace groups",
+    "traces": 48,
+    "pins": 48,
+    "signal_paths": 8,
+    "static_visual": "inspected: chip-art-2d.png",
+    "animation_browser_qa": "not_completed"
+  },
+  "dependency_utf8_decode": "passed using installed pip auto_decode",
+  "source_sha256": {
+    "frontend/scripts/build-chip-art.js": "0201deaf3b7aa857d295fc88bba830294e45e84cce43fea1ad873c10932912ad",
+    "frontend/src/css/style.css": "338ccac5c45f309ec618dd232c3e9be585e0b43c749b928fb6b706f5b74583bf",
+    "frontend/src/js/main.js": "209d96d46bc1e3fc7706258ba6032d520349c77e8a45f150b04916fbd0584b95"
+  },
+  "chip_coverage": {
+    "static_pages": 22,
+    "backend_templates": 2,
+    "inline_chips": 26,
+    "status": "passed"
+  },
+  "user_feedback_2026_10_12": {
+    "accepted": [
+      "目前观察到的不同屏幕排版",
+      "轮播完整循环",
+      "快速连续切换",
+      "暂停恢复",
+      "照片呼吸",
+      "切后台后恢复"
+    ],
+    "deferred_until_server": [
+      "刷新回首屏",
+      "反向打断",
+      "锚点与长内容阅读",
+      "指定五种尺寸",
+      "手机真机"
+    ],
+    "evidence_type": "user_report_not_automated_test"
+  },
+  "current_priority": "Server-isolated backend and SQLite functional demo; discuss dependencies before installation; local installs deferred; security-specific acceptance and Git push deferred"
+}

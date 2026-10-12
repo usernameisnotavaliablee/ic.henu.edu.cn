@@ -1,0 +1,16 @@
+<!-- 参考低空 header-utility / header-main / main-nav 分层；导航改为独立通栏。 -->
+<header class="site-header{{headerState}}" id="site-top">
+  <div class="container header-main">
+    <a class="brand" href="index.html" aria-label="{{name}} 首页">
+      <img class="brand-mark" src="assets/henu-logo.png" width="76" height="76" alt="河南大学校徽">
+      <span class="brand-text"><span class="brand-title"><span class="university-name">河南大学</span><span class="brand-divider" aria-hidden="true"></span><span class="college-name">{{college}}</span></span><span class="college-english">{{english}}</span></span>
+    </a>
+    <span class="brand-motto" aria-hidden="true">明德 · 新民 · 止于至善</span>
+  </div>
+  <div class="navigation-band">
+    <div class="container navigation-inner">
+      <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="main-nav" hidden><span>栏目导航</span><span class="menu-icon" aria-hidden="true">☰</span></button>
+      <nav id="main-nav" class="main-nav" aria-label="主导航"><ul>{{navigation}}</ul></nav>
+    </div>
+  </div>
+</header>

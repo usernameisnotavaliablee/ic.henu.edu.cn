@@ -1,0 +1,11 @@
+{
+  "scope": "offline navigation controller, not visual or performance QA",
+  "count": 5,
+  "checks": [
+    "原生过渡不叠加JS动画或计时器",
+    "降级只在新页淡入，不拦截或延迟链接导航",
+    "减少动态效果不创建淡入或计时器",
+    "历史缓存恢复和系统设置变化清理淡入",
+    "直接打开本地HTML使用无等待降级"
+  ]
+}

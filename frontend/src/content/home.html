@@ -1,0 +1,73 @@
+<!-- 五个一级内容板块从上到下独立展开；每个板块内部保留不同图文节奏。 -->
+<section class="hero" aria-label="学院主题轮播" aria-roledescription="轮播图" data-carousel data-paused="true">
+  <div class="hero-slides">{{slides}}</div>
+  <button type="button" class="carousel-arrow carousel-arrow--prev" data-prev aria-label="上一张" hidden><svg viewBox="0 0 24 48" aria-hidden="true"><path d="M19 6 5 24l14 18"/></svg></button>
+  <button type="button" class="carousel-arrow carousel-arrow--next" data-next aria-label="下一张" hidden><svg viewBox="0 0 24 48" aria-hidden="true"><path d="m5 6 14 18L5 42"/></svg></button>
+  <div class="container carousel-controls" hidden>
+    <div class="carousel-dots">{{dots}}</div>
+    <span class="carousel-count" aria-hidden="true">01 / {{slideCount}}</span>
+    <span class="playback-status" data-playback-status role="status">每 3 秒自动换图</span>
+  </div>
+  <p class="sr-only" data-slide-status role="status" aria-live="polite"></p>
+</section>
+
+<section class="home-section section-news" id="home-news" aria-labelledby="news-title" data-home-section>
+  <span class="section-watermark section-watermark--left" aria-hidden="true">NEWS</span>
+  <div class="container">
+    <div class="editorial-heading"><div><span>NEWS · HENU</span><h2 id="news-title">学院新闻</h2></div><a href="news.html">更多学院新闻 <span aria-hidden="true">↗</span></a></div>
+    <div class="editorial-news" data-news-gallery data-boda-slot="home-news">
+      <ul class="editorial-news-list">{{newsList}}</ul>
+      <div class="news-gallery"><div class="news-pictures">{{featuredNews}}</div><div class="news-picture-controls" hidden><button type="button" data-news-prev aria-label="上一条图片新闻">←</button><button type="button" data-news-next aria-label="下一条图片新闻">→</button><span data-news-count>01 / 04</span><span>图片新闻</span></div><p class="sr-only" data-news-status role="status"></p></div>
+    </div>
+  </div>
+</section>
+
+<section class="home-section section-notices" id="home-notices" aria-labelledby="notices-title" data-home-section>
+  <span class="section-watermark section-watermark--right" aria-hidden="true">NOTICES</span>
+  <div class="container">
+    <div class="editorial-heading"><div><span>NOTICES · HENU</span><h2 id="notices-title">通知公告</h2></div><a href="notices.html">更多通知公告 <span aria-hidden="true">↗</span></a></div>
+    <ul class="editorial-notices" data-boda-slot="home-notices">{{noticeList}}</ul>
+  </div>
+</section>
+
+<section class="home-section section-research" id="home-research" aria-labelledby="research-title" data-home-section>
+  <span class="section-watermark section-watermark--left" aria-hidden="true">RESEARCH</span>
+  <div class="container">
+    <div class="editorial-heading"><div><span>RESEARCH & INNOVATION</span><h2 id="research-title">科学与创新</h2></div><a href="science-innovation.html">了解科学与创新 <span aria-hidden="true">↗</span></a></div>
+    <div class="feature-layout">
+      <figure class="research-art">{{researchArt}}<figcaption>集成电路 · 微纳电子<span>原创芯片示意 · 非学院成果</span></figcaption></figure>
+      <div class="feature-copy"><p class="feature-intro">从微观探索，到集成创新</p><p class="muted">学院研究方向、平台与团队材料待审定，先保留清晰的栏目入口。</p><a class="feature-row" href="research-platforms.html"><span class="feature-number" aria-hidden="true">01</span><div><h3>研究平台</h3><p>平台概览、研究方向与设施介绍待提供</p></div><span aria-hidden="true">↗</span></a><a class="feature-row" href="research-groups.html"><span class="feature-number" aria-hidden="true">02</span><div><h3>课题组</h3><p>团队名称、成员与简介待提供</p></div><span aria-hidden="true">↗</span></a><div class="research-links"><a href="science-innovation.html#section-2">研究进展 →</a><a href="science-innovation.html#section-3">学术交流 →</a></div></div>
+    </div>
+    <div class="visual-topics">
+      <figure><a href="science-innovation.html#section-1"><img src="assets/wafer-12inch.jpg" alt="12英寸硅晶圆示意，非学院成果" width="1000" height="1000" loading="lazy"><h3>走近晶圆与芯片 <span>↗</span></h3></a><figcaption>晶圆示意 · <a href="image-credits.html#wafer-12inch">图片来源</a></figcaption></figure>
+      <figure><a href="science-innovation.html#section-2"><img src="assets/cleanroom-lcn.jpg" alt="伦敦纳米技术中心光刻洁净室，校外场景示意" width="1400" height="938" loading="lazy"><h3>微纳加工与实验 <span>↗</span></h3></a><figcaption>校外实验室示意 · <a href="image-credits.html#cleanroom-lcn">图片来源</a></figcaption></figure>
+      <figure><a href="talent-cultivation.html"><img src="assets/wafer-display.jpg" alt="博物馆中的晶圆与器件展品，科普示意" width="1346" height="1000" loading="lazy"><h3>认识半导体器件 <span>↗</span></h3></a><figcaption>展品示意 · <a href="image-credits.html#wafer-display">图片来源</a></figcaption></figure>
+    </div>
+  </div>
+</section>
+
+<section class="home-section section-education" id="home-education" aria-labelledby="education-title" data-home-section>
+  <span class="section-watermark section-watermark--right" aria-hidden="true">EDUCATION</span>
+  <div class="container">
+    <div class="editorial-heading"><div><span>EDUCATION · HENU</span><h2 id="education-title">人才培养</h2></div><a href="talent-cultivation.html">了解人才培养 <span aria-hidden="true">↗</span></a></div>
+    <div class="feature-layout education-layout">
+      <div class="feature-copy"><p class="feature-intro">学有所思，研有所成</p><p class="muted">学院专业设置与培养方案待审定，先保留基础栏目框架。</p><a class="feature-row" href="talent-cultivation.html#section-1"><span class="feature-number" aria-hidden="true">01</span><div><h3>学科与专业</h3><p>集成电路相关学科介绍 · 待学院确认</p></div><span aria-hidden="true">↗</span></a><a class="feature-row" href="talent-cultivation.html#section-2"><span class="feature-number" aria-hidden="true">02</span><div><h3>课程与培养方案</h3><p>课程设置、教学安排与培养文件待提供</p></div><span aria-hidden="true">↗</span></a></div>
+      <figure class="education-art"><img src="assets/campus-gate.jpg" alt="河南大学校园牌坊，校园视觉示意" width="720" height="406" loading="lazy"><figcaption>明德 · 新民 · 止于至善<span>校园图片示意 · 正式素材待替换</span></figcaption></figure>
+    </div>
+  </div>
+</section>
+
+<section class="home-section section-faculty" id="home-faculty" aria-labelledby="faculty-title" data-home-section>
+  <span class="section-watermark section-watermark--left" aria-hidden="true">FACULTY</span>
+  <div class="container">
+    <div class="editorial-heading"><div><span>FACULTY · HENU</span><h2 id="faculty-title">师资队伍</h2></div><a href="faculty.html">查看师资队伍 <span aria-hidden="true">↗</span></a></div>
+    <p class="section-note">教师资料持续更新，正式内容待学院及本人核对。</p>
+    <div class="faculty-grid">{{teachers}}</div>
+  </div>
+</section>
+
+<section class="container quick-links" aria-label="学院服务入口">
+  <a href="about.html"><span>01</span><h2>学院概况</h2><span aria-hidden="true">→</span></a>
+  <a href="public-service.html"><span>02</span><h2>公共服务</h2><span aria-hidden="true">→</span></a>
+  <a href="careers.html"><span>03</span><h2>人才招聘</h2><span aria-hidden="true">→</span></a>
+</section>
