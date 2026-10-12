@@ -1,6 +1,6 @@
 # 河南大学集成电路与微纳电子学院官网
 
-`ic.henu.edu.cn` · 私有仓库 `usernameisnotavaliablee/ic.henu.edu.cn` · 中文沟通
+`ic.henu.edu.cn` · 私有仓库 `usernameisnotavaliablee/ic.henu.edu.cn` 
 
 ## 一句话现状
 
@@ -17,13 +17,13 @@
 
 ## 已有材料
 
-| 内容 | 位置 | 状态 |
-|---|---|---|
-| 基础前端 20 页 | [docs/frontend/preview/index.html](docs/frontend/preview/index.html) | 可打开，未部署 |
-| 三位教师简历底稿 | [docs/内部资料/教师简历汇总.md](docs/内部资料/教师简历汇总.md) | 待本人确认 |
-| 素材清单 + 进度表 | [docs/内部资料/IC学院官网所需素材.md](docs/内部资料/IC学院官网所需素材.md) | 大部分未收 |
-| 低空学院参考源码 29 文件 | [docs/内部资料/参考源码/低空学院/](docs/内部资料/参考源码/低空学院/) | 已解压归档 |
-| 调研报告 + 台账 | [docs/archive/](docs/archive/) | 见 DESIGN.md |
+| 内容             | 位置                                                                   | 状态          |
+| -------------- | -------------------------------------------------------------------- | ----------- |
+| 基础前端 20 页      | [docs/frontend/preview/index.html](docs/frontend/preview/index.html) | 可打开，未部署     |
+| 三位教师简历底稿       | [docs/内部资料/教师简历汇总.md](docs/内部资料/教师简历汇总.md)                           | 确认          |
+| 素材清单 + 进度表     | [docs/内部资料/IC学院官网所需素材.md](docs/内部资料/IC学院官网所需素材.md)                   | 毛都没有        |
+| 低空学院参考源码 29 文件 | [docs/内部资料/参考源码/低空学院/](docs/内部资料/参考源码/低空学院/)                         | 已解压归档       |
+| 调研报告 + 台账      | [docs/archive/](docs/archive/)                                       | 见 DESIGN.md |
 
 ## 已确认的事实
 
@@ -41,7 +41,7 @@
 | 郑海务 | 二级教授、博导 | 微纳传感、铁电压电、集成电路 | zhenghw@henu.edu.cn |
 | 程纲 | 教授、博导 | 摩擦纳米发电机、自驱动传感器 | chenggang@henu.edu.cn |
 
-⚠️ 照片均来自公开网页，版权未明；张锦龙照片仅 180×254，需向本人索取原图。
+
 
 ## 文档分工
 
