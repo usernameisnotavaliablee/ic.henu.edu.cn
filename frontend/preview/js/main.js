@@ -64,9 +64,31 @@
   if (toggle && nav) {
     nav.classList.add('is-enhanced');
     toggle.hidden = false;
+    // Aceternity container-text-flip 的原生移植：汉堡展开卡片菜单时，一级栏目
+    // 标题按字逐个 blur(10px)→0 淡入（每字延迟 20ms，卡片间递增 60ms）。
+    // 拆字只在增强态执行，aria-label 保留整词供读屏朗读。
+    const flipLinks = [...nav.querySelectorAll(':scope > ul > .nav-item > .nav-item-heading > a')];
+    const flipChars = flipLinks.map((link, index) => {
+      link.closest('.nav-item').style.setProperty('--nav-i', index);
+      const label = link.textContent;
+      link.setAttribute('aria-label', label);
+      link.innerHTML = [...label].map(char => `<span class="nav-flip-char" aria-hidden="true">${char === ' ' ? '&nbsp;' : char}</span>`).join('');
+      return [...link.querySelectorAll('.nav-flip-char')];
+    });
+    const runNavFlip = () => {
+      if (reducedMotion.matches || root.dataset.motionPaused === 'true' || !smallScreen.matches) return;
+      flipChars.forEach((chars, index) => chars.forEach((char, charIndex) => {
+        char.getAnimations().forEach(animation => animation.cancel());
+        char.animate(
+          [{ opacity: 0, filter: 'blur(10px)' }, { opacity: 1, filter: 'blur(0)' }],
+          { duration: 550, delay: index * 60 + charIndex * 20, easing: 'ease-out', fill: 'backwards' },
+        );
+      }));
+    };
     const setMenu = (open, restoreFocus = false) => {
       nav.classList.toggle('open', open);
       toggle.setAttribute('aria-expanded', String(open));
+      if (open) runNavFlip();
       if (restoreFocus) toggle.focus();
     };
     toggle.addEventListener('click', () => setMenu(!nav.classList.contains('open')));
