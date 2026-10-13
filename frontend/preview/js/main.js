@@ -64,20 +64,28 @@
   if (toggle && nav) {
     nav.classList.add('is-enhanced');
     toggle.hidden = false;
-    // Aceternity container-text-flip 的原生移植：汉堡展开卡片菜单时，一级栏目
-    // 标题按字逐个 blur(10px)→0 淡入（每字延迟 20ms，卡片间递增 60ms）。
-    // 拆字只在增强态执行，aria-label 保留整词供读屏朗读。
-    const flipLinks = [...nav.querySelectorAll(':scope > ul > .nav-item > .nav-item-heading > a')];
+    // Aceternity container-text-flip 的原生移植：汉堡展开卡片菜单、页脚
+    // 「走进学院」「资讯与服务」抽屉展开时，标题按字逐个 blur(10px)→0 淡入
+    // （每字延迟 20ms，项目间递增 60ms）。拆字只在增强态执行，
+    // aria-label 保留整词供读屏朗读。
+    const flipLinks = [
+      ...nav.querySelectorAll(':scope > ul > .nav-item > .nav-item-heading > a'),
+      ...document.querySelectorAll('.footer-drawer .footer-links a'),
+    ];
     const flipChars = flipLinks.map((link, index) => {
-      link.closest('.nav-item').style.setProperty('--nav-i', index);
+      const drawer = link.closest('.footer-drawer');
+      // 页脚链接的交错序号按各自抽屉内位置计，与导航序号互不串扰。
+      const order = drawer ? [...drawer.querySelectorAll('.footer-links a')].indexOf(link) : index;
+      (link.closest('.nav-item') || link).style.setProperty('--nav-i', order);
       const label = link.textContent;
       link.setAttribute('aria-label', label);
       link.innerHTML = [...label].map(char => `<span class="nav-flip-char" aria-hidden="true">${char === ' ' ? '&nbsp;' : char}</span>`).join('');
-      return [...link.querySelectorAll('.nav-flip-char')];
+      return { link, chars: [...link.querySelectorAll('.nav-flip-char')] };
     });
-    const runNavFlip = () => {
-      if (reducedMotion.matches || root.dataset.motionPaused === 'true' || !smallScreen.matches) return;
-      flipChars.forEach((chars, index) => chars.forEach((char, charIndex) => {
+    const runNavFlip = (scope = nav) => {
+      const inNav = scope === nav;
+      if (reducedMotion.matches || root.dataset.motionPaused === 'true' || (inNav && !smallScreen.matches)) return;
+      flipChars.filter(entry => scope.contains(entry.link)).forEach((entry, index) => entry.chars.forEach((char, charIndex) => {
         char.getAnimations().forEach(animation => animation.cancel());
         char.animate(
           [{ opacity: 0, filter: 'blur(10px)' }, { opacity: 1, filter: 'blur(0)' }],
@@ -85,6 +93,8 @@
         );
       }));
     };
+    document.querySelectorAll('.footer-drawer').forEach(drawer =>
+      drawer.addEventListener('toggle', () => { if (drawer.open) runNavFlip(drawer); }));
     const setMenu = (open, restoreFocus = false) => {
       nav.classList.toggle('open', open);
       toggle.setAttribute('aria-expanded', String(open));
