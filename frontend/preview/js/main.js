@@ -67,7 +67,6 @@
     const setMenu = (open, restoreFocus = false) => {
       nav.classList.toggle('open', open);
       toggle.setAttribute('aria-expanded', String(open));
-      toggle.querySelector('.menu-icon').textContent = open ? '×' : '☰';
       if (restoreFocus) toggle.focus();
     };
     toggle.addEventListener('click', () => setMenu(!nav.classList.contains('open')));
