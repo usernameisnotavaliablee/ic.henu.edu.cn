@@ -505,7 +505,6 @@ html.snap-enabled[data-motion-paused='true'] { scroll-snap-type: none; }
      带子栏目与不带子栏目的文字在同一中线上。 */
   .main-nav.is-enhanced > ul > .nav-item > .nav-item-heading { position: relative; }
   .main-nav.is-enhanced > ul > .nav-item > .nav-item-heading > .subnav-toggle { position: absolute; right: 0; top: 0; height: 100%; }
-  .nav-flip-char { display: inline-block; }
   .main-nav > ul { display: grid; grid-template-columns: repeat(3, 1fr); padding-bottom: 12px; }
   .main-nav > ul > li { align-self: start; }
   .subnav-toggle { width: 44px; min-height: 48px; }
@@ -709,6 +708,9 @@ html.snap-enabled[data-motion-paused='true'] { scroll-snap-type: none; }
 .media-spinner { width: 24px; height: 24px; flex: 0 0 auto; border: 2px solid #bbcad8; border-top-color: #2f76b8; border-radius: 50%; animation: media-spin .9s linear infinite; }
 @keyframes media-spin { to { transform: rotate(360deg); } }
 @keyframes nav-card-in { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: none; } }
+/* 逐字动画字符：inline-block 保证 filter:blur 各字独立渲染；
+   导航与页脚抽屉共用，不能限定在窄屏媒体块内。 */
+.nav-flip-char { display: inline-block; }
 [data-media-state='ready'] > .media-status { display: none; }
 [data-media-state='error'] > .media-status .media-spinner, [data-media-state='stalled'] > .media-status .media-spinner { display: none; }
 .hero-slide > .media-status { z-index: -3; padding-left: 45%; background: linear-gradient(110deg, #183650, #294a69, #183650); color: #e1edf8; }
