@@ -64,10 +64,41 @@
   if (toggle && nav) {
     nav.classList.add('is-enhanced');
     toggle.hidden = false;
+    // Aceternity container-text-flip 的原生移植：汉堡展开卡片菜单、页脚
+    // 「走进学院」「资讯与服务」抽屉展开时，标题按字逐个 blur(10px)→0 淡入
+    // （每字延迟 20ms，项目间递增 60ms）。拆字只在增强态执行，
+    // aria-label 保留整词供读屏朗读。
+    const flipLinks = [
+      ...nav.querySelectorAll(':scope > ul > .nav-item > .nav-item-heading > a'),
+      ...document.querySelectorAll('.footer-drawer .footer-links a'),
+    ];
+    const flipChars = flipLinks.map((link, index) => {
+      const drawer = link.closest('.footer-drawer');
+      // 页脚链接的交错序号按各自抽屉内位置计，与导航序号互不串扰。
+      const order = drawer ? [...drawer.querySelectorAll('.footer-links a')].indexOf(link) : index;
+      (link.closest('.nav-item') || link).style.setProperty('--nav-i', order);
+      const label = link.textContent;
+      link.setAttribute('aria-label', label);
+      link.innerHTML = [...label].map(char => `<span class="nav-flip-char" aria-hidden="true">${char === ' ' ? '&nbsp;' : char}</span>`).join('');
+      return { link, chars: [...link.querySelectorAll('.nav-flip-char')] };
+    });
+    const runNavFlip = (scope = nav) => {
+      const inNav = scope === nav;
+      if (reducedMotion.matches || root.dataset.motionPaused === 'true' || (inNav && !smallScreen.matches)) return;
+      flipChars.filter(entry => scope.contains(entry.link)).forEach((entry, index) => entry.chars.forEach((char, charIndex) => {
+        char.getAnimations().forEach(animation => animation.cancel());
+        char.animate(
+          [{ opacity: 0, filter: 'blur(10px)' }, { opacity: 1, filter: 'blur(0)' }],
+          { duration: 550, delay: index * 60 + charIndex * 20, easing: 'ease-out', fill: 'backwards' },
+        );
+      }));
+    };
+    document.querySelectorAll('.footer-drawer').forEach(drawer =>
+      drawer.addEventListener('toggle', () => { if (drawer.open) runNavFlip(drawer); }));
     const setMenu = (open, restoreFocus = false) => {
       nav.classList.toggle('open', open);
       toggle.setAttribute('aria-expanded', String(open));
-      toggle.querySelector('.menu-icon').textContent = open ? '×' : '☰';
+      if (open) runNavFlip();
       if (restoreFocus) toggle.focus();
     };
     toggle.addEventListener('click', () => setMenu(!nav.classList.contains('open')));
@@ -247,6 +278,31 @@
       reveal.observe(section);
       // 键盘进入尚未展示的内容时立即显现，不能把焦点藏起来。
       section.addEventListener('focusin', () => { section.classList.add('has-entered'); reveal.unobserve(section); });
+    });
+  }
+
+  // 404 表情眼神跟手。CSS 动画优先于 inline transform，故先加 is-tracking 停掉瞳孔动画再写位移；
+  // 瞳孔元素自身无 transform 属性（位移在父级 g 上），inline transform 可直接生效。
+  const errorFace = document.querySelector('.error-face');
+  if (errorFace && !reducedMotion.matches) {
+    const pupils = errorFace.querySelectorAll('.face__pupil');
+    const svg = errorFace.querySelector('.face');
+    // 组装终态下两瞳孔在 viewBox 320×380 中的位置：父组 translate(15|230,15) + 瞳孔局部 (55,~137)。
+    const anchors = [[70, 152], [285, 152]];
+    document.addEventListener('pointermove', event => {
+      const rect = svg.getBoundingClientRect();
+      errorFace.classList.add('is-tracking');
+      pupils.forEach((pupil, i) => {
+        const dx = event.clientX - (rect.left + anchors[i][0] / 320 * rect.width);
+        const dy = event.clientY - (rect.top + anchors[i][1] / 380 * rect.height);
+        const dist = Math.hypot(dx, dy) || 1;
+        const move = Math.min(8, dist * 0.08);
+        pupil.style.transform = `translate(${dx / dist * move}px, ${dy / dist * move}px)`;
+      });
+    });
+    document.documentElement.addEventListener('mouseleave', () => {
+      errorFace.classList.remove('is-tracking');
+      pupils.forEach(pupil => { pupil.style.transform = ''; });
     });
   }
 

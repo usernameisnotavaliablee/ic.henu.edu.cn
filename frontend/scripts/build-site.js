@@ -214,6 +214,22 @@ for (const teacher of site.teachers) {
 
 inner('contact.html', '联系我们', 'CONTACT', previewNote + `<div class="contact-layout"><dl class="contact-list"><div><dt>学院名称</dt><dd>${escape(site.name)}</dd></div>${[['办公地址', site.contact.address], ['公开电话', site.contact.phone], ['电子邮箱', site.contact.email]].map(([key, value]) => `<div><dt>${key}</dt><dd>${escape(value)}</dd></div>`).join('')}</dl>${wechatPlaceholder}</div>`);
 inner('site-map.html', '网站导航', 'SITE MAP', '<div class="site-map-grid">' + site.navigation.map(([href, label]) => `<section><h2><a href="${escape(href)}">${escape(label)}</a></h2>${sitemapItems(site.subNavigation[href] || [])}</section>`).join('') + '</div>', 'public-service.html');
+// 404 预览页。后台 404 走 backend/templates/site/error.html，不进路由目录与服务端模板；SVG 两处同一份。
+const errorFace = `<div class="error-face" aria-hidden="true">
+  <svg class="face" viewBox="0 0 320 380">
+    <g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="25">
+      <g class="face__eyes" transform="translate(0,112.5)">
+        <g transform="translate(15,0)"><polyline class="face__eye-lid" points="37,0 0,120 75,120"/><polyline class="face__pupil" points="55,120 55,155" stroke-dasharray="35 35"/></g>
+        <g transform="translate(230,0)"><polyline class="face__eye-lid" points="37,0 0,120 75,120"/><polyline class="face__pupil" points="55,120 55,155" stroke-dasharray="35 35"/></g>
+      </g>
+      <rect class="face__nose" x="132.5" y="112.5" width="55" height="155" rx="4" ry="4"/>
+      <g transform="translate(65,334)" stroke-dasharray="102 102"><path class="face__mouth-left" d="M 0 30 C 0 30 40 0 95 0"/><path class="face__mouth-right" d="M 95 0 C 150 0 190 30 190 30"/></g>
+    </g>
+  </svg>
+</div>`;
+inner('404.html', '页面未找到', '404', errorFace + '<p class="error-kicker">页面走丢了</p><p class="error-desc">页面不存在，或内容尚未批准预览。</p><p class="error-links"><a class="back-link" href="index.html">返回首页 →</a> <a class="back-link" href="site-map.html">网站导航 →</a></p>');
+delete routeCatalog['404'];
+
 const media = require('../src/data/media');
 inner('image-credits.html', '图片来源与授权', 'IMAGE CREDITS', '<p class="page-note">图片用于内部网站演示。校园、人物与学科示意分别标注；校外技术图片不代表本学院设施或成果。</p><div class="credit-list">' + media.map(item => `<section class="credit-item" id="${escape(item.id)}"><a href="assets/${escape(item.id)}.jpg"><img src="assets/${escape(item.id)}.jpg" alt="${escape(item.title)}" width="240" height="180" loading="lazy"></a><div><h2>${escape(item.title)}</h2><p>${escape(item.description)}</p><p>摄影：${escape(item.author)} / Wikimedia Commons</p><p><a href="${escape(item.source)}" target="_blank" rel="noopener">原始文件页 ↗</a> · <a href="${escape(item.licenseUrl)}" target="_blank" rel="noopener">${escape(item.license)}</a></p><p>处理：等比例缩放、JPEG压缩；部分页面以CSS裁切展示。可点击缩略图取得本站图片副本。</p></div></section>`).join('') + '</div><section class="profile-section"><h2>校园与教师图片</h2><p>河南大学校徽及校园图片来自用户提供的低空学院参考包，正式使用待学院确认。三位教师照片来自已归档的公开介绍；张锦龙照片取自河南师范大学讲座新闻，郑海务照片取自河南大学物理与电子学院教师页，程纲照片取自河南大学纳米科学与材料工程学院高层次人才页。</p><p>教师资料来源见各教师详情。芯片为本项目原创SVG学科示意，信号光流参考MIT许可的Magic UI Animated Beam机制，未使用第三方图片，不代表真实芯片版图。</p><a class="back-link" href="faculty.html">查看师资资料与来源 →</a></section>', 'public-service.html');
 
@@ -255,7 +271,7 @@ function serverChrome(html) {
   return serverLinks(html);
 }
 for (const [file, html] of pages) {
-  if (file.startsWith('layout-')) continue;
+  if (file.startsWith('layout-') || file === '404.html') continue;
   let dynamic = html;
   for (const slot of contentSlots) {
     if (slot.collection) {

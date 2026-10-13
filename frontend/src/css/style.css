@@ -71,7 +71,8 @@
   /* 优先使用访问者已安装的楷体，缺少本地楷体时使用本站开源字体。 */
   --font-kai: "KaiTi", "楷体", "Kaiti SC", "STKaiti", "KaiTi_GB2312", "IC WenKai", serif;
   --header-expanded-height: 171px;
-  --header-compact-height: 91px;
+  /* 收缩态 = 仅导航带：品牌区滚后整体滑出，不再缩小驻留。 */
+  --header-compact-height: 45px;
 }
 html { scroll-padding-top: calc(var(--header-compact-height) + 18px); }
 * { box-sizing: border-box; }
@@ -133,7 +134,7 @@ ul { padding: 0; margin: 0; list-style: none; }
 .brand-motto { color: #d1e2f2; font-family: var(--font-kai); font-size: 20px; letter-spacing: .12em; white-space: nowrap; }
 .brand-mark, .brand-text, .university-name, .college-name, .college-english, .brand-motto { transition: font-size .65s cubic-bezier(.22,.61,.36,1), letter-spacing .65s ease, width .65s ease, height .65s ease, max-height .65s ease, margin .65s ease, opacity .5s ease, transform .65s ease; }
 .college-english { max-height: 32px; opacity: .85; overflow: hidden; transform: translateY(0); transform-origin: top left; }
-.navigation-band { background: #082b51; color: #fff; border-top: 1px solid #6385a5; }
+.navigation-band { background: rgb(8 43 81 / 70%); color: #fff; border-top: 1px solid #6385a5; }
 .main-nav > ul { display: flex; }
 .main-nav > ul > li { flex: 1; min-width: 0; position: relative; }
 .nav-item-heading { display: flex; align-items: stretch; }
@@ -152,8 +153,16 @@ ul { padding: 0; margin: 0; list-style: none; }
 .main-nav .subnav a[aria-current="page"] { color: var(--blue); background: #eaf2f9; box-shadow: inset 3px 0 #7d9fbe; }
 .main-nav > ul > .nav-item > .nav-item-heading > a { transition: min-height .65s ease, padding .65s ease, font-size .65s ease, background .25s ease; }
 .site-header.is-compact .main-nav > ul > .nav-item > .nav-item-heading > a { min-height: 44px; padding-block: 5px; font-size: 14px; }
-.nav-toggle { display: none; color: #fff; background: transparent; border: 0; padding: 10px 0; min-height: 50px; width: 100%; align-items: center; justify-content: space-between; }
-.menu-icon { font-size: 24px; line-height: 1; }
+.nav-toggle { display: none; color: #fff; background: transparent; border: 0; padding: 10px 0; min-height: 50px; width: 100%; align-items: center; justify-content: flex-end; }
+/* 汉堡三条线 -> 叉：uiverse 复选框汉堡结构，白线条、弹性缓动。 */
+.menu-icon { position: relative; width: 30px; height: 22px; flex: 0 0 auto; }
+.menu-icon > span { position: absolute; left: 0; width: 100%; height: 3px; background: currentColor; border-radius: 4px; transition: transform .45s cubic-bezier(.68,-.6,.32,1.6), opacity .25s ease, left .25s ease; }
+.menu-icon > span:nth-child(1) { top: 0; }
+.menu-icon > span:nth-child(2) { top: 9px; }
+.menu-icon > span:nth-child(3) { top: 18px; }
+.nav-toggle[aria-expanded='true'] .menu-icon > span:nth-child(1) { transform: translateY(9px) rotate(135deg); }
+.nav-toggle[aria-expanded='true'] .menu-icon > span:nth-child(2) { opacity: 0; left: -22px; }
+.nav-toggle[aria-expanded='true'] .menu-icon > span:nth-child(3) { transform: translateY(-9px) rotate(-135deg); }
 
 /* 2. 首屏：俯视芯片，动效跟随系统设置。 */
 .hero { position: relative; overflow: hidden; color: #fff; background: #080f1d; }
@@ -319,6 +328,8 @@ html[data-motion-paused='false'] .home-section.is-reveal-ready:not(.has-entered)
   :is(.news-select, .editorial-notices a, .feature-row, .faculty-card, .quick-links a, .article-list a):hover :is(h2, h3) { color: var(--accent); transform: translateX(3px) scale(1.055); text-decoration: underline; text-underline-offset: 6px; }
   :is(.main-nav a, .editorial-heading > a, .back-link, .footer-links a, .utility-inner a, .list-tabs a):hover { transform: translateY(-2px) scale(1.04); text-decoration: underline; text-underline-offset: 6px; }
   .faculty-card:hover, .quick-links a:hover { transform: translateY(-6px); background: #fff; box-shadow: 0 16px 28px rgb(18 62 112 / 12%); }
+  /* 导航条悬停不画下划线（保留上浮位移与键盘 focus-visible 样式）。 */
+  .main-nav a:hover { text-decoration: none; }
 }
 html[data-motion-paused='true'] .home-section *, html[data-motion-paused='true'] .home-section *::before { animation: none !important; transition: none !important; }
 html[data-motion-paused='true'] a, html[data-motion-paused='true'] a * { transition: none !important; }
@@ -423,14 +434,18 @@ html.snap-enabled[data-motion-paused='true'] { scroll-snap-type: none; }
 .footer-drawer summary > span { font-size: 24px; line-height: 1; transition: transform .25s ease; }
 .footer-drawer[open] summary > span { transform: rotate(45deg); }
 .footer-drawer-content { padding: 0 4px 16px; }
-.footer-drawer .footer-links { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 2px 20px; }
+/* 抽屉内链接与页顶 nav-item 同一风格：两列白字磁贴，
+   展开时按 --nav-i 交错入场（逐字动画由 main.js 驱动）。 */
+.footer-drawer .footer-links { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 4px 12px; }
+.footer-drawer .footer-links a { display: flex; align-items: center; justify-content: center; min-height: 44px; color: #fff; font-size: 14px; }
+.footer-drawer[open] .footer-links a { animation: nav-card-in .45s cubic-bezier(.22,.61,.36,1) backwards; animation-delay: calc(var(--nav-i, 0) * 55ms); }
 .footer-drawer[open] .footer-drawer-content { animation: footer-disclose .25s ease; }
 @keyframes footer-disclose { from { opacity: 0; transform: translateY(-6px); } to { opacity: 1; transform: none; } }
 @media (prefers-reduced-motion: reduce) { .footer-drawer[open] .footer-drawer-content { animation: none; } .footer-drawer summary > span { transition: none; } }
-.footer-brand > img { float: left; margin: 3px 16px 10px 0; background: #fff; border-radius: 50%; }
+.footer-brand > img { float: left; margin: 2px 8px 5px 0; background: #fff; border-radius: 50%; }
 .footer-university { font-size: 23px; letter-spacing: .15em; }
-.footer-college { font-size: 19px; margin-top: 5px; }
-.footer-note { color: #a5bdd3; font-size: 12px; margin-top: 16px; }
+.footer-college { font-size: 19px; margin-top: 2px; }
+.footer-note { color: #a5bdd3; font-size: 12px; margin-top: 8px; }
 .site-footer h2 { font-size: 15px; font-weight: 500; margin-bottom: 12px; }
 .footer-contact p { font-size: 13px; margin-bottom: 5px; }
 .footer-contact a { display: block; padding-block: 7px; font-size: 13px; }
@@ -479,18 +494,25 @@ html.snap-enabled[data-motion-paused='true'] { scroll-snap-type: none; }
   .editorial-notices { gap: 25px; }
 }
 @media (max-width: 959px) {
-  :root { --header-expanded-height: 163px; --header-compact-height: 89px; }
+  :root { --header-expanded-height: 163px; --header-compact-height: 43px; }
   .container { width: calc(100% - 40px); }
   .nav-toggle:not([hidden]) { display: flex; }
   .main-nav.is-enhanced:not(.open) { display: none; }
+  /* 卡片式展开：一级栏目按 --nav-i 交错入场；标题逐字动画由 main.js 驱动。 */
+  .main-nav.is-enhanced > ul { grid-template-columns: repeat(2, 1fr); gap: 4px 12px; padding: 4px 4px 14px; }
+  .main-nav.is-enhanced > ul > .nav-item { animation: nav-card-in .45s cubic-bezier(.22,.61,.36,1) backwards; animation-delay: calc(var(--nav-i, 0) * 55ms); }
+  /* 标题对齐：+ 按钮脱离 flex 流，标题 a 恢复全宽居中，
+     带子栏目与不带子栏目的文字在同一中线上。 */
+  .main-nav.is-enhanced > ul > .nav-item > .nav-item-heading { position: relative; }
+  .main-nav.is-enhanced > ul > .nav-item > .nav-item-heading > .subnav-toggle { position: absolute; right: 0; top: 0; height: 100%; }
   .main-nav > ul { display: grid; grid-template-columns: repeat(3, 1fr); padding-bottom: 12px; }
   .main-nav > ul > li { align-self: start; }
   .subnav-toggle { width: 44px; min-height: 48px; }
   .main-nav { max-height: calc(100dvh - var(--header-expanded-height)); overflow-y: auto; }
-  .main-nav .subnav { display: none; position: static; width: auto; min-width: 0; max-width: none; transform: none; background: #f0f5fa; box-shadow: none; padding: 6px 0; border: 0; transition: none; }
+  .main-nav .subnav { display: none; position: static; width: auto; min-width: 0; max-width: none; transform: none; background: none; box-shadow: none; padding: 6px 0; border: 0; transition: none; color: inherit; }
   .main-nav .is-subnav-open > .subnav { display: block; transform: none; }
   .subnav-toggle:focus-visible { position: static; width: 44px; }
-  .main-nav .subnav a { font-size: 13px; min-height: 44px; white-space: normal; padding-inline: 14px; }
+  .main-nav .subnav a { font-size: 13px; min-height: 44px; white-space: normal; }
   .main-nav:not(.is-enhanced) .subnav { display: block; opacity: 1; visibility: visible; pointer-events: auto; transform: none; }
   .main-nav a { min-height: 48px; }
   .site-header.is-compact .nav-toggle { min-height: 42px; padding-block: 6px; }
@@ -516,7 +538,7 @@ html.snap-enabled[data-motion-paused='true'] { scroll-snap-type: none; }
   .footer-links { display: block; }
 }
 @media (max-width: 600px) {
-  :root { --header-expanded-height: 151px; --header-compact-height: 83px; }
+  :root { --header-expanded-height: 151px; --header-compact-height: 43px; }
   .container { width: calc(100% - 32px); }
   .header-main { height: 100px; padding-block: 16px; }
   .brand { gap: 9px; }
@@ -528,6 +550,7 @@ html.snap-enabled[data-motion-paused='true'] { scroll-snap-type: none; }
   .college-english { font-size: 8px; margin-top: 6px; letter-spacing: 0; max-width: 310px; line-height: 1.4; }
   .utility-inner { font-size: 10px; }
   .main-nav > ul { grid-template-columns: 1fr; }
+  .main-nav.is-enhanced > ul { grid-template-columns: 1fr; }
   .main-nav a { justify-content: flex-start; padding-inline: 12px; font-size: 15px; }
   .hero-slide { min-height: 520px; align-items: flex-start; }
   .hero-copy { padding-block: 43px 170px; }
@@ -600,8 +623,8 @@ html.snap-enabled[data-motion-paused='true'] { scroll-snap-type: none; }
   .page-photo img { height: 200px; }
   .article h2 { font-size: 22px; }
 }
-/* 固定页头收紧间距，校徽和学院名称始终保留。 */
-.site-header.is-compact .header-main { height: 46px; padding-block: 5px; }
+/* 固定页头收缩后品牌区整段滑出，校徽和学院名不再缩小驻留。 */
+.site-header.is-compact .header-main { height: 0; padding-block: 0; opacity: 0; }
 .site-header.is-compact .brand-mark { width: 34px; height: 34px; border-width: 2px; }
 .site-header.is-compact .brand-title { gap: 12px; }
 .site-header.is-compact .brand-divider { height: 18px; }
@@ -613,7 +636,7 @@ html.snap-enabled[data-motion-paused='true'] { scroll-snap-type: none; }
 .brand:hover { color: #fff; }
 @media (min-width: 960px) { .main-nav > ul > li { flex: 1 1 auto; } .main-nav > ul > .nav-item > .nav-item-heading > a { font-size: 14px; padding-inline: 8px; } }
 @media (max-width: 600px) {
-  .site-header.is-compact .header-main { height: 40px; }
+  .site-header.is-compact .header-main { height: 0; }
   .site-header.is-compact .brand-mark { width: 28px; height: 28px; }
   .site-header.is-compact .brand { gap: 7px; }
   .site-header.is-compact .brand-title { gap: 5px; }
@@ -626,7 +649,7 @@ html.snap-enabled[data-motion-paused='true'] { scroll-snap-type: none; }
 /* JS逐帧写一个进度，所有几何量同步插值；不再依赖两套布局之间的CSS过渡。 */
 .site-header {
   --header-progress: 0;
-  --brand-height-open: 112px; --brand-height-closed: 46px;
+  --brand-height-open: 112px; --brand-height-closed: 0px;
   --brand-icon-open: 64px; --brand-icon-closed: 34px;
   --brand-gap-open: 18px; --brand-gap-closed: 12px;
   --title-gap-open: 20px; --title-gap-closed: 12px;
@@ -636,7 +659,7 @@ html.snap-enabled[data-motion-paused='true'] { scroll-snap-type: none; }
 }
 [data-page='inner'] .site-header { --header-progress: 1; }
 .site-header[data-header-ready] :is(.header-main, .brand, .brand-title, .brand-mark, .brand-text, .university-name, .college-name, .college-english, .brand-divider, .brand-motto, .nav-toggle) { transition: none; }
-.site-header[data-header-ready] .header-main { height: calc(var(--brand-height-open) * (1 - var(--header-progress)) + var(--brand-height-closed) * var(--header-progress)); padding-block: 5px; }
+.site-header[data-header-ready] .header-main { height: calc(var(--brand-height-open) * (1 - var(--header-progress)) + var(--brand-height-closed) * var(--header-progress)); padding-block: calc(5px * (1 - var(--header-progress))); opacity: calc(1 - var(--header-progress) * var(--header-progress)); }
 .site-header[data-header-ready] .brand { gap: calc(var(--brand-gap-open) * (1 - var(--header-progress)) + var(--brand-gap-closed) * var(--header-progress)); }
 .site-header[data-header-ready] .brand-title { gap: calc(var(--title-gap-open) * (1 - var(--header-progress)) + var(--title-gap-closed) * var(--header-progress)); }
 .site-header[data-header-ready] .brand-mark { width: calc(var(--brand-icon-open) * (1 - var(--header-progress)) + var(--brand-icon-closed) * var(--header-progress)); height: calc(var(--brand-icon-open) * (1 - var(--header-progress)) + var(--brand-icon-closed) * var(--header-progress)); border-width: 2px; }
@@ -651,7 +674,7 @@ html.snap-enabled[data-motion-paused='true'] { scroll-snap-type: none; }
   .site-header[data-header-ready] .main-nav > ul > .nav-item > .nav-item-heading > a { min-height: 48px; padding-block: 10px; font-size: 15px; }
 }
 @media (max-width: 600px) {
-  .site-header { --brand-height-open: 100px; --brand-height-closed: 40px; --brand-icon-open: 38px; --brand-icon-closed: 28px; --brand-gap-open: 9px; --brand-gap-closed: 7px; --title-gap-open: 7px; --title-gap-closed: 5px; --university-open: clamp(12px, 3vw, 16px); --university-closed: clamp(11px, 2.9vw, 14px); --college-open: clamp(12px, 3.25vw, 19px); --college-closed: clamp(12px, 3.2vw, 17px); --english-gap: 6px; --divider-open: 20px; --divider-closed: 14px; }
+  .site-header { --brand-height-open: 100px; --brand-height-closed: 0px; --brand-icon-open: 38px; --brand-icon-closed: 28px; --brand-gap-open: 9px; --brand-gap-closed: 7px; --title-gap-open: 7px; --title-gap-closed: 5px; --university-open: clamp(12px, 3vw, 16px); --university-closed: clamp(11px, 2.9vw, 14px); --college-open: clamp(12px, 3.25vw, 19px); --college-closed: clamp(12px, 3.2vw, 17px); --english-gap: 6px; --divider-open: 20px; --divider-closed: 14px; }
   .site-header[data-header-ready] :is(.university-name, .college-name) { letter-spacing: 0; }
 }
 /* 多级菜单：桌面侧向展开，窄屏逐层缩进。 */
@@ -667,8 +690,14 @@ html.snap-enabled[data-motion-paused='true'] { scroll-snap-type: none; }
 .main-nav .subnav a { padding-inline: 16px; }
 .site-map-grid ul ul { margin-left: 18px; padding-left: 12px; border-left: 1px solid var(--line); font-size: 14px; }
 @media (max-width: 959px) {
-  .main-nav .subnav .subnav { position: static; min-width: 0; width: auto; margin-left: 14px; border-left: 2px solid #a6bbcf; transform: none; background: #fff; }
-  .main-nav .subnav .subnav-toggle { width: 44px; flex-basis: 44px; }
+  .main-nav .subnav .subnav { position: static; min-width: 0; width: auto; margin-left: 0; border-left: 0; transform: none; background: none; }
+  /* 子菜单不加底色，层级靠缩进：每往下一级多缩约 4 个空格（1em）。
+     缩进规则放在后段媒体块——前段的同名 padding 会被后面的
+     .main-nav .subnav a{padding-inline:16px} 同优先级覆盖。
+     链接默认 justify-content:center 会抵消缩进，必须改回左对齐。 */
+  .main-nav .subnav a { padding-inline: 2em 14px; justify-content: flex-start; }
+  .main-nav .subnav .subnav a { padding-inline-start: 3em; }
+  .main-nav .subnav .subnav-toggle { width: 44px; flex-basis: 44px; color: inherit; }
 }
 /* 图片占位随 HTML 生成，不覆盖正文或导航；无脚本时不显示转圈。 */
 .media-frame { display: block; position: relative; min-width: 0; overflow: hidden; background: #e6edf4; }
@@ -678,6 +707,10 @@ html.snap-enabled[data-motion-paused='true'] { scroll-snap-type: none; }
 .media-status { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 10px; padding: 12px; background: linear-gradient(110deg, #e6edf4, #f4f7fa, #e6edf4); color: #405a73; font-size: 12px; text-align: center; pointer-events: none; }
 .media-spinner { width: 24px; height: 24px; flex: 0 0 auto; border: 2px solid #bbcad8; border-top-color: #2f76b8; border-radius: 50%; animation: media-spin .9s linear infinite; }
 @keyframes media-spin { to { transform: rotate(360deg); } }
+@keyframes nav-card-in { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: none; } }
+/* 逐字动画字符：inline-block 保证 filter:blur 各字独立渲染；
+   导航与页脚抽屉共用，不能限定在窄屏媒体块内。 */
+.nav-flip-char { display: inline-block; }
 [data-media-state='ready'] > .media-status { display: none; }
 [data-media-state='error'] > .media-status .media-spinner, [data-media-state='stalled'] > .media-status .media-spinner { display: none; }
 .hero-slide > .media-status { z-index: -3; padding-left: 45%; background: linear-gradient(110deg, #183650, #294a69, #183650); color: #e1edf8; }
@@ -692,4 +725,31 @@ html.snap-enabled[data-motion-paused='true'] { scroll-snap-type: none; }
 }
 @media (hover: none), (pointer: coarse) {
   .carousel-arrow { opacity: 1; pointer-events: auto; }
+}
+/* 404 表情动画：改编自 uiverse.io/preet_7613/new-cougar-63（MIT，见 licenses/uiverse-mit.txt），颜色换站点主蓝。 */
+.error-face { display: flex; justify-content: center; align-items: center; min-height: 46vh; padding-block: 32px; color: var(--blue); }
+.error-face .face { width: 220px; height: auto; }
+.error-face .face__eyes, .error-face .face__eye-lid, .error-face .face__mouth-left, .error-face .face__mouth-right, .error-face .face__nose, .error-face .face__pupil { animation: face-eyes 3s .3s alternate infinite; }
+.error-face .face__eye-lid, .error-face .face__pupil { animation-duration: 4s; animation-delay: 1.3s; animation-iteration-count: infinite; }
+.error-face .face__eye-lid { animation-name: face-eye-lid; }
+.error-face .face__mouth-left { animation-name: face-mouth-left; }
+.error-face .face__mouth-right { animation-name: face-mouth-right; }
+.error-face .face__nose { animation-name: face-nose; }
+.error-face .face__pupil { animation-name: face-pupil; }
+@keyframes face-eyes { 0% { transform: translateY(112.5px); } 30%, 100% { transform: translateY(15px); } }
+@keyframes face-eye-lid { 0%, 40%, 45%, 100% { transform: translateY(0); } 42.5% { transform: translateY(17.5px); } }
+@keyframes face-pupil { 0%, 37.5%, 40%, 45%, 87.5%, 100% { stroke-dashoffset: 0; transform: translate(0, 0); } 12.5%, 25%, 62.5%, 75% { transform: translate(-35px, 0); } 42.5% { stroke-dashoffset: 35; transform: translate(0, 17.5px); } }
+@keyframes face-mouth-left { 0%, 30% { stroke-dashoffset: -102; } 55%, 100% { stroke-dashoffset: 0; } }
+@keyframes face-mouth-right { 0%, 30% { stroke-dashoffset: 102; } 55%, 100% { stroke-dashoffset: 0; } }
+@keyframes face-nose { 0% { transform: translate(0, 0); } 30%, 100% { transform: translate(0, 22.5px); } }
+.error-kicker { color: var(--blue); font-size: 28px; font-weight: 500; letter-spacing: .08em; text-align: center; margin: 8px 0 10px; }
+.error-desc { color: var(--muted); font-size: 15px; text-align: center; margin: 0; }
+.error-links { text-align: center; }
+.error-face.is-tracking .face__pupil { animation: none; }
+@media (max-width: 640px) { .error-face .face { width: 160px; } }
+/* 减动效：全局已关 animation，这里补动画终态，否则眼睛停在下位、嘴部 dashoffset 不归零不可见。 */
+@media (prefers-reduced-motion: reduce) {
+  .error-face .face__eyes { transform: translateY(15px); }
+  .error-face .face__nose { transform: translateY(22.5px); }
+  .error-face .face__mouth-left, .error-face .face__mouth-right { stroke-dashoffset: 0; }
 }
