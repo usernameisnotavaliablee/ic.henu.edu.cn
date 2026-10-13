@@ -134,7 +134,7 @@ ul { padding: 0; margin: 0; list-style: none; }
 .brand-motto { color: #d1e2f2; font-family: var(--font-kai); font-size: 20px; letter-spacing: .12em; white-space: nowrap; }
 .brand-mark, .brand-text, .university-name, .college-name, .college-english, .brand-motto { transition: font-size .65s cubic-bezier(.22,.61,.36,1), letter-spacing .65s ease, width .65s ease, height .65s ease, max-height .65s ease, margin .65s ease, opacity .5s ease, transform .65s ease; }
 .college-english { max-height: 32px; opacity: .85; overflow: hidden; transform: translateY(0); transform-origin: top left; }
-.navigation-band { background: #082b51; color: #fff; border-top: 1px solid #6385a5; }
+.navigation-band { background: rgb(8 43 81 / 70%); color: #fff; border-top: 1px solid #6385a5; }
 .main-nav > ul { display: flex; }
 .main-nav > ul > li { flex: 1; min-width: 0; position: relative; }
 .nav-item-heading { display: flex; align-items: stretch; }
@@ -328,6 +328,8 @@ html[data-motion-paused='false'] .home-section.is-reveal-ready:not(.has-entered)
   :is(.news-select, .editorial-notices a, .feature-row, .faculty-card, .quick-links a, .article-list a):hover :is(h2, h3) { color: var(--accent); transform: translateX(3px) scale(1.055); text-decoration: underline; text-underline-offset: 6px; }
   :is(.main-nav a, .editorial-heading > a, .back-link, .footer-links a, .utility-inner a, .list-tabs a):hover { transform: translateY(-2px) scale(1.04); text-decoration: underline; text-underline-offset: 6px; }
   .faculty-card:hover, .quick-links a:hover { transform: translateY(-6px); background: #fff; box-shadow: 0 16px 28px rgb(18 62 112 / 12%); }
+  /* 导航条悬停不画下划线（保留上浮位移与键盘 focus-visible 样式）。 */
+  .main-nav a:hover { text-decoration: none; }
 }
 html[data-motion-paused='true'] .home-section *, html[data-motion-paused='true'] .home-section *::before { animation: none !important; transition: none !important; }
 html[data-motion-paused='true'] a, html[data-motion-paused='true'] a * { transition: none !important; }
@@ -503,8 +505,7 @@ html.snap-enabled[data-motion-paused='true'] { scroll-snap-type: none; }
   .main-nav .subnav { display: none; position: static; width: auto; min-width: 0; max-width: none; transform: none; background: none; box-shadow: none; padding: 6px 0; border: 0; transition: none; color: inherit; }
   .main-nav .is-subnav-open > .subnav { display: block; transform: none; }
   .subnav-toggle:focus-visible { position: static; width: 44px; }
-  /* 子菜单不加底色，层级靠缩进表达：每往下一级多缩约 4 个空格（1em）。 */
-  .main-nav .subnav a { font-size: 13px; min-height: 44px; white-space: normal; padding-inline: 2em 14px; }
+  .main-nav .subnav a { font-size: 13px; min-height: 44px; white-space: normal; }
   .main-nav:not(.is-enhanced) .subnav { display: block; opacity: 1; visibility: visible; pointer-events: auto; transform: none; }
   .main-nav a { min-height: 48px; }
   .site-header.is-compact .nav-toggle { min-height: 42px; padding-block: 6px; }
@@ -683,6 +684,11 @@ html.snap-enabled[data-motion-paused='true'] { scroll-snap-type: none; }
 .site-map-grid ul ul { margin-left: 18px; padding-left: 12px; border-left: 1px solid var(--line); font-size: 14px; }
 @media (max-width: 959px) {
   .main-nav .subnav .subnav { position: static; min-width: 0; width: auto; margin-left: 0; border-left: 0; transform: none; background: none; }
+  /* 子菜单不加底色，层级靠缩进：每往下一级多缩约 4 个空格（1em）。
+     缩进规则放在后段媒体块——前段的同名 padding 会被后面的
+     .main-nav .subnav a{padding-inline:16px} 同优先级覆盖。
+     链接默认 justify-content:center 会抵消缩进，必须改回左对齐。 */
+  .main-nav .subnav a { padding-inline: 2em 14px; justify-content: flex-start; }
   .main-nav .subnav .subnav a { padding-inline-start: 3em; }
   .main-nav .subnav .subnav-toggle { width: 44px; flex-basis: 44px; color: inherit; }
 }
