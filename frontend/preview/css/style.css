@@ -71,7 +71,8 @@
   /* 优先使用访问者已安装的楷体，缺少本地楷体时使用本站开源字体。 */
   --font-kai: "KaiTi", "楷体", "Kaiti SC", "STKaiti", "KaiTi_GB2312", "IC WenKai", serif;
   --header-expanded-height: 171px;
-  --header-compact-height: 91px;
+  /* 收缩态 = 仅导航带：品牌区滚后整体滑出，不再缩小驻留。 */
+  --header-compact-height: 45px;
 }
 html { scroll-padding-top: calc(var(--header-compact-height) + 18px); }
 * { box-sizing: border-box; }
@@ -479,7 +480,7 @@ html.snap-enabled[data-motion-paused='true'] { scroll-snap-type: none; }
   .editorial-notices { gap: 25px; }
 }
 @media (max-width: 959px) {
-  :root { --header-expanded-height: 163px; --header-compact-height: 89px; }
+  :root { --header-expanded-height: 163px; --header-compact-height: 43px; }
   .container { width: calc(100% - 40px); }
   .nav-toggle:not([hidden]) { display: flex; }
   .main-nav.is-enhanced:not(.open) { display: none; }
@@ -516,7 +517,7 @@ html.snap-enabled[data-motion-paused='true'] { scroll-snap-type: none; }
   .footer-links { display: block; }
 }
 @media (max-width: 600px) {
-  :root { --header-expanded-height: 151px; --header-compact-height: 83px; }
+  :root { --header-expanded-height: 151px; --header-compact-height: 43px; }
   .container { width: calc(100% - 32px); }
   .header-main { height: 100px; padding-block: 16px; }
   .brand { gap: 9px; }
@@ -600,8 +601,8 @@ html.snap-enabled[data-motion-paused='true'] { scroll-snap-type: none; }
   .page-photo img { height: 200px; }
   .article h2 { font-size: 22px; }
 }
-/* 固定页头收紧间距，校徽和学院名称始终保留。 */
-.site-header.is-compact .header-main { height: 46px; padding-block: 5px; }
+/* 固定页头收缩后品牌区整段滑出，校徽和学院名不再缩小驻留。 */
+.site-header.is-compact .header-main { height: 0; padding-block: 0; opacity: 0; }
 .site-header.is-compact .brand-mark { width: 34px; height: 34px; border-width: 2px; }
 .site-header.is-compact .brand-title { gap: 12px; }
 .site-header.is-compact .brand-divider { height: 18px; }
@@ -613,7 +614,7 @@ html.snap-enabled[data-motion-paused='true'] { scroll-snap-type: none; }
 .brand:hover { color: #fff; }
 @media (min-width: 960px) { .main-nav > ul > li { flex: 1 1 auto; } .main-nav > ul > .nav-item > .nav-item-heading > a { font-size: 14px; padding-inline: 8px; } }
 @media (max-width: 600px) {
-  .site-header.is-compact .header-main { height: 40px; }
+  .site-header.is-compact .header-main { height: 0; }
   .site-header.is-compact .brand-mark { width: 28px; height: 28px; }
   .site-header.is-compact .brand { gap: 7px; }
   .site-header.is-compact .brand-title { gap: 5px; }
@@ -626,7 +627,7 @@ html.snap-enabled[data-motion-paused='true'] { scroll-snap-type: none; }
 /* JS逐帧写一个进度，所有几何量同步插值；不再依赖两套布局之间的CSS过渡。 */
 .site-header {
   --header-progress: 0;
-  --brand-height-open: 112px; --brand-height-closed: 46px;
+  --brand-height-open: 112px; --brand-height-closed: 0px;
   --brand-icon-open: 64px; --brand-icon-closed: 34px;
   --brand-gap-open: 18px; --brand-gap-closed: 12px;
   --title-gap-open: 20px; --title-gap-closed: 12px;
@@ -636,7 +637,7 @@ html.snap-enabled[data-motion-paused='true'] { scroll-snap-type: none; }
 }
 [data-page='inner'] .site-header { --header-progress: 1; }
 .site-header[data-header-ready] :is(.header-main, .brand, .brand-title, .brand-mark, .brand-text, .university-name, .college-name, .college-english, .brand-divider, .brand-motto, .nav-toggle) { transition: none; }
-.site-header[data-header-ready] .header-main { height: calc(var(--brand-height-open) * (1 - var(--header-progress)) + var(--brand-height-closed) * var(--header-progress)); padding-block: 5px; }
+.site-header[data-header-ready] .header-main { height: calc(var(--brand-height-open) * (1 - var(--header-progress)) + var(--brand-height-closed) * var(--header-progress)); padding-block: calc(5px * (1 - var(--header-progress))); opacity: calc(1 - var(--header-progress) * var(--header-progress)); }
 .site-header[data-header-ready] .brand { gap: calc(var(--brand-gap-open) * (1 - var(--header-progress)) + var(--brand-gap-closed) * var(--header-progress)); }
 .site-header[data-header-ready] .brand-title { gap: calc(var(--title-gap-open) * (1 - var(--header-progress)) + var(--title-gap-closed) * var(--header-progress)); }
 .site-header[data-header-ready] .brand-mark { width: calc(var(--brand-icon-open) * (1 - var(--header-progress)) + var(--brand-icon-closed) * var(--header-progress)); height: calc(var(--brand-icon-open) * (1 - var(--header-progress)) + var(--brand-icon-closed) * var(--header-progress)); border-width: 2px; }
@@ -651,7 +652,7 @@ html.snap-enabled[data-motion-paused='true'] { scroll-snap-type: none; }
   .site-header[data-header-ready] .main-nav > ul > .nav-item > .nav-item-heading > a { min-height: 48px; padding-block: 10px; font-size: 15px; }
 }
 @media (max-width: 600px) {
-  .site-header { --brand-height-open: 100px; --brand-height-closed: 40px; --brand-icon-open: 38px; --brand-icon-closed: 28px; --brand-gap-open: 9px; --brand-gap-closed: 7px; --title-gap-open: 7px; --title-gap-closed: 5px; --university-open: clamp(12px, 3vw, 16px); --university-closed: clamp(11px, 2.9vw, 14px); --college-open: clamp(12px, 3.25vw, 19px); --college-closed: clamp(12px, 3.2vw, 17px); --english-gap: 6px; --divider-open: 20px; --divider-closed: 14px; }
+  .site-header { --brand-height-open: 100px; --brand-height-closed: 0px; --brand-icon-open: 38px; --brand-icon-closed: 28px; --brand-gap-open: 9px; --brand-gap-closed: 7px; --title-gap-open: 7px; --title-gap-closed: 5px; --university-open: clamp(12px, 3vw, 16px); --university-closed: clamp(11px, 2.9vw, 14px); --college-open: clamp(12px, 3.25vw, 19px); --college-closed: clamp(12px, 3.2vw, 17px); --english-gap: 6px; --divider-open: 20px; --divider-closed: 14px; }
   .site-header[data-header-ready] :is(.university-name, .college-name) { letter-spacing: 0; }
 }
 /* 多级菜单：桌面侧向展开，窄屏逐层缩进。 */
