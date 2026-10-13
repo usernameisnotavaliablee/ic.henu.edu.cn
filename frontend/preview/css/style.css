@@ -500,10 +500,11 @@ html.snap-enabled[data-motion-paused='true'] { scroll-snap-type: none; }
   .main-nav > ul > li { align-self: start; }
   .subnav-toggle { width: 44px; min-height: 48px; }
   .main-nav { max-height: calc(100dvh - var(--header-expanded-height)); overflow-y: auto; }
-  .main-nav .subnav { display: none; position: static; width: auto; min-width: 0; max-width: none; transform: none; background: #f0f5fa; box-shadow: none; padding: 6px 0; border: 0; transition: none; }
+  .main-nav .subnav { display: none; position: static; width: auto; min-width: 0; max-width: none; transform: none; background: none; box-shadow: none; padding: 6px 0; border: 0; transition: none; color: inherit; }
   .main-nav .is-subnav-open > .subnav { display: block; transform: none; }
   .subnav-toggle:focus-visible { position: static; width: 44px; }
-  .main-nav .subnav a { font-size: 13px; min-height: 44px; white-space: normal; padding-inline: 14px; }
+  /* 子菜单不加底色，层级靠缩进表达：每往下一级多缩约 4 个空格（1em）。 */
+  .main-nav .subnav a { font-size: 13px; min-height: 44px; white-space: normal; padding-inline: 2em 14px; }
   .main-nav:not(.is-enhanced) .subnav { display: block; opacity: 1; visibility: visible; pointer-events: auto; transform: none; }
   .main-nav a { min-height: 48px; }
   .site-header.is-compact .nav-toggle { min-height: 42px; padding-block: 6px; }
@@ -681,8 +682,9 @@ html.snap-enabled[data-motion-paused='true'] { scroll-snap-type: none; }
 .main-nav .subnav a { padding-inline: 16px; }
 .site-map-grid ul ul { margin-left: 18px; padding-left: 12px; border-left: 1px solid var(--line); font-size: 14px; }
 @media (max-width: 959px) {
-  .main-nav .subnav .subnav { position: static; min-width: 0; width: auto; margin-left: 14px; border-left: 2px solid #a6bbcf; transform: none; background: #fff; }
-  .main-nav .subnav .subnav-toggle { width: 44px; flex-basis: 44px; }
+  .main-nav .subnav .subnav { position: static; min-width: 0; width: auto; margin-left: 0; border-left: 0; transform: none; background: none; }
+  .main-nav .subnav .subnav a { padding-inline-start: 3em; }
+  .main-nav .subnav .subnav-toggle { width: 44px; flex-basis: 44px; color: inherit; }
 }
 /* 图片占位随 HTML 生成，不覆盖正文或导航；无脚本时不显示转圈。 */
 .media-frame { display: block; position: relative; min-width: 0; overflow: hidden; background: #e6edf4; }
