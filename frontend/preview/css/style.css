@@ -726,3 +726,26 @@ html.snap-enabled[data-motion-paused='true'] { scroll-snap-type: none; }
 @media (hover: none), (pointer: coarse) {
   .carousel-arrow { opacity: 1; pointer-events: auto; }
 }
+/* 404 表情动画：改编自 uiverse.io/preet_7613/new-cougar-63（MIT，见 licenses/uiverse-mit.txt），颜色换站点主蓝。 */
+.error-face { display: flex; justify-content: center; align-items: center; min-height: 46vh; padding-block: 32px; color: var(--blue); }
+.error-face .face { width: 220px; height: auto; }
+.error-face .face__eyes, .error-face .face__eye-lid, .error-face .face__mouth-left, .error-face .face__mouth-right, .error-face .face__nose, .error-face .face__pupil { animation: face-eyes 1s .3s alternate infinite; }
+.error-face .face__eye-lid, .error-face .face__pupil { animation-duration: 4s; animation-delay: 1.3s; animation-iteration-count: infinite; }
+.error-face .face__eye-lid { animation-name: face-eye-lid; }
+.error-face .face__mouth-left { animation-name: face-mouth-left; }
+.error-face .face__mouth-right { animation-name: face-mouth-right; }
+.error-face .face__nose { animation-name: face-nose; }
+.error-face .face__pupil { animation-name: face-pupil; }
+@keyframes face-eyes { from { transform: translateY(112.5px); } to { transform: translateY(15px); } }
+@keyframes face-eye-lid { 0%, 40%, 45%, 100% { transform: translateY(0); } 42.5% { transform: translateY(17.5px); } }
+@keyframes face-pupil { 0%, 37.5%, 40%, 45%, 87.5%, 100% { stroke-dashoffset: 0; transform: translate(0, 0); } 12.5%, 25%, 62.5%, 75% { transform: translate(-35px, 0); } 42.5% { stroke-dashoffset: 35; transform: translate(0, 17.5px); } }
+@keyframes face-mouth-left { from, 50% { stroke-dashoffset: -102; } to { stroke-dashoffset: 0; } }
+@keyframes face-mouth-right { from, 50% { stroke-dashoffset: 102; } to { stroke-dashoffset: 0; } }
+@keyframes face-nose { from { transform: translate(0, 0); } to { transform: translate(0, 22.5px); } }
+@media (max-width: 640px) { .error-face .face { width: 160px; } }
+/* 减动效：全局已关 animation，这里补动画终态，否则眼睛停在下位、嘴部 dashoffset 不归零不可见。 */
+@media (prefers-reduced-motion: reduce) {
+  .error-face .face__eyes { transform: translateY(15px); }
+  .error-face .face__nose { transform: translateY(22.5px); }
+  .error-face .face__mouth-left, .error-face .face__mouth-right { stroke-dashoffset: 0; }
+}
