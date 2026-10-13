@@ -281,6 +281,31 @@
     });
   }
 
+  // 404 表情眼神跟手。CSS 动画优先于 inline transform，故先加 is-tracking 停掉瞳孔动画再写位移；
+  // 瞳孔元素自身无 transform 属性（位移在父级 g 上），inline transform 可直接生效。
+  const errorFace = document.querySelector('.error-face');
+  if (errorFace && !reducedMotion.matches) {
+    const pupils = errorFace.querySelectorAll('.face__pupil');
+    const svg = errorFace.querySelector('.face');
+    // 组装终态下两瞳孔在 viewBox 320×380 中的位置：父组 translate(15|230,15) + 瞳孔局部 (55,~137)。
+    const anchors = [[70, 152], [285, 152]];
+    document.addEventListener('pointermove', event => {
+      const rect = svg.getBoundingClientRect();
+      errorFace.classList.add('is-tracking');
+      pupils.forEach((pupil, i) => {
+        const dx = event.clientX - (rect.left + anchors[i][0] / 320 * rect.width);
+        const dy = event.clientY - (rect.top + anchors[i][1] / 380 * rect.height);
+        const dist = Math.hypot(dx, dy) || 1;
+        const move = Math.min(8, dist * 0.08);
+        pupil.style.transform = `translate(${dx / dist * move}px, ${dy / dist * move}px)`;
+      });
+    });
+    document.documentElement.addEventListener('mouseleave', () => {
+      errorFace.classList.remove('is-tracking');
+      pupils.forEach(pupil => { pupil.style.transform = ''; });
+    });
+  }
+
   const hero = document.querySelector('[data-carousel]');
   if (!hero) return;
   const slides = [...hero.querySelectorAll('[data-slide]')];

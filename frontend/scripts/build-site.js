@@ -227,7 +227,7 @@ const errorFace = `<div class="error-face" aria-hidden="true">
     </g>
   </svg>
 </div>`;
-inner('404.html', '页面未找到', '404', errorFace + '<p class="page-note">页面不存在，或内容尚未批准预览。</p><p><a class="back-link" href="index.html">返回首页 →</a> <a class="back-link" href="site-map.html">网站导航 →</a></p>');
+inner('404.html', '页面未找到', '404', errorFace + '<p class="error-kicker">页面走丢了</p><p class="error-desc">页面不存在，或内容尚未批准预览。</p><p class="error-links"><a class="back-link" href="index.html">返回首页 →</a> <a class="back-link" href="site-map.html">网站导航 →</a></p>');
 delete routeCatalog['404'];
 
 const media = require('../src/data/media');
