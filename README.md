@@ -55,4 +55,4 @@ python -m http.server 8766 --bind 127.0.0.1 --directory frontend/preview
 
 对外材料仍放 [docs/发给老师](docs/发给老师/)，不修改用户既有 Word。旧设计与 README 原稿保存在 [整理前历史版本](docs/归档不再看/历史版本/交付整理前_20261012/)，其中旧状态和相对链接仅用于追溯。
 
-根目录 AGENTS.md 与 HANDOFF.md 是个人本地指令和接续笔记，不纳入 Git；团队共享说明以 [STATUS.md](STATUS.md) 为准。
+根目录 AGENTS.md 是个人本地指令，不纳入 Git；项目状态与团队共享说明统一以 [STATUS.md](STATUS.md) 为准。
