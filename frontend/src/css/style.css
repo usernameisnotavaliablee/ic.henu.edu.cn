@@ -438,10 +438,10 @@ html.snap-enabled[data-motion-paused='true'] { scroll-snap-type: none; }
 .footer-drawer[open] .footer-drawer-content { animation: footer-disclose .25s ease; }
 @keyframes footer-disclose { from { opacity: 0; transform: translateY(-6px); } to { opacity: 1; transform: none; } }
 @media (prefers-reduced-motion: reduce) { .footer-drawer[open] .footer-drawer-content { animation: none; } .footer-drawer summary > span { transition: none; } }
-.footer-brand > img { float: left; margin: 3px 16px 10px 0; background: #fff; border-radius: 50%; }
+.footer-brand > img { float: left; margin: 2px 8px 5px 0; background: #fff; border-radius: 50%; }
 .footer-university { font-size: 23px; letter-spacing: .15em; }
-.footer-college { font-size: 19px; margin-top: 5px; }
-.footer-note { color: #a5bdd3; font-size: 12px; margin-top: 16px; }
+.footer-college { font-size: 19px; margin-top: 2px; }
+.footer-note { color: #a5bdd3; font-size: 12px; margin-top: 8px; }
 .site-footer h2 { font-size: 15px; font-weight: 500; margin-bottom: 12px; }
 .footer-contact p { font-size: 13px; margin-bottom: 5px; }
 .footer-contact a { display: block; padding-block: 7px; font-size: 13px; }
