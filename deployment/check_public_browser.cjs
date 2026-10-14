@@ -33,9 +33,9 @@ async function launch() {
   await page.waitForTimeout(500);
 
   const fontLoad = await page.evaluate(async () => {
-    const faces = await document.fonts.load('400 30px "IC WenKai"', '学院新闻');
+    const faces = await document.fonts.load('400 30px "IC ZhuangSong"', '学院新闻');
     return { count: faces.length, status: document.fonts.status,
-             family: faces[0] ? faces[0].family : null, check: document.fonts.check('400 30px "IC WenKai"', '学院新闻') };
+             family: faces[0] ? faces[0].family : null, check: document.fonts.check('400 30px "IC ZhuangSong"', '学院新闻') };
   });
   check('document.fonts.load 返回至少一个字体对象', fontLoad.count >= 1,
         'count=' + fontLoad.count + ', status=' + fontLoad.status + ', family=' + fontLoad.family);
@@ -49,8 +49,8 @@ async function launch() {
     }
     return out;
   });
-  const applied = Object.entries(styled).filter(([, v]) => v && v.includes('IC WenKai')).map(([k]) => k);
-  check('楷体区域的 computed font-family 以 IC WenKai 打头', applied.length >= 1,
+  const applied = Object.entries(styled).filter(([, v]) => v && v.includes('IC ZhuangSong')).map(([k]) => k);
+  check('标题区域的 computed font-family 以 IC ZhuangSong 打头', applied.length >= 1,
         applied.join(', ') + ' / 全部：' + JSON.stringify(styled));
 
   const ttf = fontResponses[0];
@@ -142,7 +142,7 @@ async function launch() {
       await page.waitForTimeout(300);
       const r = await page.evaluate(() => ({
         overflow: document.documentElement.scrollWidth - window.innerWidth,
-        loaded: document.fonts.check('400 30px "IC WenKai"', '学院新闻'),
+        loaded: document.fonts.check('400 30px "IC ZhuangSong"', '学院新闻'),
         pagWidth: (() => { const n = document.querySelector('.pagination'); return n ? Math.round(n.getBoundingClientRect().right) : null; })(),
         itemOver: (() => {
           let worst = 0;

@@ -1,20 +1,24 @@
-"""用 Python 标准库取得开源楷体子集并自托管；不安装字体、库或系统包。
+"""把「新愚公装甲宋A」母版子集化为固定标题字体；不联网，不安装任何依赖。
 
-先 build-site.js，再运行本脚本，再 build-site.js。--check 离线核对，不下载。
-Google Fonts 仅在准备资产时使用，网页访问者只向本站请求字体。
+先 build-site.js，再运行本脚本，再 build-site.js。--check 离线核对，不重新生成。
+构建期需要 fontTools（本机 pyftsubset / fontTools 4.x）；网页访问者只向本站请求字体。
 """
 import argparse
 import hashlib
+import io
 import json
-import re
 from html.parser import HTMLParser
 from pathlib import Path
-from urllib.parse import urlencode, urlsplit
-from urllib.request import Request, urlopen
 
 ROOT = Path(__file__).resolve().parents[1]
-LICENSE_URL = 'https://raw.githubusercontent.com/google/fonts/main/ofl/lxgwwenkaitc/OFL.txt'
-MANIFEST = ROOT / 'licenses' / 'lxgw-wenkai-manifest.txt'
+SOURCE_FONT = ROOT.parent / 'docs' / 'assets' / 'fonts' / '新愚公装甲宋A.ttf'
+LICENSE_FILE = ROOT / 'licenses' / 'XinYuGongZhangJiaSongA-OFL.txt'
+MANIFEST = ROOT / 'licenses' / 'zhuangsong-manifest.txt'
+FAMILY = 'IC ZhuangSong'
+STYLE_FILE = ROOT / 'src' / 'css' / 'fonts.css'
+SELECTORS = '.brand-motto, .editorial-heading h2, .feature-intro, .footer-campus p'
+ASSET_DIRS = (ROOT / 'src' / 'assets', ROOT / 'preview' / 'assets')
+ASSET_PATTERNS = ('ic-zhuangsong-headings-*.ttf', 'ic-kai-headings-*.ttf')
 
 
 class HeadingText(HTMLParser):
@@ -46,6 +50,10 @@ class HeadingText(HTMLParser):
             self.characters.update(text.strip())
 
 
+def digest(file):
+    return hashlib.sha256(Path(file).read_bytes()).hexdigest()
+
+
 def required_characters():
     characters = set()
     for page in (ROOT / 'preview').glob('*.html'):
@@ -53,30 +61,78 @@ def required_characters():
         parser.feed(page.read_text(encoding='utf-8'))
         characters.update(parser.characters)
     if not characters:
-        raise SystemExit('未找到已构建的楷体区域，请先运行 node frontend/scripts/build-site.js。')
+        raise SystemExit('未找到已构建的标题区域，请先运行 node frontend/scripts/build-site.js。')
     return ''.join(sorted(characters))
 
 
-def download(url, limit):
-    request = Request(url, headers={'User-Agent': 'Mozilla/5.0'})
-    with urlopen(request, timeout=45) as response:
-        data = response.read(limit + 1)
-    if len(data) > limit:
-        raise RuntimeError('字体来源响应超过预期大小，未保存。')
-    return data
+def subset_font(characters):
+    try:
+        from fontTools import subset
+        from fontTools.ttLib import TTFont
+    except ImportError:
+        raise SystemExit('缺少 fontTools，本脚本子集化需要它；请自行安装（如 pip install fonttools），脚本不自动安装。')
+    options = subset.Options()
+    options.layout_features = []
+    options.hinting = False
+    options.desubroutinize = True
+    options.notdef_outline = True
+    options.recalc_bounds = True
+    # OFL 要求随衍生字体保留版权与许可声明，pyftsubset 默认只留 name 0-6，必须放宽。
+    options.name_IDs = ['*']
+    options.name_legacy = True
+    options.name_languages = ['*']
+    font = TTFont(SOURCE_FONT)
+    # 母版带 space 字形却漏了 U+0020 映射；补上，否则标题里的空格会回退到系统字体、宽度随系统变化。
+    if any(c.isspace() for c in characters) and 0x20 not in font.getBestCmap():
+        if 'space' not in font.getGlyphOrder():
+            raise SystemExit('母版字体既无 U+0020 映射也无 space 字形，未改动任何文件。')
+        for table in font['cmap'].tables:
+            if table.isUnicode():
+                table.cmap[0x20] = 'space'
+    subsetter = subset.Subsetter(options=options)
+    subsetter.populate(text=characters)
+    subsetter.subset(font)
+    covered = set(font.getBestCmap())
+    missing = ''.join(sorted(c for c in characters if not c.isspace() and ord(c) not in covered))
+    if missing:
+        raise SystemExit('母版字体缺字，未改动任何文件：' + missing)
+    buffer = io.BytesIO()
+    font.save(buffer)
+    return buffer.getvalue()
+
+
+def clear_assets():
+    removed = []
+    for folder in ASSET_DIRS:
+        for pattern in ASSET_PATTERNS:
+            for stale in sorted(folder.glob(pattern)):
+                stale.unlink()
+                removed.append(stale.relative_to(ROOT.parent).as_posix())
+    return removed
+
+
+def write_style(asset_name):
+    STYLE_FILE.write_text(
+        '/* 新愚公装甲宋A（衍自思源宋体）· SIL OFL 1.1；固定标题子集，授权见 frontend/licenses。 */\n'
+        f'@font-face {{ font-family: "{FAMILY}"; font-style: normal; font-weight: 400; font-display: swap; '
+        f'src: url("../assets/{asset_name}") format("truetype"); }}\n'
+        f'{SELECTORS} {{ font-family: var(--font-display); font-weight: 400; font-synthesis: none; }}\n',
+        encoding='utf-8')
 
 
 def check():
     if not MANIFEST.exists():
-        raise SystemExit('待完成：授权字体资源尚未下载；不能声称手机字体问题已修复。')
+        raise SystemExit('待完成：字体子集尚未生成；请运行不带 --check 的本脚本。')
     info = json.loads(MANIFEST.read_text(encoding='utf-8'))
-    for relative, digest in info['files'].items():
+    if not SOURCE_FONT.is_file() or digest(SOURCE_FONT) != info['source_sha256']:
+        raise SystemExit(f'母版字体缺失或已变更，无法核对子集来源：{info["source_file"]}')
+    for relative, expected in info['files'].items():
         file = ROOT / relative
-        if not file.is_file() or hashlib.sha256(file.read_bytes()).hexdigest() != digest:
+        if not file.is_file() or digest(file) != expected:
             raise SystemExit(f'字体资源缺失或校验不符：{relative}')
     missing = set(required_characters()) - set(info['characters'])
     if missing:
-        raise SystemExit('楷体文本已增加，需重新生成字体子集：' + ''.join(sorted(missing)))
+        raise SystemExit('标题文字已增加，需重新生成字体子集：' + ''.join(sorted(missing)))
     print(f'字体资源、授权及字符覆盖通过：{len(info["characters"])}个字符。')
 
 
@@ -87,41 +143,29 @@ def main():
     if args.check:
         check()
         return
+    if not SOURCE_FONT.is_file():
+        raise SystemExit(f'未找到母版字体：{SOURCE_FONT}')
     characters = required_characters()
-    url = 'https://fonts.googleapis.com/css2?' + urlencode({'family': 'LXGW WenKai TC', 'display': 'swap', 'text': characters})
-    css = download(url, 100_000).decode('utf-8')
-    match = re.search(r'src:\s*url\((https://[^)]+)\)', css)
-    if not match or urlsplit(match[1]).hostname != 'fonts.gstatic.com':
-        raise SystemExit('未取得可信的 Google Fonts 字体地址，未改动样式。')
-    binary = download(match[1], 2_000_000)
-    formats = {b'wOF2': ('woff2', 'woff2'), b'\x00\x01\x00\x00': ('ttf', 'truetype')}
-    if binary[:4] not in formats:
-        raise SystemExit('字体响应不是预期的 WOFF2 或 TTF，未改动样式。')
-    license_text = download(LICENSE_URL, 30_000).decode('utf-8')
-    if 'SIL OPEN FONT LICENSE Version 1.1' not in license_text or 'LXGW WenKai Project Authors' not in license_text:
-        raise SystemExit('授权文本未通过核对，未改动样式。')
-    extension, font_format = formats[binary[:4]]
-    digest = hashlib.sha256(binary).hexdigest()
-    name = f'ic-kai-headings-{digest[:12]}.{extension}'
-    asset = ROOT / 'src' / 'assets' / name
-    license_file = ROOT / 'licenses' / 'LXGW-WenKai-TC-OFL.txt'
-    license_file.parent.mkdir(parents=True, exist_ok=True)
-    asset.write_bytes(binary)
-    license_file.write_text(license_text, encoding='utf-8')
-    generated = ROOT / 'src' / 'css' / 'fonts.css'
-    generated.write_text(
-        '/* LXGW WenKai TC · SIL OFL 1.1；固定楷体文本子集，授权见 frontend/licenses。 */\n'
-        '@font-face { font-family: "IC WenKai"; font-style: normal; font-weight: 400; font-display: swap; '
-        f'src: url("../assets/{name}") format("{font_format}"); }}\n'
-        '.brand-motto, .editorial-heading h2, .feature-intro, .footer-campus p { '
-        'font-family: var(--font-kai); font-weight: 400; font-synthesis: none; }\n', encoding='utf-8')
-    info = {'family': 'LXGW WenKai TC', 'license': 'SIL OFL 1.1', 'source_css': url,
-            'source_font': match[1], 'source_license': LICENSE_URL, 'characters': characters,
-            'files': {f.relative_to(ROOT).as_posix(): hashlib.sha256(f.read_bytes()).hexdigest()
-                      for f in [asset, license_file, generated]}}
-    MANIFEST.write_text(json.dumps(info, ensure_ascii=False, indent=2) + '\n', encoding='utf-8')
+    binary = subset_font(characters)
+    asset_name = f'ic-zhuangsong-headings-{hashlib.sha256(binary).hexdigest()[:12]}.ttf'
+    for stale in clear_assets():
+        print(f'已清除过期字体资源：{stale}')
+    (ROOT / 'src' / 'assets' / asset_name).write_bytes(binary)
+    write_style(asset_name)
+    files = {relative: digest(ROOT / relative) for relative in
+             (f'src/assets/{asset_name}', 'src/css/fonts.css',
+              LICENSE_FILE.relative_to(ROOT).as_posix())}
+    MANIFEST.write_text(json.dumps({
+        'family': FAMILY,
+        'license': 'SIL OFL 1.1',
+        'source_file': SOURCE_FONT.relative_to(ROOT.parent).as_posix(),
+        'source_sha256': digest(SOURCE_FONT),
+        'name_ids': '*',
+        'characters': characters,
+        'files': files,
+    }, ensure_ascii=False, indent=2) + '\n', encoding='utf-8')
     check()
-    print(f'已保存 {len(binary)} 字节字体，无新增依赖。请重新构建前端后部署。')
+    print(f'已保存 {len(binary)} 字节子集，无新增依赖。请重新构建前端后部署。')
 
 
 if __name__ == '__main__':

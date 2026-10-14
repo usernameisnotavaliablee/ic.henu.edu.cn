@@ -119,7 +119,8 @@
 | Django content 回归 | 46 项通过（隔离库） | `backend/manage.py test content --noinput` |
 | 静态链接与片段 | 72 页 / 5557 引用通过 | `frontend/scripts/check-preview.py` |
 | 页面结构/模板对应 | 95 项通过 | `frontend/qa/current-structure.json` |
-| 字体资源、许可、覆盖 | 104 字符通过 | `prepare-fonts.py --check` |
+| 字体资源、许可、覆盖 | 104 字符通过（母版 sha256 + 子集 sha256 + 覆盖） | `prepare-fonts.py --check` |
+| 标题字体跨页一致 | 73 页 177 区域 2191 字形全部自托管、0 回退 | `frontend/scripts/check-overview-typography.cjs` |
 | 运行包预检 | 229 文件通过 | `deployment/package_preview.py --check` |
 | WAL 备份恢复 | 1 项通过（临时样例） | `deployment/test_backup.py` |
 | 打包资源回归 | 7 项通过 | `deployment/test_release_assets.py` |
@@ -174,7 +175,7 @@ ssh -N -L 8095:127.0.0.1:8095 <已授权用户>@47.94.146.53
 
 流程见 `deployment/README.md`。发布必须对应明确 Git commit：备份库与必要配置 → 生成新 release → 验证 → 切换。**不把代码发布与业务数据覆盖混为一件事。**
 
-字体：优先访客本机楷体，缺失用本站开源字体（LXGW WenKai TC 子集，SIL OFL，许可存 `frontend/licenses/`）。改固定标题/校训需跑 `prepare-fonts.py --check`；字符不足时在隔离环境重新生成。**不得复制 Windows 商业字体给访客下载。**
+字体：标题区域（校训、栏目大标题、feature-intro、页脚校训）统一用自托管「新愚公装甲宋A」子集（CSS 族名 IC ZhuangSong，衍自思源宋体，SIL OFL 1.1，许可存 `frontend/licenses/`），**不再依赖访客本机字体**；正文与导航仍是系统无衬线。母版 18 MB 存 `docs/assets/fonts/`，运行子集 36 KB；改固定标题/校训需跑 `prepare-fonts.py --check`，缺字则重跑不带 `--check` 的脚本重建（构建期需本机 fontTools，不联网）。**不得复制 Windows 商业字体给访客下载。**
 
 图片在 `frontend/src/assets` 添加并记录来源，构建后进 `preview/assets`。禁止把外部示意图称为学院真实设施或活动现场；未获正式公众号二维码不生成冒用占位。
 

@@ -5,9 +5,15 @@ const assert = require('node:assert/strict');
 const { chromium } = require(path.join(process.env.IC_TEST_MODULES, 'playwright'));
 const base = process.argv[2] || 'http://127.0.0.1:8766';
 const root = path.resolve(__dirname, '..');
+// 标题字体必须是自托管子集，且体积受控；防止误把 18MB 母版或未子集化文件发上线。
+const manifest = JSON.parse(fs.readFileSync(path.join(root, 'licenses/zhuangsong-manifest.txt'), 'utf8'));
+const fontAssets = Object.keys(manifest.files).filter(f => f.startsWith('src/assets/'));
+assert.equal(fontAssets.length, 1, `标题字体资产应恰好一个：${fontAssets}`);
+const fontBytes = fs.statSync(path.join(root, fontAssets[0])).size;
+assert(fontBytes <= 150 * 1024, `标题字体子集过大：${fontBytes} 字节`);
 (async () => {
   const browser = await chromium.launch({ channel: 'msedge', headless: true });
-  const report = { scope: 'Edge desktop and emulated viewport; no physical-device or production check', fontStrategy: 'local KaiTi first, self-hosted WenKai fallback', pages: [], fonts: [], motion: {}, widths: [] };
+  const report = { scope: 'Edge desktop and emulated viewport; no physical-device or production check', fontStrategy: 'self-hosted ZhuangSong subset, no local font dependency', fontBytes, pages: [], fonts: [], motion: {}, widths: [] };
   try {
     const page = await browser.newPage({ viewport: { width: 1440, height: 1000 } });
     const errors = [];
@@ -22,12 +28,12 @@ const root = path.resolve(__dirname, '..');
       const { nodeIds } = await cdp.send('DOM.querySelectorAll', { nodeId: dom.root.nodeId, selector: '.brand-motto, .editorial-heading h2, .feature-intro, .footer-campus p' });
       for (const nodeId of nodeIds) {
         const { fonts } = await cdp.send('CSS.getPlatformFontsForNode', { nodeId });
-        assert(fonts.length && fonts.every(f => f.isCustomFont || /Kai|楷/i.test(f.familyName)), `${file}: unexpected fallback ${JSON.stringify(fonts)}`);
+        assert(fonts.length && fonts.every(f => f.isCustomFont), `${file}: 标题区域出现回退字体 ${JSON.stringify(fonts)}`);
         report.fonts.push({ file, fonts });
       }
       const styles = await page.locator('.editorial-heading h2').evaluateAll(es => es.map(e => ({ family: getComputedStyle(e).fontFamily, weight: getComputedStyle(e).fontWeight })));
-      assert(styles.every(s => s.family.indexOf('KaiTi') < s.family.indexOf('IC WenKai') && s.weight === '400'), file);
-      assert(!(await page.locator('body').evaluate(e => getComputedStyle(e).fontFamily)).includes('IC WenKai'));
+      assert(styles.every(s => s.family.replace(/["']/g, '').startsWith('IC ZhuangSong') && s.weight === '400'), `${file}: ${JSON.stringify(styles)}`);
+      assert(!(await page.locator('body').evaluate(e => getComputedStyle(e).fontFamily)).includes('IC ZhuangSong'));
       report.pages.push(file);
     }
     await page.goto(base + '/about.html');
@@ -61,13 +67,14 @@ const root = path.resolve(__dirname, '..');
     assert(report.motion.opacity[1] > 0 && report.motion.opacity[1] < 1);
     assert.equal(report.motion.opacity[2], 1);
     assert.equal(report.motion.opacity[4], 0);
-    // 模拟未安装本地楷体的设备，确保自托管回退仍可完整渲染。
-    const fallbackStyle = await page.addStyleTag({ content: ':root { --font-kai: "IC WenKai", serif; }' });
+    // 模拟自托管字体不可用（被拦截或尚未加载），确认尾部系统宋体兜底仍能正常排版。
+    const fallbackStyle = await page.addStyleTag({ content: ':root { --font-display: "Songti SC", "SimSun", serif; }' });
     await page.evaluate(() => document.fonts.ready);
     const fallbackDom = await cdp.send('DOM.getDocument');
     const fallbackHeading = await cdp.send('DOM.querySelector', { nodeId: fallbackDom.root.nodeId, selector: '.editorial-heading h2' });
     report.fallbackFonts = (await cdp.send('CSS.getPlatformFontsForNode', { nodeId: fallbackHeading.nodeId })).fonts;
-    assert(report.fallbackFonts.length && report.fallbackFonts.every(f => f.isCustomFont));
+    assert(report.fallbackFonts.length && report.fallbackFonts.every(f => !f.isCustomFont), JSON.stringify(report.fallbackFonts));
+    assert.equal(await page.locator('.editorial-heading h2').first().textContent(), '学院简介');
     await fallbackStyle.evaluate(e => e.remove());
     await mark.evaluate(e => { e.getAnimations()[0].currentTime = 4000; });
     await page.screenshot({ path: path.join(root, 'qa/about-desktop.png') });

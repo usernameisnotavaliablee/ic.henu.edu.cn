@@ -20,9 +20,9 @@ class ReleaseAssetTests(unittest.TestCase):
         self.addCleanup(self.temp.cleanup)
         self.docs = Path(self.temp.name) / 'docs'
         self.frontend = self.docs / 'frontend'
-        self.manifest_path = self.frontend / 'licenses/lxgw-wenkai-manifest.txt'
-        self.info = json.loads((DOCS / 'frontend/licenses/lxgw-wenkai-manifest.txt').read_text(encoding='utf-8'))
-        for relative in ['licenses/lxgw-wenkai-manifest.txt', *self.info['files']]:
+        self.manifest_path = self.frontend / 'licenses/zhuangsong-manifest.txt'
+        self.info = json.loads((DOCS / 'frontend/licenses/zhuangsong-manifest.txt').read_text(encoding='utf-8'))
+        for relative in ['licenses/zhuangsong-manifest.txt', *self.info['files']]:
             runtime_path = 'preview/' + relative[4:] if relative.startswith('src/') else relative
             target = self.frontend / runtime_path
             target.parent.mkdir(parents=True, exist_ok=True)
@@ -56,7 +56,7 @@ class ReleaseAssetTests(unittest.TestCase):
             file.write_bytes(data)
 
     def test_tampered_font_is_rejected(self):
-        font = next((self.frontend / 'preview/assets').glob('ic-kai-headings-*'))
+        font = next((self.frontend / 'preview/assets').glob('ic-zhuangsong-headings-*'))
         font.write_bytes(font.read_bytes() + b'changed')
         with self.assertRaises(ValueError):
             validate_fonts(self.docs)

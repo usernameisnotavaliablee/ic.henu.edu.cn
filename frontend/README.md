@@ -26,9 +26,9 @@
 
 ## 字体和素材
 
-楷体区域优先匹配访问者 KaiTi/楷体/Kaiti SC/STKaiti/KaiTi_GB2312，缺失时用本站 IC WenKai（LXGW WenKai TC，SIL OFL）。正文和导航沿用无衬线。不同系统本地楷体字形可能不同。
+标题区域（`.brand-motto`、`.editorial-heading h2`、`.feature-intro`、`.footer-campus p`）统一使用自托管「新愚公装甲宋A」子集，CSS 族名 `IC ZhuangSong`，由 `--font-display` 引用。全部字形随站分发，不依赖访客本机字体，跨系统渲染一致；正文和导航沿用系统无衬线。字体衍自思源宋体（SIL OFL 1.1，保留字体名 `Source`），授权全文见 `licenses/XinYuGongZhangJiaSongA-OFL.txt`。
 
-固定楷体子集当前覆盖 104 字符。改标题或校训后执行 `python frontend/scripts/prepare-fonts.py --check`；缺字时先构建，再用隔离字体环境运行不带 --check 的脚本联网重建，最后再次构建。不要将商业系统字体复制入库。
+固定标题子集当前覆盖 104 字符、约 36 KB，母版是 `docs/assets/fonts/新愚公装甲宋A.ttf`（18 MB，不入运行目录）。改标题或校训后：先 `node frontend/scripts/build-site.js`，再 `python frontend/scripts/prepare-fonts.py`，再构建一次。`--check` 离线核对母版 sha256、子集 sha256 与字符覆盖。子集化需要本机 `fontTools`（`pyftsubset`），脚本不联网也不自动安装。不要将商业系统字体复制入库。
 
 新图片放 src/assets 后构建；教师和站点的后台图片选项扫描运行版 assets 的 jpg/jpeg/png/webp。新闻通知配图是 models.py 中的固定白名单，增加选项需同步模型并生成必要迁移。没有上传入口。
 

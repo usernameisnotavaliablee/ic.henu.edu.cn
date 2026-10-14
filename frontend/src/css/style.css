@@ -68,8 +68,8 @@
   --pale: #f1f6fa;
   --container: 1240px;
   --font: "Microsoft YaHei", "PingFang SC", "Noto Sans CJK SC", system-ui, sans-serif;
-  /* 优先使用访问者已安装的楷体，缺少本地楷体时使用本站开源字体。 */
-  --font-kai: "KaiTi", "楷体", "Kaiti SC", "STKaiti", "KaiTi_GB2312", "IC WenKai", serif;
+  /* 标题字体：本站自托管的装甲宋子集，不依赖访客本机字体；尾部是字体未加载时的系统宋体兜底。 */
+  --font-display: "IC ZhuangSong", "Source Han Serif SC", "Noto Serif CJK SC", "Songti SC", "SimSun", serif;
   --header-expanded-height: 171px;
   /* 收缩态 = 仅导航带：品牌区滚后整体滑出，不再缩小驻留。 */
   --header-compact-height: 45px;
@@ -131,7 +131,7 @@ ul { padding: 0; margin: 0; list-style: none; }
 .university-name { font-size: 25px; font-weight: 500; letter-spacing: .1em; }
 .college-name { font-size: clamp(23px, 2.1vw, 30px); font-weight: 500; letter-spacing: .055em; }
 .college-english { display: block; margin-top: 9px; font-size: 11px; letter-spacing: .045em; color: #d1e2f2; }
-.brand-motto { color: #d1e2f2; font-family: var(--font-kai); font-size: 20px; letter-spacing: .12em; white-space: nowrap; }
+.brand-motto { color: #d1e2f2; font-family: var(--font-display); font-size: 20px; letter-spacing: .12em; white-space: nowrap; }
 .brand-mark, .brand-text, .university-name, .college-name, .college-english, .brand-motto { transition: font-size .65s cubic-bezier(.22,.61,.36,1), letter-spacing .65s ease, width .65s ease, height .65s ease, max-height .65s ease, margin .65s ease, opacity .5s ease, transform .65s ease; }
 .college-english { max-height: 32px; opacity: .85; overflow: hidden; transform: translateY(0); transform-origin: top left; }
 .navigation-band { background: rgb(8 43 81 / 70%); color: #fff; border-top: 1px solid #6385a5; }
@@ -251,7 +251,7 @@ html[data-motion-paused='true'] .hero-image { animation-play-state: paused; }
 .editorial-heading > div { position: relative; padding-left: 21px; }
 .editorial-heading > div::before { content: ''; position: absolute; width: 3px; left: 0; top: 5px; bottom: 4px; background: var(--blue); }
 .editorial-heading > div > span { display: block; color: #71849c; letter-spacing: .2em; font-size: 10px; margin-bottom: 6px; }
-.editorial-heading h2 { font-family: var(--font-kai); color: var(--blue); font-size: 38px; font-weight: 400; letter-spacing: .1em; line-height: 1.25; }
+.editorial-heading h2 { font-family: var(--font-display); color: var(--blue); font-size: 38px; font-weight: 400; letter-spacing: .1em; line-height: 1.25; }
 .editorial-heading > a { display: inline-flex; align-items: center; gap: 24px; padding: 10px 0; border-bottom: 1px solid #b1c1d2; font-size: 13px; color: var(--blue); white-space: nowrap; min-height: 44px; }
 .editorial-heading > a > span { font-size: 20px; }
 .section-news { background: #f8fafc; }
@@ -292,7 +292,7 @@ html[data-motion-paused='true'] .hero-image { animation-play-state: paused; }
 .research-art img { width: 100%; height: 100%; object-fit: cover; object-position: 73% center; }
 .research-art figcaption, .education-art figcaption { position: absolute; inset-inline: 0; bottom: 0; padding: 45px 25px 22px; color: #fff; background: linear-gradient(transparent, rgb(5 31 55 / 88%)); font-size: 22px; letter-spacing: .12em; }
 .feature-layout figcaption span { display: block; font-size: 10px; opacity: .8; margin-top: 7px; letter-spacing: .08em; }
-.feature-intro { color: var(--blue); font-size: 25px; font-family: var(--font-kai); margin-bottom: 12px; letter-spacing: .06em; }
+.feature-intro { color: var(--blue); font-size: 25px; font-family: var(--font-display); margin-bottom: 12px; letter-spacing: .06em; }
 .feature-copy > .muted { font-size: 13px; margin-bottom: 20px; }
 .feature-row { display: flex; align-items: center; gap: 24px; padding-block: 20px; border-top: 1px solid #cfdbe6; }
 .feature-row:last-child { border-bottom: 1px solid #cfdbe6; }
@@ -424,7 +424,7 @@ html.snap-enabled[data-motion-paused='true'] { scroll-snap-type: none; }
 /* 5. 页脚 */
 .site-footer { background: var(--blue-dark); color: #e0eaf3; }
 .footer-campus { padding-block: 65px; background: linear-gradient(90deg, rgb(6 37 67 / 92%), rgb(6 37 67 / 55%)), url('../assets/campus-building.jpg') center 52% / cover; }
-.footer-campus p { font-family: var(--font-kai); font-size: 34px; letter-spacing: .16em; }
+.footer-campus p { font-family: var(--font-display); font-size: 34px; letter-spacing: .16em; }
 .footer-campus span { display: block; margin-top: 12px; font-size: 13px; color: #c5d8e9; letter-spacing: .06em; }
 .footer-campus-inner { display: flex; align-items: center; justify-content: space-between; gap: 28px; }
 .back-to-top { display: flex; align-items: center; justify-content: center; gap: 16px; min-width: 176px; min-height: 76px; border: 1px solid rgb(225 238 250 / 65%); background: rgb(255 255 255 / 9%); transition: background .4s, transform .4s; }

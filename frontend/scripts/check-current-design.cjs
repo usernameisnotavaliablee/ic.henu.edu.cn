@@ -17,7 +17,7 @@ const check = (name, ok) => { assert.ok(ok, name); checks.push(name); console.lo
     await page.goto(base + '/index.html');
     check('原有九个导航均保留，师生园地归人才培养', await page.locator('.main-nav > ul > li > .nav-item-heading > a').allTextContents().then(labels => ['首页', '学院概况', '科学与创新', '人才培养', '师资队伍', '新闻通知', '公共服务', '人才招聘', '联系我们'].every(s => labels.includes(s))));
     check('删除两类暂停按钮', await page.locator('[data-pause], [data-motion-toggle]').count() === 0);
-    check('开源楷体实际加载', await page.evaluate(async () => (await document.fonts.load('400 30px "IC WenKai"', '学院新闻')).length > 0));
+    check('自托管装甲宋标题字体实际加载', await page.evaluate(async () => (await document.fonts.load('400 30px "IC ZhuangSong"', '学院新闻')).length > 0));
     check('程老师首位', await page.locator('.faculty-card h3').first().textContent() === '程纲');
     check('技术支持链接正确', await page.getByRole('link', { name: '技术支持：河南大学网站工作室' }).getAttribute('href') === 'https://hdwzgzs.cn/');
     const education = page.locator('.main-nav > ul > .nav-item').filter({ has: page.locator(':scope > .nav-item-heading > a[href="talent-cultivation.html"]') });
