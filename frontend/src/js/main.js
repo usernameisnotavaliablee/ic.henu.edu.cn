@@ -86,23 +86,30 @@
       link.innerHTML = [...label].map(char => `<span class="nav-flip-char" aria-hidden="true">${char === ' ' ? '&nbsp;' : char}</span>`).join('');
       return { link, chars: [...link.querySelectorAll('.nav-flip-char')], trigger: drawer || parentItem || nav };
     });
-    // 只播展开方向。曾实现过收起倒放，但 backwards 填充让先退出的字
-    // 闪回可见，且与 .subnav 自带的 .42s 关闭过渡叠成两条动画，已撤。
-    const runNavFlip = (scope = nav) => {
+    // closing=true 时按展开顺序整体倒放（条目与字符都逆序、关键帧对调）。
+    // 仅移动端子菜单使用——桌面 .subnav 自带 .42s CSS 关闭过渡，再叠
+    // 会成两条动画。fill 必须 'both'：backwards 不留终态，先退出的字会
+    // 闪回可见。返回最后一条动画结束的估算毫秒数供延迟隐藏容器。
+    const runNavFlip = (scope = nav, closing = false) => {
       const inNav = scope === nav;
-      if (reducedMotion.matches || root.dataset.motionPaused === 'true' || (inNav && !smallScreen.matches)) return;
-      let order = 0;
-      flipChars.forEach(entry => {
-        if (entry.trigger !== scope) return;
-        const linkDelay = order++ * FLIP.link;
-        entry.chars.forEach((char, charIndex) => {
+      if (reducedMotion.matches || root.dataset.motionPaused === 'true' || (inNav && !smallScreen.matches)) return 0;
+      const entries = flipChars.filter(entry => entry.trigger === scope);
+      if (closing) entries.reverse();
+      entries.forEach((entry, order) => {
+        const linkDelay = order * FLIP.link;
+        const chars = closing ? [...entry.chars].reverse() : entry.chars;
+        chars.forEach((char, charIndex) => {
           char.getAnimations().forEach(animation => animation.cancel());
           char.animate(
-            [{ opacity: 0, filter: 'blur(10px)' }, { opacity: 1, filter: 'blur(0)' }],
-            { duration: FLIP.dur, delay: linkDelay + charIndex * FLIP.char, easing: 'ease-out', fill: 'backwards' },
+            closing
+              ? [{ opacity: 1, filter: 'blur(0)' }, { opacity: 0, filter: 'blur(10px)' }]
+              : [{ opacity: 0, filter: 'blur(10px)' }, { opacity: 1, filter: 'blur(0)' }],
+            { duration: FLIP.dur, delay: linkDelay + charIndex * FLIP.char, easing: closing ? 'ease-in' : 'ease-out', fill: closing ? 'both' : 'backwards' },
           );
         });
       });
+      const last = entries[entries.length - 1];
+      return last ? (entries.length - 1) * FLIP.link + last.chars.length * FLIP.char + FLIP.dur : 0;
     };
     document.querySelectorAll('.footer-drawer').forEach(drawer =>
       drawer.addEventListener('toggle', () => { if (drawer.open) runNavFlip(drawer); }));
@@ -127,23 +134,31 @@
     const menuFor = item => item.querySelector(':scope > .subnav');
     const dropdowns = [...nav.querySelectorAll('.nav-item')].filter(buttonFor);
     const setDropdown = (item, open) => {
-      item.classList.toggle('is-subnav-open', open);
-      buttonFor(item).setAttribute('aria-expanded', String(open));
+      clearTimeout(item._closeTimer);
       const menu = menuFor(item);
-      menu.inert = !open;
+      buttonFor(item).setAttribute('aria-expanded', String(open));
       item.classList.remove('opens-left', 'align-right');
-      if (open && !smallScreen.matches) {
-        // 靠近右边缘时朝左展开，三级菜单不溢出视口。
-        if (menu.getBoundingClientRect().right > innerWidth - 8) {
-          item.classList.add(item.parentElement.classList.contains('subnav') ? 'opens-left' : 'align-right');
+      if (open) {
+        item.classList.add('is-subnav-open');
+        menu.inert = false;
+        if (!smallScreen.matches) {
+          // 靠近右边缘时朝左展开，三级菜单不溢出视口。
+          if (menu.getBoundingClientRect().right > innerWidth - 8) {
+            item.classList.add(item.parentElement.classList.contains('subnav') ? 'opens-left' : 'align-right');
+          }
         }
+        runNavFlip(item);
+      } else if (item.classList.contains('is-subnav-open') && smallScreen.matches) {
+        // 移动端子菜单是 display 硬切换、没有任何收起过渡：播逐字倒放，
+        // 期间保留 is-subnav-open 维持可见，播完再移除隐藏。
+        // 计时内重开由开头的 clearTimeout 救回；桌面交回 CSS 过渡。
+        item._closeTimer = setTimeout(() => { item.classList.remove('is-subnav-open'); menu.inert = true; }, runNavFlip(item, true) + 50);
+      } else {
+        item.classList.remove('is-subnav-open');
+        menu.inert = true;
       }
-      if (open) runNavFlip(item);
-      if (!open) dropdowns.filter(child => child !== item && item.contains(child)).forEach(child => {
-        child.classList.remove('is-subnav-open', 'opens-left', 'align-right');
-        buttonFor(child).setAttribute('aria-expanded', 'false');
-        menuFor(child).inert = true;
-      });
+      // 收起父菜单时级联收起子孙，走同一路径使每层都能播自己的关闭动画。
+      if (!open) dropdowns.filter(child => child !== item && item.contains(child)).forEach(child => setDropdown(child, false));
     };
     const openOnly = item => {
       dropdowns.filter(other => other.parentElement === item.parentElement && other !== item).forEach(other => setDropdown(other, false));
