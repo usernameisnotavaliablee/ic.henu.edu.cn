@@ -226,7 +226,6 @@ html[data-motion-paused='true'] .hero-image { animation-play-state: paused; }
 .carousel-dots button::after { content: ''; display: block; width: 18px; height: 3px; background: rgb(255 255 255 / 40%); margin: auto; }
 .carousel-dots button[aria-pressed='true']::after { background: #fff; }
 .carousel-count { font-size: 11px; letter-spacing: .1em; padding-inline: 8px; white-space: nowrap; }
-.playback-status { font-size: 11px; color: #c3d4e8; margin-left: 6px; }
 .carousel-arrow { position: absolute; inset-block: 0; z-index: 2; width: clamp(54px, 6vw, 104px); border: 0; padding: 0; color: #fff; background: linear-gradient(90deg, rgb(3 22 43 / 28%), transparent); opacity: .12; display: grid; place-items: center; transition: opacity .55s ease, background .55s ease; }
 .carousel-arrow svg { width: 22px; height: 44px; fill: none; stroke: currentColor; stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; transition: transform .4s ease; }
 .carousel-arrow--prev { left: 0; }
@@ -586,7 +585,6 @@ html.snap-enabled[data-motion-paused='true'] { scroll-snap-type: none; }
   .carousel-arrow--prev { left: 0; }
   .carousel-arrow--next { right: 0; }
   .carousel-dots button { min-width: 25px; }
-  .playback-status { grid-column: 1 / -1; margin-left: 0; font-size: 10px; }
   .home-section { padding-block: 40px; }
   .editorial-heading { gap: 12px; margin-bottom: 28px; }
   .editorial-heading > div { padding-left: 13px; }

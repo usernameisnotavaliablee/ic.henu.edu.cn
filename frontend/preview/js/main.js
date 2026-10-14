@@ -344,7 +344,6 @@
   const controls = hero.querySelector('.carousel-controls');
   const count = hero.querySelector('.carousel-count');
   const status = hero.querySelector('[data-slide-status]');
-  const playbackStatus = hero.querySelector('[data-playback-status]');
   const intervalMs = 3000;
   const transitionMs = 650;
   let index = 0;
@@ -365,10 +364,6 @@
     const paused = reducedMotion.matches || document.hidden || waitingForImage;
     hero.dataset.paused = String(paused);
     hero.dataset.carouselState = reducedMotion.matches ? 'paused' : document.hidden ? 'background' : waitingForImage ? 'loading' : 'playing';
-    const message = reducedMotion.matches ? '已跟随系统减少动态效果，可手动换图' : document.hidden ? '后台暂停，返回后继续' : waitingForImage ? '正在等待当前图片，可手动换图' : '每 3 秒自动换图';
-    if (playbackStatus && playbackStatus.textContent !== message) {
-      playbackStatus.textContent = message;
-    }
     if (!paused && slides.length > 1) timer = window.setTimeout(() => show(index + 1), intervalMs);
   };
   const show = (next, manual = false) => {
