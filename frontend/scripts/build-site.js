@@ -40,7 +40,7 @@ function chipArt(mode = 'wide') {
   return `<div class="chip-visual chip-visual--${mode}" data-chip-visual aria-hidden="true">${svg}</div>`;
 }
 function teacherCards() {
-  return site.teachers.map(teacher => `<a class="faculty-card" href="${teacherHref(teacher)}"><img src="${escape(teacher.image)}" alt="${escape(teacher.name)}照片" width="100" height="132" loading="lazy"><div><h3>${escape(teacher.name)}</h3><p class="teacher-title">${escape(teacher.title)}</p><p class="teacher-intro">${escape(teacher.intro)}</p><span class="teacher-link">查看教师介绍 →</span></div></a>`).join('\n');
+  return site.teachers.map(teacher => `<a class="faculty-card" href="${teacherHref(teacher)}"><img src="${escape(teacher.image)}" alt="${escape(teacher.name)}照片" width="100" height="132" loading="lazy"><div><h3>${escape(teacher.name)}</h3><p class="teacher-title">${escape(teacher.title)}</p><p class="teacher-intro">${escape(teacher.intro)}</p><span class="teacher-link">查看教师介绍</span></div></a>`).join('\n');
 }
 
 const teacherVacancies = '<div class="faculty-vacancies" aria-label="待补充教师资料">' + Array.from({ length: 3 }, () => '<div class="faculty-vacancy"><span aria-hidden="true">＋</span><p>教师资料待补充</p><small>更多师资信息将陆续更新</small></div>').join('') + '</div>';
@@ -75,7 +75,7 @@ function navigationItems(items, active, prefix = 'nav', depth = 0, currentFile =
   }).join('\n');
 }
 function sitemapItems(items) {
-  return '<ul>' + items.map(([url, name, nested]) => `<li><a href="${escape(url)}">${escape(name)} →</a>${nested?.length ? sitemapItems(nested) : ''}</li>`).join('') + '</ul>';
+  return '<ul>' + items.map(([url, name, nested]) => `<li><a href="${escape(url)}">${escape(name)}</a>${nested?.length ? sitemapItems(nested) : ''}</li>`).join('') + '</ul>';
 }
 function page(file, title, content, active = file) {
   const navigation = navigationItems(site.navigation, active, 'nav', 0, file);
@@ -124,7 +124,7 @@ const homeParts = {
   dots: site.slides.map((slide, i) => `<button type="button" data-dot aria-label="查看第 ${i + 1} 张：${escape(slide.title)}" aria-pressed="${i === 0}"></button>`).join(''),
   featuredNews: site.news.map((item, i) => `<a class="news-picture" data-news-panel href="${articleHref(item)}"${i ? ' hidden' : ''}><img src="${escape(item.image)}" alt="${escape(item.imageAlt)}" width="720" height="480" loading="lazy"><span class="picture-note">示意配图 · 待替换</span><div class="picture-caption"><span>学院新闻 / ${String(i + 1).padStart(2, '0')}</span><h3>${escape(item.title)}</h3></div></a>`).join(''),
   newsList: site.news.map((item, i) => `<li><a class="news-select${i ? '' : ' is-active'}" data-news-select href="${articleHref(item)}"><div><h3>${escape(item.title)}</h3><span>日期待提供</span></div><p>${escape(item.summary)}</p></a></li>`).join(''),
-  noticeList: site.notices.map((item, i) => `<li><a href="${articleHref(item)}"><span class="notice-index" aria-hidden="true">0${i + 1}</span><div><p class="notice-type">通知公告 / 日期待提供</p><h3>${escape(item.title)}</h3><p class="notice-summary">${escape(item.summary)}</p></div><span class="notice-arrow" aria-hidden="true">↗</span></a></li>`).join(''),
+  noticeList: site.notices.map((item, i) => `<li><a href="${articleHref(item)}"><span class="notice-index" aria-hidden="true">0${i + 1}</span><div><p class="notice-type">通知公告 / 日期待提供</p><h3>${escape(item.title)}</h3><p class="notice-summary">${escape(item.summary)}</p></div></a></li>`).join(''),
   teachers: teacherCards() + teacherVacancies,
 };
 const homeContent = parts => `<h1 class="sr-only">${escape(site.name)}</h1>` + render(read('content/home.html'), parts);
@@ -132,11 +132,11 @@ function newsTabs(active) {
   return '<nav class="list-tabs" aria-label="资讯分类">' + [['news.html', '学院新闻'], ['notices.html', '通知公告'], ['media.html', '媒体掠影']].map(([url, title]) => `<a href="${url}"${url === active ? ' aria-current="page"' : ''}>${title}</a>`).join('') + '</nav>';
 }
 function collectionPreview(c) {
-  return `<section class="collection-preview overview-section${c.position % 2 === 0 ? ' overview-section--muted' : ''}" id="${c.anchor}" data-overview-section data-collection="${c.key}"><span class="section-watermark section-watermark--${c.position % 2 === 0 ? 'left' : 'right'}" aria-hidden="true">${c.watermark}</span><div class="container"><div class="editorial-heading"><div><span lang="en">${c.watermark}</span><h2>${escape(c.title)}</h2></div><a href="${c.url}">查看全部 <span aria-hidden="true">↗</span></a></div>${previewItems(c, c.url)}</div></section>`;
+  return `<section class="collection-preview overview-section${c.position % 2 === 0 ? ' overview-section--muted' : ''}" id="${c.anchor}" data-overview-section data-collection="${c.key}"><span class="section-watermark section-watermark--${c.position % 2 === 0 ? 'left' : 'right'}" aria-hidden="true">${c.watermark}</span><div class="container"><div class="editorial-heading"><div><span lang="en">${c.watermark}</span><h2>${escape(c.title)}</h2></div><a href="${c.url}">查看全部</a></div>${previewItems(c, c.url)}</div></section>`;
 }
 function previewItems(c, href) {
   const covers = ['oscilloscope-waveform.jpg', 'microscopy-instruments.jpg', 'wafer-closeup.jpg'];
-  return `<div class="collection-items collection-items--${c.layout}">` + Array.from({ length: 3 }, (_, i) => `<a class="collection-item" href="${href}">${c.layout === 'cards' ? `<img src="assets/${covers[i]}" alt="学科配图示意，非学院设施或成果" width="640" height="360" loading="lazy">` : ''}<div class="collection-item-copy"><span class="collection-meta">版式占位 · 日期待提供</span><h3>${escape(c.title)} · 内容位置 ${String(i + 1).padStart(2, '0')}</h3><p>这里展示该条内容的简要介绍，发布后可点击查看独立详情。</p><span class="collection-read">${href === c.url ? '进入栏目' : '查看详情版式'} →</span></div></a>`).join('') + '</div>';
+  return `<div class="collection-items collection-items--${c.layout}">` + Array.from({ length: 3 }, (_, i) => `<a class="collection-item" href="${href}">${c.layout === 'cards' ? `<img src="assets/${covers[i]}" alt="学科配图示意，非学院设施或成果" width="640" height="360" loading="lazy">` : ''}<div class="collection-item-copy"><span class="collection-meta">版式占位 · 日期待提供</span><h3>${escape(c.title)} · 内容位置 ${String(i + 1).padStart(2, '0')}</h3><p>这里展示该条内容的简要介绍，发布后可点击查看独立详情。</p><span class="collection-read">${href === c.url ? '进入栏目' : '查看详情版式'}</span></div></a>`).join('') + '</div>';
 }
 page('index.html', '首页', homeContent(homeParts));
 
@@ -147,9 +147,9 @@ for (const [file, config] of Object.entries(site.pages)) {
   const photograph = pageImages[file] ? `<figure class="page-photo"><img src="assets/${pageImages[file]}" alt="${photoLabel}" width="1269" height="714"><figcaption>${photoLabel} · <a href="image-credits.html">图片来源与授权</a></figcaption></figure>` : '';
   const sections = config.sections.map((section, i) => {
     let body = `<p>${escape(section)}资料待提供。</p>`;
-    if (file === 'science-innovation.html' && i === 0) body = '<p>学院正式研究方向待审定。先保留研究平台与课题组入口，后续按学院材料补充。</p><div class="research-topics"><a href="research-platforms.html"><h3>研究平台</h3><p>平台名称、研究方向与介绍待提供。</p><span>查看研究平台 →</span></a><a href="research-groups.html"><h3>课题组</h3><p>团队名称、成员及简介待提供。</p><span>查看课题组 →</span></a></div>';
+    if (file === 'science-innovation.html' && i === 0) body = '<p>学院正式研究方向待审定。先保留研究平台与课题组入口，后续按学院材料补充。</p><div class="research-topics"><a href="research-platforms.html"><h3>研究平台</h3><p>平台名称、研究方向与介绍待提供。</p><span>查看研究平台</span></a><a href="research-groups.html"><h3>课题组</h3><p>团队名称、成员及简介待提供。</p><span>查看课题组</span></a></div>';
     if (file === 'research-platforms.html') body = i === 0 ? '<p>学院研究平台信息待补充，平台名称与归属以审定材料为准。</p><div class="research-topics"><section><h3>研究平台（待提供）</h3><p>此卡片为版式占位，不代表已成立的平台。</p></section></div>' : '<p>待补充平台简介、研究方向、设施图片与经审定的联系信息。</p>';
-    if (file === 'research-groups.html') body = i === 0 ? '<p>课题组信息待补充，团队名称、负责人、成员及排序以审定材料为准。</p><div class="research-topics"><section><h3>课题组（待提供）</h3><p>此卡片为版式占位，不将教师姓名自动认定为已成立的学院课题组。</p></section></div>' : '<p>待补充团队简介、研究内容及经审定的联系信息。现阶段可先查看教师个人简介。</p><a class="back-link" href="faculty.html">查看教师名录 →</a>';
+    if (file === 'research-groups.html') body = i === 0 ? '<p>课题组信息待补充，团队名称、负责人、成员及排序以审定材料为准。</p><div class="research-topics"><section><h3>课题组（待提供）</h3><p>此卡片为版式占位，不将教师姓名自动认定为已成立的学院课题组。</p></section></div>' : '<p>待补充团队简介、研究内容及经审定的联系信息。现阶段可先查看教师个人简介。</p><a class="back-link" href="faculty.html">查看教师名录</a>';
     if (file === 'talent-cultivation.html' && i === 1) body += '<div class="research-topics"><a href="admissions.html#section-1"><h3>本科生招生</h3><p>招生信息待学校与学院审定。</p></a><a href="admissions.html#section-2"><h3>研究生招生</h3><p>招生目录与报考信息待提供。</p></a><a href="admissions.html#section-3"><h3>就业指导</h3><p>就业指导与服务信息待提供。</p></a><a href="community.html"><h3>师生园地</h3><p>师生活动与学生风采待提供。</p></a></div>';
     if (file === 'public-service.html') body = '<div class="research-topics"><a href="regulations.html"><h3>制度建设与办事流程</h3><p>规章制度与办事指引待提供。</p></a><a href="https://www.henu.edu.cn/" target="_blank" rel="noopener"><h3>学校官网</h3><p>了解河南大学资讯与校园服务。</p></a><a href="site-map.html"><h3>网站导航</h3><p>查看学院网站全部栏目与师资入口。</p></a><a href="contact.html"><h3>联系学院</h3><p>学院联系方式待统一发布。</p></a></div>';
     const key = `${file.replace('.html', '')}.section-${i + 1}`;
@@ -172,9 +172,9 @@ for (const [file, config] of Object.entries(site.pages)) {
     return html;
   }).join('');
   const relatedPages = { 'science-innovation.html': [['research-platforms.html', '研究平台'], ['research-groups.html', '课题组']], 'talent-cultivation.html': [['admissions.html', '招生就业'], ['community.html', '师生园地']], 'public-service.html': [['regulations.html', '制度建设与办事流程'], ['site-map.html', '网站导航'], ['contact.html', '联系学院']] };
-  const links = (relatedPages[file] || []).map(([href, title]) => `<a href="${href}"><h3>${title}</h3><span>进入栏目 →</span></a>`).join('');
+  const links = (relatedPages[file] || []).map(([href, title]) => `<a href="${href}"><h3>${title}</h3><span>进入栏目</span></a>`).join('');
   const isOverview = file === 'about.html' || collections.some(c => c.page === file);
-  const related = (relatedPages[file] || []).map(([href, title]) => `<a href="${href}">${title}<span aria-hidden="true"> ↗</span></a>`).join('');
+  const related = (relatedPages[file] || []).map(([href, title]) => `<a href="${href}">${title}</a>`).join('');
   const overview = (file === 'media.html' ? newsTabs(file) : '') + previewNote + `<div class="overview-sections">${sections}</div>` + (related ? `<nav class="overview-related" aria-label="相关栏目"><span>相关栏目</span>${related}</nav>` : '');
   inner(file, config.title, config.english, isOverview ? overview : (file === 'media.html' ? newsTabs(file) : '') + photograph + previewNote + (links ? `<nav class="research-topics" aria-label="相关栏目">${links}</nav>` : '') + sections, config.active || file);
 }
@@ -187,7 +187,7 @@ for (const c of collections) {
   const empty = '<p class="page-note">本地版式预览：以下是布局占位，不是已发布的业务内容。运行版从后台读取真实条目。</p>' + previewItems(c, detailFile);
   inner(c.url, c.title, '', `${c.page === 'media.html' ? newsTabs('media.html') : ''}<div class="${side ? 'collection-layout' : 'collection-single'}">${side}<div>${empty}</div></div>`, c.active);
   c.parents = routeCatalog[c.slug].parents;
-  inner(detailFile, c.title + '详情版式', '', `<article class="article"><p class="page-note">此页面只用于检查栏目到详情的层级。正式正文由后台录入。</p><h2>内容标题待填写</h2><p class="article-meta">日期待填写 · 来源待填写</p><p>这里展示完整内容；列表页只展示标题、摘要和配图，不再直接铺开全文。</p>${c.key === 'science-innovation.section-1' ? '<h2>相关课题组</h2><p>在后台为多个课题组选择这个研究方向后，这里显示相应卡片。</p><a href="research-groups-section-1.html">查看课题组列表 →</a>' : ''}<a class="back-link" href="${c.url}">← 返回${escape(c.title)}</a></article>`, c.active);
+  inner(detailFile, c.title + '详情版式', '', `<article class="article"><p class="page-note">此页面只用于检查栏目到详情的层级。正式正文由后台录入。</p><h2>内容标题待填写</h2><p class="article-meta">日期待填写 · 来源待填写</p><p>这里展示完整内容；列表页只展示标题、摘要和配图，不再直接铺开全文。</p>${c.key === 'science-innovation.section-1' ? '<h2>相关课题组</h2><p>在后台为多个课题组选择这个研究方向后，这里显示相应卡片。</p><a href="research-groups-section-1.html">查看课题组列表</a>' : ''}<a class="back-link" href="${c.url}">返回${escape(c.title)}</a></article>`, c.active);
   // 详情版式明确显示中间层级，静态占位不进入服务端业务路由。
   const chain = [...c.parents, {href: c.url, label: c.title}].map(p => `<a href="${p.href}">${escape(p.label)}</a><span aria-hidden="true"> / </span>`).join('');
   pages.set(detailFile, pages.get(detailFile).replace(/(<nav class="breadcrumb"[^>]*>)[\s\S]*?<\/nav>/, `$1<a href="index.html">首页</a><span aria-hidden="true"> / </span>${chain}<span aria-current="page">详情版式</span></nav>`));
@@ -200,7 +200,7 @@ for (const [file, title, items, slot] of [['news.html', '学院新闻', site.new
   inner(file, title, file === 'news.html' ? 'NEWS' : 'NOTICES', tabs + previewNote + list, 'news.html');
   for (const item of items) {
     const picture = item.image ? `<figure class="article-photo"><img src="${escape(item.image)}" alt="${escape(item.imageAlt)}" width="1000" height="600"><figcaption>演示配图，不代表新闻现场</figcaption></figure>` : '';
-    inner(articleHref(item), item.title, 'INFORMATION', `<article class="article">${previewNote}<h2>${escape(item.title)}</h2><p class="article-meta">发布日期：待提供　来源：待提供</p>${picture}<div class="article-content" data-boda-slot="article-content"><p>${escape(item.summary)}</p><p>正文待提供。本页仅用于确认文章排版。</p></div><a class="back-link" href="${file}">← 返回${title}</a></article>`, 'news.html');
+    inner(articleHref(item), item.title, 'INFORMATION', `<article class="article">${previewNote}<h2>${escape(item.title)}</h2><p class="article-meta">发布日期：待提供　来源：待提供</p>${picture}<div class="article-content" data-boda-slot="article-content"><p>${escape(item.summary)}</p><p>正文待提供。本页仅用于确认文章排版。</p></div><a class="back-link" href="${file}">返回${title}</a></article>`, 'news.html');
   }
 }
 
@@ -209,7 +209,7 @@ inner('faculty.html', '师资队伍', 'FACULTY', facultyNote + '<div class="facu
 for (const teacher of site.teachers) {
   const sections = teacher.sections.map(s => `<section class="profile-section"><h2>${escape(s.title)}</h2>${(s.paragraphs || []).map(p => `<p>${escape(p)}</p>`).join('')}${s.items ? `<ul>${s.items.map(p => `<li>${escape(p)}</li>`).join('')}</ul>` : ''}</section>`).join('');
   const contacts = ['email', 'secondaryEmail', 'phone', 'group'].filter(k => teacher[k]).map(k => `<p>${({ email: '电子邮箱', secondaryEmail: '其他邮箱', phone: '联系电话', group: '课题组主页' })[k]}：${k === 'group' ? `<a href="${escape(teacher[k])}" target="_blank" rel="noopener">${escape(teacher[k])}</a>` : escape(teacher[k])}</p>`).join('');
-  inner(teacherHref(teacher), teacher.name, 'FACULTY', facultyNote + `<div class="teacher-profile"><aside><img src="${escape(teacher.image)}" alt="${escape(teacher.name)}照片" width="180" height="234"><p class="teacher-title">${escape(teacher.title)}</p><p>${escape(teacher.field)}</p></aside><div><section class="profile-section"><h2>个人简介</h2><p>${escape(teacher.intro)}</p></section>${sections}${contacts ? `<section class="profile-section"><h2>联系方式</h2>${contacts}</section>` : ''}<p class="profile-source">资料来源：<a href="${escape(teacher.source)}" target="_blank" rel="noopener">${escape(teacher.sourceLabel)} ↗</a>。展示内容待本人确认为准。</p><a class="back-link" href="faculty.html">← 返回教师名录</a></div></div>`, 'faculty.html');
+  inner(teacherHref(teacher), teacher.name, 'FACULTY', facultyNote + `<div class="teacher-profile"><aside><img src="${escape(teacher.image)}" alt="${escape(teacher.name)}照片" width="180" height="234"><p class="teacher-title">${escape(teacher.title)}</p><p>${escape(teacher.field)}</p></aside><div><section class="profile-section"><h2>个人简介</h2><p>${escape(teacher.intro)}</p></section>${sections}${contacts ? `<section class="profile-section"><h2>联系方式</h2>${contacts}</section>` : ''}<p class="profile-source">资料来源：<a href="${escape(teacher.source)}" target="_blank" rel="noopener">${escape(teacher.sourceLabel)}</a>。展示内容待本人确认为准。</p><a class="back-link" href="faculty.html">返回教师名录</a></div></div>`, 'faculty.html');
 }
 
 inner('contact.html', '联系我们', 'CONTACT', previewNote + `<div class="contact-layout"><dl class="contact-list"><div><dt>学院名称</dt><dd>${escape(site.name)}</dd></div>${[['办公地址', site.contact.address], ['公开电话', site.contact.phone], ['电子邮箱', site.contact.email]].map(([key, value]) => `<div><dt>${key}</dt><dd>${escape(value)}</dd></div>`).join('')}</dl>${wechatPlaceholder}</div>`);
@@ -227,11 +227,11 @@ const errorFace = `<div class="error-face" aria-hidden="true">
     </g>
   </svg>
 </div>`;
-inner('404.html', '页面未找到', '404', errorFace + '<p class="error-kicker">页面走丢了</p><p class="error-desc">页面不存在，或内容尚未批准预览。</p><p class="error-links"><a class="back-link" href="index.html">返回首页 →</a> <a class="back-link" href="site-map.html">网站导航 →</a></p>');
+inner('404.html', '页面未找到', '404', errorFace + '<p class="error-kicker">页面走丢了</p><p class="error-desc">页面不存在，或内容尚未批准预览。</p><p class="error-links"><a class="back-link" href="index.html">返回首页</a> <a class="back-link" href="site-map.html">网站导航</a></p>');
 delete routeCatalog['404'];
 
 const media = require('../src/data/media');
-inner('image-credits.html', '图片来源与授权', 'IMAGE CREDITS', '<p class="page-note">图片用于内部网站演示。校园、人物与学科示意分别标注；校外技术图片不代表本学院设施或成果。</p><div class="credit-list">' + media.map(item => `<section class="credit-item" id="${escape(item.id)}"><a href="assets/${escape(item.id)}.jpg"><img src="assets/${escape(item.id)}.jpg" alt="${escape(item.title)}" width="240" height="180" loading="lazy"></a><div><h2>${escape(item.title)}</h2><p>${escape(item.description)}</p><p>摄影：${escape(item.author)} / Wikimedia Commons</p><p><a href="${escape(item.source)}" target="_blank" rel="noopener">原始文件页 ↗</a> · <a href="${escape(item.licenseUrl)}" target="_blank" rel="noopener">${escape(item.license)}</a></p><p>处理：等比例缩放、JPEG压缩；部分页面以CSS裁切展示。可点击缩略图取得本站图片副本。</p></div></section>`).join('') + '</div><section class="profile-section"><h2>校园与教师图片</h2><p>河南大学校徽及校园图片来自用户提供的低空学院参考包，正式使用待学院确认。三位教师照片来自已归档的公开介绍；张锦龙照片取自河南师范大学讲座新闻，郑海务照片取自河南大学物理与电子学院教师页，程纲照片取自河南大学纳米科学与材料工程学院高层次人才页。</p><p>教师资料来源见各教师详情。芯片为本项目原创SVG学科示意，信号光流参考MIT许可的Magic UI Animated Beam机制，未使用第三方图片，不代表真实芯片版图。</p><a class="back-link" href="faculty.html">查看师资资料与来源 →</a></section>', 'public-service.html');
+inner('image-credits.html', '图片来源与授权', 'IMAGE CREDITS', '<p class="page-note">图片用于内部网站演示。校园、人物与学科示意分别标注；校外技术图片不代表本学院设施或成果。</p><div class="credit-list">' + media.map(item => `<section class="credit-item" id="${escape(item.id)}"><a href="assets/${escape(item.id)}.jpg"><img src="assets/${escape(item.id)}.jpg" alt="${escape(item.title)}" width="240" height="180" loading="lazy"></a><div><h2>${escape(item.title)}</h2><p>${escape(item.description)}</p><p>摄影：${escape(item.author)} / Wikimedia Commons</p><p><a href="${escape(item.source)}" target="_blank" rel="noopener">原始文件页</a> · <a href="${escape(item.licenseUrl)}" target="_blank" rel="noopener">${escape(item.license)}</a></p><p>处理：等比例缩放、JPEG压缩；部分页面以CSS裁切展示。可点击缩略图取得本站图片副本。</p></div></section>`).join('') + '</div><section class="profile-section"><h2>校园与教师图片</h2><p>河南大学校徽及校园图片来自用户提供的低空学院参考包，正式使用待学院确认。三位教师照片来自已归档的公开介绍；张锦龙照片取自河南师范大学讲座新闻，郑海务照片取自河南大学物理与电子学院教师页，程纲照片取自河南大学纳米科学与材料工程学院高层次人才页。</p><p>教师资料来源见各教师详情。芯片为本项目原创SVG学科示意，信号光流参考MIT许可的Magic UI Animated Beam机制，未使用第三方图片，不代表真实芯片版图。</p><a class="back-link" href="faculty.html">查看师资资料与来源</a></section>', 'public-service.html');
 
 fs.mkdirSync(output, { recursive: true });
 // 只写本工程生成的已知文件，不递归清空目录，避免误删队友的其他文件。

@@ -4,4 +4,4 @@
 <h2>{{ article.title }}</h2><p class="article-meta">发布日期：{{ article.date|date:"Y-m-d"|default:"待提供" }}　来源：{{ article.source }}</p>
 <figure class="article-photo"><span class="media-frame" data-media><img src="assets/{{ article.image }}" alt="{{ article.image_alt }}" width="1000" height="600">{% include "site/media_status.html" %}</span><figcaption>{{ article.image_alt }}</figcaption></figure>
 <div class="article-content">{% include "site/plain_text_body.html" with body=article.body only %}</div>
-<a class="back-link" href="{% if article.category == 'news' %}news.html{% else %}notices.html{% endif %}">← 返回{{ article.get_category_display }}</a></article>{% endblock %}
+<a class="back-link" href="{% if article.category == 'news' %}news.html{% else %}notices.html{% endif %}">返回{{ article.get_category_display }}</a></article>{% endblock %}

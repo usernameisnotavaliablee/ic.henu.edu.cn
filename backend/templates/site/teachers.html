@@ -1,3 +1,3 @@
 {% for teacher in teachers %}<a class="faculty-card" href="/{{ teacher.key }}.html">
 {% if teacher.image %}<img src="/assets/{{ teacher.image }}" alt="{{ teacher.title }}照片" width="122" height="160" loading="lazy">{% endif %}
-<div><h3>{{ teacher.title }}</h3><p class="teacher-title">{{ teacher.subtitle }}</p><p class="teacher-intro">{{ teacher.summary }}</p><span class="teacher-link">查看教师介绍 →</span></div></a>{% endfor %}
+<div><h3>{{ teacher.title }}</h3><p class="teacher-title">{{ teacher.subtitle }}</p><p class="teacher-intro">{{ teacher.summary }}</p><span class="teacher-link">查看教师介绍</span></div></a>{% endfor %}
