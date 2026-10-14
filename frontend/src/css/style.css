@@ -156,10 +156,11 @@ ul { padding: 0; margin: 0; list-style: none; }
 /* 窄屏下按钮 DOM 在 .header-main 里，但 position:absolute 的包含块是 .site-header
    （.header-main 无定位，overflow:hidden 不会裁剪）：展开态居中于品牌行，页头收缩时
    滑到右上角独立浮着；触发区只有图标矩形 + 各边 5px。
-   浮动态靠白底 + 品牌蓝杠取对比：白底压在浅色内容上等于隐形（只剩蓝汉堡），
-   压在深色 hero 上才显形。老浏览器不认 color-mix 时退回 is-compact 的实色蓝杠。 */
-.nav-toggle { display: none; position: absolute; z-index: 2; top: calc((var(--brand-height-open) - 32px) / 2 * (1 - var(--header-progress)) + 11px * var(--header-progress)); right: 15px; padding: 5px; color: #fff; background: rgb(255 255 255 / calc(85% * var(--header-progress))); border: 0; border-radius: 8px; align-items: center; }
+   浮动时不加任何底，只靠三条杠变色取对比：品牌行内白杠，浮到浅色内容上转品牌蓝，
+   菜单展开时背后是深色面板再转回白。老浏览器不认 color-mix 时退回实色蓝杠。 */
+.nav-toggle { display: none; position: absolute; z-index: 2; top: calc((var(--brand-height-open) - 32px) / 2 * (1 - var(--header-progress)) + 11px * var(--header-progress)); right: 15px; padding: 5px; color: #fff; background: none; border: 0; align-items: center; }
 .site-header.is-compact .nav-toggle { color: var(--blue); color: color-mix(in srgb, #fff calc((1 - var(--header-progress)) * 100%), var(--blue)); }
+.site-header:has(.main-nav:is(.open, :not(.is-enhanced))) .nav-toggle { color: #fff; }
 /* 汉堡三条线 -> 叉：uiverse 复选框汉堡结构，白线条、弹性缓动。 */
 .menu-icon { position: relative; width: 30px; height: 22px; flex: 0 0 auto; }
 .menu-icon > span { position: absolute; left: 0; width: 100%; height: 3px; background: currentColor; border-radius: 4px; transition: transform .45s cubic-bezier(.68,-.6,.32,1.6), opacity .25s ease, left .25s ease; }

@@ -42,7 +42,7 @@ const base = process.argv[2] || 'http://127.0.0.1:8766';
     assert(Math.abs(compact.w - 40) < 2 && Math.abs(compact.h - 32) < 2, '收缩态触发区不应变化');
     assert(await bandH() < 1, `收缩态也不应有导航带，实测 ${await bandH()}px`);
     const skin = await toggle.evaluate(el => { const cs = getComputedStyle(el); return { bg: cs.backgroundColor, color: cs.color }; });
-    assert(skin.bg === 'rgba(255, 255, 255, 0.85)', `收缩态按钮底应为白（浅底隐形、深底显形），实测 ${skin.bg}`);
+    assert(skin.bg === 'rgba(0, 0, 0, 0)', `收缩态按钮不得有任何底色，实测 ${skin.bg}`);
     // color-mix 会序列化成 color(srgb r g b)，取值再比。
     const rgb = skin.color.match(/[\d.]+/g).slice(-3).map(Number);
     const to255 = v => Math.round(v <= 1 ? v * 255 : v);
@@ -61,6 +61,13 @@ const base = process.argv[2] || 'http://127.0.0.1:8766';
     });
     assert(clash.cardTop >= clash.btnBottom, `展开的面板不应压住按钮，实测卡片顶 ${clash.cardTop} vs 按钮底 ${clash.btnBottom}`);
     assert(clash.bandTop < 1, `收缩态面板应从视口顶端落下，实测 ${clash.bandTop}`);
+    // 菜单展开时按钮背后是深色面板，三条杠必须转回白色才看得见。
+    const openColor = await toggle.evaluate(el => getComputedStyle(el).color);
+    assert(openColor === 'rgb(255, 255, 255)', `菜单展开时三条杠应转白，实测 ${openColor}`);
+    await toggle.click();
+    await page.waitForTimeout(400);
+    const closedColor = await toggle.evaluate(el => getComputedStyle(el).color);
+    assert(closedColor !== 'rgb(255, 255, 255)', `菜单收起后三条杠应转回品牌蓝，实测 ${closedColor}`);
     // 桌面端：带与按钮都保持原样。
     await page.setViewportSize({ width: 1440, height: 1000 });
     await page.goto(base + '/');

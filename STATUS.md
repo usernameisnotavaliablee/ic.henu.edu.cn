@@ -124,7 +124,7 @@
 | WAL 备份恢复 | 1 项通过（临时样例） | `deployment/test_backup.py` |
 | 打包资源回归 | 7 项通过 | `deployment/test_release_assets.py` |
 | 页头动画控制 | 5 项通过 | `frontend/qa/header-motion-unit.json` |
-| 窄屏汉堡按钮 | 6 项通过（无导航带、收缩后浮右上角） | `frontend/scripts/check-nav-toggle.cjs` |
+| 窄屏汉堡按钮 | 8 项通过（无导航带、无底色、收缩后浮右上角） | `frontend/scripts/check-nav-toggle.cjs` |
 | 图片状态机 | 6 项通过 | `frontend/qa/media-loading-unit.json` |
 | 跨页过渡控制 | 5 项通过 | `frontend/scripts/check-page-transition.cjs` |
 | Edge 实际浏览器 | 56 项通过 | `frontend/qa/current-design-browser.json` |
