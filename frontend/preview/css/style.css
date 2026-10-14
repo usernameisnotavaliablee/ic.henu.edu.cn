@@ -154,9 +154,9 @@ ul { padding: 0; margin: 0; list-style: none; }
 .main-nav > ul > .nav-item > .nav-item-heading > a { transition: min-height .65s ease, padding .65s ease, font-size .65s ease, background .25s ease; }
 .site-header.is-compact .main-nav > ul > .nav-item > .nav-item-heading > a { min-height: 44px; padding-block: 5px; font-size: 14px; }
 /* 窄屏下按钮 DOM 在 .header-main 里，但 position:absolute 的包含块是 .site-header
-   （.header-main 无定位，overflow:hidden 不会裁剪），随 --header-progress 从品牌行
-   滑进 43px 导航带右端；触发区只有图标矩形 + 各边 5px。 */
-.nav-toggle { display: none; position: absolute; z-index: 2; top: calc(((var(--brand-height-open) - 32px) * (1 - var(--header-progress)) + (var(--header-compact-height) - 32px) * var(--header-progress)) / 2); right: 15px; padding: 5px; color: #fff; background: rgb(8 43 81 / calc(70% * var(--header-progress))); border: 0; border-radius: 8px; align-items: center; }
+   （.header-main 无定位，overflow:hidden 不会裁剪）：展开态居中于品牌行，页头收缩时
+   滑到右上角独立浮着；触发区只有图标矩形 + 各边 5px。 */
+.nav-toggle { display: none; position: absolute; z-index: 2; top: calc((var(--brand-height-open) - 32px) / 2 * (1 - var(--header-progress)) + 11px * var(--header-progress)); right: 15px; padding: 5px; color: #fff; background: rgb(8 43 81 / calc(70% * var(--header-progress))); border: 0; border-radius: 8px; align-items: center; }
 /* 汉堡三条线 -> 叉：uiverse 复选框汉堡结构，白线条、弹性缓动。 */
 .menu-icon { position: relative; width: 30px; height: 22px; flex: 0 0 auto; }
 .menu-icon > span { position: absolute; left: 0; width: 100%; height: 3px; background: currentColor; border-radius: 4px; transition: transform .45s cubic-bezier(.68,-.6,.32,1.6), opacity .25s ease, left .25s ease; }
@@ -497,10 +497,14 @@ html.snap-enabled[data-motion-paused='true'] { scroll-snap-type: none; }
   .editorial-notices { gap: 25px; }
 }
 @media (max-width: 959px) {
-  :root { --header-expanded-height: 113px; --header-compact-height: 43px; }
+  :root { --header-expanded-height: 112px; --header-compact-height: 43px; }
   .container { width: calc(100% - 40px); }
-  /* 按钮脱离文档流后带内已无流内内容，带高随收缩进度从 0 长到 43px 承接它。 */
-  .navigation-inner { min-height: calc(var(--header-compact-height) * var(--header-progress)); }
+  /* 窄屏不要导航带：关闭态带内无流内内容，高度为 0，底色画不出来、边线也去掉，
+     整条只剩右上角浮着的按钮；菜单展开时带才长出来充当深色面板。 */
+  .navigation-band { border-top: 0; }
+  [data-page='inner'] .header-shell { min-height: 0; }
+  /* 菜单可见时（增强态 .open 或未增强的降级态）带才占位，并给浮着的按钮让出 44px。 */
+  .site-header.is-compact .navigation-band:has(.main-nav:is(.open, :not(.is-enhanced))) { padding-top: 44px; }
   .nav-toggle:not([hidden]) { display: flex; }
   .main-nav.is-enhanced:not(.open) { display: none; }
   /* 卡片式展开：一级栏目按 --nav-i 交错入场；标题逐字动画由 main.js 驱动。 */
@@ -543,7 +547,7 @@ html.snap-enabled[data-motion-paused='true'] { scroll-snap-type: none; }
   .footer-links { display: block; }
 }
 @media (max-width: 600px) {
-  :root { --header-expanded-height: 101px; --header-compact-height: 43px; }
+  :root { --header-expanded-height: 100px; --header-compact-height: 43px; }
   .nav-toggle { right: 11px; }
   .container { width: calc(100% - 32px); }
   .header-main { height: 100px; padding-block: 16px; }
