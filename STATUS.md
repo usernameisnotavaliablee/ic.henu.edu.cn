@@ -108,6 +108,8 @@
 
 **不要为表面「全通过」勾掉无法执行的项目。**
 
+**既有失败（非本轮引入，2026-10-14 在干净工作树上复现）**：`check-navigation-fixes.cjs`（滚动吸附落点断言）、`check-current-design.cjs`（320px「收缩标识完整可见」，收缩态品牌行被 0 高容器裁到 `top: -7.5`）、`check-overview-typography.cjs`、`check-experience.cjs` 四项在 `git stash` 后的干净树上同样失败，属既有问题；前两项失败点依赖动画时序，无头浏览器下不稳定。
+
 ## 四 验收证据（截至 2026-10-12）
 
 自动化结果，**不等于人工验收**：
@@ -122,6 +124,7 @@
 | WAL 备份恢复 | 1 项通过（临时样例） | `deployment/test_backup.py` |
 | 打包资源回归 | 7 项通过 | `deployment/test_release_assets.py` |
 | 页头动画控制 | 5 项通过 | `frontend/qa/header-motion-unit.json` |
+| 窄屏汉堡按钮 | 6 项通过 | `frontend/scripts/check-nav-toggle.cjs` |
 | 图片状态机 | 6 项通过 | `frontend/qa/media-loading-unit.json` |
 | 跨页过渡控制 | 5 项通过 | `frontend/scripts/check-page-transition.cjs` |
 | Edge 实际浏览器 | 56 项通过 | `frontend/qa/current-design-browser.json` |
