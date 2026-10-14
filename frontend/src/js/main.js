@@ -95,8 +95,10 @@
       if (reducedMotion.matches || root.dataset.motionPaused === 'true' || (inNav && !smallScreen.matches)) return 0;
       const entries = flipChars.filter(entry => entry.trigger === scope);
       if (closing) entries.reverse();
+      // 退场按惯例快于入场：收起时全部时序压到 0.7x。
+      const speed = closing ? 0.7 : 1;
       entries.forEach((entry, order) => {
-        const linkDelay = order * FLIP.link;
+        const linkDelay = order * FLIP.link * speed;
         const chars = closing ? [...entry.chars].reverse() : entry.chars;
         chars.forEach((char, charIndex) => {
           char.getAnimations().forEach(animation => animation.cancel());
@@ -104,12 +106,12 @@
             closing
               ? [{ opacity: 1, filter: 'blur(0)' }, { opacity: 0, filter: 'blur(10px)' }]
               : [{ opacity: 0, filter: 'blur(10px)' }, { opacity: 1, filter: 'blur(0)' }],
-            { duration: FLIP.dur, delay: linkDelay + charIndex * FLIP.char, easing: closing ? 'ease-in' : 'ease-out', fill: closing ? 'both' : 'backwards' },
+            { duration: FLIP.dur * speed, delay: linkDelay + charIndex * FLIP.char * speed, easing: closing ? 'ease-in' : 'ease-out', fill: closing ? 'both' : 'backwards' },
           );
         });
       });
       const last = entries[entries.length - 1];
-      return last ? (entries.length - 1) * FLIP.link + last.chars.length * FLIP.char + FLIP.dur : 0;
+      return last ? ((entries.length - 1) * FLIP.link + last.chars.length * FLIP.char + FLIP.dur) * speed : 0;
     };
     document.querySelectorAll('.footer-drawer').forEach(drawer =>
       drawer.addEventListener('toggle', () => { if (drawer.open) runNavFlip(drawer); }));
@@ -150,9 +152,11 @@
         runNavFlip(item);
       } else if (item.classList.contains('is-subnav-open') && smallScreen.matches) {
         // 移动端子菜单是 display 硬切换、没有任何收起过渡：播逐字倒放，
-        // 期间保留 is-subnav-open 维持可见，播完再移除隐藏。
-        // 计时内重开由开头的 clearTimeout 救回；桌面交回 CSS 过渡。
-        item._closeTimer = setTimeout(() => { item.classList.remove('is-subnav-open'); menu.inert = true; }, runNavFlip(item, true) + 50);
+        // 期间保留 is-subnav-open 维持可见但立即置 inert 防误点，
+        // 播完再移除类隐藏。计时内重开由开头的 clearTimeout 救回；
+        // 桌面交回 CSS 过渡。
+        menu.inert = true;
+        item._closeTimer = setTimeout(() => item.classList.remove('is-subnav-open'), runNavFlip(item, true) + 30);
       } else {
         item.classList.remove('is-subnav-open');
         menu.inert = true;
