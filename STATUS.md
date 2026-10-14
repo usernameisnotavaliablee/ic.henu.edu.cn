@@ -108,7 +108,7 @@
 
 **不要为表面「全通过」勾掉无法执行的项目。**
 
-**既有失败（非本轮引入，2026-10-14 在干净工作树上复现）**：`check-navigation-fixes.cjs`（滚动吸附落点断言）、`check-current-design.cjs`（320px「收缩标识完整可见」，收缩态品牌行被 0 高容器裁到 `top: -7.5`）、`check-overview-typography.cjs`、`check-experience.cjs` 四项在 `git stash` 后的干净树上同样失败，属既有问题；前两项失败点依赖动画时序，无头浏览器下不稳定。
+**既有失败（非本轮引入，2026-10-14 在干净工作树上复现）**：`check-navigation-fixes.cjs`（滚动吸附落点断言）、`check-current-design.cjs`（320px「收缩标识完整可见」，收缩态品牌行被 0 高容器裁到 `top: -7.5`）、`check-overview-typography.cjs`（同一滚动吸附落点断言：脚本按 `元素顶 - 91` 算目标，实际停在 `元素顶 - 44.5`，实测差 46.5px，断言要求 <3px；该脚本的字体断言在此断言之前，已全绿）、`check-experience.cjs` 四项在 `git stash` 后的干净树上同样失败，属既有问题；前两项失败点依赖动画时序，无头浏览器下不稳定。
 
 ## 四 验收证据（截至 2026-10-12）
 
