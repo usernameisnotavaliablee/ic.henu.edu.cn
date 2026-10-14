@@ -64,34 +64,42 @@
   if (toggle && nav) {
     nav.classList.add('is-enhanced');
     toggle.hidden = false;
-    // Aceternity container-text-flip 的原生移植：汉堡展开卡片菜单、页脚
-    // 「走进学院」「资讯与服务」抽屉展开时，标题按字逐个 blur(10px)→0 淡入
-    // （每字延迟 20ms，项目间递增 60ms）。拆字只在增强态执行，
-    // aria-label 保留整词供读屏朗读。
+    // Aceternity container-text-flip 的原生移植：任何菜单展开（汉堡、各级
+    // 子菜单、页脚抽屉）时，标题按字逐个 blur(10px)→0 淡入，时序为原
+    // 速率的 1.5x（duration 367ms、字间 13.3ms、条目间 40ms）。
+    // 每条目记 trigger 决定展开哪个容器时播放；aria-label 保留整词供读屏。
     const flipLinks = [
-      ...nav.querySelectorAll(':scope > ul > .nav-item > .nav-item-heading > a'),
+      ...nav.querySelectorAll('a'),
       ...document.querySelectorAll('.footer-drawer .footer-links a'),
     ];
-    const flipChars = flipLinks.map((link, index) => {
+    let topIndex = 0;
+    const flipChars = flipLinks.map(link => {
       const drawer = link.closest('.footer-drawer');
-      // 页脚链接的交错序号按各自抽屉内位置计，与导航序号互不串扰。
-      const order = drawer ? [...drawer.querySelectorAll('.footer-links a')].indexOf(link) : index;
-      (link.closest('.nav-item') || link).style.setProperty('--nav-i', order);
+      const parentItem = link.closest('.subnav')?.closest('.nav-item');
+      // --nav-i 只服务于 CSS 卡片交错入场：导航一级卡片按 0..n、
+      // 页脚磁贴按各自抽屉内序号；子菜单链接不写。
+      if (drawer) link.style.setProperty('--nav-i', [...drawer.querySelectorAll('.footer-links a')].indexOf(link));
+      else if (!parentItem) link.closest('.nav-item').style.setProperty('--nav-i', topIndex++);
       const label = link.textContent;
       link.setAttribute('aria-label', label);
       link.innerHTML = [...label].map(char => `<span class="nav-flip-char" aria-hidden="true">${char === ' ' ? '&nbsp;' : char}</span>`).join('');
-      return { link, chars: [...link.querySelectorAll('.nav-flip-char')] };
+      return { link, chars: [...link.querySelectorAll('.nav-flip-char')], trigger: drawer || parentItem || nav };
     });
     const runNavFlip = (scope = nav) => {
       const inNav = scope === nav;
       if (reducedMotion.matches || root.dataset.motionPaused === 'true' || (inNav && !smallScreen.matches)) return;
-      flipChars.filter(entry => scope.contains(entry.link)).forEach((entry, index) => entry.chars.forEach((char, charIndex) => {
-        char.getAnimations().forEach(animation => animation.cancel());
-        char.animate(
-          [{ opacity: 0, filter: 'blur(10px)' }, { opacity: 1, filter: 'blur(0)' }],
-          { duration: 550, delay: index * 60 + charIndex * 20, easing: 'ease-out', fill: 'backwards' },
-        );
-      }));
+      let order = 0;
+      flipChars.forEach(entry => {
+        if (entry.trigger !== scope) return;
+        const linkDelay = order++ * 40;
+        entry.chars.forEach((char, charIndex) => {
+          char.getAnimations().forEach(animation => animation.cancel());
+          char.animate(
+            [{ opacity: 0, filter: 'blur(10px)' }, { opacity: 1, filter: 'blur(0)' }],
+            { duration: 367, delay: linkDelay + charIndex * 13.3, easing: 'ease-out', fill: 'backwards' },
+          );
+        });
+      });
     };
     document.querySelectorAll('.footer-drawer').forEach(drawer =>
       drawer.addEventListener('toggle', () => { if (drawer.open) runNavFlip(drawer); }));
@@ -127,6 +135,7 @@
           item.classList.add(item.parentElement.classList.contains('subnav') ? 'opens-left' : 'align-right');
         }
       }
+      if (open) runNavFlip(item);
       if (!open) dropdowns.filter(child => child !== item && item.contains(child)).forEach(child => {
         child.classList.remove('is-subnav-open', 'opens-left', 'align-right');
         buttonFor(child).setAttribute('aria-expanded', 'false');
