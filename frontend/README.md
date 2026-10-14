@@ -1,6 +1,6 @@
 # 前端开发入口
 
-当前线上版式为 20261012.8，见[根说明](../README.md)、[当前设计](../DESIGN.md)及[项目状态](../STATUS.md)。早期 README 已保留到 docs/归档不再看/历史版本/交付整理前_20261012/。
+线上版式为 release 20261012.8（2026-10-14 核对公网仍是该版本，此后未再部署；仓库当前实现已领先于线上）。见[根说明](../README.md)、[当前设计](../DESIGN.md)及[项目状态](../STATUS.md)。早期 README 已保留到 docs/归档不再看/历史版本/交付整理前_20261012/。
 
 ## 修改位置
 
@@ -12,13 +12,13 @@
 | 首页五个内容区 | src/content/home.html |
 | 公共头尾、资源版本号 | src/templates/partials、src/templates/document.html |
 | 菜单、轮播、吸附和装饰动效 | src/js/main.js |
-| 页头、页面过渡、图片反馈 | src/js/header-motion.js、page-transition.js、media-loading.js |
+| 页头、页面过渡、图片反馈、滚动归位 | src/js/header-motion.js、page-transition.js、media-loading.js、scroll-reset.js |
 | 构建与原创芯片 SVG | scripts/build-site.js、scripts/build-chip-art.js |
 | 运行素材 | src/assets；来源记录放 docs/assets 或 docs/内部资料 |
 
 ## 构建和查看
 
-在仓库根目录执行 `node frontend/scripts/build-site.js`，生成 72 个静态预览页面、backend/templates/site/generated、content-catalog.json 等配套文件。静态预览里的新闻和栏目条目是占位；后台发布不回写这些 HTML。
+在仓库根目录执行 `node frontend/scripts/build-site.js`，生成 73 个静态预览页面（含 `404.html`）、backend/templates/site/generated、content-catalog.json 等配套文件。`404.html` 不进路由目录，故不出现在站点地图与栏目清单里；后台 404 走 `backend/templates/site/error.html`。静态预览里的新闻和栏目条目是占位；后台发布不回写这些 HTML。
 
 运行 `python -m http.server 8766 --bind 127.0.0.1 --directory frontend/preview`，打开 <http://127.0.0.1:8766/>。不要直接修改 preview 或 generated；手写 Django 模板应在 backend/templates/site 的非 generated 文件中改。
 
@@ -36,4 +36,4 @@
 
 常用：check-preview.py、check-current-structure.py、prepare-fonts.py --check、check-navigation-fixes.cjs、check-overview-typography.cjs。浏览器脚本使用已有 Playwright/Edge，设置 IC_TEST_MODULES 为实际 node_modules 路径；所有命令从仓库根目录执行。
 
-check-carousel.cjs、check-experience.cjs、check-navigation-scroll.cjs 含早期暂停按钮等旧断言，作为历史脚本保留，不直接作为当前版验收门槛。实际已运行项及待办以交接验收记录为准。
+check-carousel.cjs、check-navigation-scroll.cjs 含早期暂停按钮等旧断言，作为历史脚本保留，不直接作为当前版验收门槛。check-experience.cjs 同样归入历史脚本（它硬编码了旧页头高度 184/112，现值 171/45），其覆盖内容已由 check-current-design.cjs、check-navigation-fixes.cjs、check-overview-typography.cjs 分担，见 [STATUS.md 3.2 节](../STATUS.md)的过期断言说明。实际已运行项及待办以交接验收记录为准。
