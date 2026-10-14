@@ -65,9 +65,11 @@
     nav.classList.add('is-enhanced');
     toggle.hidden = false;
     // Aceternity container-text-flip 的原生移植：任何菜单展开（汉堡、各级
-    // 子菜单、页脚抽屉）时，标题按字逐个 blur(10px)→0 淡入，时序为原
-    // 速率的 1.5x（duration 367ms、字间 13.3ms、条目间 40ms）。
-    // 每条目记 trigger 决定展开哪个容器时播放；aria-label 保留整词供读屏。
+    // 子菜单、页脚抽屉）时，标题按字逐个 blur(10px)→0 淡入；收起时整体
+    // 倒放——条目与字符都按展开顺序的逆序逐个模糊消失。
+    // 时序为移植版原速率的 2.25x：duration 245ms、字间 8.9ms、条目间 26.7ms。
+    // 每条目记 trigger 决定开/关哪个容器时播放；aria-label 保留整词供读屏。
+    const FLIP = { dur: 245, char: 8.9, link: 26.7 };
     const flipLinks = [
       ...nav.querySelectorAll('a'),
       ...document.querySelectorAll('.footer-drawer .footer-links a'),
@@ -85,28 +87,51 @@
       link.innerHTML = [...label].map(char => `<span class="nav-flip-char" aria-hidden="true">${char === ' ' ? '&nbsp;' : char}</span>`).join('');
       return { link, chars: [...link.querySelectorAll('.nav-flip-char')], trigger: drawer || parentItem || nav };
     });
-    const runNavFlip = (scope = nav) => {
+    // closing=true 时把条目与字符顺序整体反转、关键帧对调，相当于把
+    // 展开动画按时间轴倒放。返回值是最后一条动画结束的大约毫秒数，
+    // 供调用方延迟真正隐藏容器（display:none/open 属性会立刻消隐）。
+    const runNavFlip = (scope = nav, closing = false) => {
       const inNav = scope === nav;
-      if (reducedMotion.matches || root.dataset.motionPaused === 'true' || (inNav && !smallScreen.matches)) return;
-      let order = 0;
-      flipChars.forEach(entry => {
-        if (entry.trigger !== scope) return;
-        const linkDelay = order++ * 40;
-        entry.chars.forEach((char, charIndex) => {
+      if (reducedMotion.matches || root.dataset.motionPaused === 'true' || (inNav && !smallScreen.matches)) return 0;
+      const entries = closing ? flipChars.filter(e => e.trigger === scope).reverse() : flipChars.filter(e => e.trigger === scope);
+      entries.forEach((entry, order) => {
+        const linkDelay = order * FLIP.link;
+        const chars = closing ? [...entry.chars].reverse() : entry.chars;
+        chars.forEach((char, charIndex) => {
           char.getAnimations().forEach(animation => animation.cancel());
           char.animate(
-            [{ opacity: 0, filter: 'blur(10px)' }, { opacity: 1, filter: 'blur(0)' }],
-            { duration: 367, delay: linkDelay + charIndex * 13.3, easing: 'ease-out', fill: 'backwards' },
+            closing
+              ? [{ opacity: 1, filter: 'blur(0)' }, { opacity: 0, filter: 'blur(10px)' }]
+              : [{ opacity: 0, filter: 'blur(10px)' }, { opacity: 1, filter: 'blur(0)' }],
+            { duration: FLIP.dur, delay: linkDelay + charIndex * FLIP.char, easing: closing ? 'ease-in' : 'ease-out', fill: 'backwards' },
           );
         });
       });
+      const last = entries[entries.length - 1];
+      return last ? (entries.length - 1) * FLIP.link + last.chars.length * FLIP.char + FLIP.dur : 0;
     };
     document.querySelectorAll('.footer-drawer').forEach(drawer =>
-      drawer.addEventListener('toggle', () => { if (drawer.open) runNavFlip(drawer); }));
+      drawer.addEventListener('toggle', () => {
+        // details 的 open 属性被移除时内容立即隐藏，倒放需要先把它
+        // 恢复成 open 播完退出动画再真正关闭；_closing 防我们自己
+        // 改 open 触发的 toggle 造成递归。
+        if (drawer._closing) { if (!drawer.open) drawer._closing = false; return; }
+        if (drawer.open) runNavFlip(drawer);
+        else {
+          drawer._closing = true;
+          drawer.open = true;
+          setTimeout(() => { drawer.open = false; }, runNavFlip(drawer, true) + 50);
+        }
+      }));
+    let navCloseTimer;
     const setMenu = (open, restoreFocus = false) => {
-      nav.classList.toggle('open', open);
+      clearTimeout(navCloseTimer);
       toggle.setAttribute('aria-expanded', String(open));
-      if (open) runNavFlip();
+      if (open) { nav.classList.add('open'); runNavFlip(); }
+      else if (nav.classList.contains('open')) {
+        // 先播倒放再移除 .open，否则 display:none 会立刻把字藏掉。
+        navCloseTimer = setTimeout(() => nav.classList.remove('open'), runNavFlip(nav, true) + 50);
+      }
       if (restoreFocus) toggle.focus();
     };
     toggle.addEventListener('click', () => setMenu(!nav.classList.contains('open')));
@@ -124,23 +149,30 @@
     const menuFor = item => item.querySelector(':scope > .subnav');
     const dropdowns = [...nav.querySelectorAll('.nav-item')].filter(buttonFor);
     const setDropdown = (item, open) => {
-      item.classList.toggle('is-subnav-open', open);
+      clearTimeout(item._closeTimer);
       buttonFor(item).setAttribute('aria-expanded', String(open));
       const menu = menuFor(item);
-      menu.inert = !open;
       item.classList.remove('opens-left', 'align-right');
-      if (open && !smallScreen.matches) {
-        // 靠近右边缘时朝左展开，三级菜单不溢出视口。
-        if (menu.getBoundingClientRect().right > innerWidth - 8) {
-          item.classList.add(item.parentElement.classList.contains('subnav') ? 'opens-left' : 'align-right');
+      if (open) {
+        item.classList.add('is-subnav-open');
+        menu.inert = false;
+        if (!smallScreen.matches) {
+          // 靠近右边缘时朝左展开，三级菜单不溢出视口。
+          if (menu.getBoundingClientRect().right > innerWidth - 8) {
+            item.classList.add(item.parentElement.classList.contains('subnav') ? 'opens-left' : 'align-right');
+          }
         }
+        runNavFlip(item);
+      } else if (item.classList.contains('is-subnav-open')) {
+        // 先播字符倒放，计时后再真正去掉展开类隐藏菜单；
+        // 若在计时内重开，开头的 clearTimeout 会救回菜单。
+        item._closeTimer = setTimeout(() => { item.classList.remove('is-subnav-open'); menu.inert = true; }, runNavFlip(item, true) + 50);
+      } else {
+        item.classList.remove('is-subnav-open');
+        menu.inert = true;
       }
-      if (open) runNavFlip(item);
-      if (!open) dropdowns.filter(child => child !== item && item.contains(child)).forEach(child => {
-        child.classList.remove('is-subnav-open', 'opens-left', 'align-right');
-        buttonFor(child).setAttribute('aria-expanded', 'false');
-        menuFor(child).inert = true;
-      });
+      // 收起父菜单时级联收起子孙，走同一路径使每层都能播倒放。
+      if (!open) dropdowns.filter(child => child !== item && item.contains(child)).forEach(child => setDropdown(child, false));
     };
     const openOnly = item => {
       dropdowns.filter(other => other.parentElement === item.parentElement && other !== item).forEach(other => setDropdown(other, false));

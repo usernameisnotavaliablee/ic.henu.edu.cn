@@ -445,7 +445,7 @@ html.snap-enabled[data-motion-paused='true'] { scroll-snap-type: none; }
    展开时按 --nav-i 交错入场（逐字动画由 main.js 驱动）。 */
 .footer-drawer .footer-links { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 4px 12px; }
 .footer-drawer .footer-links a { display: flex; align-items: center; justify-content: center; min-height: 44px; color: #fff; font-size: 14px; }
-.footer-drawer[open] .footer-links a { animation: nav-card-in .45s cubic-bezier(.22,.61,.36,1) backwards; animation-delay: calc(var(--nav-i, 0) * 55ms); }
+.footer-drawer[open] .footer-links a { animation: nav-card-in .3s cubic-bezier(.22,.61,.36,1) backwards; animation-delay: calc(var(--nav-i, 0) * 37ms); }
 .footer-drawer[open] .footer-drawer-content { animation: footer-disclose .25s ease; }
 @keyframes footer-disclose { from { opacity: 0; transform: translateY(-6px); } to { opacity: 1; transform: none; } }
 @media (prefers-reduced-motion: reduce) { .footer-drawer[open] .footer-drawer-content { animation: none; } .footer-drawer summary > span { transition: none; } }
@@ -513,7 +513,7 @@ html.snap-enabled[data-motion-paused='true'] { scroll-snap-type: none; }
   .main-nav.is-enhanced:not(.open) { display: none; }
   /* 卡片式展开：一级栏目按 --nav-i 交错入场；标题逐字动画由 main.js 驱动。 */
   .main-nav.is-enhanced > ul { grid-template-columns: repeat(2, 1fr); gap: 4px 12px; padding: 4px 4px 14px; }
-  .main-nav.is-enhanced > ul > .nav-item { animation: nav-card-in .45s cubic-bezier(.22,.61,.36,1) backwards; animation-delay: calc(var(--nav-i, 0) * 55ms); }
+  .main-nav.is-enhanced > ul > .nav-item { animation: nav-card-in .3s cubic-bezier(.22,.61,.36,1) backwards; animation-delay: calc(var(--nav-i, 0) * 37ms); }
   /* 标题对齐：+ 按钮脱离 flex 流，标题 a 恢复全宽居中，
      带子栏目与不带子栏目的文字在同一中线上。 */
   .main-nav.is-enhanced > ul > .nav-item > .nav-item-heading { position: relative; }
