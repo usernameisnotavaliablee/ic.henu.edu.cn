@@ -759,9 +759,10 @@ html.snap-enabled[data-motion-paused='true'] { scroll-snap-type: none; }
 @keyframes face-mouth-left { 0%, 30% { stroke-dashoffset: -102; } 55%, 100% { stroke-dashoffset: 0; } }
 @keyframes face-mouth-right { 0%, 30% { stroke-dashoffset: 102; } 55%, 100% { stroke-dashoffset: 0; } }
 @keyframes face-nose { 0% { transform: translate(0, 0); } 30%, 100% { transform: translate(0, 22.5px); } }
-.error-kicker { color: var(--blue); font-size: 28px; font-weight: 500; letter-spacing: .08em; text-align: center; margin: 8px 0 10px; }
-.error-desc { color: var(--muted); font-size: 15px; text-align: center; margin: 0; }
-.error-links { text-align: center; }
+.error-text { display: flex; flex-direction: column; align-items: center; gap: 16px; margin-top: 16px; text-align: center; color: var(--ink); font-size: 16px; }
+.error-text p { margin: 0; }
+.error-text .back-link { margin-top: 0; padding-block: 6px; }
+.error-text .back-link + .back-link { margin-left: 28px; }
 .error-face.is-tracking .face__pupil { animation: none; }
 @media (max-width: 640px) { .error-face .face { width: 160px; } }
 /* 减动效：全局已关 animation，这里补动画终态，否则眼睛停在下位、嘴部 dashoffset 不归零不可见。 */
