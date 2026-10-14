@@ -1,5 +1,4 @@
 {% load content_slots %}
-<!-- 自动生成：修改 src/ 后运行 node scripts/build-site.js。 -->
 <!doctype html>
 <html lang="zh-CN" data-page="inner">
 <head>
@@ -8,15 +7,15 @@
   <meta name="robots" content="noindex, nofollow">
   <meta name="description" content="河南大学集成电路与微纳电子学院基础前端预览，内容和素材待审定。">
   <title>程纲 - 河南大学集成电路与微纳电子学院（内部预览）</title>
-  <script src="/js/scroll-reset.js?v=20261012-7"></script>
+  <script src="/js/scroll-reset.js?v=de9f11de2276"></script>
   <link rel="icon" href="/assets/henu-logo.png">
-  <link rel="stylesheet" href="/css/style.css?v=20261012-14">
-  <link rel="stylesheet" href="/css/fonts.css?v=20261012-2">
-  <script src="/js/media-loading.js?v=20261012-3" defer></script>
-  <script src="/js/header-motion.js?v=20261012-9" defer></script>
-  <script src="/js/page-transition.js?v=20261012-9" defer></script>
-  <script src="/js/navigation.js?v=20261014-1" defer></script>
-  <script src="/js/main.js?v=20261014-1" defer></script>
+  <link rel="stylesheet" href="/css/style.css?v=2884f99ab357">
+  <link rel="stylesheet" href="/css/fonts.css?v=cf9eee52d14c">
+  <script src="/js/media-loading.js?v=167587c6289c" defer></script>
+  <script src="/js/header-motion.js?v=865f383d99bd" defer></script>
+  <script src="/js/page-transition.js?v=68dd8e3688a8" defer></script>
+  <script src="/js/navigation.js?v=bb0ac91e837c" defer></script>
+  <script src="/js/main.js?v=1735f3fe0422" defer></script>
 
 </head>
 <body>
@@ -24,7 +23,7 @@
   <div class="header-shell"><!-- 参考低空 header-utility / header-main / main-nav 分层；导航改为独立通栏。 -->
 <header class="site-header is-compact" id="site-top">
   <div class="container header-main">
-    <a class="brand" href="/index.html" aria-label="河南大学{{ site_info.college }} 首页">
+    <a class="brand" href="/index.html" aria-label="{{ site_info.name }} 首页">
       <img class="brand-mark" src="/assets/{{ site_info.image }}" width="76" height="76" alt="{{ site_info.image_alt|default:'河南大学校徽' }}">
       <span class="brand-text"><span class="brand-title"><span class="university-name">河南大学</span><span class="brand-divider" aria-hidden="true"></span><span class="college-name">{{ site_info.college }}</span></span><span class="college-english">{{ site_info.english }}</span></span>
     </a>
@@ -97,23 +96,19 @@
 </div><div class="container"><p>FACULTY</p><h1>程纲</h1></div></div>
 <div class="container page-body">
   <nav class="breadcrumb" aria-label="当前位置"><a href="/index.html">首页</a><span aria-hidden="true"> / </span><a href="/faculty.html">师资队伍</a><span aria-hidden="true"> / </span><span aria-current="page">程纲</span></nav>
-  <p class="page-note">以下为教师个人简介。照片、职称与简介来自已整理的公开资料，待学院及本人核对。</p><div class="teacher-profile"><aside><span class="media-frame" data-media><img src="/assets/teacher-cheng.jpg" alt="程纲照片" width="180" height="234"><span class="media-status" data-media-status hidden><span class="media-spinner" aria-hidden="true"></span><span data-media-label>图片加载中…</span></span></span><p class="teacher-title">教授 · 博士生导师</p><p>纳米发电与自驱动器件（据论文概括）</p></aside><div><section class="profile-section"><h2>个人简介</h2><p>2000年、2003年分别在河南大学取得学士和硕士学位，2008年在吉林大学取得凝聚态物理专业博士学位。公开资料所列单位为河南大学特种功能材料教育部重点实验室；现任单位和研究方向表述待本人确认。</p></section><section class="profile-section"><h2>教育与学术经历</h2><ul><li>2000年，河南大学，物理学士。</li><li>2003年，河南大学，凝聚态物理硕士。</li><li>2008年，吉林大学，凝聚态物理博士。</li><li>2006—2007年，香港中文大学物理系，研究助理。</li><li>2013—2016年，佐治亚理工学院材料科学与工程学院，访问学者。</li></ul></section><section class="profile-section"><h2>研究主题与代表论文</h2><p>以下主题依据已公开论文概括，用于演示：摩擦纳米发电机、自驱动传感器、半导体光电探测器。正式研究方向的一句话介绍和主讲课程，请本人补充确认。</p><ul><li>ZnO纳米线肖特基紫外光电探测器与纳米发电机驱动表面离子栅研究，Nano Energy，2020，67，104210。</li><li>单向开关与被动电源管理电路提升摩擦纳米发电机储能效率，Advanced Functional Materials，2018，28，1805216。</li><li>摩擦纳米发电机驱动气体放电的自供能CO₂传感器，Nano Energy，2018，53，898–905。</li></ul></section><section class="profile-section"><h2>更多代表论文（来源页所列）</h2><ul><li>Managing and optimizing the output performances of a triboelectric nanogenerator by a self-powered electrostatic vibrator switch，Nano Energy，2018，46，220–228。</li><li>Multilayered-electrode-based triboelectric nanogenerators with managed output voltage and multifold enhanced charge transport，Advanced Energy Materials，2015，5，1401452。</li><li>Simultaneously harvesting electrostatic and mechanical energies from flowing water by a hybridized triboelectric nanogenerator，ACS Nano，2014，8，1932–1939。</li><li>Increase output energy and operation frequency of a triboelectric nanogenerator by two grounded electrodes approach，Advanced Functional Materials，2014，24，2892–2898。</li><li>Pulsed nanogenerator with huge instantaneous output power density，ACS Nano，2013，7，7383–7391。</li></ul></section><section class="profile-section"><h2>公开资料所列荣誉</h2><p>国家优秀青年基金获得者（2015年）、河南省科技创新人才、河南省高校创新团队带头人、河南省教育厅学术技术带头人、河南省科技进步二等奖。以上根据已有确认稿与来源页面整理，待核对最新情况。</p></section><section class="profile-section"><h2>联系方式</h2><p>电子邮箱：chenggang@henu.edu.cn</p></section><p class="profile-source">资料来源：<a href="https://lab.henu.edu.cn/zw/ktz/c_g_Cheng_G/ktzzjj.htm" target="_blank" rel="noopener">河南大学程纲课题组公开介绍 ↗</a>。展示内容待本人确认为准。</p><a class="back-link" href="/faculty.html">← 返回教师名录</a></div></div>
+  <p class="page-note">以下为教师个人简介。照片、职称与简介来自已整理的公开资料，待学院及本人核对。</p><div class="teacher-profile"><aside><span class="media-frame" data-media><img src="/assets/teacher-cheng.jpg" alt="程纲照片" width="180" height="234"><span class="media-status" data-media-status hidden><span class="media-spinner" aria-hidden="true"></span><span data-media-label>图片加载中…</span></span></span><p class="teacher-title">教授 · 博士生导师</p><p>纳米发电与自驱动器件（据论文概括）</p></aside><div><section class="profile-section"><h2>个人简介</h2><p>2000年、2003年分别在河南大学取得学士和硕士学位，2008年在吉林大学取得凝聚态物理专业博士学位。公开资料所列单位为河南大学特种功能材料教育部重点实验室；现任单位和研究方向表述待本人确认。</p></section><section class="profile-section"><h2>教育与学术经历</h2><ul><li>2000年，河南大学，物理学士。</li><li>2003年，河南大学，凝聚态物理硕士。</li><li>2008年，吉林大学，凝聚态物理博士。</li><li>2006—2007年，香港中文大学物理系，研究助理。</li><li>2013—2016年，佐治亚理工学院材料科学与工程学院，访问学者。</li></ul></section><section class="profile-section"><h2>研究主题与代表论文</h2><p>以下主题依据已公开论文概括，用于演示：摩擦纳米发电机、自驱动传感器、半导体光电探测器。正式研究方向的一句话介绍和主讲课程，请本人补充确认。</p><ul><li>ZnO纳米线肖特基紫外光电探测器与纳米发电机驱动表面离子栅研究，Nano Energy，2020，67，104210。</li><li>单向开关与被动电源管理电路提升摩擦纳米发电机储能效率，Advanced Functional Materials，2018，28，1805216。</li><li>摩擦纳米发电机驱动气体放电的自供能CO₂传感器，Nano Energy，2018，53，898–905。</li></ul></section><section class="profile-section"><h2>更多代表论文（来源页所列）</h2><ul><li>Managing and optimizing the output performances of a triboelectric nanogenerator by a self-powered electrostatic vibrator switch，Nano Energy，2018，46，220–228。</li><li>Multilayered-electrode-based triboelectric nanogenerators with managed output voltage and multifold enhanced charge transport，Advanced Energy Materials，2015，5，1401452。</li><li>Simultaneously harvesting electrostatic and mechanical energies from flowing water by a hybridized triboelectric nanogenerator，ACS Nano，2014，8，1932–1939。</li><li>Increase output energy and operation frequency of a triboelectric nanogenerator by two grounded electrodes approach，Advanced Functional Materials，2014，24，2892–2898。</li><li>Pulsed nanogenerator with huge instantaneous output power density，ACS Nano，2013，7，7383–7391。</li></ul></section><section class="profile-section"><h2>公开资料所列荣誉</h2><p>国家优秀青年基金获得者（2015年）、河南省科技创新人才、河南省高校创新团队带头人、河南省教育厅学术技术带头人、河南省科技进步二等奖。以上根据已有确认稿与来源页面整理，待核对最新情况。</p></section><section class="profile-section"><h2>联系方式</h2><p>电子邮箱：chenggang@henu.edu.cn</p></section><p class="profile-source">资料来源：<a href="https://lab.henu.edu.cn/zw/ktz/c_g_Cheng_G/ktzzjj.htm" target="_blank" rel="noopener">河南大学程纲课题组公开介绍</a>。展示内容待本人确认为准。</p><a class="back-link" href="/faculty.html">返回教师名录</a></div></div>
 </div>
 </main>
   <footer class="site-footer" id="site-footer">
-  <div class="footer-campus"><div class="container footer-campus-inner"><div><p>{{ site_info.motto }}</p><span>河南大学 · {{ site_info.college }}</span></div><a class="back-to-top" href="#site-top" data-back-top><svg viewBox="0 0 32 32" aria-hidden="true"><path d="m7 16 9-9 9 9M16 7v20"/></svg><span>返回顶部</span></a></div></div>
-  <div class="container footer-main">
-    <div class="footer-brand"><img src="/assets/{{ site_info.image }}" width="64" height="64" alt="{{ site_info.image_alt|default:'河南大学校徽' }}" loading="lazy"><p class="footer-university">河南大学</p><p class="footer-college">{{ site_info.college }}</p><p class="footer-note">{{ site_info.english }}</p></div>
-    <div class="footer-drawers">
-      <details class="footer-drawer"><summary>走进学院<span aria-hidden="true">+</span></summary><div class="footer-drawer-content footer-links"><a href="/about.html">学院概况 →</a><a href="/faculty.html">师资队伍 →</a><a href="/science-innovation.html">科学与创新 →</a><a href="/talent-cultivation.html">人才培养 →</a></div></details>
-      <details class="footer-drawer"><summary>资讯与服务<span aria-hidden="true">+</span></summary><div class="footer-drawer-content footer-links"><a href="/news.html">学院新闻 →</a><a href="/notices.html">通知公告 →</a><a href="/careers.html">人才招聘 →</a><a href="/public-service.html">公共服务 →</a><a href="/image-credits.html">图片来源与授权 →</a><a href="https://www.henu.edu.cn/" target="_blank" rel="noopener">河南大学官网 ↗</a></div></details>
-      <details class="footer-drawer"><summary>联系我们<span aria-hidden="true">+</span></summary><div class="footer-drawer-content footer-contact"><p>办公地址：{{ site_info.address|default:'待提供' }}</p><p>公开电话：{{ site_info.phone|default:'待提供' }}</p><p>电子邮箱：{{ site_info.email|default:'待提供' }}</p><a href="/contact.html">查看联系信息 →</a><a href="/site-map.html">网站导航 →</a></div></details>
+  <div class="container footer-inner">
+    <p class="footer-motto">{{ site_info.motto }}</p>
+    <div class="footer-row">
+      <div class="footer-brand"><img src="/assets/{{ site_info.image }}" width="64" height="64" alt="{{ site_info.image_alt|default:'河南大学校徽' }}" loading="lazy"><div><p class="footer-college">{{ site_info.college }}</p><p class="footer-note">{{ site_info.english }}</p></div></div>
+      <div class="footer-wechat" data-wechat-slot>{% include "site/wechat.html" %}</div>
     </div>
-    <div class="footer-wechat" data-wechat-slot>{% include "site/wechat.html" %}</div>
+    <div class="footer-bottom-inner"><a class="footer-support" href="https://hdwzgzs.cn/" target="_blank" rel="noopener"><img class="studio-mark" src="/assets/web-studio.png" width="44" height="42" alt="" loading="lazy"><span>技术支持：河南大学网站工作室</span></a><span class="footer-filing">{{ site_info.body|default:'正式网站备案与平台信息待学校配置' }}</span></div>
   </div>
-  <div class="footer-bottom"><div class="container footer-bottom-inner"><span class="footer-copyright">{{ site_info.name }}<br>内部演示版 · 图片及文字待学院确认</span><a class="footer-support" href="https://hdwzgzs.cn/" target="_blank" rel="noopener"><img class="studio-mark" src="/assets/web-studio.png" width="48" height="46" alt="" loading="lazy"><span>技术支持：河南大学网站工作室</span></a><span class="footer-filing">{{ site_info.body|default:'正式网站备案与平台信息待学校配置' }}</span></div></div>
 </footer>
-
 
 </body>
 </html>

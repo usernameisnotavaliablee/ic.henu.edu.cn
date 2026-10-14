@@ -1,0 +1,59 @@
+/* 1. 校院标识 + 独立的整栏导航 */
+.header-shell { min-height: var(--header-expanded-height); }
+[data-page='inner'] .header-shell { min-height: var(--header-compact-height); }
+.site-header { position: relative; z-index: 10; background: #123e70; }
+.header-enhanced .site-header { position: fixed; inset: 0 0 auto; transition: box-shadow .65s ease; }
+.site-header.is-compact { box-shadow: 0 4px 22px rgb(8 45 86 / 10%); }
+.header-utility { background: var(--pale); border-bottom: 1px solid #e8edf2; color: #576c80; font-size: 12px; }
+.utility-inner { display: flex; justify-content: space-between; align-items: center; min-height: 34px; gap: 12px; }
+.utility-inner a { display: inline-flex; align-items: center; min-height: 36px; }
+.header-main { height: 112px; display: flex; align-items: center; justify-content: space-between; gap: 24px; padding-block: 20px; overflow: hidden; transition: height .65s cubic-bezier(.22,.61,.36,1), padding .65s ease, opacity .35s ease, visibility .65s; }
+.brand { display: flex; gap: 18px; align-items: center; color: #fff; min-width: 0; }
+.brand-mark { width: 64px; height: 64px; flex: 0 0 auto; background: #fff; border: 3px solid #fff; border-radius: 50%; box-shadow: 0 0 0 2px rgb(255 255 255 / 25%); }
+.brand-text { display: block; min-width: 0; line-height: 1.25; }
+.brand-title { display: flex; align-items: center; gap: 20px; white-space: nowrap; }
+.brand-divider { width: 1px; height: 30px; flex: 0 0 1px; background: rgb(255 255 255 / 40%); }
+.brand-title, .brand-divider, .brand { transition: gap .65s cubic-bezier(.22,.61,.36,1), height .65s cubic-bezier(.22,.61,.36,1); }
+.university-name { font-size: 25px; font-weight: 500; letter-spacing: .1em; }
+.college-name { font-size: clamp(23px, 2.1vw, 30px); font-weight: 500; letter-spacing: .055em; }
+.college-english { display: block; margin-top: 9px; font-size: 11px; letter-spacing: .045em; color: #d1e2f2; }
+.brand-motto { color: #d1e2f2; font-family: var(--font-display); font-size: 20px; letter-spacing: .12em; white-space: nowrap; }
+.brand-mark, .brand-text, .university-name, .college-name, .college-english, .brand-motto { transition: font-size .65s cubic-bezier(.22,.61,.36,1), letter-spacing .65s ease, width .65s ease, height .65s ease, max-height .65s ease, margin .65s ease, opacity .5s ease, transform .65s ease; }
+.college-english { max-height: 32px; opacity: .85; overflow: hidden; transform: translateY(0); transform-origin: top left; }
+.navigation-band { background: rgb(8 43 81 / 70%); color: #fff; border-top: 1px solid #6385a5; }
+.main-nav > ul { display: flex; }
+.main-nav > ul > li { flex: 1; min-width: 0; position: relative; }
+.nav-item-heading { display: flex; align-items: stretch; }
+.nav-item-heading > a { flex: 1; }
+.subnav-toggle { border: 0; color: inherit; background: transparent; width: 0; overflow: hidden; padding: 0; }
+.subnav-toggle:focus-visible { position: absolute; right: 0; top: 0; width: 32px; min-height: 44px; z-index: 1; }
+.subnav-toggle:hover, .subnav-toggle[aria-expanded='true'] { background: rgb(255 255 255 / 14%); }
+.subnav-toggle span { display: inline-block; transition: transform .2s; }
+.subnav-toggle[aria-expanded='true'] span { transform: rotate(45deg); }
+.main-nav .subnav { visibility: hidden; opacity: 0; pointer-events: none; position: absolute; left: 50%; top: 100%; width: max-content; min-width: 196px; max-width: 280px; transform: translateX(-50%) translateY(10px) scale(.98); transform-origin: top center; padding: 14px 8px; color: #354e67; background: rgb(255 255 255 / 98%); box-shadow: 0 18px 38px rgb(0 23 49 / 12%); border: 1px solid #e7edf4; border-radius: 0 0 5px 5px; transition: opacity .42s ease, transform .55s cubic-bezier(.22,.61,.36,1), visibility 0s .42s; }
+.main-nav .subnav a { white-space: normal; min-height: 48px; padding: 10px 24px; border: 0; font-size: 15px; justify-content: flex-start; }
+.main-nav .subnav a:hover, .main-nav .subnav a:focus-visible { color: var(--blue); background: #eaf2f9; transform: none; }
+.main-nav .is-subnav-open > .subnav, .main-nav:not(.is-enhanced) .nav-item:is(:hover, :focus-within) > .subnav { visibility: visible; opacity: 1; pointer-events: auto; transform: translateX(-50%) translateY(0) scale(1); transition-delay: 0s; }
+.main-nav a { display: flex; justify-content: center; align-items: center; min-height: 58px; padding: 10px 5px; border-bottom: 3px solid transparent; font-size: 16px; white-space: nowrap; }
+.main-nav > ul > .nav-item > .nav-item-heading > a:hover, .main-nav > ul > .nav-item > .nav-item-heading > a[aria-current="page"] { color: #fff; background: rgb(255 255 255 / 10%); border-bottom-color: #a7ccee; }
+.main-nav .subnav a[aria-current="page"] { color: var(--blue); background: #eaf2f9; box-shadow: inset 3px 0 #7d9fbe; }
+.main-nav > ul > .nav-item > .nav-item-heading > a { transition: min-height .65s ease, padding .65s ease, font-size .65s ease, background .25s ease; }
+.site-header.is-compact .main-nav > ul > .nav-item > .nav-item-heading > a { min-height: 44px; padding-block: 5px; font-size: 14px; }
+/* 窄屏下按钮 DOM 在 .header-main 里，但 position:absolute 的包含块是 .site-header
+   （.header-main 无定位，overflow:hidden 不会裁剪）：展开态居中于品牌行，页头收缩时
+   滑到右上角独立浮着；触发区只有图标矩形 + 各边 5px。
+   浮动时不加任何底，只靠三条杠变色取对比：品牌行内白杠，浮到浅色内容上转品牌蓝，
+   菜单展开时背后是深色面板再转回白。老浏览器不认 color-mix 时退回实色蓝杠。 */
+.nav-toggle { display: none; position: absolute; z-index: 2; top: calc((var(--brand-height-open) - 32px) / 2 * (1 - var(--header-progress)) + 11px * var(--header-progress)); right: 15px; padding: 5px; color: #fff; background: none; border: 0; align-items: center; }
+.site-header.is-compact .nav-toggle { color: var(--blue); color: color-mix(in srgb, #fff calc((1 - var(--header-progress)) * 100%), var(--blue)); }
+.site-header:has(.main-nav:is(.open, :not(.is-enhanced))) .nav-toggle { color: #fff; }
+/* 汉堡三条线 -> 叉：uiverse 复选框汉堡结构，白线条、弹性缓动。 */
+.menu-icon { position: relative; width: 30px; height: 22px; flex: 0 0 auto; }
+.menu-icon > span { position: absolute; left: 0; width: 100%; height: 3px; background: currentColor; border-radius: 4px; transition: transform .45s cubic-bezier(.68,-.6,.32,1.6), opacity .25s ease, left .25s ease; }
+.menu-icon > span:nth-child(1) { top: 0; }
+.menu-icon > span:nth-child(2) { top: 9px; }
+.menu-icon > span:nth-child(3) { top: 18px; }
+.nav-toggle[aria-expanded='true'] .menu-icon > span:nth-child(1) { transform: translateY(9px) rotate(135deg); }
+.nav-toggle[aria-expanded='true'] .menu-icon > span:nth-child(2) { opacity: 0; left: -22px; }
+.nav-toggle[aria-expanded='true'] .menu-icon > span:nth-child(3) { transform: translateY(-9px) rotate(-135deg); }
+

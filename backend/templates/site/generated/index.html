@@ -1,5 +1,4 @@
 {% load content_slots %}
-<!-- 自动生成：修改 src/ 后运行 node scripts/build-site.js。 -->
 <!doctype html>
 <html lang="zh-CN" data-page="home">
 <head>
@@ -8,15 +7,15 @@
   <meta name="robots" content="noindex, nofollow">
   <meta name="description" content="河南大学集成电路与微纳电子学院基础前端预览，内容和素材待审定。">
   <title>首页 - 河南大学集成电路与微纳电子学院（内部预览）</title>
-  <script src="/js/scroll-reset.js?v=20261012-7"></script>
+  <script src="/js/scroll-reset.js?v=de9f11de2276"></script>
   <link rel="icon" href="/assets/henu-logo.png">
-  <link rel="stylesheet" href="/css/style.css?v=20261012-14">
-  <link rel="stylesheet" href="/css/fonts.css?v=20261012-2">
-  <script src="/js/media-loading.js?v=20261012-3" defer></script>
-  <script src="/js/header-motion.js?v=20261012-9" defer></script>
-  <script src="/js/page-transition.js?v=20261012-9" defer></script>
-  <script src="/js/navigation.js?v=20261014-1" defer></script>
-  <script src="/js/main.js?v=20261014-1" defer></script>
+  <link rel="stylesheet" href="/css/style.css?v=2884f99ab357">
+  <link rel="stylesheet" href="/css/fonts.css?v=cf9eee52d14c">
+  <script src="/js/media-loading.js?v=167587c6289c" defer></script>
+  <script src="/js/header-motion.js?v=865f383d99bd" defer></script>
+  <script src="/js/page-transition.js?v=68dd8e3688a8" defer></script>
+  <script src="/js/navigation.js?v=bb0ac91e837c" defer></script>
+  <script src="/js/main.js?v=1735f3fe0422" defer></script>
 
 </head>
 <body>
@@ -24,7 +23,7 @@
   <div class="header-shell"><!-- 参考低空 header-utility / header-main / main-nav 分层；导航改为独立通栏。 -->
 <header class="site-header" id="site-top">
   <div class="container header-main">
-    <a class="brand" href="/index.html" aria-label="河南大学{{ site_info.college }} 首页">
+    <a class="brand" href="/index.html" aria-label="{{ site_info.name }} 首页">
       <img class="brand-mark" src="/assets/{{ site_info.image }}" width="76" height="76" alt="{{ site_info.image_alt|default:'河南大学校徽' }}">
       <span class="brand-text"><span class="brand-title"><span class="university-name">河南大学</span><span class="brand-divider" aria-hidden="true"></span><span class="college-name">{{ site_info.college }}</span></span><span class="college-english">{{ site_info.english }}</span></span>
     </a>
@@ -97,11 +96,17 @@
 <circle cx="975" cy="525" r="3" fill="#a9d8ed"/>
 </svg>
 </div><div class="container hero-copy"><p class="hero-eyebrow">HENAN UNIVERSITY · INTEGRATED CIRCUITS</p><h2>集成电路与微纳电子学院</h2><p class="hero-description">从集成电路，探索微纳世界</p></div><p class="hero-note">芯片概念动效 · 非实物与电气设计</p></div>
+
 <div class="hero-slide hero-slide--campus" data-media data-slide data-title="集成电路与微纳电子学院" role="group" aria-roledescription="幻灯片" aria-label="第 2 张，共 6 张" hidden><img class="hero-image" src="/assets/campus-gate.jpg" alt="河南大学牌坊，来自低空参考包的校园图片" width="1600" height="560" decoding="async"><span class="media-status" data-media-status hidden><span class="media-spinner" aria-hidden="true"></span><span data-media-label>图片加载中…</span></span><div class="container hero-copy"><p class="hero-eyebrow">HENAN UNIVERSITY</p><h2>集成电路与微纳电子学院</h2><p class="hero-description">河南大学</p></div><p class="hero-note">校园图片示意 · 待替换高清素材</p></div>
+
 <div class="hero-slide hero-slide--campus" data-media data-slide data-title="校园风光" role="group" aria-roledescription="幻灯片" aria-label="第 3 张，共 6 张" hidden><img class="hero-image" src="/assets/campus-landscape.jpg" alt="低空参考包中的校园建筑与绿地，内部预览占位" width="1600" height="560" decoding="async"><span class="media-status" data-media-status hidden><span class="media-spinner" aria-hidden="true"></span><span data-media-label>图片加载中…</span></span><div class="container hero-copy"><p class="hero-eyebrow">HENAN UNIVERSITY · CAMPUS</p><h2>校园风光</h2><p class="hero-description">在河大，探索与成长</p></div><p class="hero-note">低空参考包校园素材 · 正式发布前待审核</p></div>
+
 <div class="hero-slide hero-slide--campus" data-media data-slide data-title="校园一景" role="group" aria-roledescription="幻灯片" aria-label="第 4 张，共 6 张" hidden><img class="hero-image" src="/assets/campus-courtyard.jpg" alt="低空参考包中的校园建筑与庭院，内部预览占位" width="1600" height="560" decoding="async"><span class="media-status" data-media-status hidden><span class="media-spinner" aria-hidden="true"></span><span data-media-label>图片加载中…</span></span><div class="container hero-copy"><p class="hero-eyebrow">HENAN UNIVERSITY · DISCOVERY</p><h2>校园一景</h2><p class="hero-description">明德 · 新民 · 止于至善</p></div><p class="hero-note">校园素材占位 · 非学院楼宇介绍</p></div>
+
 <div class="hero-slide hero-slide--campus" data-media data-slide data-title="学在河大" role="group" aria-roledescription="幻灯片" aria-label="第 5 张，共 6 张" hidden><img class="hero-image" src="/assets/campus-building.jpg" alt="低空参考包中的校园楼宇正面，内部预览占位" width="1600" height="560" decoding="async"><span class="media-status" data-media-status hidden><span class="media-spinner" aria-hidden="true"></span><span data-media-label>图片加载中…</span></span><div class="container hero-copy"><p class="hero-eyebrow">HENAN UNIVERSITY · LEARNING</p><h2>学在河大</h2><p class="hero-description">向学而行，向新而进</p></div><p class="hero-note">校园素材占位 · 非学院楼宇介绍</p></div>
-<div class="hero-slide hero-slide--technology" data-media data-slide data-title="从一片晶圆，走近微观世界" role="group" aria-roledescription="幻灯片" aria-label="第 6 张，共 6 张" hidden><img class="hero-image" src="/assets/wafer-closeup.jpg" alt="硅晶圆表面近景，通用学科示意" width="1600" height="560" decoding="async"><span class="media-status" data-media-status hidden><span class="media-spinner" aria-hidden="true"></span><span data-media-label>图片加载中…</span></span><div class="container hero-copy"><p class="hero-eyebrow">INTEGRATED CIRCUITS · EXPLORATION</p><h2>从一片晶圆，走近微观世界</h2><p class="hero-description">集成电路 · 微纳电子</p></div><p class="hero-note">学科示意 · Le hollandais volant / CC BY 4.0 · 来源见页脚</p></div></div>
+
+<div class="hero-slide hero-slide--technology" data-media data-slide data-title="从一片晶圆，走近微观世界" role="group" aria-roledescription="幻灯片" aria-label="第 6 张，共 6 张" hidden><img class="hero-image" src="/assets/wafer-closeup.jpg" alt="硅晶圆表面近景，通用学科示意" width="1600" height="560" decoding="async"><span class="media-status" data-media-status hidden><span class="media-spinner" aria-hidden="true"></span><span data-media-label>图片加载中…</span></span><div class="container hero-copy"><p class="hero-eyebrow">INTEGRATED CIRCUITS · EXPLORATION</p><h2>从一片晶圆，走近微观世界</h2><p class="hero-description">集成电路 · 微纳电子</p></div><p class="hero-note">学科示意 · Le hollandais volant / CC BY 4.0 · 来源见页脚</p></div>
+</div>
   <button type="button" class="carousel-arrow carousel-arrow--prev" data-prev aria-label="上一张" hidden><svg viewBox="0 0 24 48" aria-hidden="true"><path d="M19 6 5 24l14 18"/></svg></button>
   <button type="button" class="carousel-arrow carousel-arrow--next" data-next aria-label="下一张" hidden><svg viewBox="0 0 24 48" aria-hidden="true"><path d="m5 6 14 18L5 42"/></svg></button>
   <div class="container carousel-controls" hidden>
@@ -115,7 +120,7 @@
 <section class="home-section section-news" id="home-news" aria-labelledby="news-title" data-home-section>
   <span class="section-watermark section-watermark--left" aria-hidden="true">NEWS</span>
   <div class="container">
-    <div class="editorial-heading"><div><span>NEWS · HENU</span><h2 id="news-title">学院新闻</h2></div><a href="/news.html">更多学院新闻 <span aria-hidden="true">↗</span></a></div>
+    <div class="editorial-heading"><div><span>NEWS · HENU</span><h2 id="news-title">学院新闻</h2></div><a href="/news.html">更多学院新闻</a></div>
     <div class="editorial-news" data-news-gallery data-boda-slot="home-news">
       <ul class="editorial-news-list"><li><a class="news-select is-active" data-news-select href="/news-preview-1.html"><div><h3>学院新闻标题（待提供）</h3><span>日期待提供</span></div><p>这里展示学院新闻摘要，正式报道与配图待学院提供。</p></a></li><li><a class="news-select" data-news-select href="/news-preview-2.html"><div><h3>学院动态标题（待提供）</h3><span>日期待提供</span></div><p>这里展示学院动态摘要，具体内容以审定材料为准。</p></a></li><li><a class="news-select" data-news-select href="/news-preview-3.html"><div><h3>学术交流标题（待提供）</h3><span>日期待提供</span></div><p>这里展示学术交流摘要，标题、日期与正文待补充。</p></a></li><li><a class="news-select" data-news-select href="/news-preview-4.html"><div><h3>教学科研新闻标题（待提供）</h3><span>日期待提供</span></div><p>这里展示教学科研新闻摘要，正式材料待学院提供。</p></a></li></ul>
       <div class="news-gallery"><div class="news-pictures"><a class="news-picture" data-news-panel href="/news-preview-1.html"><span class="media-frame" data-media><img src="/assets/campus-gate.jpg" alt="校园牌坊示意配图，非新闻现场" width="720" height="480" loading="lazy"><span class="media-status" data-media-status hidden><span class="media-spinner" aria-hidden="true"></span><span data-media-label>图片加载中…</span></span></span><span class="picture-note">示意配图 · 待替换</span><div class="picture-caption"><span>学院新闻 / 01</span><h3>学院新闻标题（待提供）</h3></div></a><a class="news-picture" data-news-panel href="/news-preview-2.html" hidden><span class="media-frame" data-media><img src="/assets/campus-courtyard.jpg" alt="校园庭院示意配图，非新闻现场" width="720" height="480" loading="lazy"><span class="media-status" data-media-status hidden><span class="media-spinner" aria-hidden="true"></span><span data-media-label>图片加载中…</span></span></span><span class="picture-note">示意配图 · 待替换</span><div class="picture-caption"><span>学院新闻 / 02</span><h3>学院动态标题（待提供）</h3></div></a><a class="news-picture" data-news-panel href="/news-preview-3.html" hidden><span class="media-frame" data-media><img src="/assets/campus-landscape.jpg" alt="校园风光示意配图，非新闻现场" width="720" height="480" loading="lazy"><span class="media-status" data-media-status hidden><span class="media-spinner" aria-hidden="true"></span><span data-media-label>图片加载中…</span></span></span><span class="picture-note">示意配图 · 待替换</span><div class="picture-caption"><span>学院新闻 / 03</span><h3>学术交流标题（待提供）</h3></div></a><a class="news-picture" data-news-panel href="/news-preview-4.html" hidden><span class="media-frame" data-media><img src="/assets/chip-banner.svg" alt="原创芯片概念示意，非新闻现场" width="720" height="480" loading="lazy"><span class="media-status" data-media-status hidden><span class="media-spinner" aria-hidden="true"></span><span data-media-label>图片加载中…</span></span></span><span class="picture-note">示意配图 · 待替换</span><div class="picture-caption"><span>学院新闻 / 04</span><h3>教学科研新闻标题（待提供）</h3></div></a></div><div class="news-picture-controls" hidden><button type="button" data-news-prev aria-label="上一条图片新闻">←</button><button type="button" data-news-next aria-label="下一条图片新闻">→</button><span data-news-count>01 / 04</span><span>图片新闻</span></div><p class="sr-only" data-news-status role="status"></p></div>
@@ -126,15 +131,15 @@
 <section class="home-section section-notices" id="home-notices" aria-labelledby="notices-title" data-home-section>
   <span class="section-watermark section-watermark--right" aria-hidden="true">NOTICES</span>
   <div class="container">
-    <div class="editorial-heading"><div><span>NOTICES · HENU</span><h2 id="notices-title">通知公告</h2></div><a href="/notices.html">更多通知公告 <span aria-hidden="true">↗</span></a></div>
-    <ul class="editorial-notices" data-boda-slot="home-notices"><li><a href="/notice-preview-1.html"><span class="notice-index" aria-hidden="true">01</span><div><p class="notice-type">通知公告 / 日期待提供</p><h3>学院通知标题（待提供）</h3><p class="notice-summary">通知正文、发布日期和附件待提供。</p></div><span class="notice-arrow" aria-hidden="true">↗</span></a></li><li><a href="/notice-preview-2.html"><span class="notice-index" aria-hidden="true">02</span><div><p class="notice-type">通知公告 / 日期待提供</p><h3>教学通知标题（待提供）</h3><p class="notice-summary">待补充经审核的教学通知。</p></div><span class="notice-arrow" aria-hidden="true">↗</span></a></li><li><a href="/notice-preview-3.html"><span class="notice-index" aria-hidden="true">03</span><div><p class="notice-type">通知公告 / 日期待提供</p><h3>学术活动通知标题（待提供）</h3><p class="notice-summary">待补充活动信息，不代表已有活动安排。</p></div><span class="notice-arrow" aria-hidden="true">↗</span></a></li></ul>
+    <div class="editorial-heading"><div><span>NOTICES · HENU</span><h2 id="notices-title">通知公告</h2></div><a href="/notices.html">更多通知公告</a></div>
+    <ul class="editorial-notices" data-boda-slot="home-notices"><li><a href="/notice-preview-1.html"><span class="notice-index" aria-hidden="true">01</span><div><p class="notice-type">通知公告 / 日期待提供</p><h3>学院通知标题（待提供）</h3><p class="notice-summary">通知正文、发布日期和附件待提供。</p></div></a></li><li><a href="/notice-preview-2.html"><span class="notice-index" aria-hidden="true">02</span><div><p class="notice-type">通知公告 / 日期待提供</p><h3>教学通知标题（待提供）</h3><p class="notice-summary">待补充经审核的教学通知。</p></div></a></li><li><a href="/notice-preview-3.html"><span class="notice-index" aria-hidden="true">03</span><div><p class="notice-type">通知公告 / 日期待提供</p><h3>学术活动通知标题（待提供）</h3><p class="notice-summary">待补充活动信息，不代表已有活动安排。</p></div></a></li></ul>
   </div>
 </section>
 
 <section class="home-section section-research" id="home-research" aria-labelledby="research-title" data-home-section>
   <span class="section-watermark section-watermark--left" aria-hidden="true">RESEARCH</span>
   <div class="container">
-    <div class="editorial-heading"><div><span>RESEARCH & INNOVATION</span><h2 id="research-title">科学与创新</h2></div><a href="/science-innovation.html">了解科学与创新 <span aria-hidden="true">↗</span></a></div>
+    <div class="editorial-heading"><div><span>RESEARCH & INNOVATION</span><h2 id="research-title">科学与创新</h2></div><a href="/science-innovation.html">了解科学与创新</a></div>
     <div class="feature-layout">
       <figure class="research-art"><div class="chip-visual chip-visual--detail" data-chip-visual aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 800" fill="none" aria-hidden="true">
 <defs>
@@ -162,12 +167,12 @@
 <circle cx="975" cy="525" r="3" fill="#a9d8ed"/>
 </svg>
 </div><figcaption>集成电路 · 微纳电子<span>原创芯片示意 · 非学院成果</span></figcaption></figure>
-      <div class="feature-copy"><p class="feature-intro">从微观探索，到集成创新</p><p class="muted">学院研究方向、平台与团队材料待审定，先保留清晰的栏目入口。</p><a class="feature-row" href="/research-platforms.html"><span class="feature-number" aria-hidden="true">01</span><div><h3>研究平台</h3><p>平台概览、研究方向与设施介绍待提供</p></div><span aria-hidden="true">↗</span></a><a class="feature-row" href="/research-groups.html"><span class="feature-number" aria-hidden="true">02</span><div><h3>课题组</h3><p>团队名称、成员与简介待提供</p></div><span aria-hidden="true">↗</span></a><div class="research-links"><a href="/science-innovation-section-2.html">研究进展 →</a><a href="/science-innovation-section-3.html">学术交流 →</a></div></div>
+      <div class="feature-copy"><p class="feature-intro">从微观探索，到集成创新</p><p class="muted">学院研究方向、平台与团队材料待审定，先保留清晰的栏目入口。</p><a class="feature-row" href="/research-platforms.html"><span class="feature-number" aria-hidden="true">01</span><div><h3>研究平台</h3><p>平台概览、研究方向与设施介绍待提供</p></div></a><a class="feature-row" href="/research-groups.html"><span class="feature-number" aria-hidden="true">02</span><div><h3>课题组</h3><p>团队名称、成员与简介待提供</p></div></a><div class="research-links"><a href="/science-innovation-section-2.html">研究进展</a><a href="/science-innovation-section-3.html">学术交流</a></div></div>
     </div>
     <div class="visual-topics">
-      <figure><a href="/science-innovation-section-1.html"><span class="media-frame" data-media><img src="/assets/wafer-12inch.jpg" alt="12英寸硅晶圆示意，非学院成果" width="1000" height="1000" loading="lazy"><span class="media-status" data-media-status hidden><span class="media-spinner" aria-hidden="true"></span><span data-media-label>图片加载中…</span></span></span><h3>走近晶圆与芯片 <span>↗</span></h3></a><figcaption>晶圆示意 · <a href="/image-credits.html#wafer-12inch">图片来源</a></figcaption></figure>
-      <figure><a href="/science-innovation-section-2.html"><span class="media-frame" data-media><img src="/assets/cleanroom-lcn.jpg" alt="伦敦纳米技术中心光刻洁净室，校外场景示意" width="1400" height="938" loading="lazy"><span class="media-status" data-media-status hidden><span class="media-spinner" aria-hidden="true"></span><span data-media-label>图片加载中…</span></span></span><h3>微纳加工与实验 <span>↗</span></h3></a><figcaption>校外实验室示意 · <a href="/image-credits.html#cleanroom-lcn">图片来源</a></figcaption></figure>
-      <figure><a href="/talent-cultivation.html"><span class="media-frame" data-media><img src="/assets/wafer-display.jpg" alt="博物馆中的晶圆与器件展品，科普示意" width="1346" height="1000" loading="lazy"><span class="media-status" data-media-status hidden><span class="media-spinner" aria-hidden="true"></span><span data-media-label>图片加载中…</span></span></span><h3>认识半导体器件 <span>↗</span></h3></a><figcaption>展品示意 · <a href="/image-credits.html#wafer-display">图片来源</a></figcaption></figure>
+      <figure><a href="/science-innovation-section-1.html"><span class="media-frame" data-media><img src="/assets/wafer-12inch.jpg" alt="12英寸硅晶圆示意，非学院成果" width="1000" height="1000" loading="lazy"><span class="media-status" data-media-status hidden><span class="media-spinner" aria-hidden="true"></span><span data-media-label>图片加载中…</span></span></span><h3>走近晶圆与芯片</h3></a><figcaption>晶圆示意 · <a href="/image-credits.html#wafer-12inch">图片来源</a></figcaption></figure>
+      <figure><a href="/science-innovation-section-2.html"><span class="media-frame" data-media><img src="/assets/cleanroom-lcn.jpg" alt="伦敦纳米技术中心光刻洁净室，校外场景示意" width="1400" height="938" loading="lazy"><span class="media-status" data-media-status hidden><span class="media-spinner" aria-hidden="true"></span><span data-media-label>图片加载中…</span></span></span><h3>微纳加工与实验</h3></a><figcaption>校外实验室示意 · <a href="/image-credits.html#cleanroom-lcn">图片来源</a></figcaption></figure>
+      <figure><a href="/talent-cultivation.html"><span class="media-frame" data-media><img src="/assets/wafer-display.jpg" alt="博物馆中的晶圆与器件展品，科普示意" width="1346" height="1000" loading="lazy"><span class="media-status" data-media-status hidden><span class="media-spinner" aria-hidden="true"></span><span data-media-label>图片加载中…</span></span></span><h3>认识半导体器件</h3></a><figcaption>展品示意 · <a href="/image-credits.html#wafer-display">图片来源</a></figcaption></figure>
     </div>
   </div>
 </section>
@@ -175,9 +180,9 @@
 <section class="home-section section-education" id="home-education" aria-labelledby="education-title" data-home-section>
   <span class="section-watermark section-watermark--right" aria-hidden="true">EDUCATION</span>
   <div class="container">
-    <div class="editorial-heading"><div><span>EDUCATION · HENU</span><h2 id="education-title">人才培养</h2></div><a href="/talent-cultivation.html">了解人才培养 <span aria-hidden="true">↗</span></a></div>
+    <div class="editorial-heading"><div><span>EDUCATION · HENU</span><h2 id="education-title">人才培养</h2></div><a href="/talent-cultivation.html">了解人才培养</a></div>
     <div class="feature-layout education-layout">
-      <div class="feature-copy"><p class="feature-intro">学有所思，研有所成</p><p class="muted">学院专业设置与培养方案待审定，先保留基础栏目框架。</p><a class="feature-row" href="/talent-cultivation-section-1.html"><span class="feature-number" aria-hidden="true">01</span><div><h3>学科与专业</h3><p>集成电路相关学科介绍 · 待学院确认</p></div><span aria-hidden="true">↗</span></a><a class="feature-row" href="/talent-cultivation-section-2.html"><span class="feature-number" aria-hidden="true">02</span><div><h3>课程与培养方案</h3><p>课程设置、教学安排与培养文件待提供</p></div><span aria-hidden="true">↗</span></a></div>
+      <div class="feature-copy"><p class="feature-intro">学有所思，研有所成</p><p class="muted">学院专业设置与培养方案待审定，先保留基础栏目框架。</p><a class="feature-row" href="/talent-cultivation-section-1.html"><span class="feature-number" aria-hidden="true">01</span><div><h3>学科与专业</h3><p>集成电路相关学科介绍 · 待学院确认</p></div></a><a class="feature-row" href="/talent-cultivation-section-2.html"><span class="feature-number" aria-hidden="true">02</span><div><h3>课程与培养方案</h3><p>课程设置、教学安排与培养文件待提供</p></div></a></div>
       <figure class="education-art"><span class="media-frame" data-media><img src="/assets/campus-gate.jpg" alt="河南大学校园牌坊，校园视觉示意" width="720" height="406" loading="lazy"><span class="media-status" data-media-status hidden><span class="media-spinner" aria-hidden="true"></span><span data-media-label>图片加载中…</span></span></span><figcaption>明德 · 新民 · 止于至善<span>校园图片示意 · 正式素材待替换</span></figcaption></figure>
     </div>
   </div>
@@ -186,34 +191,36 @@
 <section class="home-section section-faculty" id="home-faculty" aria-labelledby="faculty-title" data-home-section>
   <span class="section-watermark section-watermark--left" aria-hidden="true">FACULTY</span>
   <div class="container">
-    <div class="editorial-heading"><div><span>FACULTY · HENU</span><h2 id="faculty-title">师资队伍</h2></div><a href="/faculty.html">查看师资队伍 <span aria-hidden="true">↗</span></a></div>
+    <div class="editorial-heading"><div><span>FACULTY · HENU</span><h2 id="faculty-title">师资队伍</h2></div><a href="/faculty.html">查看师资队伍</a></div>
     <p class="section-note">教师资料持续更新，正式内容待学院及本人核对。</p>
-    <div class="faculty-grid"><a class="faculty-card" href="/teacher-cheng-gang.html"><span class="media-frame" data-media><img src="/assets/teacher-cheng.jpg" alt="程纲照片" width="100" height="132" loading="lazy"><span class="media-status" data-media-status hidden><span class="media-spinner" aria-hidden="true"></span><span data-media-label>图片加载中…</span></span></span><div><h3>程纲</h3><p class="teacher-title">教授 · 博士生导师</p><p class="teacher-intro">2000年、2003年分别在河南大学取得学士和硕士学位，2008年在吉林大学取得凝聚态物理专业博士学位。公开资料所列单位为河南大学特种功能材料教育部重点实验室；现任单位和研究方向表述待本人确认。</p><span class="teacher-link">查看教师介绍 →</span></div></a>
-<a class="faculty-card" href="/teacher-zhang-jinlong.html"><span class="media-frame" data-media><img src="/assets/teacher-zhang.jpg" alt="张锦龙照片" width="100" height="132" loading="lazy"><span class="media-status" data-media-status hidden><span class="media-spinner" aria-hidden="true"></span><span data-media-label>图片加载中…</span></span></span><div><h3>张锦龙</h3><p class="teacher-title">教授 · 博士生导师</p><p class="teacher-intro">北京邮电大学电磁场与微波技术专业博士。研究光纤传感与光子芯片及其在电力电子、生物医学工程等领域的应用。</p><span class="teacher-link">查看教师介绍 →</span></div></a>
-<a class="faculty-card" href="/teacher-zheng-haiwu.html"><span class="media-frame" data-media><img src="/assets/teacher-zheng.jpg" alt="郑海务照片" width="100" height="132" loading="lazy"><span class="media-status" data-media-status hidden><span class="media-spinner" aria-hidden="true"></span><span data-media-label>图片加载中…</span></span></span><div><h3>郑海务</h3><p class="teacher-title">二级教授 · 博士生导师</p><p class="teacher-intro">研究微纳传感、能量收集器件、半导体器件及光电探测等。现有公开资料列为河南大学集成电路科学与工程省重点学科带头人、集成电路设计与集成系统专业负责人，现任职务待核对。</p><span class="teacher-link">查看教师介绍 →</span></div></a><div class="faculty-vacancies" aria-label="待补充教师资料"><div class="faculty-vacancy"><span aria-hidden="true">＋</span><p>教师资料待补充</p><small>更多师资信息将陆续更新</small></div><div class="faculty-vacancy"><span aria-hidden="true">＋</span><p>教师资料待补充</p><small>更多师资信息将陆续更新</small></div><div class="faculty-vacancy"><span aria-hidden="true">＋</span><p>教师资料待补充</p><small>更多师资信息将陆续更新</small></div></div></div>
+    <div class="faculty-grid"><a class="faculty-card" href="/teacher-cheng-gang.html"><span class="media-frame" data-media><img data-framed src="/assets/teacher-cheng.jpg" alt="程纲照片" width="100" height="132" loading="lazy"><span class="media-status" data-media-status hidden><span class="media-spinner" aria-hidden="true"></span><span data-media-label>图片加载中…</span></span></span>
+<div><h3>程纲</h3><p class="teacher-title">教授 · 博士生导师</p><p class="teacher-intro">2000年、2003年分别在河南大学取得学士和硕士学位，2008年在吉林大学取得凝聚态物理专业博士学位。公开资料所列单位为河南大学特种功能材料教育部重点实验室；现任单位和研究方向表述待本人确认。</p><span class="teacher-link">查看教师介绍</span></div></a>
+
+<a class="faculty-card" href="/teacher-zhang-jinlong.html"><span class="media-frame" data-media><img data-framed src="/assets/teacher-zhang.jpg" alt="张锦龙照片" width="100" height="132" loading="lazy"><span class="media-status" data-media-status hidden><span class="media-spinner" aria-hidden="true"></span><span data-media-label>图片加载中…</span></span></span>
+<div><h3>张锦龙</h3><p class="teacher-title">教授 · 博士生导师</p><p class="teacher-intro">北京邮电大学电磁场与微波技术专业博士。研究光纤传感与光子芯片及其在电力电子、生物医学工程等领域的应用。</p><span class="teacher-link">查看教师介绍</span></div></a>
+
+<a class="faculty-card" href="/teacher-zheng-haiwu.html"><span class="media-frame" data-media><img data-framed src="/assets/teacher-zheng.jpg" alt="郑海务照片" width="100" height="132" loading="lazy"><span class="media-status" data-media-status hidden><span class="media-spinner" aria-hidden="true"></span><span data-media-label>图片加载中…</span></span></span>
+<div><h3>郑海务</h3><p class="teacher-title">二级教授 · 博士生导师</p><p class="teacher-intro">研究微纳传感、能量收集器件、半导体器件及光电探测等。现有公开资料列为河南大学集成电路科学与工程省重点学科带头人、集成电路设计与集成系统专业负责人，现任职务待核对。</p><span class="teacher-link">查看教师介绍</span></div></a>
+<div class="faculty-vacancies" aria-label="待补充教师资料"><div class="faculty-vacancy"><span aria-hidden="true">＋</span><p>教师资料待补充</p><small>更多师资信息将陆续更新</small></div><div class="faculty-vacancy"><span aria-hidden="true">＋</span><p>教师资料待补充</p><small>更多师资信息将陆续更新</small></div><div class="faculty-vacancy"><span aria-hidden="true">＋</span><p>教师资料待补充</p><small>更多师资信息将陆续更新</small></div></div></div>
   </div>
 </section>
 
 <section class="container quick-links" aria-label="学院服务入口">
-  <a href="/about.html"><span>01</span><h2>学院概况</h2><span aria-hidden="true">→</span></a>
-  <a href="/public-service.html"><span>02</span><h2>公共服务</h2><span aria-hidden="true">→</span></a>
-  <a href="/careers.html"><span>03</span><h2>人才招聘</h2><span aria-hidden="true">→</span></a>
+  <a href="/about.html"><span>01</span><h2>学院概况</h2></a>
+  <a href="/public-service.html"><span>02</span><h2>公共服务</h2></a>
+  <a href="/careers.html"><span>03</span><h2>人才招聘</h2></a>
 </section>
 </main>
   <footer class="site-footer" id="site-footer">
-  <div class="footer-campus"><div class="container footer-campus-inner"><div><p>{{ site_info.motto }}</p><span>河南大学 · {{ site_info.college }}</span></div><a class="back-to-top" href="#site-top" data-back-top><svg viewBox="0 0 32 32" aria-hidden="true"><path d="m7 16 9-9 9 9M16 7v20"/></svg><span>返回顶部</span></a></div></div>
-  <div class="container footer-main">
-    <div class="footer-brand"><img src="/assets/{{ site_info.image }}" width="64" height="64" alt="{{ site_info.image_alt|default:'河南大学校徽' }}" loading="lazy"><p class="footer-university">河南大学</p><p class="footer-college">{{ site_info.college }}</p><p class="footer-note">{{ site_info.english }}</p></div>
-    <div class="footer-drawers">
-      <details class="footer-drawer"><summary>走进学院<span aria-hidden="true">+</span></summary><div class="footer-drawer-content footer-links"><a href="/about.html">学院概况 →</a><a href="/faculty.html">师资队伍 →</a><a href="/science-innovation.html">科学与创新 →</a><a href="/talent-cultivation.html">人才培养 →</a></div></details>
-      <details class="footer-drawer"><summary>资讯与服务<span aria-hidden="true">+</span></summary><div class="footer-drawer-content footer-links"><a href="/news.html">学院新闻 →</a><a href="/notices.html">通知公告 →</a><a href="/careers.html">人才招聘 →</a><a href="/public-service.html">公共服务 →</a><a href="/image-credits.html">图片来源与授权 →</a><a href="https://www.henu.edu.cn/" target="_blank" rel="noopener">河南大学官网 ↗</a></div></details>
-      <details class="footer-drawer"><summary>联系我们<span aria-hidden="true">+</span></summary><div class="footer-drawer-content footer-contact"><p>办公地址：{{ site_info.address|default:'待提供' }}</p><p>公开电话：{{ site_info.phone|default:'待提供' }}</p><p>电子邮箱：{{ site_info.email|default:'待提供' }}</p><a href="/contact.html">查看联系信息 →</a><a href="/site-map.html">网站导航 →</a></div></details>
+  <div class="container footer-inner">
+    <p class="footer-motto">{{ site_info.motto }}</p>
+    <div class="footer-row">
+      <div class="footer-brand"><img src="/assets/{{ site_info.image }}" width="64" height="64" alt="{{ site_info.image_alt|default:'河南大学校徽' }}" loading="lazy"><div><p class="footer-college">{{ site_info.college }}</p><p class="footer-note">{{ site_info.english }}</p></div></div>
+      <div class="footer-wechat" data-wechat-slot>{% include "site/wechat.html" %}</div>
     </div>
-    <div class="footer-wechat" data-wechat-slot>{% include "site/wechat.html" %}</div>
+    <div class="footer-bottom-inner"><a class="footer-support" href="https://hdwzgzs.cn/" target="_blank" rel="noopener"><img class="studio-mark" src="/assets/web-studio.png" width="44" height="42" alt="" loading="lazy"><span>技术支持：河南大学网站工作室</span></a><span class="footer-filing">{{ site_info.body|default:'正式网站备案与平台信息待学校配置' }}</span></div>
   </div>
-  <div class="footer-bottom"><div class="container footer-bottom-inner"><span class="footer-copyright">{{ site_info.name }}<br>内部演示版 · 图片及文字待学院确认</span><a class="footer-support" href="https://hdwzgzs.cn/" target="_blank" rel="noopener"><img class="studio-mark" src="/assets/web-studio.png" width="48" height="46" alt="" loading="lazy"><span>技术支持：河南大学网站工作室</span></a><span class="footer-filing">{{ site_info.body|default:'正式网站备案与平台信息待学校配置' }}</span></div></div>
 </footer>
-
 
 </body>
 </html>

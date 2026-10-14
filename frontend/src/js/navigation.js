@@ -21,12 +21,10 @@
   const textGroups = new Map();
   const animations = new Map();
   let topIndex = 0;
-  for (const link of [...nav.querySelectorAll('a'), ...document.querySelectorAll('.footer-drawer .footer-links a')]) {
-    const drawer = link.closest('.footer-drawer');
+  for (const link of nav.querySelectorAll('a')) {
     const parent = link.closest('.subnav')?.closest('.nav-item');
-    const scope = drawer || parent || nav;
-    if (drawer) link.style.setProperty('--nav-i', [...drawer.querySelectorAll('.footer-links a')].indexOf(link));
-    else if (!parent) link.closest('.nav-item').style.setProperty('--nav-i', topIndex++);
+    const scope = parent || nav;
+    if (!parent) link.closest('.nav-item').style.setProperty('--nav-i', topIndex++);
     const label = link.textContent;
     link.setAttribute('aria-label', label);
     const chars = [...label].map(character => {
@@ -177,14 +175,6 @@
     setMenu(false);
     for (const scope of textGroups.keys()) cancelText(scope);
   });
-  document.querySelectorAll('.footer-drawer').forEach(drawer => drawer.addEventListener('toggle', () => {
-    cancelText(drawer);
-    if (drawer.open) {
-      const finished = animateText(drawer);
-      const running = animations.get(drawer);
-      if (finished) finished.then(() => { if (animations.get(drawer) === running) cancelText(drawer); });
-    }
-  }));
   setMenu(false);
   toggle.hidden = false;
   nav.classList.add('is-enhanced');

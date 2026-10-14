@@ -3,31 +3,7 @@ module.exports = {
   name: '河南大学集成电路与微纳电子学院',
   college: '集成电路与微纳电子学院',
   english: 'School of Integrated Circuits and Micro-Nano Electronics',
-  navigation: [
-    ['index.html', '首页'], ['about.html', '学院概况'],
-    ['science-innovation.html', '科学与创新'], ['talent-cultivation.html', '人才培养'],
-    ['faculty.html', '师资队伍'], ['news.html', '新闻通知'],
-    ['party-building.html', '党建党务'], ['public-service.html', '公共服务'],
-    ['careers.html', '人才招聘'], ['contact.html', '联系我们'],
-  ],
-  subNavigation: {
-    'about.html': [['about.html#section-1', '学院简介'], ['about.html#section-2', '组织机构'], ['about.html#section-3', '领导班子']],
-    'science-innovation.html': [
-      ['science-innovation.html#section-1', '研究方向'],
-      ['research-platforms.html', '研究平台', [['research-platforms.html#section-1', '平台概览'], ['research-platforms.html#section-2', '平台介绍']]],
-      ['research-groups.html', '课题组', [['research-groups.html#section-1', '团队概览'], ['research-groups.html#section-2', '课题组介绍']]],
-      ['science-innovation.html#section-2', '研究进展'], ['science-innovation.html#section-3', '学术交流'], ['ic-world.html', '芯片天地'],
-    ],
-    'talent-cultivation.html': [
-      ['talent-cultivation.html#section-1', '学科与专业'], ['talent-cultivation.html#section-2', '课程与培养方案'],
-      ['admissions.html', '招生就业', [['admissions.html#section-1', '本科生招生'], ['admissions.html#section-2', '研究生招生'], ['admissions.html#section-3', '就业指导']]],
-      ['community.html', '师生园地', [['community.html#section-1', '师生活动'], ['community.html#section-2', '学生风采']]],
-    ],
-    'faculty.html': [['faculty.html#faculty-list', '教师名录'], ['careers.html', '人才招聘']],
-    'party-building.html': [['party-building.html#section-1', '党建动态'], ['party-building.html#section-2', '学习园地']],
-    'news.html': [['news.html', '学院新闻'], ['notices.html', '通知公告'], ['media.html', '媒体掠影']],
-    'public-service.html': [['regulations.html', '制度与办事', [['regulations.html#section-1', '规章制度'], ['regulations.html#section-2', '办事流程']]], ['public-service.html#section-1', '服务指南'], ['site-map.html', '网站导航']],
-  },
+  ...require('../../scripts/lib/columns').siteConfiguration,
   // 未取得学校配置前保持 null，不填写猜测的接口或旧学院 ID。
   cms: { adminUrl: null, siteId: null, newsColumnId: null, noticeColumnId: null, searchUrl: null },
   contact: { address: '待提供', phone: '待提供', email: '待提供' },
@@ -64,19 +40,4 @@ module.exports = {
   ],
   // 程老师首位，其余沿用原顺序；详情完整展示既有公开资料底稿。
   teachers: [...require('./teachers')].sort((a, b) => Number(b.slug === 'cheng-gang') - Number(a.slug === 'cheng-gang')),
-  pages: {
-    'about.html': { title: '学院概况', english: 'ABOUT THE SCHOOL', sections: ['学院简介', '组织机构', '领导班子'] },
-    'science-innovation.html': { title: '科学与创新', english: 'RESEARCH & INNOVATION', sections: ['研究方向', '研究进展', '学术交流'] },
-    'research-platforms.html': { title: '研究平台', english: '', active: 'science-innovation.html', sections: ['平台概览', '平台介绍'] },
-    'research-groups.html': { title: '课题组', english: '', active: 'science-innovation.html', sections: ['团队概览', '课题组介绍'] },
-    'regulations.html': { title: '制度建设', english: '', active: 'public-service.html', sections: ['规章制度', '办事流程'] },
-    'party-building.html': { title: '党建党务', english: 'PARTY BUILDING', sections: ['党建动态', '学习园地'] },
-    'admissions.html': { title: '招生就业', english: '', active: 'talent-cultivation.html', sections: ['本科生招生', '研究生招生', '就业指导'] },
-    'community.html': { title: '师生园地', english: '', active: 'talent-cultivation.html', sections: ['师生活动', '学生风采'] },
-    'ic-world.html': { title: '芯片天地', english: '', active: 'science-innovation.html', sections: ['学科科普', '芯片与微纳世界'] },
-    'media.html': { title: '媒体掠影', english: '', active: 'news.html', sections: ['媒体报道'] },
-    'talent-cultivation.html': { title: '人才培养', english: 'EDUCATION', sections: ['学科与专业', '课程与培养方案'] },
-    'public-service.html': { title: '公共服务', english: 'PUBLIC SERVICE', sections: ['公共服务信息'] },
-    'careers.html': { title: '人才招聘', english: 'JOIN US', sections: ['人才招聘信息'] },
-  },
 };

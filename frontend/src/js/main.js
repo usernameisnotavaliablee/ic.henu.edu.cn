@@ -54,10 +54,6 @@
   });
   window.addEventListener('resize', cancelScroll);
   window.addEventListener('ic:motion', cancelScroll);
-  document.querySelectorAll('[data-back-top]').forEach(link => link.addEventListener('click', event => {
-    event.preventDefault();
-    glideTo(0, () => header.querySelector('.brand').focus({ preventScroll: true }));
-  }));
   // 不拦截原生滚轮：连续快滚能跨屏；手势停止后再柔和吸附。
   if (isHome || document.querySelector('[data-overview-section]')) {
     const pagedDesktop = window.matchMedia('(min-width: 1100px) and (min-height: 600px) and (hover: hover) and (pointer: fine)');
@@ -204,7 +200,6 @@
   const controls = hero.querySelector('.carousel-controls');
   const count = hero.querySelector('.carousel-count');
   const status = hero.querySelector('[data-slide-status]');
-  const playbackStatus = hero.querySelector('[data-playback-status]');
   const intervalMs = 3000;
   const transitionMs = 650;
   let index = 0;
@@ -225,10 +220,6 @@
     const paused = reducedMotion.matches || document.hidden || waitingForImage;
     hero.dataset.paused = String(paused);
     hero.dataset.carouselState = reducedMotion.matches ? 'paused' : document.hidden ? 'background' : waitingForImage ? 'loading' : 'playing';
-    const message = reducedMotion.matches ? '已跟随系统减少动态效果，可手动换图' : document.hidden ? '后台暂停，返回后继续' : waitingForImage ? '正在等待当前图片，可手动换图' : '每 3 秒自动换图';
-    if (playbackStatus && playbackStatus.textContent !== message) {
-      playbackStatus.textContent = message;
-    }
     if (!paused && slides.length > 1) timer = window.setTimeout(() => show(index + 1), intervalMs);
   };
   const show = (next, manual = false) => {

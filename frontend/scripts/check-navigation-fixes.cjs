@@ -31,15 +31,17 @@ const base = process.argv[2] || 'http://127.0.0.1:8766';
     assert.deepEqual(backgrounds, ['rgb(255, 255, 255)', 'rgb(243, 246, 250)']);
     assert.equal(await page.locator('.overview-sections .section-watermark').count(), 2);
     assert.equal(await page.locator('.research-topics').count(), 0);
-    const stop = await page.locator('[data-overview-section]').first().evaluate(e => e.getBoundingClientRect().top + scrollY - parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--header-compact-height')));
+    // 吸附落点 = 元素顶 - 该元素自己的 scroll-margin-top（CSS 里绑 --header-compact-height）。读计算值，别再写死 91。
+    const stop = await page.locator('[data-overview-section]').first().evaluate(e => e.getBoundingClientRect().top + scrollY - parseFloat(getComputedStyle(e).scrollMarginTop));
     await page.evaluate(y => scrollTo(0, y - 110), stop);
     await page.mouse.move(900, 700);
     await page.mouse.wheel(0, 40);
-    await page.waitForTimeout(500);
+    // 等状态机自己进入 settling，别用固定 sleep 赌它还在（固定 500ms 会偶发采到 idle，被误读成"时序不稳定"）。
+    await page.waitForFunction(() => document.documentElement.dataset.scrollState === 'settling', null, { timeout: 3000 });
     const midway = await page.evaluate(() => ({ y: scrollY, state: document.documentElement.dataset.scrollState }));
     assert.equal(midway.state, 'settling');
     assert(midway.y < stop);
-    await page.waitForTimeout(1700);
+    await page.waitForFunction(() => document.documentElement.dataset.scrollState !== 'settling', null, { timeout: 5000 });
     assert(Math.abs(await page.evaluate(() => scrollY) - stop) < 3);
     await page.screenshot({ path: path.join(output, 'overview-desktop.png') });
     await page.setViewportSize({ width: 390, height: 844 });

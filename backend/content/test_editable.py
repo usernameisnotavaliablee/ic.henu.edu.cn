@@ -64,8 +64,10 @@ class EditableContentTests(TestCase):
         self.publish(entry)
         for url in ['/', '/contact.html', '/about.html', '/faculty.html']:
             response = self.client.get(url)
-            self.assertContains(response, '【演示】联系地址')
             self.assertContains(response, '【演示】公众号')
+        # 队友 ac0b9a2 的紧凑页脚只保留品牌/公众号/备案，联系地址在联系页展示。
+        self.assertContains(self.client.get('/contact.html'), '【演示】联系地址')
+        self.assertNotContains(self.client.get('/'), '【演示】联系地址')
         entry.qr_image = ''
         entry.save()
         self.publish(entry)

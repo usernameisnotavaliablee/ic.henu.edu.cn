@@ -1,0 +1,55 @@
+/* 5. 页脚：整带校园图为底，校训 + 品牌/公众号一行 + 底栏一行。
+   三段间距只认 --footer-gap 一个值（校训→品牌行 与 品牌行→底栏 必须一致）。 */
+.site-footer { --footer-gap: 24px; background: linear-gradient(90deg, rgb(6 37 67 / 92%), rgb(6 37 67 / 55%)), url('../assets/campus-building.jpg') center 52% / cover, var(--blue-dark); color: #e0eaf3; }
+.footer-inner { padding-block: 28px 0; }
+.footer-motto { font-family: var(--font-display); font-size: 24px; letter-spacing: .16em; }
+.footer-row { display: flex; align-items: center; justify-content: space-between; gap: 32px; margin-top: var(--footer-gap); }
+.footer-brand { display: flex; align-items: center; gap: 14px; min-width: 0; }
+.footer-brand > img { flex: 0 0 auto; background: #fff; border-radius: 50%; }
+.footer-college { font-size: 18px; }
+.footer-note { color: #a5bdd3; font-size: 12px; margin-top: 4px; line-height: 1.5; }
+/* 公众号面板在页脚横排（二维码左、文案右），只为压缩整带高度；联系页仍竖排。 */
+.footer-wechat .wechat-panel { flex-direction: row; align-items: center; gap: 14px; text-align: left; }
+.site-footer a:hover { color: #fff; text-decoration: underline; }
+.footer-bottom-inner { display: flex; justify-content: space-between; align-items: center; gap: 12px 28px; border-top: 1px solid rgb(255 255 255 / 12%); margin-top: var(--footer-gap); padding-block: 12px; font-size: 11px; color: #abc1d4; }
+.footer-filing { text-align: right; }
+.footer-support { display: inline-flex; align-items: center; gap: 12px; max-width: 100%; color: #d7e4ef; font-size: 13px; letter-spacing: .04em; }
+.footer-support .studio-mark { width: 44px; height: 42px; object-fit: contain; filter: invert(1); mix-blend-mode: screen; }
+.footer-support:hover, .footer-support:focus-visible { color: #fff; }
+@media (max-width: 959px) {
+  .footer-inner { padding-top: 24px; }
+  .footer-motto { text-align: center; }
+  .footer-row { flex-direction: column; align-items: center; gap: 20px; }
+  .footer-brand { justify-content: center; }
+  .footer-bottom-inner { flex-wrap: wrap; justify-content: center; text-align: center; gap: 10px 28px; }
+  .footer-filing { text-align: center; }
+}
+@media (max-width: 600px) {
+  .footer-inner { padding-top: 20px; }
+  .footer-motto { font-size: 20px; }
+  .footer-college { font-size: 16px; }
+  .footer-brand { gap: 12px; }
+  .footer-brand > img { width: 52px; height: 52px; }
+  .footer-row { gap: 14px; }
+  /* 手机端公众号面板仍横排（二维码左、文案右）——竖排会把整带再抬高约 55px；
+     三段区块本身按 ≤959px 规则纵向排列并整体居中。 */
+  .footer-wechat .wechat-placeholder { width: 88px; height: 88px; font-size: 12px; }
+  .footer-support .studio-mark { width: 36px; height: 34px; }
+  .footer-bottom-inner { flex-direction: column; align-items: center; gap: 6px; padding-block: 10px; }
+}
+.wechat-panel { display: flex; flex-direction: column; gap: 12px; align-items: center; text-align: center; }
+.wechat-placeholder { display: grid; place-content: center; width: 120px; height: 120px; border: 1px dashed currentColor; opacity: .65; font-size: 13px; line-height: 1.8; }
+.wechat-panel .wechat-code { width: 120px; height: 120px; object-fit: contain; background: #fff; padding: 6px; }
+.wechat-title { font-size: 14px; }
+.wechat-caption { font-size: 12px; opacity: .75; margin-top: 4px; }
+.contact-layout { display: grid; grid-template-columns: 1fr 240px; gap: 48px; align-items: start; }
+.contact-layout .wechat-panel { padding: 28px; background: var(--pale); }
+.faculty-vacancies { grid-column: 1 / -1; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 24px; margin-top: 24px; }
+.faculty-vacancy { padding: 24px 16px; border: 1px dashed #c8d6e5; color: #74869a; text-align: center; }
+.faculty-vacancy > span { font-size: 28px; color: #9bafc2; }
+.faculty-vacancy small { font-size: 12px; }
+.profile-section ul { padding-left: 24px; list-style: disc; }
+.profile-section li { margin-block: 10px; }
+.profile-section { overflow-wrap: anywhere; }
+@media (max-width: 600px) { .contact-layout { grid-template-columns: 1fr; gap: 24px; } .faculty-vacancies { grid-template-columns: 1fr; gap: 12px; } .faculty-vacancy { padding: 16px; } }
+

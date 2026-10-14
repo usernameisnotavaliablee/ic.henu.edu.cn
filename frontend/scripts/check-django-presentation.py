@@ -1,0 +1,107 @@
+"""Verify the Django display adapter in a new isolated empty database; never seed or read an existing database."""
+import json
+import hashlib
+import os
+from html.parser import HTMLParser
+from pathlib import Path
+import secrets
+import sys
+import tempfile
+
+ROOT = Path(__file__).resolve().parents[2]
+sys.path.insert(0, str(ROOT / 'backend'))
+OUTPUT = Path(os.environ.get('IC_TEST_OUTPUT', ROOT / 'sandbox/django-presentation-checks')).resolve()
+OUTPUT.mkdir(parents=True, exist_ok=True)
+DATA = Path(tempfile.mkdtemp(prefix='presentation-empty-', dir=ROOT / 'sandbox'))
+(DATA / 'static').mkdir()
+os.environ.update(IC_DATA_DIR=str(DATA), IC_SECRET_KEY=secrets.token_urlsafe(64),
+                  IC_ALLOWED_HOSTS='testserver,localhost,127.0.0.1', IC_HTTPS='0', IC_PUBLIC_ONLY='0',
+                  DJANGO_SETTINGS_MODULE='config.settings')
+import django
+django.setup()
+from django.core.management import call_command
+from django.template.loader import render_to_string
+from django.test import Client, RequestFactory, override_settings
+from content.editable import catalog, teachers
+from content.views import STATIC_PAGES
+from content.models import ContentEntry, Publication
+from content.presentation import page_context
+
+checks = []
+def check(name, condition):
+    assert condition, name
+    checks.append(name)
+    print('PASS', name)
+
+call_command('migrate', interactive=False, verbosity=0)
+call_command('check')
+client = Client()
+routes = sorted(set(STATIC_PAGES) | {c['slug'] for c in catalog()['collections']} | {t['key'] for t in catalog()['teachers']})
+for slug in ['', *routes]:
+    response = client.get('/' + (slug + '.html' if slug else ''))
+    check('dynamic route ' + (slug or 'home'), response.status_code == 200)
+    html = response.content.decode()
+    check('resolved shell ' + (slug or 'home'), '{{' not in html and '{%' not in html and '<!--slot:' not in html)
+    if slug:
+        (OUTPUT / (slug + '.html')).write_text(html, encoding='utf-8')
+for c in catalog()['collections']:
+    html = client.get('/'+c['url']).content.decode()
+    check('collection current/parent ' + c['id'], f'href="/{c["active"]}" aria-current="page"' in html)
+check('unknown and unpublished routes remain 404', all(client.get(url).status_code == 404 for url in ['/missing.html', '/layout-science-innovation-section-1.html', '/news-preview-1.html']))
+
+class Stylesheets(HTMLParser):
+    def __init__(self):
+        super().__init__()
+        self.urls = []
+
+    def handle_starttag(self, tag, attrs):
+        attrs = dict(attrs)
+        if tag == 'link' and attrs.get('rel') == 'stylesheet':
+            self.urls.append(attrs['href'])
+
+# A deep missing path must still load root-relative, correctly typed CSS, including the error styles.
+for url in ['/404.html', '/missing/deep/page.html']:
+    response = client.get(url)
+    html = response.content.decode()
+    check('styled error response ' + url, response.status_code == 404 and 'class="error-title">页面走丢了</h2>' in html and 'class="error-actions"' in html)
+    parser = Stylesheets()
+    parser.feed(html)
+    check('root-relative versioned styles ' + url, len(parser.urls) == 2 and all(u.startswith('/css/') and '?v=' in u for u in parser.urls))
+    for resource_url in parser.urls:
+        resource = client.get(resource_url)
+        check('CSS response ' + resource_url, resource.status_code == 200 and resource['Content-Type'].startswith('text/css'))
+        body = b''.join(resource.streaming_content)
+        resource.close()
+        check('CSS version matches actual bytes ' + resource_url, hashlib.sha256(body).hexdigest().startswith(resource_url.split('?v=')[1]))
+        if '/style.css?' in resource_url:
+            check('compiled error rules available ' + url, b'.error-title {' in body and b'.error-actions {' in body and b'@import' not in body)
+    (OUTPUT / ('404.html' if url == '/404.html' else 'deep-404.html')).write_text(html, encoding='utf-8')
+csrf = Client(enforce_csrf_checks=True).post('/preview-admin/login/', {'username': 'not-a-user'})
+check('CSRF uses distinct styled 403 heading', csrf.status_code == 403 and 'class="error-title">请求未通过验证</h2>' in csrf.content.decode())
+check('health contract local mode', client.get('/healthz').json() == {'status': 'ok', 'mode': 'local-preview'})
+check('health HEAD has no body', client.head('/healthz').status_code == 200 and not client.head('/healthz').content)
+check('local read-only view rejects POST', client.post('/healthz').status_code == 405)
+check('anonymous local admin redirects to login', client.get('/preview-admin/', REMOTE_ADDR='127.0.0.1').status_code == 302)
+check('nonlocal admin blocked', client.get('/preview-admin/', REMOTE_ADDR='192.0.2.1').status_code == 403)
+with override_settings(PUBLIC_ONLY=True):
+    check('health contract public mode', client.get('/healthz').json() == {'status': 'ok', 'mode': 'public-readonly'})
+    check('public admin and writes hidden', client.get('/preview-admin/').status_code == 404 and client.post('/healthz').status_code == 404)
+request = RequestFactory().get('/about.html')
+request._editable_content = {
+    'site': {'college': '测试学院 <文字>', 'motto': '测试校训', 'english': 'Review school', 'qr_image': 'henu-logo.png', 'account_name': '审核账号', 'is_visible': True},
+    'about.section-1': {'key': 'about.section-1', 'title': '学院简介', 'body': '测试正文\n\n## 测试小标题\n\n<script>unsafe()</script>', 'is_visible': True},
+    'entry-display-test': {'key': 'entry-display-test', 'collection': 'science-innovation.section-1', 'title': '测试研究 <方向>', 'summary': '仅内存渲染夹具', 'image': 'wafer-closeup.jpg', 'image_alt': '测试图', 'date': '2026-10-15', 'is_visible': True},
+}
+about = render_to_string('site/generated/about.html', request=request)
+check('explicit brand/motto/QR slots render real supplied values', '测试学院 &lt;文字&gt;' in about and '测试校训' in about and '审核账号' in about and '/assets/henu-logo.png' in about)
+check('body and headings render safely', '测试正文' in about and '<h3>测试小标题</h3>' in about and '&lt;script&gt;unsafe()&lt;/script&gt;' in about and '<script>unsafe()' not in about)
+science = render_to_string('site/generated/science-innovation.html', request=request)
+check('overview renders collection cards and independent URLs', '测试研究 &lt;方向&gt;' in science and 'href="/entry-display-test.html"' in science and 'data-framed' in science)
+cards = render_to_string('site/teachers.html', {'teachers': teachers(request)}, request=request)
+check('three complete teachers share loading feedback', cards.count('class="faculty-card"') == 3 and cards.count('data-media-status') == 3 and cards.index('程纲') < cards.index('张锦龙') < cards.index('郑海务'))
+check('new teacher URL uses full parent chain', page_context('teacher-future', parent_slug='faculty', title='新教师')['breadcrumbs'] == [{'href':'/faculty.html','label':'师资队伍'}])
+check('empty business database remains empty', ContentEntry.objects.count() == 0 and Publication.objects.count() == 0)
+call_command('makemigrations', check=True, dry_run=True, verbosity=1)
+call_command('test', 'content', interactive=False, verbosity=1)
+(OUTPUT / 'django-presentation.json').write_text(json.dumps({'passed': True, 'scope': 'isolated empty database and in-memory rendering fixtures; no publication UI or production checks', 'dataDirectory': str(DATA), 'count': len(checks), 'checks': checks},ensure_ascii=False,indent=2)+'\n', encoding='utf-8')
+print('Django presentation evidence:', OUTPUT)

@@ -34,12 +34,12 @@ const server = http.createServer(async (request, response) => {
     for (const args of [
       ['frontend/scripts/check-preview.py'], ['frontend/scripts/check-current-structure.py'], ['frontend/scripts/prepare-fonts.py', '--check'],
     ]) await run(python, args);
-    for (const script of ['check-refactor-baseline.cjs', 'check-header-motion.cjs', 'check-media-loading.cjs', 'check-page-transition.cjs']) {
+    for (const script of ['check-refactor-baseline.cjs', 'check-presentation-contracts.cjs', 'check-header-motion.cjs', 'check-media-loading.cjs', 'check-page-transition.cjs']) {
       await run(process.execPath, ['frontend/scripts/' + script]);
     }
     await new Promise((resolve, reject) => { server.once('error', reject); server.listen(0, '127.0.0.1', resolve); });
     const base = `http://127.0.0.1:${server.address().port}`;
-    for (const script of ['check-navigation-state.cjs', 'check-nav-toggle.cjs', 'check-current-design.cjs', 'check-navigation-fixes.cjs', 'check-overview-typography.cjs']) {
+    for (const script of ['check-navigation-state.cjs', 'check-nav-toggle.cjs', 'check-current-design.cjs', 'check-design-merge.cjs', 'check-navigation-fixes.cjs', 'check-overview-typography.cjs']) {
       await run(process.execPath, ['frontend/scripts/' + script, base]);
     }
   } finally {

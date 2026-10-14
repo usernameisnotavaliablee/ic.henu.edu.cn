@@ -1,0 +1,138 @@
+/* 6. 同步适配移动设备，栏目先后顺序保持一致。 */
+@media (max-width: 1100px) {
+  .brand-motto { display: none; }
+  .editorial-news { gap: 32px; }
+  .news-select { margin-inline: 0; padding-inline: 15px; }
+  .news-select h3 { font-size: 16px; }
+  .news-select > div { display: block; }
+  .news-select > div > span { display: block; margin-top: 5px; }
+  .feature-layout { gap: 40px; }
+  .faculty-card { gap: 16px; }
+  .faculty-card :is(img, .media-frame) { width: 95px; height: 126px; }
+  .editorial-notices { gap: 25px; }
+}
+@media (max-width: 959px) {
+  :root { --header-expanded-height: 112px; --header-compact-height: 43px; }
+  .container { width: calc(100% - 40px); }
+  /* 窄屏不要导航带：关闭态带内无流内内容，高度为 0，底色画不出来、边线也去掉，
+     整条只剩右上角浮着的按钮；菜单展开时带才长出来充当深色面板。 */
+  .navigation-band { border-top: 0; }
+  [data-page='inner'] .header-shell { min-height: 0; }
+  /* 菜单可见时（增强态 .open 或未增强的降级态）带才占位，并给浮着的按钮让出 44px。 */
+  .site-header.is-compact .navigation-band:has(.main-nav:is(.open, :not(.is-enhanced))) { padding-top: 44px; }
+  .nav-toggle:not([hidden]) { display: flex; }
+  .main-nav.is-enhanced:not(.open) { display: none; }
+  /* 卡片式展开：一级栏目按 --nav-i 交错入场；标题逐字动画由 main.js 驱动。 */
+  .main-nav.is-enhanced > ul { grid-template-columns: repeat(2, 1fr); gap: 4px 12px; padding: 4px 4px 14px; }
+  .main-nav.is-enhanced > ul > .nav-item { animation: nav-card-in .3s cubic-bezier(.22,.61,.36,1) backwards; animation-delay: calc(var(--nav-i, 0) * 37ms); }
+  /* 标题对齐：+ 按钮脱离 flex 流，标题 a 恢复全宽居中，
+     带子栏目与不带子栏目的文字在同一中线上。 */
+  .main-nav.is-enhanced > ul > .nav-item > .nav-item-heading { position: relative; }
+  .main-nav.is-enhanced > ul > .nav-item > .nav-item-heading > .subnav-toggle { position: absolute; right: 0; top: 0; height: 100%; }
+  .main-nav > ul { display: grid; grid-template-columns: repeat(3, 1fr); padding-bottom: 12px; }
+  .main-nav > ul > li { align-self: start; }
+  .subnav-toggle { width: 44px; min-height: 48px; }
+  .main-nav { max-height: calc(100dvh - var(--header-expanded-height)); overflow-y: auto; }
+  .main-nav .subnav { display: none; position: static; width: auto; min-width: 0; max-width: none; transform: none; background: none; box-shadow: none; padding: 6px 0; border: 0; transition: none; color: inherit; }
+  .main-nav .is-subnav-open > .subnav { display: block; transform: none; }
+  .subnav-toggle:focus-visible { position: static; width: 44px; }
+  .main-nav .subnav a { font-size: 13px; min-height: 44px; white-space: normal; }
+  .main-nav:not(.is-enhanced) .subnav { display: block; opacity: 1; visibility: visible; pointer-events: auto; transform: none; }
+  .main-nav a { min-height: 48px; }
+
+  .home-section { padding-block: 55px; }
+  .hero-slide { min-height: 490px; }
+  .hero h2 { max-width: 470px; font-size: 38px; }
+  .hero-note { bottom: 10px; }
+  .editorial-news { gap: 25px; }
+  .news-picture { aspect-ratio: .95; }
+  .news-select { padding-block: 16px; }
+  .news-select p { font-size: 12px; }
+  .editorial-notices { grid-template-columns: 1fr; gap: 0; }
+  .editorial-notices a { min-height: 0; padding-block: 24px; }
+  .notice-summary { margin-top: 5px; }
+  .notice-type { margin-bottom: 8px; }
+  .feature-layout { gap: 30px; }
+  .feature-intro { font-size: 22px; }
+  .feature-row { gap: 15px; }
+  .feature-row h3 { font-size: 17px; }
+  .faculty-card { display: block; }
+  .faculty-card :is(img, .media-frame) { width: 120px; height: 156px; margin-bottom: 18px; }
+}
+@media (max-width: 600px) {
+  :root { --header-expanded-height: 100px; --header-compact-height: 43px; }
+  .nav-toggle { right: 11px; }
+  .container { width: calc(100% - 32px); }
+  .header-main { height: 100px; padding-block: 16px; }
+  .brand { gap: 9px; }
+  .brand-title { gap: 7px; }
+  .brand-divider { height: 20px; }
+  .brand-mark { width: 38px; height: 38px; border-width: 2px; }
+  .university-name { font-size: clamp(12px, 3vw, 16px); letter-spacing: 0; }
+  .college-name { font-size: clamp(12px, 3.25vw, 19px); letter-spacing: 0; }
+  .college-english { font-size: 8px; margin-top: 6px; letter-spacing: 0; max-width: 310px; line-height: 1.4; }
+  .utility-inner { font-size: 10px; }
+  .main-nav > ul { grid-template-columns: 1fr; }
+  .main-nav.is-enhanced > ul { grid-template-columns: 1fr; }
+  .main-nav a { justify-content: flex-start; padding-inline: 12px; font-size: 15px; }
+  .hero-slide { min-height: 520px; align-items: flex-start; }
+  .hero-copy { padding-block: 43px 170px; }
+  .hero-eyebrow { font-size: 9px; letter-spacing: .08em; margin-bottom: 20px; }
+  .hero h2 { font-size: 29px; max-width: 320px; line-height: 1.5; }
+  .hero-description { font-size: 14px; letter-spacing: .07em; margin-top: 16px; }
+  .hero-slide--chip::before { background: linear-gradient(180deg, #080f1d 0%, rgb(8 15 29 / 85%) 25%, transparent 56%, rgb(8 15 29 / 40%) 100%); }
+  .hero-slide--chip > .chip-visual svg { width: 760px; min-width: 760px; height: 380px; right: calc(50% - 237.5px); top: 155px; }
+  .hero-slide--campus::before { background: linear-gradient(180deg, rgb(5 30 53 / 82%), rgb(5 30 53 / 25%)); }
+  .hero-note { bottom: 9px; right: 16px; font-size: 8px; }
+  .carousel-controls { bottom: 32px; gap: 4px; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); max-width: 390px; }
+  .carousel-controls button { min-width: 40px; }
+  .carousel-count { padding-inline: 0; font-size: 10px; letter-spacing: .03em; }
+  .carousel-dots { justify-content: flex-start; grid-column: 1 / 4; }
+  .carousel-count { grid-column: 4; text-align: right; }
+  .carousel-arrow { width: 44px; }
+  .carousel-arrow svg { width: 15px; height: 32px; }
+  .hero-copy { padding-inline: 28px; }
+  .carousel-arrow--prev { left: 0; }
+  .carousel-arrow--next { right: 0; }
+  .carousel-dots button { min-width: 25px; }
+  .home-section { padding-block: 40px; }
+  .editorial-heading { gap: 12px; margin-bottom: 28px; }
+  .editorial-heading > div { padding-left: 13px; }
+  .editorial-heading > div > span { font-size: 8px; letter-spacing: .1em; }
+  .editorial-heading h2 { font-size: 30px; letter-spacing: .05em; }
+  .editorial-heading > a { font-size: 11px; gap: 8px; }
+  .editorial-news { grid-template-columns: 1fr; gap: 25px; }
+  .news-select { padding: 18px 14px; }
+  .news-select > div { display: flex; gap: 10px; }
+  .news-select > div > span { font-size: 9px; margin-top: 0; }
+  .news-select h3 { font-size: 15px; }
+  .news-select p { margin-top: 9px; }
+  .news-picture { aspect-ratio: 1.25; }
+  .picture-caption { padding: 40px 18px 64px; }
+  .picture-caption h3 { font-size: 17px; }
+  .news-picture-controls { padding: 0 16px 10px; }
+  .feature-layout, .education-layout { grid-template-columns: 1fr; gap: 30px; }
+  .research-art, .education-art { aspect-ratio: 1.5; }
+  .feature-intro { font-size: 24px; }
+  .research-art figcaption, .education-art figcaption { font-size: 19px; padding: 40px 20px 20px; }
+  .section-watermark { top: 6px; font-size: clamp(36px, 10vw, 56px); }
+  .faculty-grid { grid-template-columns: 1fr; gap: 26px; }
+  .faculty-card { display: flex; gap: 24px; padding-bottom: 24px; }
+  .faculty-card :is(img, .media-frame) { width: 98px; height: 130px; margin: 0; }
+  .quick-links { grid-template-columns: 1fr; margin-block: 15px; }
+  .quick-links a { min-height: 70px; padding: 16px 5px; border-bottom: 1px solid var(--line); }
+  .quick-links a + a { border-left: 0; }
+  .quick-links h2 { font-size: 18px; }
+  .page-banner { padding-block: 26px; }
+  .page-banner h1 { font-size: 28px; }
+  .page-body { padding-bottom: 40px; }
+  .teacher-profile { grid-template-columns: 1fr; gap: 24px; }
+  .teacher-profile > img { width: 130px; height: 172px; }
+  .teacher-profile aside > :is(img, .media-frame) { width: 130px; height: 172px; }
+  .site-map-grid { grid-template-columns: 1fr; }
+  .visual-topics { grid-template-columns: 1fr; }
+  .visual-topics img { height: 210px; }
+  .credit-item { grid-template-columns: 1fr; }
+  .page-photo img { height: 200px; }
+  .article h2 { font-size: 22px; }
+}

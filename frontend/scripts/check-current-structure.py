@@ -79,7 +79,7 @@ for name, page in pages.items():
         assert len(frame.all(lambda n: 'data-media-status' in n.attrs)) == 1, name
 check('图片框都有唯一图片与反馈节点', True)
 footer = home.all(lambda n: n.has('footer-bottom-inner'))[0]
-check('工作室与版权备案同一底栏、保留徽标', all(footer.all(lambda n: n.has(c)) for c in ['footer-support', 'footer-copyright', 'footer-filing', 'studio-mark']))
+check('工作室与备案同一底栏、保留徽标', all(footer.all(lambda n: n.has(c)) for c in ['footer-support', 'footer-filing', 'studio-mark']))
 check('页脚与联系页都有公众号区域', all(pages[name].all(lambda n: n.has('wechat-panel')) for name in ['index.html', 'contact.html']))
 for name in ['index.html', 'faculty.html']:
     cards = pages[name].all(lambda n: n.has('faculty-card'))
@@ -90,10 +90,10 @@ for name, page in pages.items():
         check(name + '完整恢复简介、学术材料与联系方式', len(page.all(lambda n: n.has('profile-section'))) >= 5 and '个人简介' in page.label() and '联系方式' in page.label())
         breadcrumb = page.all(lambda n: n.has('breadcrumb'))[0]
         check(name + '面包屑包含师资父级', any(n.attrs.get('href') == 'faculty.html' for n in breadcrumb.all(lambda n: n.tag == 'a')))
-views = ast.parse((DOCS / 'backend/content/views.py').read_text(encoding='utf-8'))
-allowed = next(ast.literal_eval(n.value.args[0]) for n in views.body if isinstance(n, ast.Assign) and any(isinstance(t, ast.Name) and t.id == 'STATIC_PAGES' for t in n.targets))
+catalog = json.loads((DOCS / 'backend/content-catalog.json').read_text(encoding='utf-8'))
+allowed = [slug for slug, route in catalog['routes'].items() if route.get('kind') in {'overview', 'page'}]
 required = ['research-platforms', 'research-groups', 'regulations', 'party-building', 'admissions', 'community', 'ic-world', 'media']
-check('八个新页面已加入服务器静态白名单', set(required).issubset(allowed))
+check('八个新页面属于共享目录的固定路由白名单', set(required).issubset(allowed))
 frame = (DOCS / 'backend/templates/site/generated/frame.html').read_text(encoding='utf-8')
 server_home = (DOCS / 'backend/templates/site/generated/home.html').read_text(encoding='utf-8')
 catalog = json.loads((DOCS / 'backend/content-catalog.json').read_text(encoding='utf-8'))
@@ -105,7 +105,7 @@ for key in catalog['slots']:
         collection = next((c for c in catalog['collections'] if key in c['legacyKeys']), None)
         assert ("collection_preview '" + collection['key'] + "'" if collection else "content_block '" + key + "'") in generated, key
 check('后台目录每个内容位置都有前台读取入口', True)
-check('动态页面共享联系与公众号配置', 'site_info.address' in frame and 'site/wechat.html' in frame and 'site_info.address' in server_home)
+check('动态页面共享公众号与备案配置', 'site/wechat.html' in frame and 'site/wechat.html' in server_home and 'site_info.body' in frame)
 check('数据库首页和文章外框同步新导航及加载脚本', all('招生就业' in html and 'js/media-loading.js' in html and 'https://hdwzgzs.cn/' in html for html in [frame, server_home]))
 for file in ['home_pictures.html', 'detail.html']:
     source = (DOCS / 'backend/templates/site' / file).read_text(encoding='utf-8')

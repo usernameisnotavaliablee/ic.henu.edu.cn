@@ -1,18 +1,72 @@
 {
   "expanded": {
     "height": 112,
-    "size": 30
+    "opacity": 1
   },
-  "early": {
-    "height": 108.640625,
-    "size": 29.4931
-  },
+  "frames": [
+    {
+      "height": 112,
+      "opacity": 1
+    },
+    {
+      "height": 111.828125,
+      "opacity": 0.999998
+    },
+    {
+      "height": 110.765625,
+      "opacity": 0.99988
+    },
+    {
+      "height": 110.765625,
+      "opacity": 0.99988
+    },
+    {
+      "height": 97.125,
+      "opacity": 0.982396
+    },
+    {
+      "height": 85.671875,
+      "opacity": 0.944775
+    },
+    {
+      "height": 71.734375,
+      "opacity": 0.870774
+    },
+    {
+      "height": 60.28125,
+      "opacity": 0.786824
+    },
+    {
+      "height": 60.28125,
+      "opacity": 0.786824
+    },
+    {
+      "height": 60.28125,
+      "opacity": 0.786824
+    },
+    {
+      "height": 18,
+      "opacity": 0.295643
+    },
+    {
+      "height": 8.734375,
+      "opacity": 0.150119
+    },
+    {
+      "height": 2.984375,
+      "opacity": 0.0526287
+    },
+    {
+      "height": 0.421875,
+      "opacity": 0.00778479
+    }
+  ],
   "middle": {
-    "height": 75.71875,
-    "size": 24.503
+    "height": 0,
+    "opacity": 0
   },
   "reverse": {
-    "height": 79.625,
-    "size": 25.0967
+    "height": 14.859375,
+    "opacity": 0.247982
   }
 }

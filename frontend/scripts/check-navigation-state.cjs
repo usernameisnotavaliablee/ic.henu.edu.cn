@@ -135,14 +135,13 @@ const menuSelector = `${itemSelector} > .subnav`;
       await page.locator(`${menuSelector} a`).first().evaluate(e => e.focus());
       assert(!(await page.locator(menuSelector).evaluate(e => e.contains(document.activeElement))));
     });
-    await test('不支持Web Animations时菜单和页脚仍可使用', async page => {
+    await test('不支持Web Animations时菜单和工作室链接仍可使用', async page => {
       await page.evaluate(() => { Element.prototype.animate = undefined; });
       await open(page);
       await page.locator(buttonSelector).click();
       await page.locator(menuSelector).waitFor({ state: 'hidden' });
-      const drawer = page.locator('.footer-drawer').first();
-      await drawer.locator('summary').click();
-      assert(await drawer.locator('a').first().isVisible());
+      assert(await page.locator('.footer-support').isVisible());
+      assert.equal(await page.locator('.footer-support').getAttribute('href'), 'https://hdwzgzs.cn/');
     });
     await test('320px及768px菜单无溢出、可开关', async page => {
       for (const width of [320, 768]) {
@@ -152,15 +151,15 @@ const menuSelector = `${itemSelector} > .subnav`;
         await page.locator('.nav-toggle').click();
       }
     });
-    await test('页脚抽屉在减少动态效果切换后文字可见', async page => {
-      const drawer = page.locator('.footer-drawer').first();
-      await drawer.locator('summary').click();
+    await test('保留队友紧凑页脚，切换动态效果不改写页脚文字', async page => {
+      const footer = page.locator('.site-footer');
+      const before = await footer.innerHTML();
       await page.emulateMedia({ reducedMotion: 'reduce' });
-      assert(await drawer.locator('a').first().isVisible());
-      assert(await drawer.locator('.nav-flip-char').evaluateAll(chars => chars.every(c => Number(getComputedStyle(c).opacity) === 1)));
-      await drawer.locator('summary').click();
-      await drawer.locator('summary').click();
-      assert(await drawer.locator('a').first().isVisible());
+      await page.emulateMedia({ reducedMotion: 'no-preference' });
+      assert.equal(await footer.locator('.footer-drawer, [data-back-top], .nav-flip-char').count(), 0);
+      assert(await footer.locator('.footer-motto').isVisible());
+      assert(await footer.locator('.footer-row .footer-wechat').isVisible());
+      assert.equal(await footer.innerHTML(), before);
     });
     await test('导航脚本不可用时各级链接仍可访问', async page => {
       await page.route('**/js/navigation.js*', route => route.abort());

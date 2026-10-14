@@ -1,7 +1,9 @@
 {
   "scope": "Edge desktop and emulated viewport; no physical-device or production check",
-  "fontStrategy": "local KaiTi first, self-hosted WenKai fallback",
+  "fontStrategy": "self-hosted ZhuangSong subset, no local font dependency",
+  "fontBytes": 36716,
   "pages": [
+    "404.html",
     "about.html",
     "admissions-section-1.html",
     "admissions-section-2.html",
@@ -77,12 +79,23 @@
   ],
   "fonts": [
     {
-      "file": "about.html",
+      "file": "404.html",
       "fonts": [
         {
-          "familyName": "KaiTi",
-          "postScriptName": "KaiTi",
-          "isCustomFont": false,
+          "familyName": "Source Han Serif CN Heavy",
+          "postScriptName": "SourceHanSerifCN-Heavy",
+          "isCustomFont": true,
+          "glyphCount": 14
+        }
+      ]
+    },
+    {
+      "file": "404.html",
+      "fonts": [
+        {
+          "familyName": "Source Han Serif CN Heavy",
+          "postScriptName": "SourceHanSerifCN-Heavy",
+          "isCustomFont": true,
           "glyphCount": 14
         }
       ]
@@ -91,9 +104,20 @@
       "file": "about.html",
       "fonts": [
         {
-          "familyName": "KaiTi",
-          "postScriptName": "KaiTi",
-          "isCustomFont": false,
+          "familyName": "Source Han Serif CN Heavy",
+          "postScriptName": "SourceHanSerifCN-Heavy",
+          "isCustomFont": true,
+          "glyphCount": 14
+        }
+      ]
+    },
+    {
+      "file": "about.html",
+      "fonts": [
+        {
+          "familyName": "Source Han Serif CN Heavy",
+          "postScriptName": "SourceHanSerifCN-Heavy",
+          "isCustomFont": true,
           "glyphCount": 4
         }
       ]
@@ -102,9 +126,9 @@
       "file": "about.html",
       "fonts": [
         {
-          "familyName": "KaiTi",
-          "postScriptName": "KaiTi",
-          "isCustomFont": false,
+          "familyName": "Source Han Serif CN Heavy",
+          "postScriptName": "SourceHanSerifCN-Heavy",
+          "isCustomFont": true,
           "glyphCount": 4
         }
       ]
@@ -113,9 +137,9 @@
       "file": "about.html",
       "fonts": [
         {
-          "familyName": "KaiTi",
-          "postScriptName": "KaiTi",
-          "isCustomFont": false,
+          "familyName": "Source Han Serif CN Heavy",
+          "postScriptName": "SourceHanSerifCN-Heavy",
+          "isCustomFont": true,
           "glyphCount": 4
         }
       ]
@@ -124,9 +148,9 @@
       "file": "about.html",
       "fonts": [
         {
-          "familyName": "KaiTi",
-          "postScriptName": "KaiTi",
-          "isCustomFont": false,
+          "familyName": "Source Han Serif CN Heavy",
+          "postScriptName": "SourceHanSerifCN-Heavy",
+          "isCustomFont": true,
           "glyphCount": 14
         }
       ]
@@ -135,9 +159,9 @@
       "file": "admissions-section-1.html",
       "fonts": [
         {
-          "familyName": "KaiTi",
-          "postScriptName": "KaiTi",
-          "isCustomFont": false,
+          "familyName": "Source Han Serif CN Heavy",
+          "postScriptName": "SourceHanSerifCN-Heavy",
+          "isCustomFont": true,
           "glyphCount": 14
         }
       ]
@@ -146,9 +170,9 @@
       "file": "admissions-section-1.html",
       "fonts": [
         {
-          "familyName": "KaiTi",
-          "postScriptName": "KaiTi",
-          "isCustomFont": false,
+          "familyName": "Source Han Serif CN Heavy",
+          "postScriptName": "SourceHanSerifCN-Heavy",
+          "isCustomFont": true,
           "glyphCount": 14
         }
       ]
@@ -157,9 +181,9 @@
       "file": "admissions-section-2.html",
       "fonts": [
         {
-          "familyName": "KaiTi",
-          "postScriptName": "KaiTi",
-          "isCustomFont": false,
+          "familyName": "Source Han Serif CN Heavy",
+          "postScriptName": "SourceHanSerifCN-Heavy",
+          "isCustomFont": true,
           "glyphCount": 14
         }
       ]
@@ -168,9 +192,9 @@
       "file": "admissions-section-2.html",
       "fonts": [
         {
-          "familyName": "KaiTi",
-          "postScriptName": "KaiTi",
-          "isCustomFont": false,
+          "familyName": "Source Han Serif CN Heavy",
+          "postScriptName": "SourceHanSerifCN-Heavy",
+          "isCustomFont": true,
           "glyphCount": 14
         }
       ]
@@ -179,9 +203,9 @@
       "file": "admissions-section-3.html",
       "fonts": [
         {
-          "familyName": "KaiTi",
-          "postScriptName": "KaiTi",
-          "isCustomFont": false,
+          "familyName": "Source Han Serif CN Heavy",
+          "postScriptName": "SourceHanSerifCN-Heavy",
+          "isCustomFont": true,
           "glyphCount": 14
         }
       ]
@@ -190,9 +214,9 @@
       "file": "admissions-section-3.html",
       "fonts": [
         {
-          "familyName": "KaiTi",
-          "postScriptName": "KaiTi",
-          "isCustomFont": false,
+          "familyName": "Source Han Serif CN Heavy",
+          "postScriptName": "SourceHanSerifCN-Heavy",
+          "isCustomFont": true,
           "glyphCount": 14
         }
       ]
@@ -201,9 +225,9 @@
       "file": "admissions.html",
       "fonts": [
         {
-          "familyName": "KaiTi",
-          "postScriptName": "KaiTi",
-          "isCustomFont": false,
+          "familyName": "Source Han Serif CN Heavy",
+          "postScriptName": "SourceHanSerifCN-Heavy",
+          "isCustomFont": true,
           "glyphCount": 14
         }
       ]
@@ -212,9 +236,9 @@
       "file": "admissions.html",
       "fonts": [
         {
-          "familyName": "KaiTi",
-          "postScriptName": "KaiTi",
-          "isCustomFont": false,
+          "familyName": "Source Han Serif CN Heavy",
+          "postScriptName": "SourceHanSerifCN-Heavy",
+          "isCustomFont": true,
           "glyphCount": 5
         }
       ]
@@ -223,9 +247,9 @@
       "file": "admissions.html",
       "fonts": [
         {
-          "familyName": "KaiTi",
-          "postScriptName": "KaiTi",
-          "isCustomFont": false,
+          "familyName": "Source Han Serif CN Heavy",
+          "postScriptName": "SourceHanSerifCN-Heavy",
+          "isCustomFont": true,
           "glyphCount": 5
         }
       ]
@@ -234,9 +258,9 @@
       "file": "admissions.html",
       "fonts": [
         {
-          "familyName": "KaiTi",
-          "postScriptName": "KaiTi",
-          "isCustomFont": false,
+          "familyName": "Source Han Serif CN Heavy",
+          "postScriptName": "SourceHanSerifCN-Heavy",
+          "isCustomFont": true,
           "glyphCount": 4
         }
       ]
@@ -245,9 +269,9 @@
       "file": "admissions.html",
       "fonts": [
         {
-          "familyName": "KaiTi",
-          "postScriptName": "KaiTi",
-          "isCustomFont": false,
+          "familyName": "Source Han Serif CN Heavy",
+          "postScriptName": "SourceHanSerifCN-Heavy",
+          "isCustomFont": true,
           "glyphCount": 14
         }
       ]
@@ -256,9 +280,9 @@
       "file": "careers-section-1.html",
       "fonts": [
         {
-          "familyName": "KaiTi",
-          "postScriptName": "KaiTi",
-          "isCustomFont": false,
+          "familyName": "Source Han Serif CN Heavy",
+          "postScriptName": "SourceHanSerifCN-Heavy",
+          "isCustomFont": true,
           "glyphCount": 14
         }
       ]
@@ -267,9 +291,9 @@
       "file": "careers-section-1.html",
       "fonts": [
         {
-          "familyName": "KaiTi",
-          "postScriptName": "KaiTi",
-          "isCustomFont": false,
+          "familyName": "Source Han Serif CN Heavy",
+          "postScriptName": "SourceHanSerifCN-Heavy",
+          "isCustomFont": true,
           "glyphCount": 14
         }
       ]
@@ -278,9 +302,9 @@
       "file": "careers.html",
       "fonts": [
         {
-          "familyName": "KaiTi",
-          "postScriptName": "KaiTi",
-          "isCustomFont": false,
+          "familyName": "Source Han Serif CN Heavy",
+          "postScriptName": "SourceHanSerifCN-Heavy",
+          "isCustomFont": true,
           "glyphCount": 14
         }
       ]
@@ -289,9 +313,9 @@
       "file": "careers.html",
       "fonts": [
         {
-          "familyName": "KaiTi",
-          "postScriptName": "KaiTi",
-          "isCustomFont": false,
+          "familyName": "Source Han Serif CN Heavy",
+          "postScriptName": "SourceHanSerifCN-Heavy",
+          "isCustomFont": true,
           "glyphCount": 6
         }
       ]
@@ -300,9 +324,9 @@
       "file": "careers.html",
       "fonts": [
         {
-          "familyName": "KaiTi",
-          "postScriptName": "KaiTi",
-          "isCustomFont": false,
+          "familyName": "Source Han Serif CN Heavy",
+          "postScriptName": "SourceHanSerifCN-Heavy",
+          "isCustomFont": true,
           "glyphCount": 14
         }
       ]
@@ -311,9 +335,9 @@
       "file": "community-section-1.html",
       "fonts": [
         {
-          "familyName": "KaiTi",
-          "postScriptName": "KaiTi",
-          "isCustomFont": false,
+          "familyName": "Source Han Serif CN Heavy",
+          "postScriptName": "SourceHanSerifCN-Heavy",
+          "isCustomFont": true,
           "glyphCount": 14
         }
       ]
@@ -322,9 +346,9 @@
       "file": "community-section-1.html",
       "fonts": [
         {
-          "familyName": "KaiTi",
-          "postScriptName": "KaiTi",
-          "isCustomFont": false,
+          "familyName": "Source Han Serif CN Heavy",
+          "postScriptName": "SourceHanSerifCN-Heavy",
+          "isCustomFont": true,
           "glyphCount": 14
         }
       ]
@@ -333,9 +357,9 @@
       "file": "community-section-2.html",
       "fonts": [
         {
-          "familyName": "KaiTi",
-          "postScriptName": "KaiTi",
-          "isCustomFont": false,
+          "familyName": "Source Han Serif CN Heavy",
+          "postScriptName": "SourceHanSerifCN-Heavy",
+          "isCustomFont": true,
           "glyphCount": 14
         }
       ]
@@ -344,9 +368,9 @@
       "file": "community-section-2.html",
       "fonts": [
         {
-          "familyName": "KaiTi",
-          "postScriptName": "KaiTi",
-          "isCustomFont": false,
+          "familyName": "Source Han Serif CN Heavy",
+          "postScriptName": "SourceHanSerifCN-Heavy",
+          "isCustomFont": true,
           "glyphCount": 14
         }
       ]
@@ -355,9 +379,9 @@
       "file": "community.html",
       "fonts": [
         {
-          "familyName": "KaiTi",
-          "postScriptName": "KaiTi",
-          "isCustomFont": false,
+          "familyName": "Source Han Serif CN Heavy",
+          "postScriptName": "SourceHanSerifCN-Heavy",
+          "isCustomFont": true,
           "glyphCount": 14
         }
       ]
@@ -366,9 +390,9 @@
       "file": "community.html",
       "fonts": [
         {
-          "familyName": "KaiTi",
-          "postScriptName": "KaiTi",
-          "isCustomFont": false,
+          "familyName": "Source Han Serif CN Heavy",
+          "postScriptName": "SourceHanSerifCN-Heavy",
+          "isCustomFont": true,
           "glyphCount": 4
         }
       ]
@@ -377,9 +401,9 @@
       "file": "community.html",
       "fonts": [
         {
-          "familyName": "KaiTi",
-          "postScriptName": "KaiTi",
-          "isCustomFont": false,
+          "familyName": "Source Han Serif CN Heavy",
+          "postScriptName": "SourceHanSerifCN-Heavy",
+          "isCustomFont": true,
           "glyphCount": 4
         }
       ]
@@ -388,9 +412,9 @@
       "file": "community.html",
       "fonts": [
         {
-          "familyName": "KaiTi",
-          "postScriptName": "KaiTi",
-          "isCustomFont": false,
+          "familyName": "Source Han Serif CN Heavy",
+          "postScriptName": "SourceHanSerifCN-Heavy",
+          "isCustomFont": true,
           "glyphCount": 14
         }
       ]
@@ -399,9 +423,9 @@
       "file": "contact.html",
       "fonts": [
         {
-          "familyName": "KaiTi",
-          "postScriptName": "KaiTi",
-          "isCustomFont": false,
+          "familyName": "Source Han Serif CN Heavy",
+          "postScriptName": "SourceHanSerifCN-Heavy",
+          "isCustomFont": true,
           "glyphCount": 14
         }
       ]
@@ -410,9 +434,9 @@
       "file": "contact.html",
       "fonts": [
         {
-          "familyName": "KaiTi",
-          "postScriptName": "KaiTi",
-          "isCustomFont": false,
+          "familyName": "Source Han Serif CN Heavy",
+          "postScriptName": "SourceHanSerifCN-Heavy",
+          "isCustomFont": true,
           "glyphCount": 14
         }
       ]
@@ -421,9 +445,9 @@
       "file": "faculty.html",
       "fonts": [
         {
-          "familyName": "KaiTi",
-          "postScriptName": "KaiTi",
-          "isCustomFont": false,
+          "familyName": "Source Han Serif CN Heavy",
+          "postScriptName": "SourceHanSerifCN-Heavy",
+          "isCustomFont": true,
           "glyphCount": 14
         }
       ]
@@ -432,9 +456,9 @@
       "file": "faculty.html",
       "fonts": [
         {
-          "familyName": "KaiTi",
-          "postScriptName": "KaiTi",
-          "isCustomFont": false,
+          "familyName": "Source Han Serif CN Heavy",
+          "postScriptName": "SourceHanSerifCN-Heavy",
+          "isCustomFont": true,
           "glyphCount": 14
         }
       ]
@@ -443,9 +467,9 @@
       "file": "ic-world-section-1.html",
       "fonts": [
         {
-          "familyName": "KaiTi",
-          "postScriptName": "KaiTi",
-          "isCustomFont": false,
+          "familyName": "Source Han Serif CN Heavy",
+          "postScriptName": "SourceHanSerifCN-Heavy",
+          "isCustomFont": true,
           "glyphCount": 14
         }
       ]
@@ -454,9 +478,9 @@
       "file": "ic-world-section-1.html",
       "fonts": [
         {
-          "familyName": "KaiTi",
-          "postScriptName": "KaiTi",
-          "isCustomFont": false,
+          "familyName": "Source Han Serif CN Heavy",
+          "postScriptName": "SourceHanSerifCN-Heavy",
+          "isCustomFont": true,
           "glyphCount": 14
         }
       ]
@@ -465,9 +489,9 @@
       "file": "ic-world-section-2.html",
       "fonts": [
         {
-          "familyName": "KaiTi",
-          "postScriptName": "KaiTi",
-          "isCustomFont": false,
+          "familyName": "Source Han Serif CN Heavy",
+          "postScriptName": "SourceHanSerifCN-Heavy",
+          "isCustomFont": true,
           "glyphCount": 14
         }
       ]
@@ -476,9 +500,9 @@
       "file": "ic-world-section-2.html",
       "fonts": [
         {
-          "familyName": "KaiTi",
-          "postScriptName": "KaiTi",
-          "isCustomFont": false,
+          "familyName": "Source Han Serif CN Heavy",
+          "postScriptName": "SourceHanSerifCN-Heavy",
+          "isCustomFont": true,
           "glyphCount": 14
         }
       ]
@@ -487,9 +511,9 @@
       "file": "ic-world.html",
       "fonts": [
         {
-          "familyName": "KaiTi",
-          "postScriptName": "KaiTi",
-          "isCustomFont": false,
+          "familyName": "Source Han Serif CN Heavy",
+          "postScriptName": "SourceHanSerifCN-Heavy",
+          "isCustomFont": true,
           "glyphCount": 14
         }
       ]
@@ -498,9 +522,9 @@
       "file": "ic-world.html",
       "fonts": [
         {
-          "familyName": "KaiTi",
-          "postScriptName": "KaiTi",
-          "isCustomFont": false,
+          "familyName": "Source Han Serif CN Heavy",
+          "postScriptName": "SourceHanSerifCN-Heavy",
+          "isCustomFont": true,
           "glyphCount": 4
         }
       ]
@@ -509,9 +533,9 @@
       "file": "ic-world.html",
       "fonts": [
         {
-          "familyName": "KaiTi",
-          "postScriptName": "KaiTi",
-          "isCustomFont": false,
+          "familyName": "Source Han Serif CN Heavy",
+          "postScriptName": "SourceHanSerifCN-Heavy",
+          "isCustomFont": true,
           "glyphCount": 7
         }
       ]
@@ -520,9 +544,9 @@
       "file": "ic-world.html",
       "fonts": [
         {
-          "familyName": "KaiTi",
-          "postScriptName": "KaiTi",
-          "isCustomFont": false,
+          "familyName": "Source Han Serif CN Heavy",
+          "postScriptName": "SourceHanSerifCN-Heavy",
+          "isCustomFont": true,
           "glyphCount": 14
         }
       ]
@@ -531,9 +555,9 @@
       "file": "image-credits.html",
       "fonts": [
         {
-          "familyName": "KaiTi",
-          "postScriptName": "KaiTi",
-          "isCustomFont": false,
+          "familyName": "Source Han Serif CN Heavy",
+          "postScriptName": "SourceHanSerifCN-Heavy",
+          "isCustomFont": true,
           "glyphCount": 14
         }
       ]
@@ -542,9 +566,9 @@
       "file": "image-credits.html",
       "fonts": [
         {
-          "familyName": "KaiTi",
-          "postScriptName": "KaiTi",
-          "isCustomFont": false,
+          "familyName": "Source Han Serif CN Heavy",
+          "postScriptName": "SourceHanSerifCN-Heavy",
+          "isCustomFont": true,
           "glyphCount": 14
         }
       ]
@@ -553,9 +577,9 @@
       "file": "index.html",
       "fonts": [
         {
-          "familyName": "KaiTi",
-          "postScriptName": "KaiTi",
-          "isCustomFont": false,
+          "familyName": "Source Han Serif CN Heavy",
+          "postScriptName": "SourceHanSerifCN-Heavy",
+          "isCustomFont": true,
           "glyphCount": 14
         }
       ]
@@ -564,9 +588,9 @@
       "file": "index.html",
       "fonts": [
         {
-          "familyName": "KaiTi",
-          "postScriptName": "KaiTi",
-          "isCustomFont": false,
+          "familyName": "Source Han Serif CN Heavy",
+          "postScriptName": "SourceHanSerifCN-Heavy",
+          "isCustomFont": true,
           "glyphCount": 4
         }
       ]
@@ -575,9 +599,9 @@
       "file": "index.html",
       "fonts": [
         {
-          "familyName": "KaiTi",
-          "postScriptName": "KaiTi",
-          "isCustomFont": false,
+          "familyName": "Source Han Serif CN Heavy",
+          "postScriptName": "SourceHanSerifCN-Heavy",
+          "isCustomFont": true,
           "glyphCount": 4
         }
       ]
@@ -586,9 +610,9 @@
       "file": "index.html",
       "fonts": [
         {
-          "familyName": "KaiTi",
-          "postScriptName": "KaiTi",
-          "isCustomFont": false,
+          "familyName": "Source Han Serif CN Heavy",
+          "postScriptName": "SourceHanSerifCN-Heavy",
+          "isCustomFont": true,
           "glyphCount": 5
         }
       ]
@@ -597,9 +621,9 @@
       "file": "index.html",
       "fonts": [
         {
-          "familyName": "KaiTi",
-          "postScriptName": "KaiTi",
-          "isCustomFont": false,
+          "familyName": "Source Han Serif CN Heavy",
+          "postScriptName": "SourceHanSerifCN-Heavy",
+          "isCustomFont": true,
           "glyphCount": 11
         }
       ]
@@ -608,9 +632,9 @@
       "file": "index.html",
       "fonts": [
         {
-          "familyName": "KaiTi",
-          "postScriptName": "KaiTi",
-          "isCustomFont": false,
+          "familyName": "Source Han Serif CN Heavy",
+          "postScriptName": "SourceHanSerifCN-Heavy",
+          "isCustomFont": true,
           "glyphCount": 4
         }
       ]
@@ -619,9 +643,9 @@
       "file": "index.html",
       "fonts": [
         {
-          "familyName": "KaiTi",
-          "postScriptName": "KaiTi",
-          "isCustomFont": false,
+          "familyName": "Source Han Serif CN Heavy",
+          "postScriptName": "SourceHanSerifCN-Heavy",
+          "isCustomFont": true,
           "glyphCount": 9
         }
       ]
@@ -630,9 +654,9 @@
       "file": "index.html",
       "fonts": [
         {
-          "familyName": "KaiTi",
-          "postScriptName": "KaiTi",
-          "isCustomFont": false,
+          "familyName": "Source Han Serif CN Heavy",
+          "postScriptName": "SourceHanSerifCN-Heavy",
+          "isCustomFont": true,
           "glyphCount": 4
         }
       ]
@@ -641,9 +665,9 @@
       "file": "index.html",
       "fonts": [
         {
-          "familyName": "KaiTi",
-          "postScriptName": "KaiTi",
-          "isCustomFont": false,
+          "familyName": "Source Han Serif CN Heavy",
+          "postScriptName": "SourceHanSerifCN-Heavy",
+          "isCustomFont": true,
           "glyphCount": 14
         }
       ]
@@ -652,9 +676,9 @@
       "file": "layout-admissions-section-1.html",
       "fonts": [
         {
-          "familyName": "KaiTi",
-          "postScriptName": "KaiTi",
-          "isCustomFont": false,
+          "familyName": "Source Han Serif CN Heavy",
+          "postScriptName": "SourceHanSerifCN-Heavy",
+          "isCustomFont": true,
           "glyphCount": 14
         }
       ]
@@ -663,9 +687,9 @@
       "file": "layout-admissions-section-1.html",
       "fonts": [
         {
-          "familyName": "KaiTi",
-          "postScriptName": "KaiTi",
-          "isCustomFont": false,
+          "familyName": "Source Han Serif CN Heavy",
+          "postScriptName": "SourceHanSerifCN-Heavy",
+          "isCustomFont": true,
           "glyphCount": 14
         }
       ]
@@ -674,9 +698,9 @@
       "file": "layout-admissions-section-2.html",
       "fonts": [
         {
-          "familyName": "KaiTi",
-          "postScriptName": "KaiTi",
-          "isCustomFont": false,
+          "familyName": "Source Han Serif CN Heavy",
+          "postScriptName": "SourceHanSerifCN-Heavy",
+          "isCustomFont": true,
           "glyphCount": 14
         }
       ]
@@ -685,9 +709,9 @@
       "file": "layout-admissions-section-2.html",
       "fonts": [
         {
-          "familyName": "KaiTi",
-          "postScriptName": "KaiTi",
-          "isCustomFont": false,
+          "familyName": "Source Han Serif CN Heavy",
+          "postScriptName": "SourceHanSerifCN-Heavy",
+          "isCustomFont": true,
           "glyphCount": 14
         }
       ]
@@ -696,9 +720,9 @@
       "file": "layout-admissions-section-3.html",
       "fonts": [
         {
-          "familyName": "KaiTi",
-          "postScriptName": "KaiTi",
-          "isCustomFont": false,
+          "familyName": "Source Han Serif CN Heavy",
+          "postScriptName": "SourceHanSerifCN-Heavy",
+          "isCustomFont": true,
           "glyphCount": 14
         }
       ]
@@ -707,9 +731,9 @@
       "file": "layout-admissions-section-3.html",
       "fonts": [
         {
-          "familyName": "KaiTi",
-          "postScriptName": "KaiTi",
-          "isCustomFont": false,
+          "familyName": "Source Han Serif CN Heavy",
+          "postScriptName": "SourceHanSerifCN-Heavy",
+          "isCustomFont": true,
           "glyphCount": 14
         }
       ]
@@ -718,9 +742,9 @@
       "file": "layout-careers-section-1.html",
       "fonts": [
         {
-          "familyName": "KaiTi",
-          "postScriptName": "KaiTi",
-          "isCustomFont": false,
+          "familyName": "Source Han Serif CN Heavy",
+          "postScriptName": "SourceHanSerifCN-Heavy",
+          "isCustomFont": true,
           "glyphCount": 14
         }
       ]
@@ -729,9 +753,9 @@
       "file": "layout-careers-section-1.html",
       "fonts": [
         {
-          "familyName": "KaiTi",
-          "postScriptName": "KaiTi",
-          "isCustomFont": false,
+          "familyName": "Source Han Serif CN Heavy",
+          "postScriptName": "SourceHanSerifCN-Heavy",
+          "isCustomFont": true,
           "glyphCount": 14
         }
       ]
@@ -740,9 +764,9 @@
       "file": "layout-community-section-1.html",
       "fonts": [
         {
-          "familyName": "KaiTi",
-          "postScriptName": "KaiTi",
-          "isCustomFont": false,
+          "familyName": "Source Han Serif CN Heavy",
+          "postScriptName": "SourceHanSerifCN-Heavy",
+          "isCustomFont": true,
           "glyphCount": 14
         }
       ]
@@ -751,9 +775,9 @@
       "file": "layout-community-section-1.html",
       "fonts": [
         {
-          "familyName": "KaiTi",
-          "postScriptName": "KaiTi",
-          "isCustomFont": false,
+          "familyName": "Source Han Serif CN Heavy",
+          "postScriptName": "SourceHanSerifCN-Heavy",
+          "isCustomFont": true,
           "glyphCount": 14
         }
       ]
@@ -762,9 +786,9 @@
       "file": "layout-community-section-2.html",
       "fonts": [
         {
-          "familyName": "KaiTi",
-          "postScriptName": "KaiTi",
-          "isCustomFont": false,
+          "familyName": "Source Han Serif CN Heavy",
+          "postScriptName": "SourceHanSerifCN-Heavy",
+          "isCustomFont": true,
           "glyphCount": 14
         }
       ]
@@ -773,9 +797,9 @@
       "file": "layout-community-section-2.html",
       "fonts": [
         {
-          "familyName": "KaiTi",
-          "postScriptName": "KaiTi",
-          "isCustomFont": false,
+          "familyName": "Source Han Serif CN Heavy",
+          "postScriptName": "SourceHanSerifCN-Heavy",
+          "isCustomFont": true,
           "glyphCount": 14
         }
       ]
@@ -784,9 +808,9 @@
       "file": "layout-ic-world-section-1.html",
       "fonts": [
         {
-          "familyName": "KaiTi",
-          "postScriptName": "KaiTi",
-          "isCustomFont": false,
+          "familyName": "Source Han Serif CN Heavy",
+          "postScriptName": "SourceHanSerifCN-Heavy",
+          "isCustomFont": true,
           "glyphCount": 14
         }
       ]
@@ -795,9 +819,9 @@
       "file": "layout-ic-world-section-1.html",
       "fonts": [
         {
-          "familyName": "KaiTi",
-          "postScriptName": "KaiTi",
-          "isCustomFont": false,
+          "familyName": "Source Han Serif CN Heavy",
+          "postScriptName": "SourceHanSerifCN-Heavy",
+          "isCustomFont": true,
           "glyphCount": 14
         }
       ]
@@ -806,9 +830,9 @@
       "file": "layout-ic-world-section-2.html",
       "fonts": [
         {
-          "familyName": "KaiTi",
-          "postScriptName": "KaiTi",
-          "isCustomFont": false,
+          "familyName": "Source Han Serif CN Heavy",
+          "postScriptName": "SourceHanSerifCN-Heavy",
+          "isCustomFont": true,
           "glyphCount": 14
         }
       ]
@@ -817,9 +841,9 @@
       "file": "layout-ic-world-section-2.html",
       "fonts": [
         {
-          "familyName": "KaiTi",
-          "postScriptName": "KaiTi",
-          "isCustomFont": false,
+          "familyName": "Source Han Serif CN Heavy",
+          "postScriptName": "SourceHanSerifCN-Heavy",
+          "isCustomFont": true,
           "glyphCount": 14
         }
       ]
@@ -828,9 +852,9 @@
       "file": "layout-media-section-1.html",
       "fonts": [
         {
-          "familyName": "KaiTi",
-          "postScriptName": "KaiTi",
-          "isCustomFont": false,
+          "familyName": "Source Han Serif CN Heavy",
+          "postScriptName": "SourceHanSerifCN-Heavy",
+          "isCustomFont": true,
           "glyphCount": 14
         }
       ]
@@ -839,9 +863,9 @@
       "file": "layout-media-section-1.html",
       "fonts": [
         {
-          "familyName": "KaiTi",
-          "postScriptName": "KaiTi",
-          "isCustomFont": false,
+          "familyName": "Source Han Serif CN Heavy",
+          "postScriptName": "SourceHanSerifCN-Heavy",
+          "isCustomFont": true,
           "glyphCount": 14
         }
       ]
@@ -850,9 +874,9 @@
       "file": "layout-party-building-section-1.html",
       "fonts": [
         {
-          "familyName": "KaiTi",
-          "postScriptName": "KaiTi",
-          "isCustomFont": false,
+          "familyName": "Source Han Serif CN Heavy",
+          "postScriptName": "SourceHanSerifCN-Heavy",
+          "isCustomFont": true,
           "glyphCount": 14
         }
       ]
@@ -861,9 +885,9 @@
       "file": "layout-party-building-section-1.html",
       "fonts": [
         {
-          "familyName": "KaiTi",
-          "postScriptName": "KaiTi",
-          "isCustomFont": false,
+          "familyName": "Source Han Serif CN Heavy",
+          "postScriptName": "SourceHanSerifCN-Heavy",
+          "isCustomFont": true,
           "glyphCount": 14
         }
       ]
@@ -872,9 +896,9 @@
       "file": "layout-party-building-section-2.html",
       "fonts": [
         {
-          "familyName": "KaiTi",
-          "postScriptName": "KaiTi",
-          "isCustomFont": false,
+          "familyName": "Source Han Serif CN Heavy",
+          "postScriptName": "SourceHanSerifCN-Heavy",
+          "isCustomFont": true,
           "glyphCount": 14
         }
       ]
@@ -883,9 +907,9 @@
       "file": "layout-party-building-section-2.html",
       "fonts": [
         {
-          "familyName": "KaiTi",
-          "postScriptName": "KaiTi",
-          "isCustomFont": false,
+          "familyName": "Source Han Serif CN Heavy",
+          "postScriptName": "SourceHanSerifCN-Heavy",
+          "isCustomFont": true,
           "glyphCount": 14
         }
       ]
@@ -894,9 +918,9 @@
       "file": "layout-public-service-section-1.html",
       "fonts": [
         {
-          "familyName": "KaiTi",
-          "postScriptName": "KaiTi",
-          "isCustomFont": false,
+          "familyName": "Source Han Serif CN Heavy",
+          "postScriptName": "SourceHanSerifCN-Heavy",
+          "isCustomFont": true,
           "glyphCount": 14
         }
       ]
@@ -905,9 +929,9 @@
       "file": "layout-public-service-section-1.html",
       "fonts": [
         {
-          "familyName": "KaiTi",
-          "postScriptName": "KaiTi",
-          "isCustomFont": false,
+          "familyName": "Source Han Serif CN Heavy",
+          "postScriptName": "SourceHanSerifCN-Heavy",
+          "isCustomFont": true,
           "glyphCount": 14
         }
       ]
@@ -916,9 +940,9 @@
       "file": "layout-regulations-section-1.html",
       "fonts": [
         {
-          "familyName": "KaiTi",
-          "postScriptName": "KaiTi",
-          "isCustomFont": false,
+          "familyName": "Source Han Serif CN Heavy",
+          "postScriptName": "SourceHanSerifCN-Heavy",
+          "isCustomFont": true,
           "glyphCount": 14
         }
       ]
@@ -927,9 +951,9 @@
       "file": "layout-regulations-section-1.html",
       "fonts": [
         {
-          "familyName": "KaiTi",
-          "postScriptName": "KaiTi",
-          "isCustomFont": false,
+          "familyName": "Source Han Serif CN Heavy",
+          "postScriptName": "SourceHanSerifCN-Heavy",
+          "isCustomFont": true,
           "glyphCount": 14
         }
       ]
@@ -938,9 +962,9 @@
       "file": "layout-regulations-section-2.html",
       "fonts": [
         {
-          "familyName": "KaiTi",
-          "postScriptName": "KaiTi",
-          "isCustomFont": false,
+          "familyName": "Source Han Serif CN Heavy",
+          "postScriptName": "SourceHanSerifCN-Heavy",
+          "isCustomFont": true,
           "glyphCount": 14
         }
       ]
@@ -949,9 +973,9 @@
       "file": "layout-regulations-section-2.html",
       "fonts": [
         {
-          "familyName": "KaiTi",
-          "postScriptName": "KaiTi",
-          "isCustomFont": false,
+          "familyName": "Source Han Serif CN Heavy",
+          "postScriptName": "SourceHanSerifCN-Heavy",
+          "isCustomFont": true,
           "glyphCount": 14
         }
       ]
@@ -960,9 +984,9 @@
       "file": "layout-research-groups-section-1.html",
       "fonts": [
         {
-          "familyName": "KaiTi",
-          "postScriptName": "KaiTi",
-          "isCustomFont": false,
+          "familyName": "Source Han Serif CN Heavy",
+          "postScriptName": "SourceHanSerifCN-Heavy",
+          "isCustomFont": true,
           "glyphCount": 14
         }
       ]
@@ -971,9 +995,9 @@
       "file": "layout-research-groups-section-1.html",
       "fonts": [
         {
-          "familyName": "KaiTi",
-          "postScriptName": "KaiTi",
-          "isCustomFont": false,
+          "familyName": "Source Han Serif CN Heavy",
+          "postScriptName": "SourceHanSerifCN-Heavy",
+          "isCustomFont": true,
           "glyphCount": 14
         }
       ]
@@ -982,9 +1006,9 @@
       "file": "layout-research-platforms-section-1.html",
       "fonts": [
         {
-          "familyName": "KaiTi",
-          "postScriptName": "KaiTi",
-          "isCustomFont": false,
+          "familyName": "Source Han Serif CN Heavy",
+          "postScriptName": "SourceHanSerifCN-Heavy",
+          "isCustomFont": true,
           "glyphCount": 14
         }
       ]
@@ -993,9 +1017,9 @@
       "file": "layout-research-platforms-section-1.html",
       "fonts": [
         {
-          "familyName": "KaiTi",
-          "postScriptName": "KaiTi",
-          "isCustomFont": false,
+          "familyName": "Source Han Serif CN Heavy",
+          "postScriptName": "SourceHanSerifCN-Heavy",
+          "isCustomFont": true,
           "glyphCount": 14
         }
       ]
@@ -1004,9 +1028,9 @@
       "file": "layout-science-innovation-section-1.html",
       "fonts": [
         {
-          "familyName": "KaiTi",
-          "postScriptName": "KaiTi",
-          "isCustomFont": false,
+          "familyName": "Source Han Serif CN Heavy",
+          "postScriptName": "SourceHanSerifCN-Heavy",
+          "isCustomFont": true,
           "glyphCount": 14
         }
       ]
@@ -1015,9 +1039,9 @@
       "file": "layout-science-innovation-section-1.html",
       "fonts": [
         {
-          "familyName": "KaiTi",
-          "postScriptName": "KaiTi",
-          "isCustomFont": false,
+          "familyName": "Source Han Serif CN Heavy",
+          "postScriptName": "SourceHanSerifCN-Heavy",
+          "isCustomFont": true,
           "glyphCount": 14
         }
       ]
@@ -1026,9 +1050,9 @@
       "file": "layout-science-innovation-section-2.html",
       "fonts": [
         {
-          "familyName": "KaiTi",
-          "postScriptName": "KaiTi",
-          "isCustomFont": false,
+          "familyName": "Source Han Serif CN Heavy",
+          "postScriptName": "SourceHanSerifCN-Heavy",
+          "isCustomFont": true,
           "glyphCount": 14
         }
       ]
@@ -1037,9 +1061,9 @@
       "file": "layout-science-innovation-section-2.html",
       "fonts": [
         {
-          "familyName": "KaiTi",
-          "postScriptName": "KaiTi",
-          "isCustomFont": false,
+          "familyName": "Source Han Serif CN Heavy",
+          "postScriptName": "SourceHanSerifCN-Heavy",
+          "isCustomFont": true,
           "glyphCount": 14
         }
       ]
@@ -1048,9 +1072,9 @@
       "file": "layout-science-innovation-section-3.html",
       "fonts": [
         {
-          "familyName": "KaiTi",
-          "postScriptName": "KaiTi",
-          "isCustomFont": false,
+          "familyName": "Source Han Serif CN Heavy",
+          "postScriptName": "SourceHanSerifCN-Heavy",
+          "isCustomFont": true,
           "glyphCount": 14
         }
       ]
@@ -1059,9 +1083,9 @@
       "file": "layout-science-innovation-section-3.html",
       "fonts": [
         {
-          "familyName": "KaiTi",
-          "postScriptName": "KaiTi",
-          "isCustomFont": false,
+          "familyName": "Source Han Serif CN Heavy",
+          "postScriptName": "SourceHanSerifCN-Heavy",
+          "isCustomFont": true,
           "glyphCount": 14
         }
       ]
@@ -1070,9 +1094,9 @@
       "file": "layout-talent-cultivation-section-1.html",
       "fonts": [
         {
-          "familyName": "KaiTi",
-          "postScriptName": "KaiTi",
-          "isCustomFont": false,
+          "familyName": "Source Han Serif CN Heavy",
+          "postScriptName": "SourceHanSerifCN-Heavy",
+          "isCustomFont": true,
           "glyphCount": 14
         }
       ]
@@ -1081,9 +1105,9 @@
       "file": "layout-talent-cultivation-section-1.html",
       "fonts": [
         {
-          "familyName": "KaiTi",
-          "postScriptName": "KaiTi",
-          "isCustomFont": false,
+          "familyName": "Source Han Serif CN Heavy",
+          "postScriptName": "SourceHanSerifCN-Heavy",
+          "isCustomFont": true,
           "glyphCount": 14
         }
       ]
@@ -1092,9 +1116,9 @@
       "file": "layout-talent-cultivation-section-2.html",
       "fonts": [
         {
-          "familyName": "KaiTi",
-          "postScriptName": "KaiTi",
-          "isCustomFont": false,
+          "familyName": "Source Han Serif CN Heavy",
+          "postScriptName": "SourceHanSerifCN-Heavy",
+          "isCustomFont": true,
           "glyphCount": 14
         }
       ]
@@ -1103,9 +1127,9 @@
       "file": "layout-talent-cultivation-section-2.html",
       "fonts": [
         {
-          "familyName": "KaiTi",
-          "postScriptName": "KaiTi",
-          "isCustomFont": false,
+          "familyName": "Source Han Serif CN Heavy",
+          "postScriptName": "SourceHanSerifCN-Heavy",
+          "isCustomFont": true,
           "glyphCount": 14
         }
       ]
@@ -1114,9 +1138,9 @@
       "file": "media-section-1.html",
       "fonts": [
         {
-          "familyName": "KaiTi",
-          "postScriptName": "KaiTi",
-          "isCustomFont": false,
+          "familyName": "Source Han Serif CN Heavy",
+          "postScriptName": "SourceHanSerifCN-Heavy",
+          "isCustomFont": true,
           "glyphCount": 14
         }
       ]
@@ -1125,9 +1149,9 @@
       "file": "media-section-1.html",
       "fonts": [
         {
-          "familyName": "KaiTi",
-          "postScriptName": "KaiTi",
-          "isCustomFont": false,
+          "familyName": "Source Han Serif CN Heavy",
+          "postScriptName": "SourceHanSerifCN-Heavy",
+          "isCustomFont": true,
           "glyphCount": 14
         }
       ]
@@ -1136,9 +1160,9 @@
       "file": "media.html",
       "fonts": [
         {
-          "familyName": "KaiTi",
-          "postScriptName": "KaiTi",
-          "isCustomFont": false,
+          "familyName": "Source Han Serif CN Heavy",
+          "postScriptName": "SourceHanSerifCN-Heavy",
+          "isCustomFont": true,
           "glyphCount": 14
         }
       ]
@@ -1147,9 +1171,9 @@
       "file": "media.html",
       "fonts": [
         {
-          "familyName": "KaiTi",
-          "postScriptName": "KaiTi",
-          "isCustomFont": false,
+          "familyName": "Source Han Serif CN Heavy",
+          "postScriptName": "SourceHanSerifCN-Heavy",
+          "isCustomFont": true,
           "glyphCount": 4
         }
       ]
@@ -1158,9 +1182,9 @@
       "file": "media.html",
       "fonts": [
         {
-          "familyName": "KaiTi",
-          "postScriptName": "KaiTi",
-          "isCustomFont": false,
+          "familyName": "Source Han Serif CN Heavy",
+          "postScriptName": "SourceHanSerifCN-Heavy",
+          "isCustomFont": true,
           "glyphCount": 14
         }
       ]
@@ -1169,9 +1193,9 @@
       "file": "news-preview-1.html",
       "fonts": [
         {
-          "familyName": "KaiTi",
-          "postScriptName": "KaiTi",
-          "isCustomFont": false,
+          "familyName": "Source Han Serif CN Heavy",
+          "postScriptName": "SourceHanSerifCN-Heavy",
+          "isCustomFont": true,
           "glyphCount": 14
         }
       ]
@@ -1180,9 +1204,9 @@
       "file": "news-preview-1.html",
       "fonts": [
         {
-          "familyName": "KaiTi",
-          "postScriptName": "KaiTi",
-          "isCustomFont": false,
+          "familyName": "Source Han Serif CN Heavy",
+          "postScriptName": "SourceHanSerifCN-Heavy",
+          "isCustomFont": true,
           "glyphCount": 14
         }
       ]
@@ -1191,9 +1215,9 @@
       "file": "news-preview-2.html",
       "fonts": [
         {
-          "familyName": "KaiTi",
-          "postScriptName": "KaiTi",
-          "isCustomFont": false,
+          "familyName": "Source Han Serif CN Heavy",
+          "postScriptName": "SourceHanSerifCN-Heavy",
+          "isCustomFont": true,
           "glyphCount": 14
         }
       ]
@@ -1202,9 +1226,9 @@
       "file": "news-preview-2.html",
       "fonts": [
         {
-          "familyName": "KaiTi",
-          "postScriptName": "KaiTi",
-          "isCustomFont": false,
+          "familyName": "Source Han Serif CN Heavy",
+          "postScriptName": "SourceHanSerifCN-Heavy",
+          "isCustomFont": true,
           "glyphCount": 14
         }
       ]
@@ -1213,9 +1237,9 @@
       "file": "news-preview-3.html",
       "fonts": [
         {
-          "familyName": "KaiTi",
-          "postScriptName": "KaiTi",
-          "isCustomFont": false,
+          "familyName": "Source Han Serif CN Heavy",
+          "postScriptName": "SourceHanSerifCN-Heavy",
+          "isCustomFont": true,
           "glyphCount": 14
         }
       ]
@@ -1224,9 +1248,9 @@
       "file": "news-preview-3.html",
       "fonts": [
         {
-          "familyName": "KaiTi",
-          "postScriptName": "KaiTi",
-          "isCustomFont": false,
+          "familyName": "Source Han Serif CN Heavy",
+          "postScriptName": "SourceHanSerifCN-Heavy",
+          "isCustomFont": true,
           "glyphCount": 14
         }
       ]
@@ -1235,9 +1259,9 @@
       "file": "news-preview-4.html",
       "fonts": [
         {
-          "familyName": "KaiTi",
-          "postScriptName": "KaiTi",
-          "isCustomFont": false,
+          "familyName": "Source Han Serif CN Heavy",
+          "postScriptName": "SourceHanSerifCN-Heavy",
+          "isCustomFont": true,
           "glyphCount": 14
         }
       ]
@@ -1246,9 +1270,9 @@
       "file": "news-preview-4.html",
       "fonts": [
         {
-          "familyName": "KaiTi",
-          "postScriptName": "KaiTi",
-          "isCustomFont": false,
+          "familyName": "Source Han Serif CN Heavy",
+          "postScriptName": "SourceHanSerifCN-Heavy",
+          "isCustomFont": true,
           "glyphCount": 14
         }
       ]
@@ -1257,9 +1281,9 @@
       "file": "news.html",
       "fonts": [
         {
-          "familyName": "KaiTi",
-          "postScriptName": "KaiTi",
-          "isCustomFont": false,
+          "familyName": "Source Han Serif CN Heavy",
+          "postScriptName": "SourceHanSerifCN-Heavy",
+          "isCustomFont": true,
           "glyphCount": 14
         }
       ]
@@ -1268,9 +1292,9 @@
       "file": "news.html",
       "fonts": [
         {
-          "familyName": "KaiTi",
-          "postScriptName": "KaiTi",
-          "isCustomFont": false,
+          "familyName": "Source Han Serif CN Heavy",
+          "postScriptName": "SourceHanSerifCN-Heavy",
+          "isCustomFont": true,
           "glyphCount": 14
         }
       ]
@@ -1279,9 +1303,9 @@
       "file": "notice-preview-1.html",
       "fonts": [
         {
-          "familyName": "KaiTi",
-          "postScriptName": "KaiTi",
-          "isCustomFont": false,
+          "familyName": "Source Han Serif CN Heavy",
+          "postScriptName": "SourceHanSerifCN-Heavy",
+          "isCustomFont": true,
           "glyphCount": 14
         }
       ]
@@ -1290,9 +1314,9 @@
       "file": "notice-preview-1.html",
       "fonts": [
         {
-          "familyName": "KaiTi",
-          "postScriptName": "KaiTi",
-          "isCustomFont": false,
+          "familyName": "Source Han Serif CN Heavy",
+          "postScriptName": "SourceHanSerifCN-Heavy",
+          "isCustomFont": true,
           "glyphCount": 14
         }
       ]
@@ -1301,9 +1325,9 @@
       "file": "notice-preview-2.html",
       "fonts": [
         {
-          "familyName": "KaiTi",
-          "postScriptName": "KaiTi",
-          "isCustomFont": false,
+          "familyName": "Source Han Serif CN Heavy",
+          "postScriptName": "SourceHanSerifCN-Heavy",
+          "isCustomFont": true,
           "glyphCount": 14
         }
       ]
@@ -1312,9 +1336,9 @@
       "file": "notice-preview-2.html",
       "fonts": [
         {
-          "familyName": "KaiTi",
-          "postScriptName": "KaiTi",
-          "isCustomFont": false,
+          "familyName": "Source Han Serif CN Heavy",
+          "postScriptName": "SourceHanSerifCN-Heavy",
+          "isCustomFont": true,
           "glyphCount": 14
         }
       ]
@@ -1323,9 +1347,9 @@
       "file": "notice-preview-3.html",
       "fonts": [
         {
-          "familyName": "KaiTi",
-          "postScriptName": "KaiTi",
-          "isCustomFont": false,
+          "familyName": "Source Han Serif CN Heavy",
+          "postScriptName": "SourceHanSerifCN-Heavy",
+          "isCustomFont": true,
           "glyphCount": 14
         }
       ]
@@ -1334,9 +1358,9 @@
       "file": "notice-preview-3.html",
       "fonts": [
         {
-          "familyName": "KaiTi",
-          "postScriptName": "KaiTi",
-          "isCustomFont": false,
+          "familyName": "Source Han Serif CN Heavy",
+          "postScriptName": "SourceHanSerifCN-Heavy",
+          "isCustomFont": true,
           "glyphCount": 14
         }
       ]
@@ -1345,9 +1369,9 @@
       "file": "notices.html",
       "fonts": [
         {
-          "familyName": "KaiTi",
-          "postScriptName": "KaiTi",
-          "isCustomFont": false,
+          "familyName": "Source Han Serif CN Heavy",
+          "postScriptName": "SourceHanSerifCN-Heavy",
+          "isCustomFont": true,
           "glyphCount": 14
         }
       ]
@@ -1356,9 +1380,9 @@
       "file": "notices.html",
       "fonts": [
         {
-          "familyName": "KaiTi",
-          "postScriptName": "KaiTi",
-          "isCustomFont": false,
+          "familyName": "Source Han Serif CN Heavy",
+          "postScriptName": "SourceHanSerifCN-Heavy",
+          "isCustomFont": true,
           "glyphCount": 14
         }
       ]
@@ -1367,9 +1391,9 @@
       "file": "party-building-section-1.html",
       "fonts": [
         {
-          "familyName": "KaiTi",
-          "postScriptName": "KaiTi",
-          "isCustomFont": false,
+          "familyName": "Source Han Serif CN Heavy",
+          "postScriptName": "SourceHanSerifCN-Heavy",
+          "isCustomFont": true,
           "glyphCount": 14
         }
       ]
@@ -1378,9 +1402,9 @@
       "file": "party-building-section-1.html",
       "fonts": [
         {
-          "familyName": "KaiTi",
-          "postScriptName": "KaiTi",
-          "isCustomFont": false,
+          "familyName": "Source Han Serif CN Heavy",
+          "postScriptName": "SourceHanSerifCN-Heavy",
+          "isCustomFont": true,
           "glyphCount": 14
         }
       ]
@@ -1389,9 +1413,9 @@
       "file": "party-building-section-2.html",
       "fonts": [
         {
-          "familyName": "KaiTi",
-          "postScriptName": "KaiTi",
-          "isCustomFont": false,
+          "familyName": "Source Han Serif CN Heavy",
+          "postScriptName": "SourceHanSerifCN-Heavy",
+          "isCustomFont": true,
           "glyphCount": 14
         }
       ]
@@ -1400,9 +1424,9 @@
       "file": "party-building-section-2.html",
       "fonts": [
         {
-          "familyName": "KaiTi",
-          "postScriptName": "KaiTi",
-          "isCustomFont": false,
+          "familyName": "Source Han Serif CN Heavy",
+          "postScriptName": "SourceHanSerifCN-Heavy",
+          "isCustomFont": true,
           "glyphCount": 14
         }
       ]
@@ -1411,9 +1435,9 @@
       "file": "party-building.html",
       "fonts": [
         {
-          "familyName": "KaiTi",
-          "postScriptName": "KaiTi",
-          "isCustomFont": false,
+          "familyName": "Source Han Serif CN Heavy",
+          "postScriptName": "SourceHanSerifCN-Heavy",
+          "isCustomFont": true,
           "glyphCount": 14
         }
       ]
@@ -1422,9 +1446,9 @@
       "file": "party-building.html",
       "fonts": [
         {
-          "familyName": "KaiTi",
-          "postScriptName": "KaiTi",
-          "isCustomFont": false,
+          "familyName": "Source Han Serif CN Heavy",
+          "postScriptName": "SourceHanSerifCN-Heavy",
+          "isCustomFont": true,
           "glyphCount": 4
         }
       ]
@@ -1433,9 +1457,9 @@
       "file": "party-building.html",
       "fonts": [
         {
-          "familyName": "KaiTi",
-          "postScriptName": "KaiTi",
-          "isCustomFont": false,
+          "familyName": "Source Han Serif CN Heavy",
+          "postScriptName": "SourceHanSerifCN-Heavy",
+          "isCustomFont": true,
           "glyphCount": 4
         }
       ]
@@ -1444,9 +1468,9 @@
       "file": "party-building.html",
       "fonts": [
         {
-          "familyName": "KaiTi",
-          "postScriptName": "KaiTi",
-          "isCustomFont": false,
+          "familyName": "Source Han Serif CN Heavy",
+          "postScriptName": "SourceHanSerifCN-Heavy",
+          "isCustomFont": true,
           "glyphCount": 14
         }
       ]
@@ -1455,9 +1479,9 @@
       "file": "public-service-section-1.html",
       "fonts": [
         {
-          "familyName": "KaiTi",
-          "postScriptName": "KaiTi",
-          "isCustomFont": false,
+          "familyName": "Source Han Serif CN Heavy",
+          "postScriptName": "SourceHanSerifCN-Heavy",
+          "isCustomFont": true,
           "glyphCount": 14
         }
       ]
@@ -1466,9 +1490,9 @@
       "file": "public-service-section-1.html",
       "fonts": [
         {
-          "familyName": "KaiTi",
-          "postScriptName": "KaiTi",
-          "isCustomFont": false,
+          "familyName": "Source Han Serif CN Heavy",
+          "postScriptName": "SourceHanSerifCN-Heavy",
+          "isCustomFont": true,
           "glyphCount": 14
         }
       ]
@@ -1477,9 +1501,9 @@
       "file": "public-service.html",
       "fonts": [
         {
-          "familyName": "KaiTi",
-          "postScriptName": "KaiTi",
-          "isCustomFont": false,
+          "familyName": "Source Han Serif CN Heavy",
+          "postScriptName": "SourceHanSerifCN-Heavy",
+          "isCustomFont": true,
           "glyphCount": 14
         }
       ]
@@ -1488,9 +1512,9 @@
       "file": "public-service.html",
       "fonts": [
         {
-          "familyName": "KaiTi",
-          "postScriptName": "KaiTi",
-          "isCustomFont": false,
+          "familyName": "Source Han Serif CN Heavy",
+          "postScriptName": "SourceHanSerifCN-Heavy",
+          "isCustomFont": true,
           "glyphCount": 4
         }
       ]
@@ -1499,9 +1523,9 @@
       "file": "public-service.html",
       "fonts": [
         {
-          "familyName": "KaiTi",
-          "postScriptName": "KaiTi",
-          "isCustomFont": false,
+          "familyName": "Source Han Serif CN Heavy",
+          "postScriptName": "SourceHanSerifCN-Heavy",
+          "isCustomFont": true,
           "glyphCount": 14
         }
       ]
@@ -1510,9 +1534,9 @@
       "file": "regulations-section-1.html",
       "fonts": [
         {
-          "familyName": "KaiTi",
-          "postScriptName": "KaiTi",
-          "isCustomFont": false,
+          "familyName": "Source Han Serif CN Heavy",
+          "postScriptName": "SourceHanSerifCN-Heavy",
+          "isCustomFont": true,
           "glyphCount": 14
         }
       ]
@@ -1521,9 +1545,9 @@
       "file": "regulations-section-1.html",
       "fonts": [
         {
-          "familyName": "KaiTi",
-          "postScriptName": "KaiTi",
-          "isCustomFont": false,
+          "familyName": "Source Han Serif CN Heavy",
+          "postScriptName": "SourceHanSerifCN-Heavy",
+          "isCustomFont": true,
           "glyphCount": 14
         }
       ]
@@ -1532,9 +1556,9 @@
       "file": "regulations-section-2.html",
       "fonts": [
         {
-          "familyName": "KaiTi",
-          "postScriptName": "KaiTi",
-          "isCustomFont": false,
+          "familyName": "Source Han Serif CN Heavy",
+          "postScriptName": "SourceHanSerifCN-Heavy",
+          "isCustomFont": true,
           "glyphCount": 14
         }
       ]
@@ -1543,9 +1567,9 @@
       "file": "regulations-section-2.html",
       "fonts": [
         {
-          "familyName": "KaiTi",
-          "postScriptName": "KaiTi",
-          "isCustomFont": false,
+          "familyName": "Source Han Serif CN Heavy",
+          "postScriptName": "SourceHanSerifCN-Heavy",
+          "isCustomFont": true,
           "glyphCount": 14
         }
       ]
@@ -1554,9 +1578,9 @@
       "file": "regulations.html",
       "fonts": [
         {
-          "familyName": "KaiTi",
-          "postScriptName": "KaiTi",
-          "isCustomFont": false,
+          "familyName": "Source Han Serif CN Heavy",
+          "postScriptName": "SourceHanSerifCN-Heavy",
+          "isCustomFont": true,
           "glyphCount": 14
         }
       ]
@@ -1565,9 +1589,9 @@
       "file": "regulations.html",
       "fonts": [
         {
-          "familyName": "KaiTi",
-          "postScriptName": "KaiTi",
-          "isCustomFont": false,
+          "familyName": "Source Han Serif CN Heavy",
+          "postScriptName": "SourceHanSerifCN-Heavy",
+          "isCustomFont": true,
           "glyphCount": 4
         }
       ]
@@ -1576,9 +1600,9 @@
       "file": "regulations.html",
       "fonts": [
         {
-          "familyName": "KaiTi",
-          "postScriptName": "KaiTi",
-          "isCustomFont": false,
+          "familyName": "Source Han Serif CN Heavy",
+          "postScriptName": "SourceHanSerifCN-Heavy",
+          "isCustomFont": true,
           "glyphCount": 4
         }
       ]
@@ -1587,9 +1611,9 @@
       "file": "regulations.html",
       "fonts": [
         {
-          "familyName": "KaiTi",
-          "postScriptName": "KaiTi",
-          "isCustomFont": false,
+          "familyName": "Source Han Serif CN Heavy",
+          "postScriptName": "SourceHanSerifCN-Heavy",
+          "isCustomFont": true,
           "glyphCount": 14
         }
       ]
@@ -1598,9 +1622,9 @@
       "file": "research-groups-section-1.html",
       "fonts": [
         {
-          "familyName": "KaiTi",
-          "postScriptName": "KaiTi",
-          "isCustomFont": false,
+          "familyName": "Source Han Serif CN Heavy",
+          "postScriptName": "SourceHanSerifCN-Heavy",
+          "isCustomFont": true,
           "glyphCount": 14
         }
       ]
@@ -1609,9 +1633,9 @@
       "file": "research-groups-section-1.html",
       "fonts": [
         {
-          "familyName": "KaiTi",
-          "postScriptName": "KaiTi",
-          "isCustomFont": false,
+          "familyName": "Source Han Serif CN Heavy",
+          "postScriptName": "SourceHanSerifCN-Heavy",
+          "isCustomFont": true,
           "glyphCount": 14
         }
       ]
@@ -1620,9 +1644,9 @@
       "file": "research-groups.html",
       "fonts": [
         {
-          "familyName": "KaiTi",
-          "postScriptName": "KaiTi",
-          "isCustomFont": false,
+          "familyName": "Source Han Serif CN Heavy",
+          "postScriptName": "SourceHanSerifCN-Heavy",
+          "isCustomFont": true,
           "glyphCount": 14
         }
       ]
@@ -1631,9 +1655,9 @@
       "file": "research-groups.html",
       "fonts": [
         {
-          "familyName": "KaiTi",
-          "postScriptName": "KaiTi",
-          "isCustomFont": false,
+          "familyName": "Source Han Serif CN Heavy",
+          "postScriptName": "SourceHanSerifCN-Heavy",
+          "isCustomFont": true,
           "glyphCount": 3
         }
       ]
@@ -1642,9 +1666,9 @@
       "file": "research-groups.html",
       "fonts": [
         {
-          "familyName": "KaiTi",
-          "postScriptName": "KaiTi",
-          "isCustomFont": false,
+          "familyName": "Source Han Serif CN Heavy",
+          "postScriptName": "SourceHanSerifCN-Heavy",
+          "isCustomFont": true,
           "glyphCount": 14
         }
       ]
@@ -1653,9 +1677,9 @@
       "file": "research-platforms-section-1.html",
       "fonts": [
         {
-          "familyName": "KaiTi",
-          "postScriptName": "KaiTi",
-          "isCustomFont": false,
+          "familyName": "Source Han Serif CN Heavy",
+          "postScriptName": "SourceHanSerifCN-Heavy",
+          "isCustomFont": true,
           "glyphCount": 14
         }
       ]
@@ -1664,9 +1688,9 @@
       "file": "research-platforms-section-1.html",
       "fonts": [
         {
-          "familyName": "KaiTi",
-          "postScriptName": "KaiTi",
-          "isCustomFont": false,
+          "familyName": "Source Han Serif CN Heavy",
+          "postScriptName": "SourceHanSerifCN-Heavy",
+          "isCustomFont": true,
           "glyphCount": 14
         }
       ]
@@ -1675,9 +1699,9 @@
       "file": "research-platforms.html",
       "fonts": [
         {
-          "familyName": "KaiTi",
-          "postScriptName": "KaiTi",
-          "isCustomFont": false,
+          "familyName": "Source Han Serif CN Heavy",
+          "postScriptName": "SourceHanSerifCN-Heavy",
+          "isCustomFont": true,
           "glyphCount": 14
         }
       ]
@@ -1686,9 +1710,9 @@
       "file": "research-platforms.html",
       "fonts": [
         {
-          "familyName": "KaiTi",
-          "postScriptName": "KaiTi",
-          "isCustomFont": false,
+          "familyName": "Source Han Serif CN Heavy",
+          "postScriptName": "SourceHanSerifCN-Heavy",
+          "isCustomFont": true,
           "glyphCount": 4
         }
       ]
@@ -1697,9 +1721,9 @@
       "file": "research-platforms.html",
       "fonts": [
         {
-          "familyName": "KaiTi",
-          "postScriptName": "KaiTi",
-          "isCustomFont": false,
+          "familyName": "Source Han Serif CN Heavy",
+          "postScriptName": "SourceHanSerifCN-Heavy",
+          "isCustomFont": true,
           "glyphCount": 14
         }
       ]
@@ -1708,9 +1732,9 @@
       "file": "science-innovation-section-1.html",
       "fonts": [
         {
-          "familyName": "KaiTi",
-          "postScriptName": "KaiTi",
-          "isCustomFont": false,
+          "familyName": "Source Han Serif CN Heavy",
+          "postScriptName": "SourceHanSerifCN-Heavy",
+          "isCustomFont": true,
           "glyphCount": 14
         }
       ]
@@ -1719,9 +1743,9 @@
       "file": "science-innovation-section-1.html",
       "fonts": [
         {
-          "familyName": "KaiTi",
-          "postScriptName": "KaiTi",
-          "isCustomFont": false,
+          "familyName": "Source Han Serif CN Heavy",
+          "postScriptName": "SourceHanSerifCN-Heavy",
+          "isCustomFont": true,
           "glyphCount": 14
         }
       ]
@@ -1730,9 +1754,9 @@
       "file": "science-innovation-section-2.html",
       "fonts": [
         {
-          "familyName": "KaiTi",
-          "postScriptName": "KaiTi",
-          "isCustomFont": false,
+          "familyName": "Source Han Serif CN Heavy",
+          "postScriptName": "SourceHanSerifCN-Heavy",
+          "isCustomFont": true,
           "glyphCount": 14
         }
       ]
@@ -1741,9 +1765,9 @@
       "file": "science-innovation-section-2.html",
       "fonts": [
         {
-          "familyName": "KaiTi",
-          "postScriptName": "KaiTi",
-          "isCustomFont": false,
+          "familyName": "Source Han Serif CN Heavy",
+          "postScriptName": "SourceHanSerifCN-Heavy",
+          "isCustomFont": true,
           "glyphCount": 14
         }
       ]
@@ -1752,9 +1776,9 @@
       "file": "science-innovation-section-3.html",
       "fonts": [
         {
-          "familyName": "KaiTi",
-          "postScriptName": "KaiTi",
-          "isCustomFont": false,
+          "familyName": "Source Han Serif CN Heavy",
+          "postScriptName": "SourceHanSerifCN-Heavy",
+          "isCustomFont": true,
           "glyphCount": 14
         }
       ]
@@ -1763,9 +1787,9 @@
       "file": "science-innovation-section-3.html",
       "fonts": [
         {
-          "familyName": "KaiTi",
-          "postScriptName": "KaiTi",
-          "isCustomFont": false,
+          "familyName": "Source Han Serif CN Heavy",
+          "postScriptName": "SourceHanSerifCN-Heavy",
+          "isCustomFont": true,
           "glyphCount": 14
         }
       ]
@@ -1774,9 +1798,9 @@
       "file": "science-innovation.html",
       "fonts": [
         {
-          "familyName": "KaiTi",
-          "postScriptName": "KaiTi",
-          "isCustomFont": false,
+          "familyName": "Source Han Serif CN Heavy",
+          "postScriptName": "SourceHanSerifCN-Heavy",
+          "isCustomFont": true,
           "glyphCount": 14
         }
       ]
@@ -1785,9 +1809,9 @@
       "file": "science-innovation.html",
       "fonts": [
         {
-          "familyName": "KaiTi",
-          "postScriptName": "KaiTi",
-          "isCustomFont": false,
+          "familyName": "Source Han Serif CN Heavy",
+          "postScriptName": "SourceHanSerifCN-Heavy",
+          "isCustomFont": true,
           "glyphCount": 4
         }
       ]
@@ -1796,9 +1820,9 @@
       "file": "science-innovation.html",
       "fonts": [
         {
-          "familyName": "KaiTi",
-          "postScriptName": "KaiTi",
-          "isCustomFont": false,
+          "familyName": "Source Han Serif CN Heavy",
+          "postScriptName": "SourceHanSerifCN-Heavy",
+          "isCustomFont": true,
           "glyphCount": 4
         }
       ]
@@ -1807,9 +1831,9 @@
       "file": "science-innovation.html",
       "fonts": [
         {
-          "familyName": "KaiTi",
-          "postScriptName": "KaiTi",
-          "isCustomFont": false,
+          "familyName": "Source Han Serif CN Heavy",
+          "postScriptName": "SourceHanSerifCN-Heavy",
+          "isCustomFont": true,
           "glyphCount": 4
         }
       ]
@@ -1818,9 +1842,9 @@
       "file": "science-innovation.html",
       "fonts": [
         {
-          "familyName": "KaiTi",
-          "postScriptName": "KaiTi",
-          "isCustomFont": false,
+          "familyName": "Source Han Serif CN Heavy",
+          "postScriptName": "SourceHanSerifCN-Heavy",
+          "isCustomFont": true,
           "glyphCount": 14
         }
       ]
@@ -1829,9 +1853,9 @@
       "file": "site-map.html",
       "fonts": [
         {
-          "familyName": "KaiTi",
-          "postScriptName": "KaiTi",
-          "isCustomFont": false,
+          "familyName": "Source Han Serif CN Heavy",
+          "postScriptName": "SourceHanSerifCN-Heavy",
+          "isCustomFont": true,
           "glyphCount": 14
         }
       ]
@@ -1840,9 +1864,9 @@
       "file": "site-map.html",
       "fonts": [
         {
-          "familyName": "KaiTi",
-          "postScriptName": "KaiTi",
-          "isCustomFont": false,
+          "familyName": "Source Han Serif CN Heavy",
+          "postScriptName": "SourceHanSerifCN-Heavy",
+          "isCustomFont": true,
           "glyphCount": 14
         }
       ]
@@ -1851,9 +1875,9 @@
       "file": "talent-cultivation-section-1.html",
       "fonts": [
         {
-          "familyName": "KaiTi",
-          "postScriptName": "KaiTi",
-          "isCustomFont": false,
+          "familyName": "Source Han Serif CN Heavy",
+          "postScriptName": "SourceHanSerifCN-Heavy",
+          "isCustomFont": true,
           "glyphCount": 14
         }
       ]
@@ -1862,9 +1886,9 @@
       "file": "talent-cultivation-section-1.html",
       "fonts": [
         {
-          "familyName": "KaiTi",
-          "postScriptName": "KaiTi",
-          "isCustomFont": false,
+          "familyName": "Source Han Serif CN Heavy",
+          "postScriptName": "SourceHanSerifCN-Heavy",
+          "isCustomFont": true,
           "glyphCount": 14
         }
       ]
@@ -1873,9 +1897,9 @@
       "file": "talent-cultivation-section-2.html",
       "fonts": [
         {
-          "familyName": "KaiTi",
-          "postScriptName": "KaiTi",
-          "isCustomFont": false,
+          "familyName": "Source Han Serif CN Heavy",
+          "postScriptName": "SourceHanSerifCN-Heavy",
+          "isCustomFont": true,
           "glyphCount": 14
         }
       ]
@@ -1884,9 +1908,9 @@
       "file": "talent-cultivation-section-2.html",
       "fonts": [
         {
-          "familyName": "KaiTi",
-          "postScriptName": "KaiTi",
-          "isCustomFont": false,
+          "familyName": "Source Han Serif CN Heavy",
+          "postScriptName": "SourceHanSerifCN-Heavy",
+          "isCustomFont": true,
           "glyphCount": 14
         }
       ]
@@ -1895,9 +1919,9 @@
       "file": "talent-cultivation.html",
       "fonts": [
         {
-          "familyName": "KaiTi",
-          "postScriptName": "KaiTi",
-          "isCustomFont": false,
+          "familyName": "Source Han Serif CN Heavy",
+          "postScriptName": "SourceHanSerifCN-Heavy",
+          "isCustomFont": true,
           "glyphCount": 14
         }
       ]
@@ -1906,9 +1930,9 @@
       "file": "talent-cultivation.html",
       "fonts": [
         {
-          "familyName": "KaiTi",
-          "postScriptName": "KaiTi",
-          "isCustomFont": false,
+          "familyName": "Source Han Serif CN Heavy",
+          "postScriptName": "SourceHanSerifCN-Heavy",
+          "isCustomFont": true,
           "glyphCount": 5
         }
       ]
@@ -1917,9 +1941,9 @@
       "file": "talent-cultivation.html",
       "fonts": [
         {
-          "familyName": "KaiTi",
-          "postScriptName": "KaiTi",
-          "isCustomFont": false,
+          "familyName": "Source Han Serif CN Heavy",
+          "postScriptName": "SourceHanSerifCN-Heavy",
+          "isCustomFont": true,
           "glyphCount": 7
         }
       ]
@@ -1928,9 +1952,9 @@
       "file": "talent-cultivation.html",
       "fonts": [
         {
-          "familyName": "KaiTi",
-          "postScriptName": "KaiTi",
-          "isCustomFont": false,
+          "familyName": "Source Han Serif CN Heavy",
+          "postScriptName": "SourceHanSerifCN-Heavy",
+          "isCustomFont": true,
           "glyphCount": 14
         }
       ]
@@ -1939,9 +1963,9 @@
       "file": "teacher-cheng-gang.html",
       "fonts": [
         {
-          "familyName": "KaiTi",
-          "postScriptName": "KaiTi",
-          "isCustomFont": false,
+          "familyName": "Source Han Serif CN Heavy",
+          "postScriptName": "SourceHanSerifCN-Heavy",
+          "isCustomFont": true,
           "glyphCount": 14
         }
       ]
@@ -1950,9 +1974,9 @@
       "file": "teacher-cheng-gang.html",
       "fonts": [
         {
-          "familyName": "KaiTi",
-          "postScriptName": "KaiTi",
-          "isCustomFont": false,
+          "familyName": "Source Han Serif CN Heavy",
+          "postScriptName": "SourceHanSerifCN-Heavy",
+          "isCustomFont": true,
           "glyphCount": 14
         }
       ]
@@ -1961,9 +1985,9 @@
       "file": "teacher-zhang-jinlong.html",
       "fonts": [
         {
-          "familyName": "KaiTi",
-          "postScriptName": "KaiTi",
-          "isCustomFont": false,
+          "familyName": "Source Han Serif CN Heavy",
+          "postScriptName": "SourceHanSerifCN-Heavy",
+          "isCustomFont": true,
           "glyphCount": 14
         }
       ]
@@ -1972,9 +1996,9 @@
       "file": "teacher-zhang-jinlong.html",
       "fonts": [
         {
-          "familyName": "KaiTi",
-          "postScriptName": "KaiTi",
-          "isCustomFont": false,
+          "familyName": "Source Han Serif CN Heavy",
+          "postScriptName": "SourceHanSerifCN-Heavy",
+          "isCustomFont": true,
           "glyphCount": 14
         }
       ]
@@ -1983,9 +2007,9 @@
       "file": "teacher-zheng-haiwu.html",
       "fonts": [
         {
-          "familyName": "KaiTi",
-          "postScriptName": "KaiTi",
-          "isCustomFont": false,
+          "familyName": "Source Han Serif CN Heavy",
+          "postScriptName": "SourceHanSerifCN-Heavy",
+          "isCustomFont": true,
           "glyphCount": 14
         }
       ]
@@ -1994,9 +2018,9 @@
       "file": "teacher-zheng-haiwu.html",
       "fonts": [
         {
-          "familyName": "KaiTi",
-          "postScriptName": "KaiTi",
-          "isCustomFont": false,
+          "familyName": "Source Han Serif CN Heavy",
+          "postScriptName": "SourceHanSerifCN-Heavy",
+          "isCustomFont": true,
           "glyphCount": 14
         }
       ]
@@ -2006,14 +2030,14 @@
     "snap": {
       "stop": 311.5,
       "midway": {
-        "y": 248,
+        "y": 242,
         "state": "settling"
       },
       "end": 312
     },
     "liveOpacity": {
-      "before": 0.608375,
-      "after": 0.770086
+      "before": 0.273861,
+      "after": 0.442659
     },
     "opacity": [
       0,
@@ -2087,9 +2111,9 @@
   ],
   "fallbackFonts": [
     {
-      "familyName": "LXGW WenKai TC",
-      "postScriptName": "LXGWWenKaiTC-Regular",
-      "isCustomFont": true,
+      "familyName": "Songti SC",
+      "postScriptName": "STSongti-SC-Regular",
+      "isCustomFont": false,
       "glyphCount": 4
     }
   ],

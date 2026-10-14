@@ -23,16 +23,31 @@ assert(fontBytes <= 150 * 1024, `标题字体子集过大：${fontBytes} 字节`
     const cdp = await page.context().newCDPSession(page);
     await cdp.send('DOM.enable');
     await cdp.send('CSS.enable');
+    const titleSelector = '.brand-motto, .editorial-heading h2, .feature-intro, .footer-motto';
+    const platformFonts = async () => {
+      const dom = await cdp.send('DOM.getDocument');
+      const { nodeIds } = await cdp.send('DOM.querySelectorAll', { nodeId: dom.root.nodeId, selector: titleSelector });
+      const out = [];
+      for (const nodeId of nodeIds) out.push((await cdp.send('CSS.getPlatformFontsForNode', { nodeId })).fonts);
+      return out;
+    };
     for (const file of fs.readdirSync(path.join(root, 'preview')).filter(f => f.endsWith('.html'))) {
       await page.goto(`${base}/${file}`);
-      await page.evaluate(() => document.fonts.ready);
-      const dom = await cdp.send('DOM.getDocument');
-      const { nodeIds } = await cdp.send('DOM.querySelectorAll', { nodeId: dom.root.nodeId, selector: '.brand-motto, .editorial-heading h2, .feature-intro, .footer-campus p' });
-      for (const nodeId of nodeIds) {
-        const { fonts } = await cdp.send('CSS.getPlatformFontsForNode', { nodeId });
-        assert(fonts.length && fonts.every(f => f.isCustomFont), `${file}: 标题区域出现回退字体 ${JSON.stringify(fonts)}`);
-        report.fonts.push({ file, fonts });
-      }
+      // 先把已声明的字面都 load 完，再量。只等 fonts.ready 不够：@font-face 还没被请求时它就已经 resolve。
+      // 这不会掩盖 CSS 没引用自托管字体的情况——下面量的是实际渲染字体。
+      await page.evaluate(async () => {
+        await Promise.all([...document.fonts].map(f => f.load().catch(() => {})));
+        await document.fonts.ready;
+      });
+      // 量实际渲染字体。若下面报错里字体面状态是 `|error`，那是字体文件请求失败
+      // （本地 `python3 -m http.server` 在多路并发抓站时会 ERR_CONNECTION_RESET），不是 CSS 或子集的问题；
+      // 单人跑一次即可复现干净结果。状态是 `|loaded` 却仍报回退，才是真问题。
+      const fonts = await platformFonts();
+      const faceStatus = await page.evaluate(() => [...document.fonts].map(f => `${f.family}|${f.status}`).join(', '));
+      fonts.forEach(f => {
+        assert(f.length && f.every(x => x.isCustomFont), `${file}: 标题区域出现回退字体 ${JSON.stringify(f)}；字体面状态 ${faceStatus}`);
+        report.fonts.push({ file, fonts: f });
+      });
       const styles = await page.locator('.editorial-heading h2').evaluateAll(es => es.map(e => ({ family: getComputedStyle(e).fontFamily, weight: getComputedStyle(e).fontWeight })));
       assert(styles.every(s => s.family.replace(/["']/g, '').startsWith('IC ZhuangSong') && s.weight === '400'), `${file}: ${JSON.stringify(styles)}`);
       assert(!(await page.locator('body').evaluate(e => getComputedStyle(e).fontFamily)).includes('IC ZhuangSong'));
@@ -41,15 +56,17 @@ assert(fontBytes <= 150 * 1024, `标题字体子集过大：${fontBytes} 字节`
     await page.goto(base + '/about.html');
     assert.equal(await page.locator('[data-overview-section]').count(), 3);
     assert.deepEqual(await page.locator('.editorial-heading h2').allTextContents(), ['学院简介', '组织机构', '领导班子']);
-    const stop = await page.locator('[data-overview-section]').first().evaluate(e => e.getBoundingClientRect().top + scrollY - parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--header-compact-height')));
+    // 吸附落点 = 元素顶 - 该元素自己的 scroll-margin-top（CSS 里绑 --header-compact-height）。读计算值，别再写死 91。
+    const stop = await page.locator('[data-overview-section]').first().evaluate(e => e.getBoundingClientRect().top + scrollY - parseFloat(getComputedStyle(e).scrollMarginTop));
     await page.evaluate(y => scrollTo(0, y - 110), stop);
     await page.mouse.move(900, 700);
     await page.mouse.wheel(0, 40);
-    await page.waitForTimeout(500);
+    // 等状态机自己进入 settling，别用固定 sleep 赌它还在（固定 500ms 会偶发采到 idle，被误读成"时序不稳定"）。
+    await page.waitForFunction(() => document.documentElement.dataset.scrollState === 'settling', null, { timeout: 3000 });
     const midway = await page.evaluate(() => ({ y: scrollY, state: document.documentElement.dataset.scrollState }));
     assert.equal(midway.state, 'settling');
     assert(midway.y < stop);
-    await page.waitForTimeout(1700);
+    await page.waitForFunction(() => document.documentElement.dataset.scrollState !== 'settling', null, { timeout: 5000 });
     assert(Math.abs(await page.evaluate(() => scrollY) - stop) < 3);
     report.motion.snap = { stop, midway, end: await page.evaluate(() => scrollY) };
     const mark = page.locator('.overview-section > .section-watermark').first();

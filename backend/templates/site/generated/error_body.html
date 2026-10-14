@@ -1,0 +1,20 @@
+<div class="error-face" aria-hidden="true">
+  <svg class="face" viewBox="0 0 320 380">
+    <g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="25">
+      <g class="face__eyes" transform="translate(0,112.5)">
+        <g transform="translate(15,0)"><polyline class="face__eye-lid" points="37,0 0,120 75,120"/><polyline class="face__pupil" points="55,120 55,155" stroke-dasharray="35 35"/></g>
+        <g transform="translate(230,0)"><polyline class="face__eye-lid" points="37,0 0,120 75,120"/><polyline class="face__pupil" points="55,120 55,155" stroke-dasharray="35 35"/></g>
+      </g>
+      <rect class="face__nose" x="132.5" y="112.5" width="55" height="155" rx="4" ry="4"/>
+      <g transform="translate(65,334)" stroke-dasharray="102 102"><path class="face__mouth-left" d="M 0 30 C 0 30 40 0 95 0"/><path class="face__mouth-right" d="M 95 0 C 150 0 190 30 190 30"/></g>
+    </g>
+  </svg>
+</div>
+<section class="error-text" aria-labelledby="error-title">
+  <h2 id="error-title" class="error-title">{{ error_heading }}</h2>
+  <p class="error-message">{{ message }}</p>
+  <nav class="error-actions" aria-label="离开错误页面">
+    <a class="back-link" href="/">返回首页</a>
+    <a class="back-link" href="/site-map.html">网站导航</a>
+  </nav>
+</section>

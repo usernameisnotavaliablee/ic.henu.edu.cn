@@ -75,12 +75,7 @@ const check = (name, result) => { assert.ok(result, name); checks.push(name); co
     for (let i = 0; i < 7; i++) { await page.mouse.wheel(0, 1100); await page.waitForTimeout(45); }
     await waitScroll();
     check('快速连续滚动可以跨过所有板块直达页脚', await page.evaluate(() => scrollY > document.querySelector('#home-faculty').offsetTop && Math.abs(scrollY - (document.documentElement.scrollHeight - innerHeight)) < 4));
-    check('页脚返回顶部为明显的大按钮', await page.locator('[data-back-top]').evaluate(el => el.offsetWidth >= 176 && el.offsetHeight >= 64));
     await page.screenshot({ path: path.join(output, 'experience-footer.png') });
-    await page.locator('[data-back-top]').click();
-    await waitScroll();
-    await page.waitForTimeout(700);
-    check('返回顶部恢复完整导航并转移焦点', await page.evaluate(() => scrollY === 0 && document.activeElement.classList.contains('brand')) && await page.locator('.site-header').evaluate(el => el.offsetHeight === 184));
     await page.locator('#home-education').evaluate(el => scrollTo(0, el.offsetTop));
     await page.reload();
     await page.waitForTimeout(300);

@@ -16,7 +16,7 @@ LICENSE_FILE = ROOT / 'licenses' / 'XinYuGongZhangJiaSongA-OFL.txt'
 MANIFEST = ROOT / 'licenses' / 'zhuangsong-manifest.txt'
 FAMILY = 'IC ZhuangSong'
 STYLE_FILE = ROOT / 'src' / 'css' / 'fonts.css'
-SELECTORS = '.brand-motto, .editorial-heading h2, .feature-intro, .footer-campus p'
+SELECTORS = '.brand-motto, .editorial-heading h2, .feature-intro, .footer-motto'
 ASSET_DIRS = (ROOT / 'src' / 'assets', ROOT / 'preview' / 'assets')
 ASSET_PATTERNS = ('ic-zhuangsong-headings-*.ttf', 'ic-kai-headings-*.ttf')
 
@@ -29,9 +29,8 @@ class HeadingText(HTMLParser):
 
     def handle_starttag(self, tag, attrs):
         classes = set(dict(attrs).get('class', '').split())
-        selected = bool(classes & {'brand-motto', 'feature-intro'})
+        selected = bool(classes & {'brand-motto', 'feature-intro', 'footer-motto'})
         selected |= tag == 'h2' and any('editorial-heading' in item[1] for item in self.stack)
-        selected |= tag == 'p' and any('footer-campus' in item[1] for item in self.stack)
         selected |= any(item[2] for item in self.stack)
         if tag not in {'area', 'base', 'br', 'col', 'embed', 'hr', 'img', 'input', 'link', 'meta', 'param', 'source', 'track', 'wbr'}:
             self.stack.append((tag, classes, selected))
@@ -138,9 +137,29 @@ def check():
 
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument('--check', action='store_true')
+    mode = parser.add_mutually_exclusive_group()
+    mode.add_argument('--check', action='store_true')
+    mode.add_argument('--style-only', action='store_true', help='仅更新选择器；先核对现有字体、许可及字符覆盖，不重新子集化')
     args = parser.parse_args()
     if args.check:
+        check()
+        return
+    if args.style_only:
+        info = json.loads(MANIFEST.read_text(encoding='utf-8'))
+        if digest(SOURCE_FONT) != info['source_sha256']:
+            raise SystemExit('母版已变更，不能只更新样式。')
+        for relative, expected in info['files'].items():
+            if relative != 'src/css/fonts.css' and digest(ROOT / relative) != expected:
+                raise SystemExit('资源校验不符：' + relative)
+        missing = set(required_characters()) - set(info['characters'])
+        if missing:
+            raise SystemExit('存在新字符，必须重新子集化：' + ''.join(sorted(missing)))
+        assets = [key for key in info['files'] if key.startswith('src/assets/')]
+        if len(assets) != 1:
+            raise SystemExit('字体清单须指向一个明确的子集。')
+        write_style(Path(assets[0]).name)
+        info['files']['src/css/fonts.css'] = digest(STYLE_FILE)
+        MANIFEST.write_text(json.dumps(info, ensure_ascii=False, indent=2) + '\n', encoding='utf-8', newline='\n')
         check()
         return
     if not SOURCE_FONT.is_file():

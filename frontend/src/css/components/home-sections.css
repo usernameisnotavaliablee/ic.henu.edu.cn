@@ -1,0 +1,109 @@
+/* 3. 五个全宽纵向内容区：统一标题、边距、装饰线，区内图文错落。 */
+.home-section { padding-block: 78px; position: relative; overflow: hidden; isolation: isolate; }
+.home-section > .container { position: relative; z-index: 1; }
+/* 五个板块共用背景字，左右交替；不参与阅读顺序或拦截链接。 */
+.section-watermark { position: absolute; z-index: 0; top: 8px; font: 500 clamp(56px, 9vw, 130px)/1.05 var(--font); letter-spacing: .025em; white-space: nowrap; color: rgb(18 62 112 / 5%); pointer-events: none; user-select: none; }
+.section-watermark--left { left: clamp(16px, 4vw, 64px); }
+.section-watermark--right { right: clamp(16px, 4vw, 64px); }
+.editorial-heading { display: flex; align-items: flex-end; justify-content: space-between; gap: 24px; margin-bottom: 38px; }
+.editorial-heading > div { position: relative; padding-left: 21px; }
+.editorial-heading > div::before { content: ''; position: absolute; width: 3px; left: 0; top: 5px; bottom: 4px; background: var(--blue); }
+.editorial-heading > div > span { display: block; color: #71849c; letter-spacing: .2em; font-size: 10px; margin-bottom: 6px; }
+.editorial-heading h2 { font-family: var(--font-display); color: var(--blue); font-size: 38px; font-weight: 400; letter-spacing: .1em; line-height: 1.25; }
+.editorial-heading > a { display: inline-flex; align-items: center; gap: 24px; padding: 10px 0; border-bottom: 1px solid #b1c1d2; font-size: 13px; color: var(--blue); white-space: nowrap; min-height: 44px; }
+.section-news { background: #f8fafc; }
+.editorial-news { display: grid; grid-template-columns: 1fr 1.05fr; gap: 42px; align-items: start; }
+.editorial-news-list { padding-top: 2px; }
+.news-select { display: block; padding: 22px 24px; margin-inline: -24px 0; transition: background .25s, box-shadow .25s, color .25s; }
+.news-select > div { display: flex; justify-content: space-between; align-items: baseline; gap: 18px; }
+.news-select h3 { font-size: 18px; font-weight: 500; line-height: 1.55; }
+.news-select > div > span { font-size: 11px; color: #6682a3; white-space: nowrap; }
+.news-select p { font-size: 13px; color: #778594; margin-top: 12px; line-height: 1.8; }
+.news-select.is-active, .news-select:hover, .news-select:focus-visible { background: #fff; box-shadow: 0 12px 32px rgb(25 55 83 / 7%); color: var(--blue); }
+/* 图片新闻：控制条叠到图片底部，说明文字随之抬高，两者共用同一条底部渐隐带。 */
+.news-gallery { position: relative; }
+.news-picture { display: block; position: relative; background: #12334d; aspect-ratio: 1.35; overflow: hidden; box-shadow: 0 18px 34px rgb(16 48 77 / 14%); }
+.news-picture img { width: 100%; height: 100%; object-fit: cover; transition: transform .6s ease; }
+.news-picture:hover img, .news-picture:focus-visible img { transform: scale(1.06); }
+.news-picture:not([hidden]) { animation: picture-in .55s ease both; }
+@keyframes picture-in { from { opacity: .45; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+.picture-caption { position: absolute; bottom: 0; inset-inline: 0; padding: 52px 28px 64px; color: #fff; background: linear-gradient(transparent, rgb(4 25 43 / 88%)); }
+.picture-caption > span { color: #c8d9eb; font-size: 11px; letter-spacing: .13em; }
+.picture-caption h3 { font-size: 20px; font-weight: 400; line-height: 1.45; margin-top: 6px; }
+/* 说明文字压在深色渐隐层上：白字 + 放大 + 下划线，不换高亮蓝（对比度不足）。 */
+.news-picture:hover .picture-caption h3, .news-picture:focus-visible .picture-caption h3 { transform: translateX(3px) scale(1.055); text-decoration: underline; text-underline-offset: 6px; }
+.picture-note { position: absolute; top: 15px; right: 15px; background: rgb(4 25 43 / 65%); color: #fff; font-size: 10px; padding: 4px 9px; }
+.news-picture-controls { position: absolute; z-index: 2; inset-inline: 0; bottom: 0; display: flex; gap: 4px; align-items: center; padding: 0 24px 12px; color: #fff; pointer-events: none; }
+.news-picture-controls button { border: 0; background: none; color: inherit; pointer-events: auto; min-width: 44px; min-height: 44px; font-size: 20px; }
+.news-picture-controls button:hover { background: rgb(255 255 255 / 14%); }
+.news-picture-controls span { font-size: 11px; letter-spacing: .14em; }
+.news-picture-controls span:last-child { margin-left: auto; color: #c8d9eb; }
+/* 只有一张图时 JS 把控制条置 hidden：说明文字回落到图片下沿。 */
+.news-gallery:not(:has(.news-picture-controls:not([hidden]))) .picture-caption { padding-bottom: 24px; }
+.section-notices { background: #fff; }
+.editorial-notices { display: grid; grid-template-columns: repeat(3, 1fr); gap: 40px; border-top: 1px solid var(--line); }
+.editorial-notices a { display: flex; position: relative; gap: 20px; padding-block: 35px 20px; border-bottom: 1px solid var(--line); min-height: 210px; }
+.notice-index { color: #bac9d9; font: 42px/1.2 var(--font); }
+.notice-type { font-size: 10px; color: #6e8195; margin-bottom: 14px; letter-spacing: .05em; }
+.editorial-notices h3 { font-size: 18px; font-weight: 500; line-height: 1.75; }
+.notice-summary { font-size: 13px; color: var(--muted); margin-top: 10px; }
+.section-research { background: #f3f6fa; }
+.feature-layout { display: grid; grid-template-columns: 1.08fr 1fr; gap: 74px; align-items: center; }
+.feature-layout figure { margin: 0; position: relative; overflow: hidden; }
+.research-art { aspect-ratio: 1.5; background: #103451; }
+.research-art img { width: 100%; height: 100%; object-fit: cover; object-position: 73% center; }
+.research-art figcaption, .education-art figcaption { position: absolute; inset-inline: 0; bottom: 0; padding: 45px 25px 22px; color: #fff; background: linear-gradient(transparent, rgb(5 31 55 / 88%)); font-size: 22px; letter-spacing: .12em; }
+.feature-layout figcaption span { display: block; font-size: 10px; opacity: .8; margin-top: 7px; letter-spacing: .08em; }
+.feature-intro { color: var(--blue); font-size: 25px; font-family: var(--font-display); margin-bottom: 12px; letter-spacing: .06em; }
+.feature-copy > .muted { font-size: 13px; margin-bottom: 20px; }
+.feature-row { display: flex; align-items: center; gap: 24px; padding-block: 20px; border-top: 1px solid #cfdbe6; }
+.feature-row:last-child { border-bottom: 1px solid #cfdbe6; }
+.feature-number { color: #7897b7; font: 32px/1.2 var(--font); }
+.feature-row h3 { font-size: 19px; font-weight: 400; color: var(--blue); }
+.feature-row p { font-size: 12px; color: var(--muted); margin-top: 6px; }
+.section-education { background: #fff; }
+.education-layout { grid-template-columns: 1fr 1.08fr; }
+.education-art { aspect-ratio: 1.5; border-top: 5px solid var(--blue); }
+.education-art img { width: 100%; height: 100%; object-fit: cover; }
+.section-faculty { background: #f5f8fb; }
+.section-note { font-size: 13px; margin-bottom: 28px; }
+.faculty-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 35px; }
+.faculty-card { display: flex; gap: 22px; align-items: center; min-width: 0; border-bottom: 2px solid #c8d6e5; padding: 0 0 28px; }
+.faculty-card :is(img, .media-frame) { width: 122px; height: 160px; flex: 0 0 auto; object-fit: cover; object-position: center 20%; background: #e5edf6; filter: saturate(.85); }
+.faculty-card h3 { font-size: 23px; font-weight: 500; color: var(--blue); margin-bottom: 10px; }
+.faculty-card p { font-size: 12px; color: var(--muted); }
+.teacher-link { display: block; font-size: 12px; color: var(--blue); margin-top: 20px; }
+.teacher-intro { display: -webkit-box; -webkit-line-clamp: 4; -webkit-box-orient: vertical; overflow: hidden; }
+.quick-links { display: grid; grid-template-columns: repeat(3, 1fr); margin-block: 25px; }
+.quick-links a { display: flex; align-items: center; gap: 18px; min-height: 90px; padding: 20px 28px; }
+.quick-links a + a { border-left: 1px solid var(--line); }
+.quick-links h2 { font-size: 20px; font-weight: 400; flex: 1; }
+.quick-links span { color: #8ea6bd; }
+.preview-label { color: #667c91; font-size: 11px; display: block; margin-top: 12px; }
+.home-section.is-reveal-ready > .container { transition: opacity 1.35s ease, transform 1.6s cubic-bezier(.22,.61,.36,1); }
+html[data-motion-paused='false'] .home-section.is-reveal-ready:not(.has-entered) > .container { opacity: 0; transform: translateY(72px) scale(.94); }
+.home-section.has-entered .editorial-heading { animation: section-in 1.4s cubic-bezier(.22,.61,.36,1) both; }
+.home-section.has-entered > .container > :not(.editorial-heading) { animation: section-in 1.4s cubic-bezier(.22,.61,.36,1) .18s both; }
+@keyframes section-in { from { opacity: 0; transform: translateY(36px) scale(.96); } to { opacity: 1; transform: translateY(0) scale(1); } }
+/* 悬停与键盘焦点都提示“这里可以点击”；触屏不依赖悬停操作。 */
+.main-nav a, .editorial-heading > a, .back-link, .utility-inner a, .list-tabs a, .collection-sidebar a, .overview-related a, .research-links a, .site-map-grid a { transition: color .2s, background .2s, transform .25s ease, min-height .65s ease, padding .65s ease, font-size .65s ease; }
+.editorial-heading > a, .back-link, .utility-inner a, .collection-sidebar a, .overview-related a, .research-links a, .site-map-grid a { transform-origin: left center; }
+.news-select h3, .editorial-notices h3, .feature-row h3, .faculty-card h3, .quick-links h2, .article-list h2, .collection-item h3, .research-topics h3, .visual-topics h3, .picture-caption h3, .collection-read, .teacher-link, .research-topics span { display: block; transform-origin: left center; transition: transform .25s ease, color .2s; }
+.faculty-card, .quick-links a { transition: transform .3s ease, box-shadow .3s ease, background .3s ease; }
+:is(.news-select, .editorial-notices a, .feature-row, .faculty-card, .quick-links a, .article-list a, .collection-item, .research-topics a, .visual-topics figure > a):focus-visible :is(h2, h3, .collection-read, .teacher-link, .research-topics span) { color: var(--accent); transform: translateX(3px) scale(1.055); text-decoration: underline; text-underline-offset: 6px; }
+:is(.main-nav a, .editorial-heading > a, .back-link, .utility-inner a, .list-tabs a, .breadcrumb a, .overview-prose a, .placeholder-block a, .collection-sidebar a, .overview-related a, .research-links a, .site-map-grid a):focus-visible { color: var(--accent); transform: translateY(-2px) scale(1.04); text-decoration: underline; text-underline-offset: 6px; }
+/* 深色底（导航带、页脚、已选中栏目）上的键盘焦点保持白字：高亮蓝对比度不足，只留位移与下划线。 */
+.main-nav a:focus-visible, .site-footer a:focus-visible, .collection-sidebar a[aria-current]:focus-visible { color: #fff; }
+@media (hover: hover) {
+  :is(.news-select, .editorial-notices a, .feature-row, .faculty-card, .quick-links a, .article-list a, .collection-item, .research-topics a, .visual-topics figure > a):hover :is(h2, h3, .collection-read, .teacher-link, .research-topics span) { color: var(--accent); transform: translateX(3px) scale(1.055); text-decoration: underline; text-underline-offset: 6px; }
+  :is(.main-nav a, .editorial-heading > a, .back-link, .utility-inner a, .list-tabs a, .breadcrumb a, .overview-prose a, .placeholder-block a, .collection-sidebar a, .overview-related a, .research-links a, .site-map-grid a):hover { color: var(--accent); transform: translateY(-2px) scale(1.04); text-decoration: underline; text-underline-offset: 6px; }
+  .faculty-card:hover, .quick-links a:hover { transform: translateY(-6px); background: #fff; box-shadow: 0 16px 28px rgb(18 62 112 / 12%); }
+  /* 导航条与已选中栏目保留自身底色反馈：不画下划线、不上浮（导航条没有位移动画，会跳），深底上也保持白字。 */
+  .main-nav a:hover, .main-nav a:focus-visible { text-decoration: none; transform: none; }
+  .collection-sidebar a[aria-current]:hover { color: #fff; }
+}
+html[data-motion-paused='true'] .home-section *, html[data-motion-paused='true'] .home-section *::before { animation: none !important; transition: none !important; }
+html[data-motion-paused='true'] a, html[data-motion-paused='true'] a * { transition: none !important; }
+html[data-motion-paused='true'] .site-header * { transition: none !important; }
+html.snap-enabled[data-motion-paused='true'] { scroll-snap-type: none; }
+

@@ -1,0 +1,68 @@
+/* 2. 首屏：俯视芯片，动效跟随系统设置。 */
+.hero { position: relative; overflow: hidden; color: #fff; background: #080f1d; }
+.hero-slides { display: grid; }
+.hero-slide { grid-area: 1 / 1; min-width: 0; position: relative; min-height: 540px; display: flex; align-items: center; isolation: isolate; background: #080f1d; }
+.hero-slide { overflow: hidden; }
+.hero-image { position: absolute; z-index: -4; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+.hero-image { animation: hero-breathe 12s ease-in-out infinite; transform-origin: center; }
+@keyframes hero-breathe { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.045); } }
+html[data-motion-paused='true'] .hero-image { animation-play-state: paused; }
+.hero-slide--chip { background: #071e3d; }
+.hero-slide--chip .hero-image { opacity: 0; }
+.chip-visual { position: absolute; inset: 0; z-index: -2; overflow: hidden; pointer-events: none; }
+.chip-visual svg { width: 100%; height: 100%; object-fit: cover; }
+.hero-slide--chip > .chip-visual svg { min-width: 100%; width: auto; position: absolute; right: 0; }
+.chip-signals { opacity: 1; }
+.chip-signal { opacity: 0; animation: chip-signal-out 16s linear infinite; animation-delay: var(--signal-delay); animation-play-state: paused; }
+.chip-signal--in { animation-name: chip-signal-in; }
+.chip-aura { animation: chip-breathe 8s ease-in-out infinite; animation-play-state: paused; }
+.chip-core-ring { animation: chip-ring-breathe 8s ease-in-out infinite; animation-play-state: paused; }
+.chip-visual.is-animating :is(.chip-signal, .chip-aura, .chip-core-ring) { animation-play-state: running; }
+@keyframes chip-signal-out {
+  0% { opacity: 0; stroke-dashoffset: 0; }
+  3%, 18% { opacity: .85; }
+  22% { opacity: 0; stroke-dashoffset: -99; }
+  100% { opacity: 0; stroke-dashoffset: -99; }
+}
+@keyframes chip-signal-in {
+  0% { opacity: 0; stroke-dashoffset: -99; }
+  3%, 18% { opacity: .85; }
+  22% { opacity: 0; stroke-dashoffset: 0; }
+  100% { opacity: 0; stroke-dashoffset: 0; }
+}
+@keyframes chip-breathe { 0%, 100% { opacity: .38; } 50% { opacity: .7; } }
+@keyframes chip-ring-breathe { 0%, 100% { stroke-opacity: .3; } 50% { stroke-opacity: .65; } }
+.research-art { position: relative; isolation: isolate; background: #071e3d; }
+.research-art .chip-visual { position: absolute; z-index: 0; }
+.research-art .chip-visual svg { position: absolute; width: 180%; max-width: none; height: 120%; right: -6%; top: -9%; }
+.research-art figcaption { position: relative; z-index: 1; }
+.hero-slide::before { content: ''; position: absolute; z-index: -1; inset: 0; pointer-events: none; background: linear-gradient(90deg, #080f1d 0%, rgb(8 15 29 / 90%) 20%, rgb(8 15 29 / 30%) 55%, transparent 75%); }
+.hero-slide--campus::before { background: linear-gradient(90deg, rgb(5 30 53 / 82%), rgb(5 30 53 / 35%) 60%, transparent); }
+.hero-slide--campus .hero-image { object-position: center 54%; }
+.hero-copy { padding-block: 80px 120px; }
+.hero-eyebrow { font-size: 11px; letter-spacing: .18em; color: #aec8e8; margin-bottom: 25px; }
+.hero h2 { max-width: 580px; font-size: clamp(32px, 3.4vw, 48px); font-weight: 500; line-height: 1.5; letter-spacing: .09em; }
+.hero-description { font-size: 18px; margin-top: 25px; letter-spacing: .14em; color: #d3e2f4; }
+.hero-note { position: absolute; right: 32px; bottom: 25px; color: #b6c7dd; font-size: 10px; padding: 3px 8px; background: rgb(8 15 29 / 70%); }
+.carousel-controls { position: absolute; z-index: 3; left: 50%; bottom: 34px; transform: translateX(-50%); display: flex; align-items: center; gap: 10px; pointer-events: none; }
+.carousel-controls button { pointer-events: auto; color: #fff; min-width: 44px; min-height: 44px; border: 1px solid rgb(255 255 255 / 35%); background: rgb(8 15 29 / 48%); }
+.carousel-controls button:hover { background: rgb(255 255 255 / 15%); }
+.carousel-controls button:disabled { opacity: .65; cursor: default; }
+.carousel-dots { display: flex; gap: 2px; }
+.carousel-dots button { background: transparent; border: 0; min-width: 32px; }
+.carousel-dots button::after { content: ''; display: block; width: 18px; height: 3px; background: rgb(255 255 255 / 40%); margin: auto; }
+.carousel-dots button[aria-pressed='true']::after { background: #fff; }
+.carousel-count { font-size: 11px; letter-spacing: .1em; padding-inline: 8px; white-space: nowrap; }
+.carousel-arrow { position: absolute; inset-block: 0; z-index: 2; width: clamp(54px, 6vw, 104px); border: 0; padding: 0; color: #fff; background: linear-gradient(90deg, rgb(3 22 43 / 28%), transparent); opacity: .12; display: grid; place-items: center; transition: opacity .55s ease, background .55s ease; }
+.carousel-arrow svg { width: 22px; height: 44px; fill: none; stroke: currentColor; stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; transition: transform .4s ease; }
+.carousel-arrow--prev { left: 0; }
+.carousel-arrow--next { right: 0; background: linear-gradient(270deg, rgb(3 22 43 / 28%), transparent); }
+.hero:hover .carousel-arrow, .hero:focus-within .carousel-arrow { opacity: .65; }
+.hero .carousel-arrow:hover, .hero .carousel-arrow:focus-visible { opacity: 1; background-color: rgb(3 22 43 / 12%); }
+.carousel-arrow:hover svg { transform: scale(1.12); }
+/* 仅分配版面高度；滚轮不设强制停靠，由 JS 在手势结束后柔和对齐。 */
+@media (min-width: 1100px) and (min-height: 600px) and (hover: hover) and (pointer: fine) {
+  [data-page='home'] .hero-slide { min-height: max(440px, calc(100svh - var(--header-expanded-height))); }
+  [data-page='home'] [data-home-section] { min-height: calc(100svh - var(--header-compact-height)); display: flex; align-items: center; }
+}
+
