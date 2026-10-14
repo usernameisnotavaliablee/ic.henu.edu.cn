@@ -36,4 +36,4 @@
 
 常用：check-preview.py、check-current-structure.py、prepare-fonts.py --check、check-navigation-fixes.cjs、check-overview-typography.cjs。浏览器脚本使用已有 Playwright/Edge，设置 IC_TEST_MODULES 为实际 node_modules 路径；所有命令从仓库根目录执行。
 
-check-carousel.cjs、check-navigation-scroll.cjs 含早期暂停按钮等旧断言，作为历史脚本保留，不直接作为当前版验收门槛。check-experience.cjs 同样归入历史脚本（它硬编码了旧页头高度 184/112，现值 171/45），其覆盖内容已由 check-current-design.cjs、check-navigation-fixes.cjs、check-overview-typography.cjs 分担，见 [STATUS.md 3.2 节](../STATUS.md)的过期断言说明。实际已运行项及待办以交接验收记录为准。
+**check-experience.cjs、check-carousel.cjs、check-navigation-scroll.cjs 三个已无法运行**，保留作历史参考，不要当验收门槛，也不要试图把它们修绿：它们依赖的 DOM 在 10-12/10-13 就被删了（`[data-pause]`、`[data-motion-toggle]`，以及轮播箭头 `opacity` 旧值 0/1，现为 0.12/0.65）。逐条断点见 [STATUS.md 3.2 节](../STATUS.md)的退役脚本表。其中 check-carousel.cjs 与 check-navigation-scroll.cjs 还把 `127.0.0.1:8765` 写死在代码里、不读命令行参数。当前覆盖由 check-current-design.cjs、check-navigation-fixes.cjs、check-overview-typography.cjs、check-header-motion.cjs 分担。

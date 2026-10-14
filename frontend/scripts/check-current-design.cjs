@@ -15,7 +15,7 @@ const check = (name, ok) => { assert.ok(ok, name); checks.push(name); console.lo
     const page = await context.newPage();
     page.on('pageerror', e => errors.push(e.message));
     await page.goto(base + '/index.html');
-    check('原有九个导航均保留，师生园地归人才培养', await page.locator('.main-nav > ul > li > .nav-item-heading > a').allTextContents().then(labels => ['首页', '学院概况', '科学与创新', '人才培养', '师资队伍', '新闻通知', '公共服务', '人才招聘', '联系我们'].every(s => labels.includes(s))));
+    check('原有十个导航均保留，师生园地归人才培养', await page.locator('.main-nav > ul > li > .nav-item-heading > a').allTextContents().then(labels => ['首页', '学院概况', '科学与创新', '人才培养', '师资队伍', '新闻通知', '党建党务', '公共服务', '人才招聘', '联系我们'].every(s => labels.includes(s))));
     check('删除两类暂停按钮', await page.locator('[data-pause], [data-motion-toggle]').count() === 0);
     check('自托管装甲宋标题字体实际加载', await page.evaluate(async () => (await document.fonts.load('400 30px "IC ZhuangSong"', '学院新闻')).length > 0));
     check('程老师首位', await page.locator('.faculty-card h3').first().textContent() === '程纲');
@@ -29,14 +29,26 @@ const check = (name, ok) => { assert.ok(ok, name); checks.push(name); console.lo
     await admissions.locator(':scope > .nav-item-heading > .subnav-toggle').press('Escape');
     await admissions.getByRole('link', { name: '研究生招生', exact: true }).waitFor({ state: 'hidden' });
     check('Escape逐级关闭，父菜单仍可见', !await admissions.getByRole('link', { name: '研究生招生', exact: true }).isVisible() && await education.getByRole('link', { name: '招生就业', exact: true }).isVisible());
-    await page.evaluate(() => { document.activeElement.blur(); scrollTo(0, 650); });
-    await page.waitForTimeout(800);
-    const header = await page.locator('.site-header').evaluate(el => {
+    // 展开态量品牌区：收缩态品牌区高度归零，此处必须先在顶部量，否则量到的是被裁掉的框。
+    // 注意等「实际高度」而不是 dataset.headerAnimation==='idle'——后者在滚动监听启动前就已经是 idle。
+    await page.evaluate(() => { document.activeElement.blur(); scrollTo(0, 0); });
+    await page.waitForFunction(() => document.querySelector('.header-main').getBoundingClientRect().height > 2);
+    const brand = await page.locator('.site-header').evaluate(el => {
       const uni = el.querySelector('.university-name').getBoundingClientRect();
       const college = el.querySelector('.college-name').getBoundingClientRect();
-      return { height: el.offsetHeight, visible: el.querySelector('.brand-mark').getBoundingClientRect().height > 0, sameLine: Math.abs(uni.top - college.top) < 8, ink: getComputedStyle(el.querySelector('.college-name')).color, band: getComputedStyle(el.querySelector('.navigation-band')).backgroundColor, bg: getComputedStyle(el).backgroundColor };
+      const mark = el.querySelector('.brand-mark').getBoundingClientRect();
+      return { mark: mark.height, markTop: mark.top, sameLine: Math.abs(uni.top - college.top) < 8 };
     });
-    check('收缩页头不超过94px、校徽保留、校名院名同行', header.height <= 94 && header.visible && header.sameLine);
+    check('展开页头校徽与校名院名同行', brand.mark > 0 && brand.markTop >= 0 && brand.sameLine);
+    await page.evaluate(() => scrollTo(0, 650));
+    await page.waitForFunction(() => document.querySelector('.header-main').getBoundingClientRect().height < 2);
+    const header = await page.locator('.site-header').evaluate(el => ({
+      height: el.offsetHeight,
+      ink: getComputedStyle(el.querySelector('.college-name')).color,
+      band: getComputedStyle(el.querySelector('.navigation-band')).backgroundColor,
+      bg: getComputedStyle(el).backgroundColor,
+    }));
+    check('收缩页头只剩导航带且不超过94px', header.height <= 94);
     check('白字与双色蓝背景', header.ink === 'rgb(255, 255, 255)' && header.band !== header.bg);
     await page.screenshot({ path: path.join(output, 'current-compact.png') });
     for (const width of [320, 390, 768, 1024, 1440]) {
@@ -46,9 +58,14 @@ const check = (name, ok) => { assert.ok(ok, name); checks.push(name); console.lo
         check(`${width}px ${file}无横向溢出`, await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth + 1));
       }
       await page.goto(base + '/index.html');
+      await page.evaluate(() => scrollTo(0, 0));
+      await page.waitForFunction(() => document.querySelector('.header-main').getBoundingClientRect().height > 2);
+      check(`${width}px展开态标识完整可见`, await page.locator('.college-name').evaluate(el => { const r = el.getBoundingClientRect(); return r.width > 0 && r.right <= innerWidth && r.top >= 0; }));
       await page.evaluate(() => scrollTo(0, 500));
-      await page.waitForTimeout(800);
-      check(`${width}px收缩标识完整可见`, await page.locator('.college-name').evaluate(el => { const r = el.getBoundingClientRect(); return r.width > 0 && r.right <= innerWidth && r.top >= 0; }));
+      await page.waitForFunction(() => document.querySelector('.header-main').getBoundingClientRect().height < 2);
+      // e6e134d 起收缩态品牌区整段滑出（高度归零 + overflow 裁剪），不再缩小驻留，故不再断言 .college-name 仍可见。
+      // 窄屏（≤768px）走 .site-header.is-compact 分支，只压高度、不动 opacity，所以这里只验高度与裁剪。
+      check(`${width}px收缩态品牌区已滑出`, await page.locator('.site-header .header-main').evaluate(el => el.getBoundingClientRect().height < 2 && getComputedStyle(el).overflow === 'hidden'));
       if (width < 960) {
         await page.locator('.nav-toggle').click();
         await education.locator(':scope > .nav-item-heading > .subnav-toggle').click();
@@ -82,27 +99,30 @@ const check = (name, ok) => { assert.ok(ok, name); checks.push(name); console.lo
     await broken.close();
     await page.emulateMedia({ reducedMotion: 'no-preference' });
     await page.goto(base + '/index.html');
-    // 在同一浏览器调用内采样并反向，避免截图/跨进程往返耗时让动画提前结束。
-    const samples = await page.evaluate(async () => {
-      const el = document.querySelector('.header-main');
-      const measure = () => ({ height: el.getBoundingClientRect().height, size: parseFloat(getComputedStyle(el.querySelector('.college-name')).fontSize) });
-      const frame = () => new Promise(resolve => requestAnimationFrame(resolve));
-      const delay = async ms => { const start = performance.now(); while (performance.now() - start < ms) await frame(); };
-      scrollTo(0, 0);
-      await frame();
-      while (document.querySelector('.site-header').dataset.headerAnimation !== 'idle') await frame();
-      const expanded = measure();
-      scrollTo(0, 650);
-      await delay(180);
-      const early = measure();
-      await delay(300);
-      const middle = measure();
-      scrollTo(0, 0);
-      await delay(150);
-      return { expanded, early, middle, reverse: measure() };
-    });
-    const { expanded, early, middle, reverse } = samples;
-    check('页头实际高度与字号都有连续中间帧', early.height < expanded.height && early.height > middle.height && middle.height > 46 && early.size > middle.size && middle.size > 20);
+    // 采样必须从 Node 侧按真实时间做。旧写法在页面里用 rAF 忙等，会把驱动动画的 rAF 一起饿死，
+    // 于是「180ms 后」实际过去了 1.3 秒，采到的只有首尾两帧。
+    // 另外 --header-progress 驱动的是 .header-main 的 height 和 .brand 的 opacity；
+    // .header-main 自己没有 opacity 规则，读它永远是 1。
+    const sample = () => page.locator('.site-header').evaluate(el => ({
+      height: el.querySelector('.header-main').getBoundingClientRect().height,
+      opacity: Number(getComputedStyle(el.querySelector('.brand')).opacity),
+    }));
+    await page.evaluate(() => scrollTo(0, 0));
+    await page.waitForTimeout(900);
+    const expanded = await sample();
+    await page.evaluate(() => scrollTo(0, 650));
+    const frames = [];
+    for (let i = 0; i < 14; i += 1) { frames.push(await sample()); await page.waitForTimeout(60); }
+    await page.waitForTimeout(700);
+    const middle = await sample();
+    await page.evaluate(() => scrollTo(0, 0));
+    await page.waitForTimeout(260);
+    const reverse = await sample();
+    const samples = { expanded, frames, middle, reverse };
+    const between = frames.filter(f => f.height > 2 && f.height < expanded.height - 2);
+    const spread = new Set(between.map(f => Math.round(f.height))).size;
+    check('页头收缩是连续动画：有多个中间高度帧', expanded.height > 100 && middle.height < 2 && spread >= 3);
+    check('品牌区透明度随进度同步淡出', expanded.opacity > .95 && middle.opacity < .05);
     check('动画中反向滚动从中间状态返回', reverse.height > middle.height && reverse.height < expanded.height);
     fs.writeFileSync(path.join(output, 'current-header-frame-samples.json'), JSON.stringify(samples, null, 2) + '\n');
     await page.waitForFunction(() => document.querySelector('.site-header').dataset.headerAnimation === 'idle');

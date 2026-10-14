@@ -113,19 +113,33 @@
 
 **不要为表面「全通过」勾掉无法执行的项目。**
 
-**过期断言，不是产品缺陷（2026-10-14 逐条核实）**：四个脚本的红灯都来自「断言还写着 `e6e134d` 之前的行为」，不是页面坏了。
+**过期断言，不是产品缺陷（2026-10-14 逐条核实，已修完）**：三个脚本的红灯都来自「断言还写着 `e6e134d` 之前的行为」，不是页面坏了。
 
-- `check-current-design.cjs`「{width}px收缩标识完整可见」要求收缩态 `.college-name` 的 `top >= 0`，但 `e6e134d`（10-13 09:05「品牌区滚后整段滑出，不再缩小驻留」）有意让 `.header-main` 在收缩态 `height: 0; opacity: 0`（`--brand-height-closed: 0px`），断言与现行设计**相反**。`frontend/qa/current-design-browser.json`（10-12 生成，56 项）里这条**是通过的** → 说明它是 10-13 之后才红的，不是"既有问题"。
+- `check-current-design.cjs`「{width}px收缩标识完整可见」要求收缩态 `.college-name` 的 `top >= 0`，但 `e6e134d`（10-13 09:05「品牌区滚后整段滑出，不再缩小驻留」）有意让 `.header-main` 在收缩态 `height: 0`（`--brand-height-closed: 0px`），靠自身的 `overflow: hidden` 把内容裁掉——注意 **`.header-main` 没有 opacity 规则**，淡出的是它内部的 `.brand`（`style.css:679`），别去量前者。断言与现行设计**相反**。`frontend/qa/current-design-browser.json`（10-12 生成，56 项）里这条**是通过的** → 说明它是 10-13 之后才红的，不是"既有问题"。同一脚本的「页头实际高度与字号都有连续中间帧」写死 `height > 46` / `size > 20`，也是品牌区驻留时代的取值。
 - `check-navigation-fixes.cjs` 与 `check-overview-typography.cjs` 都硬编码 `元素顶 - 91`，而 91 是旧的 `--header-compact-height`，现值 **45**；实际吸附落点 = `元素顶 - 45`（`.overview-section { scroll-margin-top: var(--header-compact-height) }`），实测差 46.5px。
-- `check-experience.cjs` 硬编码展开高 `184` / 收缩高 `112`，现值 **171 / 45**。
 
 **不是「时序不稳定」**：`check-overview-typography.cjs` 在新树上连跑 2 次、在干净 worktree 上跑 1 次，失败点与差值（46.5px）完全一致，是确定性失败。
 
-处理方式：改断言去读 CSS 变量（`--header-compact-height` / `--header-expanded-height`），不再写死数字。**不要为了点亮断言去恢复品牌区收缩驻留——那是有意去掉的旧行为。**
+**但确实另有两处真的时序竞态，已一并修掉**（不要把它们和上面的确定性失败混为一谈）：
+1. `check-navigation-fixes.cjs` / `check-overview-typography.cjs` 用固定 `waitForTimeout(500)` 赌「吸附动画还在 settling」，并发负载下会采到 `idle` 而误报。改为 `waitForFunction` 等状态机自己进出 `settling`。
+2. `check-overview-typography.cjs` 只等 `document.fonts.ready`，而 `@font-face` 还没被请求时它就已经 resolve，会量到系统回退字体（macOS 上是 `Songti SC`）。改为先把已声明的字面 `load()` 完。**注意**：并发抓站时本地 `python3 -m http.server` 会 `ERR_CONNECTION_RESET`，字体面变 `|error`，此时报「回退字体」是**真的**回退，报错信息里带字体面状态可用于区分；单人跑一次即可得干净结果。
+
+处理方式：改断言去读 CSS 计算值（`scrollMarginTop` / `--header-expanded-height` / `--header-compact-height`），不再写死数字。**不要为了点亮断言去恢复品牌区收缩驻留——那是有意去掉的旧行为。** 改完实测：`check-current-design.cjs` 63 项、`check-navigation-fixes.cjs`、`check-overview-typography.cjs` 全绿（2026-10-14，单跑）。
+
+**已退役脚本（不要当验收门槛，也别把它们修绿）**：下面三个的红灯**不是**上面那类过期断言，是脚本本身跑不完——它们依赖的 DOM 在 10-12/10-13 就被删了：
+
+| 脚本 | 断点 | 证据（2026-10-14 实测） |
+|---|---|---|
+| `check-experience.cjs` | 第 29 行点 `[data-pause]` | 暂停按钮 10-12 已删，`[data-pause]` 计数 0 |
+| `check-carousel.cjs` | 第 40 行等 `[data-pause]` | 同上，直接 TimeoutError |
+| `check-navigation-scroll.cjs` | 第 21 行断言箭头 `opacity === '0'` | 现状静止 `0.12`、悬停 `0.65`（旧值 0 / 1）；第 25 行起同样点 `[data-pause]`；`[data-motion-toggle]` 计数也是 0 |
+
+三者的覆盖内容由 `check-current-design.cjs`、`check-navigation-fixes.cjs`、`check-overview-typography.cjs`、`check-header-motion.cjs` 分担。文件头都已自述为历史脚本；保留作历史参考，是否删除待定。
+另注：`check-carousel.cjs` 与 `check-navigation-scroll.cjs` 把 `http://127.0.0.1:8765` **写死在代码里、不读命令行参数**，所以必须把预览服务起在 8765 才跑得动；其余脚本接受 `argv[2]`（默认 8766）。
 
 ## 四 验收证据（截至 2026-10-14）
 
-自动化结果，**不等于人工验收**：
+自动化结果，**不等于人工验收**。标「隔离库」的项需要 Django 环境（本机 macOS 未装 Django，须在 `backend/requirements.lock` 的环境里复跑；Windows 那台见 `backend/README.md`）。
 
 | 检查 | 结果 | 入口 |
 |---|---|---|
@@ -141,7 +155,7 @@
 | 窄屏汉堡按钮 | 8 项通过（无导航带、无底色、收缩后浮右上角） | `frontend/scripts/check-nav-toggle.cjs` |
 | 图片状态机 | 6 项通过 | `frontend/qa/media-loading-unit.json` |
 | 跨页过渡控制 | 5 项通过 | `frontend/scripts/check-page-transition.cjs` |
-| Edge 实际浏览器 | 56 项通过（**10-12 产物**；此后页头收缩行为改为品牌区滑出，该脚本跑到 `320px收缩标识完整可见` 即停，见 3.2 节过期断言） | `frontend/qa/current-design-browser.json` |
+| Edge 实际浏览器 | **63 项通过**（2026-10-14 重跑，脚本已对齐现行设计，见 3.2 节） | `frontend/qa/current-design-browser.json` |
 
 **公网实测**（Claude Code 于 10-12 执行，**非本轮复现；当时线上还是旧字体**）：分页新闻 29 条/3 页、通知 27 条/3 页；48 条演示详情页全量 200；外网全站爬取 77 页/94 资源全 200；字体真实加载（`document.fonts.load('400 30px "IC WenKai"', '学院新闻')` 返回 1 个对象，文件 200 且 `font/ttf`）；五视口 1440/1024/768/390/320 无横向溢出。10-14 起线上字体改为 `IC ZhuangSong`，该条须在下次部署后重测。
 
