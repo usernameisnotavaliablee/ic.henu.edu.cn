@@ -499,7 +499,8 @@ html.snap-enabled[data-motion-paused='true'] { scroll-snap-type: none; }
 @media (max-width: 959px) {
   :root { --header-expanded-height: 113px; --header-compact-height: 43px; }
   .container { width: calc(100% - 40px); }
-  .brand-motto { display: none; }
+  /* 按钮脱离文档流后带内已无流内内容，带高随收缩进度从 0 长到 43px 承接它。 */
+  .navigation-inner { min-height: calc(var(--header-compact-height) * var(--header-progress)); }
   .nav-toggle:not([hidden]) { display: flex; }
   .main-nav.is-enhanced:not(.open) { display: none; }
   /* 卡片式展开：一级栏目按 --nav-i 交错入场；标题逐字动画由 main.js 驱动。 */
