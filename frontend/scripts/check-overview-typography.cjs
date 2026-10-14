@@ -21,7 +21,7 @@ assert(fontBytes <= 150 * 1024, `标题字体子集过大：${fontBytes} 字节`
     const cdp = await page.context().newCDPSession(page);
     await cdp.send('DOM.enable');
     await cdp.send('CSS.enable');
-    const titleSelector = '.brand-motto, .editorial-heading h2, .feature-intro, .footer-campus p';
+    const titleSelector = '.brand-motto, .editorial-heading h2, .feature-intro, .footer-motto';
     const platformFonts = async () => {
       const dom = await cdp.send('DOM.getDocument');
       const { nodeIds } = await cdp.send('DOM.querySelectorAll', { nodeId: dom.root.nodeId, selector: titleSelector });

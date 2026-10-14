@@ -113,7 +113,7 @@ const record = (name, ok) => { assert.ok(ok, name); checks.push(name); console.l
     await home();
     record('减少动态效果停用吸附和呼吸，正文可见', await page.evaluate(() => getComputedStyle(document.documentElement).scrollSnapType === 'none') && await page.locator('.hero-image').first().evaluate(el => getComputedStyle(el).animationName === 'none') && await page.locator('#home-notices > .container').evaluate(el => getComputedStyle(el).opacity === '1'));
     await page.locator('#site-footer').scrollIntoViewIfNeeded();
-    record('页脚包含学院、服务、联系方式和网站导航', await page.locator('.footer-main a').count() >= 10 && await page.locator('.footer-main img').evaluate(el => el.complete && el.naturalWidth > 0));
+    record('页脚保留校训、学院标识、公众号与备案', await page.locator('.footer-motto').count() === 1 && await page.locator('.wechat-panel').count() === 1 && await page.locator('.footer-support').getAttribute('href') === 'https://hdwzgzs.cn/' && await page.locator('.footer-filing').count() === 1 && await page.locator('.footer-brand img').evaluate(el => el.complete && el.naturalWidth > 0));
     await page.screenshot({ path: 'frontend/qa/footer.png' });
     record('本轮页面无JavaScript运行错误', errors.length === 0);
     fs.writeFileSync('frontend/qa/navigation-scroll-check.json', JSON.stringify({ date: new Date().toISOString(), scope: '呼吸、下拉菜单、侧边箭头、桌面滚动吸附、教师资料、页脚和触屏模拟；非手机真机验收', checks, errors }, null, 2) + '\n');

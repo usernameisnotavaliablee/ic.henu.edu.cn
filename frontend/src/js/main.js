@@ -54,10 +54,6 @@
   });
   window.addEventListener('resize', cancelScroll);
   window.addEventListener('ic:motion', cancelScroll);
-  document.querySelectorAll('[data-back-top]').forEach(link => link.addEventListener('click', event => {
-    event.preventDefault();
-    glideTo(0, () => header.querySelector('.brand').focus({ preventScroll: true }));
-  }));
   const toggle = document.querySelector('.nav-toggle');
   const nav = document.querySelector('.main-nav');
   const smallScreen = window.matchMedia('(max-width: 959px)');
@@ -65,26 +61,21 @@
     nav.classList.add('is-enhanced');
     toggle.hidden = false;
     // Aceternity container-text-flip 的原生移植：任何菜单展开（汉堡、各级
-    // 子菜单、页脚抽屉）时，标题按字逐个 blur(10px)→0 淡入。
+    // 子菜单）时，标题按字逐个 blur(10px)→0 淡入。
     // 时序为移植版原速率的 2.25x：duration 245ms、字间 8.9ms、条目间 26.7ms。
     // 每条目记 trigger 决定展开哪个容器时播放；aria-label 保留整词供读屏。
     const FLIP = { dur: 245, char: 8.9, link: 26.7 };
-    const flipLinks = [
-      ...nav.querySelectorAll('a'),
-      ...document.querySelectorAll('.footer-drawer .footer-links a'),
-    ];
+    const flipLinks = [...nav.querySelectorAll('a')];
     let topIndex = 0;
     const flipChars = flipLinks.map(link => {
-      const drawer = link.closest('.footer-drawer');
       const parentItem = link.closest('.subnav')?.closest('.nav-item');
-      // --nav-i 只服务于 CSS 卡片交错入场：导航一级卡片按 0..n、
-      // 页脚磁贴按各自抽屉内序号；子菜单链接不写。
-      if (drawer) link.style.setProperty('--nav-i', [...drawer.querySelectorAll('.footer-links a')].indexOf(link));
-      else if (!parentItem) link.closest('.nav-item').style.setProperty('--nav-i', topIndex++);
+      // --nav-i 只服务于 CSS 卡片交错入场：导航一级卡片按 0..n 编号；
+      // 子菜单链接不写。
+      if (!parentItem) link.closest('.nav-item').style.setProperty('--nav-i', topIndex++);
       const label = link.textContent;
       link.setAttribute('aria-label', label);
       link.innerHTML = [...label].map(char => `<span class="nav-flip-char" aria-hidden="true">${char === ' ' ? '&nbsp;' : char}</span>`).join('');
-      return { link, chars: [...link.querySelectorAll('.nav-flip-char')], trigger: drawer || parentItem || nav };
+      return { link, chars: [...link.querySelectorAll('.nav-flip-char')], trigger: parentItem || nav };
     });
     // closing=true 时按展开顺序整体倒放（条目与字符都逆序、关键帧对调）。
     // 仅移动端子菜单使用——桌面 .subnav 自带 .42s CSS 关闭过渡，再叠
@@ -113,8 +104,6 @@
       const last = entries[entries.length - 1];
       return last ? ((entries.length - 1) * FLIP.link + last.chars.length * FLIP.char + FLIP.dur) * speed : 0;
     };
-    document.querySelectorAll('.footer-drawer').forEach(drawer =>
-      drawer.addEventListener('toggle', () => { if (drawer.open) runNavFlip(drawer); }));
     const setMenu = (open, restoreFocus = false) => {
       nav.classList.toggle('open', open);
       toggle.setAttribute('aria-expanded', String(open));

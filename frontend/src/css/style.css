@@ -326,17 +326,17 @@ html[data-motion-paused='false'] .home-section.is-reveal-ready:not(.has-entered)
 .home-section.has-entered > .container > :not(.editorial-heading) { animation: section-in 1.4s cubic-bezier(.22,.61,.36,1) .18s both; }
 @keyframes section-in { from { opacity: 0; transform: translateY(36px) scale(.96); } to { opacity: 1; transform: translateY(0) scale(1); } }
 /* 悬停与键盘焦点都提示“这里可以点击”；触屏不依赖悬停操作。 */
-.main-nav a, .editorial-heading > a, .back-link, .footer-links a, .utility-inner a, .list-tabs a, .collection-sidebar a, .overview-related a, .research-links a, .site-map-grid a, .footer-contact a { transition: color .2s, background .2s, transform .25s ease, min-height .65s ease, padding .65s ease, font-size .65s ease; }
-.editorial-heading > a, .back-link, .footer-links a, .utility-inner a, .collection-sidebar a, .overview-related a, .research-links a, .site-map-grid a, .footer-contact a { transform-origin: left center; }
+.main-nav a, .editorial-heading > a, .back-link, .utility-inner a, .list-tabs a, .collection-sidebar a, .overview-related a, .research-links a, .site-map-grid a { transition: color .2s, background .2s, transform .25s ease, min-height .65s ease, padding .65s ease, font-size .65s ease; }
+.editorial-heading > a, .back-link, .utility-inner a, .collection-sidebar a, .overview-related a, .research-links a, .site-map-grid a { transform-origin: left center; }
 .news-select h3, .editorial-notices h3, .feature-row h3, .faculty-card h3, .quick-links h2, .article-list h2, .collection-item h3, .research-topics h3, .visual-topics h3, .picture-caption h3, .collection-read, .teacher-link, .research-topics span { display: block; transform-origin: left center; transition: transform .25s ease, color .2s; }
 .faculty-card, .quick-links a { transition: transform .3s ease, box-shadow .3s ease, background .3s ease; }
 :is(.news-select, .editorial-notices a, .feature-row, .faculty-card, .quick-links a, .article-list a, .collection-item, .research-topics a, .visual-topics figure > a):focus-visible :is(h2, h3, .collection-read, .teacher-link, .research-topics span) { color: var(--accent); transform: translateX(3px) scale(1.055); text-decoration: underline; text-underline-offset: 6px; }
-:is(.main-nav a, .editorial-heading > a, .back-link, .footer-links a, .utility-inner a, .list-tabs a, .breadcrumb a, .overview-prose a, .placeholder-block a, .collection-sidebar a, .overview-related a, .research-links a, .site-map-grid a, .footer-contact a):focus-visible { color: var(--accent); transform: translateY(-2px) scale(1.04); text-decoration: underline; text-underline-offset: 6px; }
+:is(.main-nav a, .editorial-heading > a, .back-link, .utility-inner a, .list-tabs a, .breadcrumb a, .overview-prose a, .placeholder-block a, .collection-sidebar a, .overview-related a, .research-links a, .site-map-grid a):focus-visible { color: var(--accent); transform: translateY(-2px) scale(1.04); text-decoration: underline; text-underline-offset: 6px; }
 /* 深色底（导航带、页脚、已选中栏目）上的键盘焦点保持白字：高亮蓝对比度不足，只留位移与下划线。 */
 .main-nav a:focus-visible, .site-footer a:focus-visible, .collection-sidebar a[aria-current]:focus-visible { color: #fff; }
 @media (hover: hover) {
   :is(.news-select, .editorial-notices a, .feature-row, .faculty-card, .quick-links a, .article-list a, .collection-item, .research-topics a, .visual-topics figure > a):hover :is(h2, h3, .collection-read, .teacher-link, .research-topics span) { color: var(--accent); transform: translateX(3px) scale(1.055); text-decoration: underline; text-underline-offset: 6px; }
-  :is(.main-nav a, .editorial-heading > a, .back-link, .footer-links a, .utility-inner a, .list-tabs a, .breadcrumb a, .overview-prose a, .placeholder-block a, .collection-sidebar a, .overview-related a, .research-links a, .site-map-grid a, .footer-contact a):hover { color: var(--accent); transform: translateY(-2px) scale(1.04); text-decoration: underline; text-underline-offset: 6px; }
+  :is(.main-nav a, .editorial-heading > a, .back-link, .utility-inner a, .list-tabs a, .breadcrumb a, .overview-prose a, .placeholder-block a, .collection-sidebar a, .overview-related a, .research-links a, .site-map-grid a):hover { color: var(--accent); transform: translateY(-2px) scale(1.04); text-decoration: underline; text-underline-offset: 6px; }
   .faculty-card:hover, .quick-links a:hover { transform: translateY(-6px); background: #fff; box-shadow: 0 16px 28px rgb(18 62 112 / 12%); }
   /* 导航条与已选中栏目保留自身底色反馈：不画下划线、不上浮（导航条没有位移动画，会跳），深底上也保持白字。 */
   .main-nav a:hover, .main-nav a:focus-visible { text-decoration: none; transform: none; }
@@ -424,55 +424,45 @@ html.snap-enabled[data-motion-paused='true'] { scroll-snap-type: none; }
 .contact-list dt { color: var(--blue); }
 .contact-list dd { margin: 0; color: var(--muted); }
 
-/* 5. 页脚 */
-.site-footer { background: var(--blue-dark); color: #e0eaf3; }
-.footer-campus { padding-block: 65px; background: linear-gradient(90deg, rgb(6 37 67 / 92%), rgb(6 37 67 / 55%)), url('../assets/campus-building.jpg') center 52% / cover; }
-.footer-campus p { font-family: var(--font-display); font-size: 34px; letter-spacing: .16em; }
-.footer-campus span { display: block; margin-top: 12px; font-size: 13px; color: #c5d8e9; letter-spacing: .06em; }
-.footer-campus-inner { display: flex; align-items: center; justify-content: space-between; gap: 28px; }
-.back-to-top { display: flex; align-items: center; justify-content: center; gap: 16px; min-width: 176px; min-height: 76px; border: 1px solid rgb(225 238 250 / 65%); background: rgb(255 255 255 / 9%); transition: background .4s, transform .4s; }
-.back-to-top svg { width: 30px; height: 30px; fill: none; stroke: currentColor; stroke-width: 1.5; }
-.footer-campus .back-to-top span { font-size: 16px; color: #fff; margin: 0; }
-.site-footer .back-to-top:hover { text-decoration: none; background: rgb(255 255 255 / 18%); transform: translateY(-4px); }
-.footer-main { display: grid; grid-template-columns: 1fr 1.2fr 170px; gap: 40px; padding-block: 36px; }
-.footer-drawers { min-width: 0; }
-.footer-drawer { border-bottom: 1px solid rgb(255 255 255 / 18%); }
-.footer-drawer:first-child { border-top: 1px solid rgb(255 255 255 / 18%); }
-.footer-drawer summary { display: flex; align-items: center; justify-content: space-between; gap: 16px; min-height: 54px; padding: 12px 4px; font-size: 15px; color: #fff; cursor: pointer; list-style: none; }
-.footer-drawer summary::-webkit-details-marker { display: none; }
-.footer-drawer summary:hover { background: rgb(255 255 255 / 5%); }
-.footer-drawer summary > span { font-size: 24px; line-height: 1; transition: transform .25s ease; }
-.footer-drawer[open] summary > span { transform: rotate(45deg); }
-.footer-drawer-content { padding: 0 4px 16px; }
-/* 抽屉内链接与页顶 nav-item 同一风格：两列白字磁贴，
-   展开时按 --nav-i 交错入场（逐字动画由 main.js 驱动）。 */
-.footer-drawer .footer-links { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 4px 12px; }
-.footer-drawer .footer-links a { display: flex; align-items: center; justify-content: center; min-height: 44px; color: #fff; font-size: 14px; }
-.footer-drawer[open] .footer-links a { animation: nav-card-in .3s cubic-bezier(.22,.61,.36,1) backwards; animation-delay: calc(var(--nav-i, 0) * 37ms); }
-.footer-drawer[open] .footer-drawer-content { animation: footer-disclose .25s ease; }
-@keyframes footer-disclose { from { opacity: 0; transform: translateY(-6px); } to { opacity: 1; transform: none; } }
-@media (prefers-reduced-motion: reduce) { .footer-drawer[open] .footer-drawer-content { animation: none; } .footer-drawer summary > span { transition: none; } }
-.footer-brand > img { float: left; margin: 2px 8px 5px 0; background: #fff; border-radius: 50%; }
-.footer-university { font-size: 23px; letter-spacing: .15em; }
-.footer-college { font-size: 19px; margin-top: 2px; }
-.footer-note { color: #a5bdd3; font-size: 12px; margin-top: 8px; }
-.site-footer h2 { font-size: 15px; font-weight: 500; margin-bottom: 12px; }
-.footer-contact p { font-size: 13px; margin-bottom: 5px; }
-.footer-contact a { display: block; padding-block: 7px; font-size: 13px; }
-.footer-links a { display: block; font-size: 13px; padding-block: 7px; min-height: 36px; }
+/* 5. 页脚：整带校园图为底，校训 + 品牌/公众号一行 + 底栏一行。
+   三段间距只认 --footer-gap 一个值（校训→品牌行 与 品牌行→底栏 必须一致）。 */
+.site-footer { --footer-gap: 24px; background: linear-gradient(90deg, rgb(6 37 67 / 92%), rgb(6 37 67 / 55%)), url('../assets/campus-building.jpg') center 52% / cover, var(--blue-dark); color: #e0eaf3; }
+.footer-inner { padding-block: 28px 0; }
+.footer-motto { font-family: var(--font-display); font-size: 24px; letter-spacing: .16em; }
+.footer-row { display: flex; align-items: center; justify-content: space-between; gap: 32px; margin-top: var(--footer-gap); }
+.footer-brand { display: flex; align-items: center; gap: 14px; min-width: 0; }
+.footer-brand > img { flex: 0 0 auto; background: #fff; border-radius: 50%; }
+.footer-college { font-size: 18px; }
+.footer-note { color: #a5bdd3; font-size: 12px; margin-top: 4px; line-height: 1.5; }
+/* 公众号面板在页脚横排（二维码左、文案右），只为压缩整带高度；联系页仍竖排。 */
+.footer-wechat .wechat-panel { flex-direction: row; align-items: center; gap: 14px; text-align: left; }
 .site-footer a:hover { color: #fff; text-decoration: underline; }
-.footer-bottom { border-top: 1px solid rgb(255 255 255 / 12%); font-size: 11px; color: #abc1d4; padding-block: 12px; background: rgb(0 0 0 / 8%); }
-.footer-bottom-inner { display: grid; grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr); align-items: center; gap: 16px 28px; }
+.footer-bottom-inner { display: flex; justify-content: space-between; align-items: center; gap: 12px 28px; border-top: 1px solid rgb(255 255 255 / 12%); margin-top: var(--footer-gap); padding-block: 12px; font-size: 11px; color: #abc1d4; }
 .footer-filing { text-align: right; }
-.footer-support { display: inline-flex; align-items: center; gap: 12px; max-width: 100%; min-height: 54px; color: #d7e4ef; font-size: 13px; letter-spacing: .04em; }
-.footer-support .studio-mark { width: 48px; height: 46px; object-fit: contain; filter: invert(1); mix-blend-mode: screen; }
-.footer-support .media-frame { width: 48px; height: 46px; flex: 0 0 48px; background: transparent; }
+.footer-support { display: inline-flex; align-items: center; gap: 12px; max-width: 100%; color: #d7e4ef; font-size: 13px; letter-spacing: .04em; }
+.footer-support .studio-mark { width: 44px; height: 42px; object-fit: contain; filter: invert(1); mix-blend-mode: screen; }
 .footer-support:hover, .footer-support:focus-visible { color: #fff; }
 @media (max-width: 959px) {
-  .footer-bottom-inner { display: flex; flex-wrap: wrap; justify-content: center; gap: 8px 28px; text-align: center; }
+  .footer-inner { padding-top: 24px; }
+  .footer-motto { text-align: center; }
+  .footer-row { flex-direction: column; align-items: center; gap: 20px; }
+  .footer-brand { justify-content: center; }
+  .footer-bottom-inner { flex-wrap: wrap; justify-content: center; text-align: center; gap: 10px 28px; }
   .footer-filing { text-align: center; }
 }
-@media (max-width: 600px) { .footer-bottom-inner { flex-direction: column; gap: 6px; } }
+@media (max-width: 600px) {
+  .footer-inner { padding-top: 20px; }
+  .footer-motto { font-size: 20px; }
+  .footer-college { font-size: 16px; }
+  .footer-brand { gap: 12px; }
+  .footer-brand > img { width: 52px; height: 52px; }
+  .footer-row { gap: 14px; }
+  /* 手机端公众号面板仍横排（二维码左、文案右）——竖排会把整带再抬高约 55px；
+     三段区块本身按 ≤959px 规则纵向排列并整体居中。 */
+  .footer-wechat .wechat-placeholder { width: 88px; height: 88px; font-size: 12px; }
+  .footer-support .studio-mark { width: 36px; height: 34px; }
+  .footer-bottom-inner { flex-direction: column; align-items: center; gap: 6px; padding-block: 10px; }
+}
 .wechat-panel { display: flex; flex-direction: column; gap: 12px; align-items: center; text-align: center; }
 .wechat-placeholder { display: grid; place-content: center; width: 120px; height: 120px; border: 1px dashed currentColor; opacity: .65; font-size: 13px; line-height: 1.8; }
 .wechat-panel .wechat-code { width: 120px; height: 120px; object-fit: contain; background: #fff; padding: 6px; }
@@ -487,7 +477,6 @@ html.snap-enabled[data-motion-paused='true'] { scroll-snap-type: none; }
 .profile-section ul { padding-left: 24px; list-style: disc; }
 .profile-section li { margin-block: 10px; }
 .profile-section { overflow-wrap: anywhere; }
-@media (max-width: 959px) { .footer-wechat { grid-column: 1 / -1; } .footer-wechat .wechat-panel { flex-direction: row; justify-content: flex-start; text-align: left; } }
 @media (max-width: 600px) { .contact-layout { grid-template-columns: 1fr; gap: 24px; } .faculty-vacancies { grid-template-columns: 1fr; gap: 12px; } .faculty-vacancy { padding: 16px; } }
 
 /* 6. 同步适配移动设备，栏目先后顺序保持一致。 */
@@ -550,8 +539,6 @@ html.snap-enabled[data-motion-paused='true'] { scroll-snap-type: none; }
   .feature-row h3 { font-size: 17px; }
   .faculty-card { display: block; }
   .faculty-card :is(img, .media-frame) { width: 120px; height: 156px; margin-bottom: 18px; }
-  .footer-main { grid-template-columns: 1.2fr 1fr; }
-  .footer-links { display: block; }
 }
 @media (max-width: 600px) {
   :root { --header-expanded-height: 100px; --header-compact-height: 43px; }
@@ -617,15 +604,6 @@ html.snap-enabled[data-motion-paused='true'] { scroll-snap-type: none; }
   .quick-links a { min-height: 70px; padding: 16px 5px; border-bottom: 1px solid var(--line); }
   .quick-links a + a { border-left: 0; }
   .quick-links h2 { font-size: 18px; }
-  .footer-main { grid-template-columns: 1fr; gap: 28px; padding-block: 32px; }
-  .footer-links { grid-column: auto; display: block; }
-  .footer-links h2 { margin-bottom: 8px; }
-  .footer-college { font-size: 17px; }
-  .footer-campus { padding-block: 42px; }
-  .footer-campus p { font-size: 24px; }
-  .footer-campus span { font-size: 11px; }
-  .footer-campus-inner { flex-direction: column; align-items: flex-start; }
-  .back-to-top { min-height: 64px; width: 100%; }
   .page-banner { padding-block: 26px; }
   .page-banner h1 { font-size: 28px; }
   .page-body { padding-bottom: 40px; }

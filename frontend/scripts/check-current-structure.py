@@ -79,7 +79,7 @@ for name, page in pages.items():
         assert len(frame.all(lambda n: 'data-media-status' in n.attrs)) == 1, name
 check('图片框都有唯一图片与反馈节点', True)
 footer = home.all(lambda n: n.has('footer-bottom-inner'))[0]
-check('工作室与版权备案同一底栏、保留徽标', all(footer.all(lambda n: n.has(c)) for c in ['footer-support', 'footer-copyright', 'footer-filing', 'studio-mark']))
+check('工作室与备案同一底栏、保留徽标', all(footer.all(lambda n: n.has(c)) for c in ['footer-support', 'footer-filing', 'studio-mark']))
 check('页脚与联系页都有公众号区域', all(pages[name].all(lambda n: n.has('wechat-panel')) for name in ['index.html', 'contact.html']))
 for name in ['index.html', 'faculty.html']:
     cards = pages[name].all(lambda n: n.has('faculty-card'))
@@ -105,7 +105,7 @@ for key in catalog['slots']:
         collection = next((c for c in catalog['collections'] if key in c['legacyKeys']), None)
         assert ("collection_preview '" + collection['key'] + "'" if collection else "content_block '" + key + "'") in generated, key
 check('后台目录每个内容位置都有前台读取入口', True)
-check('动态页面共享联系与公众号配置', 'site_info.address' in frame and 'site/wechat.html' in frame and 'site_info.address' in server_home)
+check('动态页面共享公众号与备案配置', 'site/wechat.html' in frame and 'site/wechat.html' in server_home and 'site_info.body' in frame)
 check('数据库首页和文章外框同步新导航及加载脚本', all('招生就业' in html and 'js/media-loading.js' in html and 'https://hdwzgzs.cn/' in html for html in [frame, server_home]))
 for file in ['home_pictures.html', 'detail.html']:
     source = (DOCS / 'backend/templates/site' / file).read_text(encoding='utf-8')
