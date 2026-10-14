@@ -1,0 +1,149 @@
+{
+  "sourceCommit": "94cc22774f25de2f6fff74573bdf73f78bbd62c6",
+  "date": "2026-10-14",
+  "scope": "Stable inputs and original preview URLs; not a browser acceptance report",
+  "pages": [
+    "404.html",
+    "about.html",
+    "admissions-section-1.html",
+    "admissions-section-2.html",
+    "admissions-section-3.html",
+    "admissions.html",
+    "careers-section-1.html",
+    "careers.html",
+    "community-section-1.html",
+    "community-section-2.html",
+    "community.html",
+    "contact.html",
+    "faculty.html",
+    "ic-world-section-1.html",
+    "ic-world-section-2.html",
+    "ic-world.html",
+    "image-credits.html",
+    "index.html",
+    "layout-admissions-section-1.html",
+    "layout-admissions-section-2.html",
+    "layout-admissions-section-3.html",
+    "layout-careers-section-1.html",
+    "layout-community-section-1.html",
+    "layout-community-section-2.html",
+    "layout-ic-world-section-1.html",
+    "layout-ic-world-section-2.html",
+    "layout-media-section-1.html",
+    "layout-party-building-section-1.html",
+    "layout-party-building-section-2.html",
+    "layout-public-service-section-1.html",
+    "layout-regulations-section-1.html",
+    "layout-regulations-section-2.html",
+    "layout-research-groups-section-1.html",
+    "layout-research-platforms-section-1.html",
+    "layout-science-innovation-section-1.html",
+    "layout-science-innovation-section-2.html",
+    "layout-science-innovation-section-3.html",
+    "layout-talent-cultivation-section-1.html",
+    "layout-talent-cultivation-section-2.html",
+    "media-section-1.html",
+    "media.html",
+    "news-preview-1.html",
+    "news-preview-2.html",
+    "news-preview-3.html",
+    "news-preview-4.html",
+    "news.html",
+    "notice-preview-1.html",
+    "notice-preview-2.html",
+    "notice-preview-3.html",
+    "notices.html",
+    "party-building-section-1.html",
+    "party-building-section-2.html",
+    "party-building.html",
+    "public-service-section-1.html",
+    "public-service.html",
+    "regulations-section-1.html",
+    "regulations-section-2.html",
+    "regulations.html",
+    "research-groups-section-1.html",
+    "research-groups.html",
+    "research-platforms-section-1.html",
+    "research-platforms.html",
+    "science-innovation-section-1.html",
+    "science-innovation-section-2.html",
+    "science-innovation-section-3.html",
+    "science-innovation.html",
+    "site-map.html",
+    "talent-cultivation-section-1.html",
+    "talent-cultivation-section-2.html",
+    "talent-cultivation.html",
+    "teacher-cheng-gang.html",
+    "teacher-zhang-jinlong.html",
+    "teacher-zheng-haiwu.html"
+  ],
+  "navigation": [
+    [
+      "index.html",
+      "首页"
+    ],
+    [
+      "about.html",
+      "学院概况"
+    ],
+    [
+      "science-innovation.html",
+      "科学与创新"
+    ],
+    [
+      "talent-cultivation.html",
+      "人才培养"
+    ],
+    [
+      "faculty.html",
+      "师资队伍"
+    ],
+    [
+      "news.html",
+      "新闻通知"
+    ],
+    [
+      "party-building.html",
+      "党建党务"
+    ],
+    [
+      "public-service.html",
+      "公共服务"
+    ],
+    [
+      "careers.html",
+      "人才招聘"
+    ],
+    [
+      "contact.html",
+      "联系我们"
+    ]
+  ],
+  "teachersSha256": "19d93cde92a0c80796c4b1ded1ffc3e3134658ffca8703141fd138a63548eae7",
+  "slides": [
+    {
+      "image": "assets/chip-banner.svg",
+      "title": "集成电路与微纳电子学院"
+    },
+    {
+      "image": "assets/campus-gate.jpg",
+      "title": "集成电路与微纳电子学院"
+    },
+    {
+      "image": "assets/campus-landscape.jpg",
+      "title": "校园风光"
+    },
+    {
+      "image": "assets/campus-courtyard.jpg",
+      "title": "校园一景"
+    },
+    {
+      "image": "assets/campus-building.jpg",
+      "title": "学在河大"
+    },
+    {
+      "image": "assets/wafer-closeup.jpg",
+      "title": "从一片晶圆，走近微观世界"
+    }
+  ]
+}

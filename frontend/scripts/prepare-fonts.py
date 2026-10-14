@@ -117,7 +117,7 @@ def write_style(asset_name):
         f'@font-face {{ font-family: "{FAMILY}"; font-style: normal; font-weight: 400; font-display: swap; '
         f'src: url("../assets/{asset_name}") format("truetype"); }}\n'
         f'{SELECTORS} {{ font-family: var(--font-display); font-weight: 400; font-synthesis: none; }}\n',
-        encoding='utf-8')
+        encoding='utf-8', newline='\n')
 
 
 def check():
@@ -163,7 +163,7 @@ def main():
         'name_ids': '*',
         'characters': characters,
         'files': files,
-    }, ensure_ascii=False, indent=2) + '\n', encoding='utf-8')
+    }, ensure_ascii=False, indent=2) + '\n', encoding='utf-8', newline='\n')
     check()
     print(f'已保存 {len(binary)} 字节子集，无新增依赖。请重新构建前端后部署。')
 

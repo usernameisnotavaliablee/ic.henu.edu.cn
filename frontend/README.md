@@ -1,6 +1,6 @@
 # 前端开发入口
 
-当前线上版式为 20261012.8，见[根说明](../README.md)、[当前设计](../DESIGN.md)及[项目状态](../STATUS.md)。早期 README 已保留到 docs/归档不再看/历史版本/交付整理前_20261012/。
+当前开发、重构分支与部署证据统一见[项目状态](../STATUS.md)。设计见[当前设计](../DESIGN.md)，展示接口见[前端契约](CONTRACTS.md)。早期 README 已保留到 docs/归档不再看/历史版本/交付整理前_20261012/。
 
 ## 修改位置
 
@@ -11,14 +11,15 @@
 | 21 个集合定义、分区英文、列表样式 | src/data/collections.js |
 | 首页五个内容区 | src/content/home.html |
 | 公共头尾、资源版本号 | src/templates/partials、src/templates/document.html |
-| 菜单、轮播、吸附和装饰动效 | src/js/main.js |
+| 菜单状态、键盘操作、菜单及页脚文字动画 | src/js/navigation.js |
+| 轮播、吸附和装饰动效 | src/js/main.js |
 | 页头、页面过渡、图片反馈 | src/js/header-motion.js、page-transition.js、media-loading.js |
 | 构建与原创芯片 SVG | scripts/build-site.js、scripts/build-chip-art.js |
 | 运行素材 | src/assets；来源记录放 docs/assets 或 docs/内部资料 |
 
 ## 构建和查看
 
-在仓库根目录执行 `node frontend/scripts/build-site.js`，生成 72 个静态预览页面、backend/templates/site/generated、content-catalog.json 等配套文件。静态预览里的新闻和栏目条目是占位；后台发布不回写这些 HTML。
+在仓库根目录执行 `node frontend/scripts/build-site.js`，生成静态预览页面、backend/templates/site/generated、content-catalog.json 等配套文件；实际数量和验证记录见 STATUS。静态预览里的新闻和栏目条目是占位；后台发布不回写这些 HTML。
 
 运行 `python -m http.server 8766 --bind 127.0.0.1 --directory frontend/preview`，打开 <http://127.0.0.1:8766/>。不要直接修改 preview 或 generated；手写 Django 模板应在 backend/templates/site 的非 generated 文件中改。
 
@@ -34,6 +35,10 @@
 
 ## 验证
 
-常用：check-preview.py、check-current-structure.py、prepare-fonts.py --check、check-navigation-fixes.cjs、check-overview-typography.cjs。浏览器脚本使用已有 Playwright/Edge，设置 IC_TEST_MODULES 为实际 node_modules 路径；所有命令从仓库根目录执行。
+统一入口：`node frontend/scripts/check-frontend.cjs`。先设置 `IC_TEST_MODULES` 为已有 Playwright 所在 node_modules；可通过 `IC_PYTHON` 指定项目隔离 Python，默认使用 sandbox/.venv。入口会构建、检查原有 URL/教师完整资料/轮播输入、链接与结构、字体、控制器，以及菜单、页头、响应式和概览浏览器行为。使用自动分配的本地端口，退出后关闭，不读取业务库；不会安装依赖。截图和汇总默认写入 sandbox/frontend-checks，可用 `IC_TEST_OUTPUT` 指定独立目录。
 
-check-carousel.cjs、check-experience.cjs、check-navigation-scroll.cjs 含早期暂停按钮等旧断言，作为历史脚本保留，不直接作为当前版验收门槛。实际已运行项及待办以交接验收记录为准。
+菜单专项：`node frontend/scripts/check-navigation-state.cjs [站点根URL]`；不传URL时检查静态文件，传入自己的隔离 Django 服务地址可核验动态外框。它覆盖快速点击、逐级 Escape、焦点、减少动态效果、屏宽切换、动画降级和脚本不可用时的链接可访问性。模拟浏览器检查不能替代真机验收。
+
+`check-navigation-fixes.cjs` 和 `check-overview-typography.cjs` 的吸附目标读取当前收缩高度；`check-current-design.cjs` 按队友当前品牌区收起及悬浮按钮设计验收。字体CSS和许可证由 .gitattributes 固定 LF，保持原始字节哈希校验，不忽略校验失败。
+
+check-carousel.cjs、check-experience.cjs、check-navigation-scroll.cjs 含早期暂停按钮等旧断言，作为历史脚本保留，不纳入统一入口。实际已运行项及未完成项以 STATUS 为准；入口通过也不等于已验证后台发布、学校平台、专项安全或公网性能。

@@ -1,6 +1,10 @@
 // 本地静态预览回归：菜单当前项、资讯分类、子板块背景及手机布局。
 const { chromium } = require(require('node:path').join(process.env.IC_TEST_MODULES, 'playwright'));
 const assert = require('node:assert/strict');
+const path = require('node:path');
+const fs = require('node:fs');
+const output = path.resolve(process.env.IC_TEST_OUTPUT || 'sandbox/frontend-checks');
+fs.mkdirSync(output, { recursive: true });
 const base = process.argv[2] || 'http://127.0.0.1:8766';
 (async () => {
   const browser = await chromium.launch({ channel: 'msedge', headless: true });
@@ -27,7 +31,7 @@ const base = process.argv[2] || 'http://127.0.0.1:8766';
     assert.deepEqual(backgrounds, ['rgb(255, 255, 255)', 'rgb(243, 246, 250)']);
     assert.equal(await page.locator('.overview-sections .section-watermark').count(), 2);
     assert.equal(await page.locator('.research-topics').count(), 0);
-    const stop = await page.locator('[data-overview-section]').first().evaluate(e => e.getBoundingClientRect().top + scrollY - 91);
+    const stop = await page.locator('[data-overview-section]').first().evaluate(e => e.getBoundingClientRect().top + scrollY - parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--header-compact-height')));
     await page.evaluate(y => scrollTo(0, y - 110), stop);
     await page.mouse.move(900, 700);
     await page.mouse.wheel(0, 40);
@@ -37,11 +41,11 @@ const base = process.argv[2] || 'http://127.0.0.1:8766';
     assert(midway.y < stop);
     await page.waitForTimeout(1700);
     assert(Math.abs(await page.evaluate(() => scrollY) - stop) < 3);
-    await page.screenshot({ path: 'frontend/qa/overview-desktop.png' });
+    await page.screenshot({ path: path.join(output, 'overview-desktop.png') });
     await page.setViewportSize({ width: 390, height: 844 });
     assert(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth));
     assert.equal(await page.locator('.footer-support').getAttribute('href'), 'https://hdwzgzs.cn/');
-    await page.screenshot({ path: 'frontend/qa/overview-mobile.png' });
+    await page.screenshot({ path: path.join(output, 'overview-mobile.png') });
     for (const file of ['science-innovation', 'admissions', 'community', 'regulations', 'party-building', 'ic-world', 'research-platforms', 'research-groups', 'public-service', 'careers']) {
       await page.goto(base + '/' + file + '.html');
       assert(await page.locator('[data-overview-section]').count());

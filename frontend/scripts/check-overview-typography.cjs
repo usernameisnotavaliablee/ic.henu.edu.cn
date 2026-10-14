@@ -5,6 +5,8 @@ const assert = require('node:assert/strict');
 const { chromium } = require(path.join(process.env.IC_TEST_MODULES, 'playwright'));
 const base = process.argv[2] || 'http://127.0.0.1:8766';
 const root = path.resolve(__dirname, '..');
+const output = path.resolve(process.env.IC_TEST_OUTPUT || 'sandbox/frontend-checks');
+fs.mkdirSync(output, { recursive: true });
 // 标题字体必须是自托管子集，且体积受控；防止误把 18MB 母版或未子集化文件发上线。
 const manifest = JSON.parse(fs.readFileSync(path.join(root, 'licenses/zhuangsong-manifest.txt'), 'utf8'));
 const fontAssets = Object.keys(manifest.files).filter(f => f.startsWith('src/assets/'));
@@ -39,7 +41,7 @@ assert(fontBytes <= 150 * 1024, `标题字体子集过大：${fontBytes} 字节`
     await page.goto(base + '/about.html');
     assert.equal(await page.locator('[data-overview-section]').count(), 3);
     assert.deepEqual(await page.locator('.editorial-heading h2').allTextContents(), ['学院简介', '组织机构', '领导班子']);
-    const stop = await page.locator('[data-overview-section]').first().evaluate(e => e.getBoundingClientRect().top + scrollY - 91);
+    const stop = await page.locator('[data-overview-section]').first().evaluate(e => e.getBoundingClientRect().top + scrollY - parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--header-compact-height')));
     await page.evaluate(y => scrollTo(0, y - 110), stop);
     await page.mouse.move(900, 700);
     await page.mouse.wheel(0, 40);
@@ -77,7 +79,7 @@ assert(fontBytes <= 150 * 1024, `标题字体子集过大：${fontBytes} 字节`
     assert.equal(await page.locator('.editorial-heading h2').first().textContent(), '学院简介');
     await fallbackStyle.evaluate(e => e.remove());
     await mark.evaluate(e => { e.getAnimations()[0].currentTime = 4000; });
-    await page.screenshot({ path: path.join(root, 'qa/about-desktop.png') });
+    await page.screenshot({ path: path.join(output, 'about-desktop.png') });
     await page.evaluate(() => scrollTo(0, document.body.scrollHeight));
     await page.waitForTimeout(200);
     assert.equal(await mark.evaluate(e => getComputedStyle(e).animationPlayState), 'paused');
@@ -99,12 +101,12 @@ assert(fontBytes <= 150 * 1024, `标题字体子集过大：${fontBytes} 字节`
     await page.setViewportSize({ width: 390, height: 844 });
     await page.locator('[data-overview-section]').first().scrollIntoViewIfNeeded();
     await page.waitForTimeout(1100);
-    await page.screenshot({ path: path.join(root, 'qa/party-mobile.png') });
+    await page.screenshot({ path: path.join(output, 'party-mobile.png') });
     await page.goto(base + '/index.html');
     assert(await page.locator('.home-section > .section-watermark').evaluateAll(es => es.every(e => getComputedStyle(e).animationName === 'none')));
     assert.deepEqual(errors, []);
     report.result = 'passed';
-    fs.writeFileSync(path.join(root, 'qa/overview-typography.json'), JSON.stringify(report, null, 2) + '\n');
+    fs.writeFileSync(path.join(output, 'overview-typography.json'), JSON.stringify(report, null, 2) + '\n');
     console.log(`PASS: ${report.pages.length} pages, ${report.fonts.length} rendered font regions, 15 responsive checks, about snap and breathing keyframes, reduced motion, unchanged home watermarks`);
   } finally { await browser.close(); }
 })().catch(e => { console.error(e); process.exitCode = 1; });

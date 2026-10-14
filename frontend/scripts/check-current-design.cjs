@@ -5,7 +5,8 @@ const path = require('node:path');
 const assert = require('node:assert/strict');
 const { chromium } = require(path.join(process.env.IC_TEST_MODULES, 'playwright'));
 const base = (process.argv[2] || 'http://127.0.0.1:8765').replace(/\/$/, '');
-const output = path.resolve(__dirname, '../qa');
+const output = path.resolve(process.env.IC_TEST_OUTPUT || 'sandbox/frontend-checks');
+fs.mkdirSync(output, { recursive: true });
 const checks = [], errors = [];
 const check = (name, ok) => { assert.ok(ok, name); checks.push(name); console.log('PASS ' + name); };
 (async () => {
@@ -15,7 +16,7 @@ const check = (name, ok) => { assert.ok(ok, name); checks.push(name); console.lo
     const page = await context.newPage();
     page.on('pageerror', e => errors.push(e.message));
     await page.goto(base + '/index.html');
-    check('原有九个导航均保留，师生园地归人才培养', await page.locator('.main-nav > ul > li > .nav-item-heading > a').allTextContents().then(labels => ['首页', '学院概况', '科学与创新', '人才培养', '师资队伍', '新闻通知', '公共服务', '人才招聘', '联系我们'].every(s => labels.includes(s))));
+    check('包含首页的十个导航按既有顺序保留', await page.locator('.main-nav > ul > li > .nav-item-heading > a').allTextContents().then(labels => JSON.stringify(labels) === JSON.stringify(['首页', '学院概况', '科学与创新', '人才培养', '师资队伍', '新闻通知', '党建党务', '公共服务', '人才招聘', '联系我们'])));
     check('删除两类暂停按钮', await page.locator('[data-pause], [data-motion-toggle]').count() === 0);
     check('自托管装甲宋标题字体实际加载', await page.evaluate(async () => (await document.fonts.load('400 30px "IC ZhuangSong"', '学院新闻')).length > 0));
     check('程老师首位', await page.locator('.faculty-card h3').first().textContent() === '程纲');
@@ -32,12 +33,9 @@ const check = (name, ok) => { assert.ok(ok, name); checks.push(name); console.lo
     await page.evaluate(() => { document.activeElement.blur(); scrollTo(0, 650); });
     await page.waitForTimeout(800);
     const header = await page.locator('.site-header').evaluate(el => {
-      const uni = el.querySelector('.university-name').getBoundingClientRect();
-      const college = el.querySelector('.college-name').getBoundingClientRect();
-      return { height: el.offsetHeight, visible: el.querySelector('.brand-mark').getBoundingClientRect().height > 0, sameLine: Math.abs(uni.top - college.top) < 8, ink: getComputedStyle(el.querySelector('.college-name')).color, band: getComputedStyle(el.querySelector('.navigation-band')).backgroundColor, bg: getComputedStyle(el).backgroundColor };
+      return { height: el.getBoundingClientRect().height, brandHeight: el.querySelector('.header-main').getBoundingClientRect().height, opacity: Number(getComputedStyle(el.querySelector('.brand')).opacity), inert: el.querySelector('.brand').inert, bandHeight: el.querySelector('.navigation-band').getBoundingClientRect().height };
     });
-    check('收缩页头不超过94px、校徽保留、校名院名同行', header.height <= 94 && header.visible && header.sameLine);
-    check('白字与双色蓝背景', header.ink === 'rgb(255, 255, 255)' && header.band !== header.bg);
+    check('桌面收缩后品牌行隐藏，导航带约45px', Math.abs(header.height - 45) < 2 && header.brandHeight < 1 && header.opacity === 0 && header.inert && header.bandHeight > 40);
     await page.screenshot({ path: path.join(output, 'current-compact.png') });
     for (const width of [320, 390, 768, 1024, 1440]) {
       await page.setViewportSize({ width, height: 900 });
@@ -48,8 +46,9 @@ const check = (name, ok) => { assert.ok(ok, name); checks.push(name); console.lo
       await page.goto(base + '/index.html');
       await page.evaluate(() => scrollTo(0, 500));
       await page.waitForTimeout(800);
-      check(`${width}px收缩标识完整可见`, await page.locator('.college-name').evaluate(el => { const r = el.getBoundingClientRect(); return r.width > 0 && r.right <= innerWidth && r.top >= 0; }));
+      check(`${width}px收缩后品牌行隐藏且禁用`, await page.locator('.brand').evaluate(el => el.inert && Number(getComputedStyle(el).opacity) === 0 && el.parentElement.getBoundingClientRect().height < 1));
       if (width < 960) {
+        check(`${width}px悬浮菜单按钮完整可见`, await page.locator('.nav-toggle').evaluate(el => { const r = el.getBoundingClientRect(); return !el.closest('[inert]') && r.width > 0 && r.left >= 0 && r.right <= innerWidth && r.top >= 0; }));
         await page.locator('.nav-toggle').click();
         await education.locator(':scope > .nav-item-heading > .subnav-toggle').click();
         await admissions.locator(':scope > .nav-item-heading > .subnav-toggle').click();
@@ -102,7 +101,7 @@ const check = (name, ok) => { assert.ok(ok, name); checks.push(name); console.lo
       return { expanded, early, middle, reverse: measure() };
     });
     const { expanded, early, middle, reverse } = samples;
-    check('页头实际高度与字号都有连续中间帧', early.height < expanded.height && early.height > middle.height && middle.height > 46 && early.size > middle.size && middle.size > 20);
+    check('页头实际高度与字号都有连续中间帧', early.height < expanded.height && early.height > middle.height && middle.height > 0 && early.size > middle.size);
     check('动画中反向滚动从中间状态返回', reverse.height > middle.height && reverse.height < expanded.height);
     fs.writeFileSync(path.join(output, 'current-header-frame-samples.json'), JSON.stringify(samples, null, 2) + '\n');
     await page.waitForFunction(() => document.querySelector('.site-header').dataset.headerAnimation === 'idle');

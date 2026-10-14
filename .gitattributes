@@ -1,2 +1,9 @@
 # 原样归档参考源码，避免换行转换破坏解压清单的 SHA256。
 docs/内部资料/参考源码/低空学院/** -text
+
+# 字体清单按原始字节校验；所有平台保持生成CSS与许可证的LF换行。
+frontend/src/css/fonts.css text eol=lf
+frontend/preview/css/fonts.css text eol=lf
+frontend/licenses/*.txt text eol=lf
+*.ttf binary
+*.woff2 binary
