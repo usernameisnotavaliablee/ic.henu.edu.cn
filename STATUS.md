@@ -115,7 +115,7 @@
 
 **过期断言，不是产品缺陷（2026-10-14 逐条核实，已修完）**：三个脚本的红灯都来自「断言还写着 `e6e134d` 之前的行为」，不是页面坏了。
 
-- `check-current-design.cjs`「{width}px收缩标识完整可见」要求收缩态 `.college-name` 的 `top >= 0`，但 `e6e134d`（10-13 09:05「品牌区滚后整段滑出，不再缩小驻留」）有意让 `.header-main` 在收缩态 `height: 0`（`--brand-height-closed: 0px`），靠自身的 `overflow: hidden` 把内容裁掉——注意 **`.header-main` 没有 opacity 规则**，淡出的是它内部的 `.brand`（`style.css:679`），别去量前者。断言与现行设计**相反**。`frontend/qa/current-design-browser.json`（10-12 生成，56 项）里这条**是通过的** → 说明它是 10-13 之后才红的，不是"既有问题"。同一脚本的「页头实际高度与字号都有连续中间帧」写死 `height > 46` / `size > 20`，也是品牌区驻留时代的取值。
+- `check-current-design.cjs`「{width}px收缩标识完整可见」要求收缩态 `.college-name` 的 `top >= 0`，但 `e6e134d`（10-13 09:05「品牌区滚后整段滑出，不再缩小驻留」）有意让 `.header-main` 在收缩态 `height: 0`（`--brand-height-closed: 0px`），靠自身的 `overflow: hidden` 把内容裁掉——注意 **`.header-main` 没有 opacity 规则**，淡出的是它内部的 `.brand`（`style.css:679`），别去量前者。断言与现行设计**相反**。10-12 那一版 `frontend/qa/current-design-browser.json`（56 项，现已被 10-14 的 63 项结果覆盖，旧版看 `git log -p -- frontend/qa/current-design-browser.json`）里这条**是通过的** → 说明它是 10-13 之后才红的，不是"既有问题"。同一脚本的「页头实际高度与字号都有连续中间帧」写死 `height > 46` / `size > 20`，也是品牌区驻留时代的取值。
 - `check-navigation-fixes.cjs` 与 `check-overview-typography.cjs` 都硬编码 `元素顶 - 91`，而 91 是旧的 `--header-compact-height`，现值 **45**；实际吸附落点 = `元素顶 - 45`（`.overview-section { scroll-margin-top: var(--header-compact-height) }`），实测差 46.5px。
 
 **不是「时序不稳定」**：`check-overview-typography.cjs` 在新树上连跑 2 次、在干净 worktree 上跑 1 次，失败点与差值（46.5px）完全一致，是确定性失败。
