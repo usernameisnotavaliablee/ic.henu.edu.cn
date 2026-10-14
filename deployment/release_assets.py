@@ -6,13 +6,13 @@ from pathlib import Path
 
 def validate_fonts(docs):
     frontend = Path(docs) / 'frontend'
-    manifest = frontend / 'licenses' / 'lxgw-wenkai-manifest.txt'
+    manifest = frontend / 'licenses' / 'zhuangsong-manifest.txt'
     if not manifest.is_file():
         raise ValueError('缺少字体清单；请先准备字体，再重新构建前端。')
     info = json.loads(manifest.read_text(encoding='utf-8'))
     files = info.get('files', {})
-    required = {'src/css/fonts.css', 'licenses/LXGW-WenKai-TC-OFL.txt'}
-    font_files = [name for name in files if name.startswith('src/assets/ic-kai-headings-') and Path(name).suffix in {'.ttf', '.woff2'}]
+    required = {'src/css/fonts.css', 'licenses/XinYuGongZhangJiaSongA-OFL.txt'}
+    font_files = [name for name in files if name.startswith('src/assets/ic-zhuangsong-headings-') and Path(name).suffix in {'.ttf', '.woff2'}]
     if not required.issubset(files) or not font_files:
         raise ValueError('字体清单不完整：需要字体文件、fonts.css和许可证。')
     checked = [manifest]

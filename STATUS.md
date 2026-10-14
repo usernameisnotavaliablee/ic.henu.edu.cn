@@ -108,6 +108,8 @@
 
 **不要为表面「全通过」勾掉无法执行的项目。**
 
+**既有失败（非本轮引入，2026-10-14 在干净工作树上复现）**：`check-navigation-fixes.cjs`（滚动吸附落点断言）、`check-current-design.cjs`（320px「收缩标识完整可见」，收缩态品牌行被 0 高容器裁到 `top: -7.5`）、`check-overview-typography.cjs`（同一滚动吸附落点断言：脚本按 `元素顶 - 91` 算目标，实际停在 `元素顶 - 44.5`，实测差 46.5px，断言要求 <3px；该脚本的字体断言在此断言之前，已全绿）、`check-experience.cjs` 四项在 `git stash` 后的干净树上同样失败，属既有问题；前两项失败点依赖动画时序，无头浏览器下不稳定。
+
 ## 四 验收证据（截至 2026-10-12）
 
 自动化结果，**不等于人工验收**：
@@ -117,11 +119,13 @@
 | Django content 回归 | 46 项通过（隔离库） | `backend/manage.py test content --noinput` |
 | 静态链接与片段 | 72 页 / 5557 引用通过 | `frontend/scripts/check-preview.py` |
 | 页面结构/模板对应 | 95 项通过 | `frontend/qa/current-structure.json` |
-| 字体资源、许可、覆盖 | 104 字符通过 | `prepare-fonts.py --check` |
+| 字体资源、许可、覆盖 | 104 字符通过（母版 sha256 + 子集 sha256 + 覆盖） | `prepare-fonts.py --check` |
+| 标题字体跨页一致 | 73 页 177 区域 2191 字形全部自托管、0 回退 | `frontend/scripts/check-overview-typography.cjs` |
 | 运行包预检 | 229 文件通过 | `deployment/package_preview.py --check` |
 | WAL 备份恢复 | 1 项通过（临时样例） | `deployment/test_backup.py` |
 | 打包资源回归 | 7 项通过 | `deployment/test_release_assets.py` |
 | 页头动画控制 | 5 项通过 | `frontend/qa/header-motion-unit.json` |
+| 窄屏汉堡按钮 | 8 项通过（无导航带、无底色、收缩后浮右上角） | `frontend/scripts/check-nav-toggle.cjs` |
 | 图片状态机 | 6 项通过 | `frontend/qa/media-loading-unit.json` |
 | 跨页过渡控制 | 5 项通过 | `frontend/scripts/check-page-transition.cjs` |
 | Edge 实际浏览器 | 56 项通过 | `frontend/qa/current-design-browser.json` |
@@ -171,7 +175,7 @@ ssh -N -L 8095:127.0.0.1:8095 <已授权用户>@47.94.146.53
 
 流程见 `deployment/README.md`。发布必须对应明确 Git commit：备份库与必要配置 → 生成新 release → 验证 → 切换。**不把代码发布与业务数据覆盖混为一件事。**
 
-字体：优先访客本机楷体，缺失用本站开源字体（LXGW WenKai TC 子集，SIL OFL，许可存 `frontend/licenses/`）。改固定标题/校训需跑 `prepare-fonts.py --check`；字符不足时在隔离环境重新生成。**不得复制 Windows 商业字体给访客下载。**
+字体：标题区域（校训、栏目大标题、feature-intro、页脚校训）统一用自托管「新愚公装甲宋A」子集（CSS 族名 IC ZhuangSong，衍自思源宋体，SIL OFL 1.1，许可存 `frontend/licenses/`），**不再依赖访客本机字体**；正文与导航仍是系统无衬线。母版 18 MB 存 `docs/assets/fonts/`，运行子集 36 KB；改固定标题/校训需跑 `prepare-fonts.py --check`，缺字则重跑不带 `--check` 的脚本重建（构建期需本机 fontTools，不联网）。**不得复制 Windows 商业字体给访客下载。**
 
 图片在 `frontend/src/assets` 添加并记录来源，构建后进 `preview/assets`。禁止把外部示意图称为学院真实设施或活动现场；未获正式公众号二维码不生成冒用占位。
 

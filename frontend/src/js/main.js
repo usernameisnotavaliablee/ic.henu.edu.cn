@@ -64,34 +64,54 @@
   if (toggle && nav) {
     nav.classList.add('is-enhanced');
     toggle.hidden = false;
-    // Aceternity container-text-flip 的原生移植：汉堡展开卡片菜单、页脚
-    // 「走进学院」「资讯与服务」抽屉展开时，标题按字逐个 blur(10px)→0 淡入
-    // （每字延迟 20ms，项目间递增 60ms）。拆字只在增强态执行，
-    // aria-label 保留整词供读屏朗读。
+    // Aceternity container-text-flip 的原生移植：任何菜单展开（汉堡、各级
+    // 子菜单、页脚抽屉）时，标题按字逐个 blur(10px)→0 淡入。
+    // 时序为移植版原速率的 2.25x：duration 245ms、字间 8.9ms、条目间 26.7ms。
+    // 每条目记 trigger 决定展开哪个容器时播放；aria-label 保留整词供读屏。
+    const FLIP = { dur: 245, char: 8.9, link: 26.7 };
     const flipLinks = [
-      ...nav.querySelectorAll(':scope > ul > .nav-item > .nav-item-heading > a'),
+      ...nav.querySelectorAll('a'),
       ...document.querySelectorAll('.footer-drawer .footer-links a'),
     ];
-    const flipChars = flipLinks.map((link, index) => {
+    let topIndex = 0;
+    const flipChars = flipLinks.map(link => {
       const drawer = link.closest('.footer-drawer');
-      // 页脚链接的交错序号按各自抽屉内位置计，与导航序号互不串扰。
-      const order = drawer ? [...drawer.querySelectorAll('.footer-links a')].indexOf(link) : index;
-      (link.closest('.nav-item') || link).style.setProperty('--nav-i', order);
+      const parentItem = link.closest('.subnav')?.closest('.nav-item');
+      // --nav-i 只服务于 CSS 卡片交错入场：导航一级卡片按 0..n、
+      // 页脚磁贴按各自抽屉内序号；子菜单链接不写。
+      if (drawer) link.style.setProperty('--nav-i', [...drawer.querySelectorAll('.footer-links a')].indexOf(link));
+      else if (!parentItem) link.closest('.nav-item').style.setProperty('--nav-i', topIndex++);
       const label = link.textContent;
       link.setAttribute('aria-label', label);
       link.innerHTML = [...label].map(char => `<span class="nav-flip-char" aria-hidden="true">${char === ' ' ? '&nbsp;' : char}</span>`).join('');
-      return { link, chars: [...link.querySelectorAll('.nav-flip-char')] };
+      return { link, chars: [...link.querySelectorAll('.nav-flip-char')], trigger: drawer || parentItem || nav };
     });
-    const runNavFlip = (scope = nav) => {
+    // closing=true 时按展开顺序整体倒放（条目与字符都逆序、关键帧对调）。
+    // 仅移动端子菜单使用——桌面 .subnav 自带 .42s CSS 关闭过渡，再叠
+    // 会成两条动画。fill 必须 'both'：backwards 不留终态，先退出的字会
+    // 闪回可见。返回最后一条动画结束的估算毫秒数供延迟隐藏容器。
+    const runNavFlip = (scope = nav, closing = false) => {
       const inNav = scope === nav;
-      if (reducedMotion.matches || root.dataset.motionPaused === 'true' || (inNav && !smallScreen.matches)) return;
-      flipChars.filter(entry => scope.contains(entry.link)).forEach((entry, index) => entry.chars.forEach((char, charIndex) => {
-        char.getAnimations().forEach(animation => animation.cancel());
-        char.animate(
-          [{ opacity: 0, filter: 'blur(10px)' }, { opacity: 1, filter: 'blur(0)' }],
-          { duration: 550, delay: index * 60 + charIndex * 20, easing: 'ease-out', fill: 'backwards' },
-        );
-      }));
+      if (reducedMotion.matches || root.dataset.motionPaused === 'true' || (inNav && !smallScreen.matches)) return 0;
+      const entries = flipChars.filter(entry => entry.trigger === scope);
+      if (closing) entries.reverse();
+      // 退场按惯例快于入场：收起时全部时序压到 0.7x。
+      const speed = closing ? 0.7 : 1;
+      entries.forEach((entry, order) => {
+        const linkDelay = order * FLIP.link * speed;
+        const chars = closing ? [...entry.chars].reverse() : entry.chars;
+        chars.forEach((char, charIndex) => {
+          char.getAnimations().forEach(animation => animation.cancel());
+          char.animate(
+            closing
+              ? [{ opacity: 1, filter: 'blur(0)' }, { opacity: 0, filter: 'blur(10px)' }]
+              : [{ opacity: 0, filter: 'blur(10px)' }, { opacity: 1, filter: 'blur(0)' }],
+            { duration: FLIP.dur * speed, delay: linkDelay + charIndex * FLIP.char * speed, easing: closing ? 'ease-in' : 'ease-out', fill: closing ? 'both' : 'backwards' },
+          );
+        });
+      });
+      const last = entries[entries.length - 1];
+      return last ? ((entries.length - 1) * FLIP.link + last.chars.length * FLIP.char + FLIP.dur) * speed : 0;
     };
     document.querySelectorAll('.footer-drawer').forEach(drawer =>
       drawer.addEventListener('toggle', () => { if (drawer.open) runNavFlip(drawer); }));
@@ -116,22 +136,33 @@
     const menuFor = item => item.querySelector(':scope > .subnav');
     const dropdowns = [...nav.querySelectorAll('.nav-item')].filter(buttonFor);
     const setDropdown = (item, open) => {
-      item.classList.toggle('is-subnav-open', open);
-      buttonFor(item).setAttribute('aria-expanded', String(open));
+      clearTimeout(item._closeTimer);
       const menu = menuFor(item);
-      menu.inert = !open;
+      buttonFor(item).setAttribute('aria-expanded', String(open));
       item.classList.remove('opens-left', 'align-right');
-      if (open && !smallScreen.matches) {
-        // 靠近右边缘时朝左展开，三级菜单不溢出视口。
-        if (menu.getBoundingClientRect().right > innerWidth - 8) {
-          item.classList.add(item.parentElement.classList.contains('subnav') ? 'opens-left' : 'align-right');
+      if (open) {
+        item.classList.add('is-subnav-open');
+        menu.inert = false;
+        if (!smallScreen.matches) {
+          // 靠近右边缘时朝左展开，三级菜单不溢出视口。
+          if (menu.getBoundingClientRect().right > innerWidth - 8) {
+            item.classList.add(item.parentElement.classList.contains('subnav') ? 'opens-left' : 'align-right');
+          }
         }
+        runNavFlip(item);
+      } else if (item.classList.contains('is-subnav-open') && smallScreen.matches) {
+        // 移动端子菜单是 display 硬切换、没有任何收起过渡：播逐字倒放，
+        // 期间保留 is-subnav-open 维持可见但立即置 inert 防误点，
+        // 播完再移除类隐藏。计时内重开由开头的 clearTimeout 救回；
+        // 桌面交回 CSS 过渡。
+        menu.inert = true;
+        item._closeTimer = setTimeout(() => item.classList.remove('is-subnav-open'), runNavFlip(item, true) + 30);
+      } else {
+        item.classList.remove('is-subnav-open');
+        menu.inert = true;
       }
-      if (!open) dropdowns.filter(child => child !== item && item.contains(child)).forEach(child => {
-        child.classList.remove('is-subnav-open', 'opens-left', 'align-right');
-        buttonFor(child).setAttribute('aria-expanded', 'false');
-        menuFor(child).inert = true;
-      });
+      // 收起父菜单时级联收起子孙，走同一路径使每层都能播自己的关闭动画。
+      if (!open) dropdowns.filter(child => child !== item && item.contains(child)).forEach(child => setDropdown(child, false));
     };
     const openOnly = item => {
       dropdowns.filter(other => other.parentElement === item.parentElement && other !== item).forEach(other => setDropdown(other, false));

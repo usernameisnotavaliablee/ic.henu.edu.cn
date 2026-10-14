@@ -1,0 +1,13 @@
+{
+  "family": "IC ZhuangSong",
+  "license": "SIL OFL 1.1",
+  "source_file": "docs/assets/fonts/新愚公装甲宋A.ttf",
+  "source_sha256": "64e2fe1aa83246ccd9aa6b1c33a88a65d181092c7678de45729063fe60214b27",
+  "name_ids": "*",
+  "characters": " ·与专世业习事于交人介从伍体信党公养创到制办务动南台向告善园地培媒子学导就展师平度建微德态思息成所才报招指探新方明普有服本术机构案止民活流片班生界知研科程究章简索纳组织聘至芯观规课资进通道采闻队院集领题风，",
+  "files": {
+    "src/assets/ic-zhuangsong-headings-6fb1877d1f0b.ttf": "6fb1877d1f0b3739d7362cfece06cbcba6d8a7fca1401b7c8f81361ff9c6bdf3",
+    "src/css/fonts.css": "1baf5408fe6ef0e111f7951206fa9910a417e874b2ef804ae3c9df4eaf537535",
+    "licenses/XinYuGongZhangJiaSongA-OFL.txt": "c489813e3a86c7c8cd85dbeea75c380e394c85b9db1da01837e1aba609bcb989"
+  }
+}
