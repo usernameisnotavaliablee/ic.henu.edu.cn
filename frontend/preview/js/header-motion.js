@@ -30,13 +30,13 @@
   const header = document.querySelector('.site-header');
   if (!header) return;
   const home = root.dataset.page === 'home';
-  const headerMain = header.querySelector('.header-main');
+  const brand = header.querySelector('.brand');
   const reduce = matchMedia('(prefers-reduced-motion: reduce)');
   let compact = !home || scrollY > 90;
   root.classList.add('header-enhanced');
   header.classList.toggle('is-compact', compact);
   header.dataset.headerReady = 'true';
-  if (headerMain) headerMain.inert = compact;
+  if (brand) brand.inert = compact;
   const motion = createAnimator((progress, moving) => {
     header.style.setProperty('--header-progress', progress.toFixed(5));
     header.dataset.headerAnimation = moving ? 'running' : 'idle';
@@ -44,7 +44,7 @@
   const update = () => {
     compact = !home || scrollY > 90 || (compact && scrollY > 20);
     header.classList.toggle('is-compact', compact);
-    if (headerMain) headerMain.inert = compact;
+    if (brand) brand.inert = compact;
     motion.to(Number(compact), reduce.matches);
   };
   addEventListener('scroll', update, { passive: true });
