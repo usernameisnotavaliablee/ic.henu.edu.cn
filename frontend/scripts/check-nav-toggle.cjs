@@ -41,8 +41,12 @@ const base = process.argv[2] || 'http://127.0.0.1:8766';
     assert(Math.abs(compact.y - 11) < 2.5, `收缩态应浮到右上角，实测 top ${compact.y}`);
     assert(Math.abs(compact.w - 40) < 2 && Math.abs(compact.h - 32) < 2, '收缩态触发区不应变化');
     assert(await bandH() < 1, `收缩态也不应有导航带，实测 ${await bandH()}px`);
-    const pill = await toggle.evaluate(el => getComputedStyle(el).backgroundColor);
-    assert(pill === 'rgba(8, 43, 81, 0.7)', `收缩态按钮需自带底色才能浮在正文上，实测 ${pill}`);
+    const skin = await toggle.evaluate(el => { const cs = getComputedStyle(el); return { bg: cs.backgroundColor, color: cs.color }; });
+    assert(skin.bg === 'rgba(255, 255, 255, 0.85)', `收缩态按钮底应为白（浅底隐形、深底显形），实测 ${skin.bg}`);
+    // color-mix 会序列化成 color(srgb r g b)，取值再比。
+    const rgb = skin.color.match(/[\d.]+/g).slice(-3).map(Number);
+    const to255 = v => Math.round(v <= 1 ? v * 255 : v);
+    assert(rgb.length === 3 && Math.abs(to255(rgb[0]) - 18) < 2 && Math.abs(to255(rgb[1]) - 62) < 2 && Math.abs(to255(rgb[2]) - 112) < 2, `收缩态三条杠应为品牌蓝 #123e70，实测 ${skin.color}`);
     // inert 只能落在品牌行：落到 .header-main 会把按钮一起禁掉。
     const inerts = await page.evaluate(() => ({ brand: document.querySelector('.brand').inert, toggle: document.querySelector('.nav-toggle').inert }));
     assert(inerts.brand === true && inerts.toggle === false, `收缩态应只禁用品牌行，实测 ${JSON.stringify(inerts)}`);
