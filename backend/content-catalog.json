@@ -634,7 +634,7 @@
   "defaults": {
     "home.slide-1": {
       "key": "home.slide-1",
-      "title": "集成电路与微纳电子学院",
+      "title": "集成电路与微纳电子学院 (筹)",
       "subtitle": "HENAN UNIVERSITY · INTEGRATED CIRCUITS",
       "summary": "从集成电路，探索微纳世界",
       "body": "芯片概念动效 · 非实物与电气设计",
@@ -643,7 +643,7 @@
     },
     "home.slide-2": {
       "key": "home.slide-2",
-      "title": "集成电路与微纳电子学院",
+      "title": "集成电路与微纳电子学院 (筹)",
       "subtitle": "HENAN UNIVERSITY",
       "summary": "河南大学",
       "body": "校园图片示意 · 待替换高清素材",
@@ -1181,8 +1181,8 @@
     }
   ],
   "site": {
-    "college": "集成电路与微纳电子学院",
-    "english": "School of Integrated Circuits and Micro-Nano Electronics",
+    "college": "集成电路与微纳电子学院 (筹)",
+    "english": "School of Integrated Circuits and Micro-Nano Electronics, Henan University, Henan University",
     "motto": "明德 · 新民 · 止于至善",
     "image": "henu-logo.png",
     "address": "",

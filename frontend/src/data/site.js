@@ -1,8 +1,8 @@
 // 文案、栏目、轮播的统一入口。这里的示例仅供内部预览。
 module.exports = {
-  name: '河南大学集成电路与微纳电子学院',
-  college: '集成电路与微纳电子学院',
-  english: 'School of Integrated Circuits and Micro-Nano Electronics',
+  name: '河南大学集成电路与微纳电子学院 (筹)',
+  college: '集成电路与微纳电子学院 (筹)',
+  english: 'School of Integrated Circuits and Micro-Nano Electronics, Henan University, Henan University',
   navigation: [
     ['index.html', '首页'], ['about.html', '学院概况'],
     ['science-innovation.html', '科学与创新'], ['talent-cultivation.html', '人才培养'],
@@ -33,10 +33,10 @@ module.exports = {
   contact: { address: '待提供', phone: '待提供', email: '待提供' },
   slides: [
     { image: 'assets/chip-banner.svg', alt: '蓝白芯片与信号光流，原创学科示意',
-      eyebrow: 'HENAN UNIVERSITY · INTEGRATED CIRCUITS', title: '集成电路与微纳电子学院',
+      eyebrow: 'HENAN UNIVERSITY · INTEGRATED CIRCUITS', title: '集成电路与微纳电子学院 (筹)',
       text: '从集成电路，探索微纳世界', note: '芯片概念动效 · 非实物与电气设计', theme: 'chip' },
     { image: 'assets/campus-gate.jpg', alt: '河南大学牌坊，来自低空参考包的校园图片',
-      eyebrow: 'HENAN UNIVERSITY', title: '集成电路与微纳电子学院',
+      eyebrow: 'HENAN UNIVERSITY', title: '集成电路与微纳电子学院 (筹)',
       text: '河南大学', note: '校园图片示意 · 待替换高清素材', theme: 'campus' },
     { image: 'assets/campus-landscape.jpg', alt: '低空参考包中的校园建筑与绿地，内部预览占位',
       eyebrow: 'HENAN UNIVERSITY · CAMPUS', title: '校园风光',

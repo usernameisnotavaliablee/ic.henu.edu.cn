@@ -1,6 +1,6 @@
-# 河南大学集成电路与微纳电子学院
+# 河南大学集成电路与微纳电子学院 (筹)
 
-## School of Integrated Circuits and Micro-Nano Electronics, Henan University
+## School of Integrated Circuits and Micro-Nano Electronics, Henan University, Henan University, Henan University
 
 `ic.henu.edu.cn` · 私有仓库 `usernameisnotavaliablee/ic.henu.edu.cn`
 
@@ -70,7 +70,7 @@ sandbox/      本地沙盒（gitignore，不入库）
 
 ## 已确认的事实
 
-- 学院中文名：河南大学集成电路与微纳电子学院。
+- 学院中文名：河南大学集成电路与微纳电子学院 (筹)。
 - 正式后台 = 学校博达站群；Django + SQLite 只做预览，不要求学校部署。
 - 视觉：蓝白科技风，芯片动效。
 - 栏目参考低空学院：学院概况、科学与创新、人才培养、师资队伍、新闻通知、公共服务、人才招聘、联系我们。

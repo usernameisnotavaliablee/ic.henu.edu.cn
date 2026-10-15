@@ -434,7 +434,7 @@ function paintBase() {
   // 丝印文字
   bg.fillStyle = rgba(C.silks, 0.5);
   bg.font = '600 13px ui-monospace,SFMono-Regular,Menlo,monospace';
-  bg.fillText('HENU · SCHOOL OF INTEGRATED CIRCUITS & MICRO-NANO ELECTRONICS', 60, 92);
+  bg.fillText('HENU · SCHOOL OF INTEGRATED CIRCUITS & Micro-Nano Electronics, Henan University', 60, 92);
   bg.font = '600 12px ui-monospace,SFMono-Regular,Menlo,monospace';
   bg.fillStyle = rgba(C.silks, 0.3);
   bg.fillText('CONCEPT VISUAL', 60, 112);

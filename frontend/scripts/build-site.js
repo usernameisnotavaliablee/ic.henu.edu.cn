@@ -264,7 +264,7 @@ function serverChrome(html) {
   footer = footer.replace('src="assets/henu-logo.png"', 'src="/assets/{{ site_info.image }}"');
   footer = footer.replace('alt="河南大学校徽"', 'alt="{{ site_info.image_alt|default:\'河南大学校徽\' }}"');
   footer = footer.replace('明德 · 新民 · 止于至善', '{{ site_info.motto }}');
-  footer = footer.replace('School of Integrated Circuits<br>and Micro-Nano Electronics', '{{ site_info.english }}').replace('正式网站备案与平台信息待学校配置', "{{ site_info.body|default:'正式网站备案与平台信息待学校配置' }}");
+  footer = footer.replace('School of Integrated Circuits<br>and Micro-Nano Electronics, Henan University', '{{ site_info.english }}').replace('正式网站备案与平台信息待学校配置', "{{ site_info.body|default:'正式网站备案与平台信息待学校配置' }}");
   html = html.replace(/<footer class="site-footer"[\s\S]*?<\/footer>/, footer);
   html = html.replace(/(<a class="brand"[\s\S]*?<\/a>)/, brand => brand.replace('src="assets/henu-logo.png"', 'src="/assets/{{ site_info.image }}"').replace('alt="河南大学校徽"', 'alt="{{ site_info.image_alt|default:\'河南大学校徽\' }}"').replaceAll(escape(site.college), '{{ site_info.college }}').replace(escape(site.english), '{{ site_info.english }}'));
   html = html.replace('<span class="brand-motto" aria-hidden="true">明德 · 新民 · 止于至善</span>', '<span class="brand-motto" aria-hidden="true">{{ site_info.motto }}</span>');
