@@ -2,6 +2,8 @@
 
 本说明描述当前开发预览，不代表正式学校站点部署方案。历史过程已保留在 docs/归档不再看/历史版本/交付整理前_20261012/；最新实测依据为[项目状态](../STATUS.md)。
 
+交付完整工程用`package_source.py --output sandbox/deliverables/ic-college-full-source.zip`，包含源码、构建器、静态成品、后端、依赖锁及文档；服务器运行包仍用`package_preview.py`。两者用途不同，不互相覆盖。解压启动见[完整源码与部署指引](../docs/完整源码与部署指引.md)。
+
 ## 当前部署基线
 
 | 项目 | 当前记录 |

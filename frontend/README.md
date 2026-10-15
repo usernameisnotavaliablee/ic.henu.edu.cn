@@ -2,6 +2,8 @@
 
 当前开发、重构分支与部署证据统一见[项目状态](../STATUS.md)。设计见[当前设计](../DESIGN.md)，展示接口见[前端契约](CONTRACTS.md)。早期 README 已保留到 docs/归档不再看/历史版本/交付整理前_20261012/。
 
+完整工程交付见[源码与部署指引](../docs/完整源码与部署指引.md)，不要只交src目录。审核样例统一在[examples](examples/README.md)，不再依赖某台电脑sandbox中的绝对路径；正式静态成品仍在preview。
+
 只交前端、后端从零开发时，读[完整接口交接文档](../docs/接口文档.md)：含现有新闻发布等真实入口，以及新后端的公开读取、管理编辑、审核发布和联调契约。JSON方案尚未实现/接入；frontend本身也没有独立管理后台。当前Django维护细节另见[现有预览接口说明](../docs/现有Django预览接口说明.md)。
 
 ## 修改位置
@@ -77,6 +79,4 @@ Hover专项：`node frontend/scripts/check-hover.cjs [站点根URL]`。清点所
 
 `check-navigation-fixes.cjs` 和 `check-overview-typography.cjs` 的吸附目标读取当前收缩高度；`check-current-design.cjs` 按队友当前品牌区收起及悬浮按钮设计验收。字体CSS和许可证由 .gitattributes 固定 LF，保持原始字节哈希校验，不忽略校验失败。
 
-check-carousel.cjs、check-experience.cjs、check-navigation-scroll.cjs 含早期暂停按钮等旧断言，作为历史脚本保留，不纳入统一入口。实际已运行项及未完成项以 STATUS 为准；入口通过也不等于已验证后台发布、学校平台、专项安全或公网性能。
-
-**check-experience.cjs、check-carousel.cjs、check-navigation-scroll.cjs 三个已无法运行**，保留作历史参考，不要当验收门槛，也不要试图把它们修绿：它们依赖的 DOM 在 10-12/10-13 就被删了（`[data-pause]`、`[data-motion-toggle]`，以及轮播箭头 `opacity` 旧值 0/1，现为 0.12/0.65）。逐条断点见 [STATUS.md 3.2 节](../STATUS.md)的退役脚本表。其中 check-carousel.cjs 与 check-navigation-scroll.cjs 还把 `127.0.0.1:8765` 写死在代码里、不读命令行参数。当前覆盖由 check-current-design.cjs、check-navigation-fixes.cjs、check-overview-typography.cjs、check-header-motion.cjs 分担。
+退役的轮播、暂停按钮及导航滚动检查集中在[scripts/archive](scripts/archive/README.md)，不纳入统一入口；其原始文件保留，仅供历史查证。当前覆盖由check-current-design.cjs、check-navigation-fixes.cjs、check-overview-typography.cjs、check-header-motion.cjs分担。验收边界与证据统一见[STATUS](../STATUS.md)。

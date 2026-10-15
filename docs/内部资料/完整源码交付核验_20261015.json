@@ -1,0 +1,86 @@
+{
+  "passed": true,
+  "scope": "Extracted full source, existing isolated interpreter dependencies; blank temporary database, no production access",
+  "files_verified": 654,
+  "checks": [
+    {
+      "command": "frontend/scripts/build-site.js",
+      "code": 0
+    },
+    {
+      "command": "frontend/scripts/check-preview.py",
+      "code": 0
+    },
+    {
+      "command": "frontend/scripts/check-current-structure.py",
+      "code": 0
+    },
+    {
+      "command": "frontend/scripts/prepare-fonts.py --check",
+      "code": 0
+    },
+    {
+      "command": "frontend/scripts/check-refactor-baseline.cjs",
+      "code": 0
+    },
+    {
+      "command": "frontend/scripts/check-presentation-contracts.cjs",
+      "code": 0
+    },
+    {
+      "command": "frontend/scripts/check-confirmed-contracts.cjs",
+      "code": 0
+    },
+    {
+      "command": "deployment/package_preview.py --check",
+      "code": 0
+    },
+    {
+      "command": "backend/manage.py check",
+      "code": 0
+    },
+    {
+      "command": "backend/manage.py migrate --noinput",
+      "code": 0
+    },
+    {
+      "command": "backend/manage.py makemigrations --check --dry-run",
+      "code": 0
+    },
+    {
+      "command": "backend/manage.py test content --noinput",
+      "code": 0
+    },
+    {
+      "url": "/",
+      "code": 200
+    },
+    {
+      "url": "/science-innovation.html",
+      "code": 200
+    },
+    {
+      "url": "/faculty.html",
+      "code": 200
+    },
+    {
+      "url": "/css/style.css",
+      "code": 200
+    },
+    {
+      "url": "/js/navigation.js",
+      "code": 200
+    },
+    {
+      "url": "/preview-admin/login/",
+      "code": 200
+    }
+  ],
+  "date": "2026-10-15",
+  "base_commit": "cba2437",
+  "portable_browser": {
+    "passed": true,
+    "scope": "Extracted file URLs; review, two examples, list/detail and homepage resources"
+  },
+  "tested_runtime_files_unchanged": 349
+}

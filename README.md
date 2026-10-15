@@ -2,6 +2,8 @@
 
 正式官网优先接入学校博达站群。本仓库为团队开发预览，Django 数据不会自动同步到学校平台。
 
+**完整交付从[源码与部署指引](docs/完整源码与部署指引.md)开始。** `frontend/src`只是修改入口；完整工程还需要构建器、运行成品、后端、部署工具和许可文档。当前文档统一从[docs/README.md](docs/README.md)查找，历史过程放归档，不再并列维护多份当前状态。
+
 本地验收从 [frontend/review.html](frontend/review.html) 进入；直接查看首页用 [frontend/preview/index.html](frontend/preview/index.html)。原项目目录已同步主线基线，本轮在 codex/frontend-refactor 开发，安装器、平台手册等本地资料索引见 [sandbox/local-reference/README.md](sandbox/local-reference/README.md)。
 
 ## 当前交接状态（2026-10-15）
@@ -95,7 +97,8 @@ python -m http.server 8766 --bind 127.0.0.1 --directory frontend/preview
 
 | 文档 | 用途 |
 |---|---|
-| [STATUS.md](STATUS.md) | 项目状态、后台能力、待办缺口、验收证据、栏目树、关键操作 |
+| [STATUS.md](STATUS.md) | 当前版本、后台能力、待办缺口、验收结果及历史档案入口 |
+| [完整源码与部署指引](docs/完整源码与部署指引.md) | 完整交付范围、静态查看、全新Django环境、服务器与博达部署边界 |
 | [DESIGN.md](DESIGN.md) | 按现有实现反向更新的栏目和交互设计 |
 | [会议调整与字段交接](docs/会议调整与字段交接_20261015.md) | 管理机构、师资分类、仪器、制度与二维码的维护方式及材料需求 |
 | [前端交付与后端从零实现接口文档](docs/接口文档.md) | 现有真实接口；新后端公开读取、管理编辑、新闻审核发布、资料维护、字段样例及联调标准 |
@@ -104,7 +107,7 @@ python -m http.server 8766 --bind 127.0.0.1 --directory frontend/preview
 
 ## 内容与协作边界
 
-三位真实教师按程纲、张锦龙、郑海务展示；当前预览保留完整公开资料，正式展示范围、联系方式和素材权属仍需学院与本人确认。已有 `news-111` 和演示内容不得被初始化脚本覆盖。
+三位真实教师完整资料保留；当前人工顺序为程纲、郑海务、张锦龙，首页另按已核准称号优先级去重排序。正式展示范围、联系方式和素材权属仍需学院与本人确认。已有 `news-111` 和演示内容不得被初始化脚本覆盖。
 
 学校后台、搜索、统一认证、正式英文版及博达组件绑定尚未对接，不提供不存在的 API。当前公网入口是 HTTP 开发预览，不等于正式域名已启用 HTTPS 或已完成合规验收。
 

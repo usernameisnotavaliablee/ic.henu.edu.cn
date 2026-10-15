@@ -1,0 +1,80 @@
+[
+  {
+    "source": "STATUS.md",
+    "archive": "docs/归档不再看/历史版本/目录整理前_20261015/STATUS.md",
+    "sha256": "e80cfc1d1c74cc664e323d39c0edb6f2dbdf0c22004b71cfe248ba09497a0b20",
+    "action": "snapshot; current status condensed"
+  },
+  {
+    "source": "frontend/scripts/check-carousel.cjs",
+    "archive": "frontend/scripts/archive/check-carousel.cjs",
+    "sha256": "bdc55832f06dddca7488b4277c661355b697cb14cde2a02f07750658dfcf289d",
+    "action": "move unchanged"
+  },
+  {
+    "source": "frontend/scripts/check-experience.cjs",
+    "archive": "frontend/scripts/archive/check-experience.cjs",
+    "sha256": "170d68ffe43b247b297d50996bb582be1a40e0054975ddf1959c0356f6ead4ff",
+    "action": "move unchanged"
+  },
+  {
+    "source": "frontend/scripts/check-navigation-scroll.cjs",
+    "archive": "frontend/scripts/archive/check-navigation-scroll.cjs",
+    "sha256": "2e58020a660709a7d4f43bbf1c57abf40496539b7cc5af091c5f24a9dd37f88f",
+    "action": "move unchanged"
+  },
+  {
+    "source": "frontend/qa/carousel-check.json",
+    "archive": "docs/归档不再看/历史版本/目录整理前_20261015/retired-qa/carousel-check.json",
+    "sha256": "d861cdeffcbcf4a18ef902ab8f668d21fe73f5924bdea228f5b8151d026354ce",
+    "action": "move unchanged"
+  },
+  {
+    "source": "frontend/qa/experience-check.json",
+    "archive": "docs/归档不再看/历史版本/目录整理前_20261015/retired-qa/experience-check.json",
+    "sha256": "656556169ab28385309e5e1e58cc0da9a7760a97eae7d22e37973be9a3b238fb",
+    "action": "move unchanged"
+  },
+  {
+    "source": "frontend/qa/carousel-desktop.png",
+    "archive": "docs/归档不再看/历史版本/目录整理前_20261015/retired-qa/carousel-desktop.png",
+    "sha256": "d404d3aabbb47f05ec6c3b6f2ab3bb1530daa92e25fbcdb0061d56d16c68ea54",
+    "action": "move unchanged"
+  },
+  {
+    "source": "frontend/qa/carousel-mobile.png",
+    "archive": "docs/归档不再看/历史版本/目录整理前_20261015/retired-qa/carousel-mobile.png",
+    "sha256": "494f16c59291010acdbb31478045f22e27ddf9c6111666c4ab4e60390f3b192b",
+    "action": "move unchanged"
+  },
+  {
+    "source": "frontend/qa/carousel-transition.png",
+    "archive": "docs/归档不再看/历史版本/目录整理前_20261015/retired-qa/carousel-transition.png",
+    "sha256": "00facadd128ba031c74e4412cd4c451f86b2fa3739eb80ac3d8cacd56159a0c6",
+    "action": "move unchanged"
+  },
+  {
+    "source": "frontend/qa/experience-compact.png",
+    "archive": "docs/归档不再看/历史版本/目录整理前_20261015/retired-qa/experience-compact.png",
+    "sha256": "b5d5a0d65c0ce4916a9a3fc107d8916034a5a8074bd6b291bebd63df2ea1e6d2",
+    "action": "move unchanged"
+  },
+  {
+    "source": "frontend/qa/experience-dropdown.png",
+    "archive": "docs/归档不再看/历史版本/目录整理前_20261015/retired-qa/experience-dropdown.png",
+    "sha256": "20bc90b06d0ff0c768b4db3134ea6d88bc6b5ace231033521ce7a9051ccaf422",
+    "action": "move unchanged"
+  },
+  {
+    "source": "frontend/qa/experience-footer.png",
+    "archive": "docs/归档不再看/历史版本/目录整理前_20261015/retired-qa/experience-footer.png",
+    "sha256": "ff7b52eaa36caf7ab4869e56c988db823d7833648e42a284e2bc0069037172f7",
+    "action": "move unchanged"
+  },
+  {
+    "source": "frontend/qa/experience-hero.png",
+    "archive": "docs/归档不再看/历史版本/目录整理前_20261015/retired-qa/experience-hero.png",
+    "sha256": "5ab3f0ee3747e2918a369af80c4d41068aa4288befc5920178f401401463003b",
+    "action": "move unchanged"
+  }
+]
