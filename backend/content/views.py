@@ -5,7 +5,7 @@ from django.http import FileResponse, Http404, HttpResponse, JsonResponse
 from django.shortcuts import get_object_or_404, render
 from django.views.decorators.http import require_safe
 from .models import Publication
-from .editable import teachers, catalog, faculty_context
+from .editable import teachers, home_teachers, catalog, faculty_context
 from .presentation import page_context
 
 # Only explicit fixed routes are public static pages; detail/publication URLs remain gated below.
@@ -17,7 +17,7 @@ def home(request):
     return render(request, 'site/generated/home.html', {
         'news': Publication.objects.filter(category='news')[:4],
         'notices': Publication.objects.filter(category='notice')[:3],
-        'teachers': teachers(request),
+        'teachers': home_teachers(request),
     })
 
 @require_safe
@@ -33,13 +33,13 @@ def listing(request, category):
 @require_safe
 def detail_or_page(request, slug):
     from .collections import definitions, items, resolve, get_collection
-    collection = next((c for c in definitions() if c['slug'] == slug), None)
+    collection = next((c for c in definitions() if c['slug'] == slug or slug + '.html' in c.get('legacyUrls', [])), None)
     if collection:
         page = Paginator(items(request, collection['key']), 9 if collection['layout'] == 'cards' else 10).get_page(request.GET.get('page'))
         return render(request, 'site/collection.html', {
             'collection': collection, 'page': page, 'page_heading': collection['title'],
             'active_page': collection['active'], 'breadcrumbs': collection['parents'],
-            'siblings': [c for c in definitions() if c['page'] == collection['page']],
+            'siblings': sorted((c for c in definitions() if c['page'] == collection['page'] and c.get('listed', True)), key=lambda c: c['position']),
         })
     if slug.startswith(('entry-', 'record-')):
         collection, entry = resolve(request, slug)

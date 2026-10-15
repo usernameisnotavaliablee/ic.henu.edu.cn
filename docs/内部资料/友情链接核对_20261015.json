@@ -1,0 +1,61 @@
+{
+  "date": "2026-10-15",
+  "method": "Fetched official reference links at https://mse.henu.edu.cn/ and each target page title. Not a guarantee of future availability.",
+  "links": [
+    {
+      "url": "https://www.henu.edu.cn/",
+      "verified": true,
+      "pageTitle": "河南大学"
+    },
+    {
+      "url": "http://jwc.henu.edu.cn/",
+      "verified": true,
+      "pageTitle": "河南大学教务处"
+    },
+    {
+      "url": "http://rsc.henu.edu.cn/",
+      "verified": true,
+      "pageTitle": "河南大学人事处"
+    },
+    {
+      "url": "http://kyc.henu.edu.cn/",
+      "verified": true,
+      "pageTitle": "河南大学科学技术研究院"
+    },
+    {
+      "url": "http://sbc.henu.edu.cn/",
+      "verified": true,
+      "pageTitle": "实验室与设备管理处"
+    },
+    {
+      "url": "http://gxxt.henu.edu.cn/",
+      "verified": true,
+      "pageTitle": "首页|河南大学仪器管理平台大型仪器共享平台"
+    },
+    {
+      "url": "https://jyt.henan.gov.cn/",
+      "verified": true,
+      "pageTitle": "河南省教育厅"
+    },
+    {
+      "url": "https://kjt.henan.gov.cn/",
+      "verified": true,
+      "pageTitle": "河南省科学技术厅"
+    },
+    {
+      "url": "https://www.nsfc.gov.cn/",
+      "verified": true,
+      "pageTitle": "国家自然科学基金委员会>首页"
+    },
+    {
+      "url": "https://www.cnipa.gov.cn/",
+      "verified": true,
+      "pageTitle": "国家知识产权局"
+    },
+    {
+      "url": "https://hdwzgzs.cn/",
+      "verified": true,
+      "pageTitle": "河南大学网站工作室 | HENU Web Studio"
+    }
+  ]
+}

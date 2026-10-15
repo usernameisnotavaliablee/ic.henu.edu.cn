@@ -2,18 +2,20 @@
 
 正式官网优先接入学校博达站群。本仓库为团队开发预览，Django 数据不会自动同步到学校平台。
 
+本地验收从 [frontend/review.html](frontend/review.html) 进入；直接查看首页用 [frontend/preview/index.html](frontend/preview/index.html)。原项目目录已同步主线基线，本轮在 codex/frontend-refactor 开发，安装器、平台手册等本地资料索引见 [sandbox/local-reference/README.md](sandbox/local-reference/README.md)。
+
 ## 当前交接状态（2026-10-15）
 
 - 公网预览：<http://47.94.146.53:8099/>。
 - 最新分支合并、部署回执与验证限制统一见 [STATUS.md](STATUS.md)。本轮整合 main 设计与重构架构，并落实会议栏目调整，不部署；仓库提交不会自动改变服务器版本。
-- 团队主线为 `main`；前端重构已按用户要求合入 main，会议调整继续基于合并后的主线。`main` 不设保护、可直接推送；需要并行开发时自行开 `feature/xxx`。
+- 团队主线为 `main`；前端重构已按用户要求合入 main，本轮确认需求在原 codex/frontend-refactor 分支开发，不直接修改 main。`main` 不设保护、可直接推送；需要并行开发时自行开 `feature/xxx`。
 - 已实现前端版式、新闻通知审核发布、教师/栏目/轮播/站点资料发布快照、分页及栏目详情、404 页、窄屏汉堡导航、页头收缩动画、自托管标题字体。
 - 前端统一检查见 [frontend/README.md](frontend/README.md)，可替换后端的展示边界见 [frontend/CONTRACTS.md](frontend/CONTRACTS.md)。
 - 交接目标是队友继续开发完善，不是正式上线验收完成。安全专项测试、多人权限人工验证交给队友；真机、阅读模式、真实业务库恢复等仍待验证。
 
 先读 [STATUS.md](STATUS.md)：项目状态、后台能改什么、待办缺口与验收证据都在那里。
 
-注意：主要正文可后台编辑，不等于所有占位均已后台化；首页部分文案/图片、固定教师空位和轮播启停是明确待补项，见 [STATUS.md 第三节](STATUS.md)。
+注意：前端已集中可更新内容输入、分类排序与空态规则，见 [内容接入与维护对照](frontend/CONTENT-MAINTENANCE.md)。这不等于博达或旧 Django 已具备所有维护能力；多称号/年份、轮播启停与平台绑定仍按 STATUS 分别记录。
 
 ## 协作与 Git 工作流
 
@@ -96,7 +98,8 @@ python -m http.server 8766 --bind 127.0.0.1 --directory frontend/preview
 | [STATUS.md](STATUS.md) | 项目状态、后台能力、待办缺口、验收证据、栏目树、关键操作 |
 | [DESIGN.md](DESIGN.md) | 按现有实现反向更新的栏目和交互设计 |
 | [会议调整与字段交接](docs/会议调整与字段交接_20261015.md) | 管理机构、师资分类、仪器、制度与二维码的维护方式及材料需求 |
-| [后端接口与前端对接文档](docs/接口文档.md) | 实际 HTTP 路由、后台表单字段、权限/错误码、展示数据适配与调用示例 |
+| [前端交付与后端从零实现接口文档](docs/接口文档.md) | 现有真实接口；新后端公开读取、管理编辑、新闻审核发布、资料维护、字段样例及联调标准 |
+| [现有Django预览接口说明](docs/现有Django预览接口说明.md) | 已实现的HTML路由、后台表单、权限与维护依据 |
 | [前端](frontend/README.md) / [后台](backend/README.md) / [部署](deployment/README.md) | 开发者操作入口 |
 
 ## 内容与协作边界

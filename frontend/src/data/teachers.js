@@ -2,7 +2,7 @@
 // 不将旧页面中的职务、数字或成果自动表述为学院当前官方情况。
 module.exports = [
   {
-    slug: 'zhang-jinlong', name: '张锦龙', image: 'assets/teacher-zhang.jpg',
+    id: 'zhang-jinlong', order: 30, slug: 'zhang-jinlong', name: '张锦龙', image: 'assets/teacher-zhang.jpg',
     title: '教授 · 博士生导师', field: '光纤传感与光子芯片',
     intro: '北京邮电大学电磁场与微波技术专业博士。研究光纤传感与光子芯片及其在电力电子、生物医学工程等领域的应用。',
     source: 'https://phye.henu.edu.cn/info/1159/5480.htm', sourceLabel: '河南大学物理与电子学院公开教师页',
@@ -15,7 +15,7 @@ module.exports = [
     ],
   },
   {
-    slug: 'zheng-haiwu', name: '郑海务', image: 'assets/teacher-zheng.jpg',
+    id: 'zheng-haiwu', order: 20, slug: 'zheng-haiwu', name: '郑海务', image: 'assets/teacher-zheng.jpg',
     title: '二级教授 · 博士生导师', field: '微纳传感、能量收集与半导体器件',
     intro: '研究微纳传感、能量收集器件、半导体器件及光电探测等。现有公开资料列为河南大学集成电路科学与工程省重点学科带头人、集成电路设计与集成系统专业负责人，现任职务待核对。',
     source: 'https://phye.henu.edu.cn/info/1159/5688.htm', sourceLabel: '河南大学物理与电子学院公开教师页',
@@ -30,7 +30,7 @@ module.exports = [
     ],
   },
   {
-    slug: 'cheng-gang', name: '程纲', image: 'assets/teacher-cheng.jpg',
+    id: 'cheng-gang', order: 10, slug: 'cheng-gang', name: '程纲', image: 'assets/teacher-cheng.jpg',
     title: '教授 · 博士生导师', field: '纳米发电与自驱动器件（据论文概括）',
     intro: '2000年、2003年分别在河南大学取得学士和硕士学位，2008年在吉林大学取得凝聚态物理专业博士学位。公开资料所列单位为河南大学特种功能材料教育部重点实验室；现任单位和研究方向表述待本人确认。',
     source: 'https://lab.henu.edu.cn/zw/ktz/c_g_Cheng_G/ktzzjj.htm', sourceLabel: '河南大学程纲课题组公开介绍',

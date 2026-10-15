@@ -42,8 +42,6 @@
 .wechat-panel .wechat-code { width: 120px; height: 120px; object-fit: contain; background: #fff; padding: 6px; }
 .wechat-title { font-size: 14px; }
 .wechat-caption { font-size: 12px; opacity: .75; margin-top: 4px; }
-.contact-layout { display: grid; grid-template-columns: 1fr 240px; gap: 48px; align-items: start; }
-.contact-layout .wechat-panel { padding: 28px; background: var(--pale); }
 .faculty-vacancies { grid-column: 1 / -1; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 24px; margin-top: 24px; }
 .faculty-vacancy { padding: 24px 16px; border: 1px dashed #c8d6e5; color: #74869a; text-align: center; }
 .faculty-vacancy > span { font-size: 28px; color: #9bafc2; }
@@ -51,5 +49,5 @@
 .profile-section ul { padding-left: 24px; list-style: disc; }
 .profile-section li { margin-block: 10px; }
 .profile-section { overflow-wrap: anywhere; }
-@media (max-width: 600px) { .contact-layout { grid-template-columns: 1fr; gap: 24px; } .faculty-vacancies { grid-template-columns: 1fr; gap: 12px; } .faculty-vacancy { padding: 16px; } }
+@media (max-width: 600px) { .faculty-vacancies { grid-template-columns: 1fr; gap: 12px; } .faculty-vacancy { padding: 16px; } }
 

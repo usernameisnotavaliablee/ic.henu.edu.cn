@@ -2,6 +2,8 @@
 const fs = require('node:fs');
 const path = require('node:path');
 const assert = require('node:assert/strict');
+const {newsFixture} = require('./fixtures/confirmed-requirements.cjs');
+const {qrPanel} = require('./lib/content');
 const {chromium} = require(path.join(process.env.IC_TEST_MODULES, 'playwright'));
 const base = (process.argv[2] || 'http://127.0.0.1:8766').replace(/\/$/, '');
 const output = path.resolve(process.env.IC_TEST_OUTPUT || 'sandbox/frontend-checks');
@@ -13,6 +15,8 @@ const check=(name,condition)=>{assert(condition,name);report.checks.push(name);c
  try {
   for (const width of [1440,768,390,320]) {
    const page=await browser.newPage({viewport:{width,height:1000},reducedMotion:'reduce'});
+   // News is honestly empty by default. Exercise the preserved filled design using response-only test data.
+   await page.route('**/index.html',route=>route.fulfill({contentType:'text/html',body:newsFixture()}));
    page.on('pageerror',error=>report.errors.push(error.message));
    await page.goto(base+'/index.html');
    await page.locator('.main-nav.is-enhanced').waitFor({state:'attached'});
@@ -36,6 +40,8 @@ const check=(name,condition)=>{assert(condition,name);report.checks.push(name);c
    await page.locator('.news-gallery').screenshot({path:path.join(output,newsShot)});
    report.screenshots.push(newsShot);
    await footer.scrollIntoViewIfNeeded();
+   check(width+' absent official QR has dashed placeholder',await footer.locator('.wechat-placeholder').count()===1 && await footer.locator('.wechat-placeholder').evaluate(el=>getComputedStyle(el).borderTopStyle)==='dashed');
+   await footer.locator('.footer-wechat').evaluate((el,html)=>{el.innerHTML=html;},qrPanel({enabled:true,image:'assets/henu-logo.png',name:'测试二维码布局',caption:'仅测试图片'}));
    check(width+' QR remains horizontal in footer',await footer.locator('.wechat-panel').evaluate(el=>getComputedStyle(el).flexDirection)==='row');
    check(width+' studio and filing remain visible',await footer.locator('.footer-support').isVisible() && await footer.locator('.footer-filing').isVisible());
    const footerShot=`merge-footer-${width}.png`;

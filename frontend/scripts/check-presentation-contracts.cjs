@@ -41,7 +41,7 @@ test('All collection menu destinations are current before hover; other collectio
  assert(checked >= 17);
 });
 test('Employment and teacher detail retain complete hierarchy',()=>{
- assert.deepEqual(registry.detail('employment-guidance','招聘会').parents.map(p=>p.href),['talent-cultivation.html','admissions.html','admissions-section-3.html']);
+ assert.deepEqual(registry.detail('employment-guidance','招聘会').parents.map(p=>p.href),['talent-cultivation.html','admissions-section-3.html']);
  assert.deepEqual(registry.detail('faculty','程纲').parents.map(p=>p.href),['faculty.html']);
  const html=fs.readFileSync(path.join(root,'frontend/preview/teacher-cheng-gang.html'),'utf8');
  assert.match(html,/<nav class="breadcrumb"[^>]*>.*?href="faculty.html">师资队伍<.*?程纲/s);
@@ -78,7 +78,8 @@ test('Dynamic templates bind site fields and content independently of static tex
 test('Generated style has no runtime imports and resource versions match bytes',()=>{
  const manifest=JSON.parse(fs.readFileSync(path.join(root,'frontend/build-manifest.json')));
  const html=fs.readFileSync(path.join(root,'frontend/preview/index.html'),'utf8');
- assert.equal(manifest.pageCount,89);
+ assert.equal(manifest.pageCount,fs.readdirSync(path.join(root,'frontend/preview')).filter(f=>f.endsWith('.html')).length);
+ assert(manifest.pageCount >= 89, 'confirmed additions and old URL compatibility');
  for(const [name,fingerprint] of Object.entries(manifest.resources)) {
   assert.equal(hash(fs.readFileSync(path.join(root,'frontend/preview',name))),fingerprint,name);
   if(/^(css|js)\//.test(name)) assert(html.includes(name+'?v='+fingerprint.slice(0,12)),name);

@@ -25,6 +25,7 @@ function createRegistry({ nodes, navigation }) {
   }
   for (const node of nodes) {
     ancestors(node);
+    if (node.kind === 'alias' && (!byId.has(node.aliasOf) || byId.get(node.aliasOf).kind === 'alias')) throw new Error(`Invalid URL alias: ${node.id}`);
     if (node.kind === 'collection' && (!node.legacyKeys?.includes(node.storageKey) || !['cards','list'].includes(node.layout))) throw new Error(`Invalid collection contract: ${node.id}`);
     for (const key of node.legacyKeys || []) {
       if (aliases.has(key)) throw new Error(`Duplicate content alias: ${key}`);
@@ -32,13 +33,16 @@ function createRegistry({ nodes, navigation }) {
     }
     for (const section of node.sections || []) {
       const target = byId.get(section.id);
-      if (!target || target.parentId !== node.id) throw new Error(`Invalid section: ${section.id}`);
+      // Legacy overviews may reference a moved collection; its canonical parent remains unique.
+      if (!target || (target.parentId !== node.id && !(section.reference === true && target.kind === 'collection'))) throw new Error(`Invalid section: ${section.id}`);
       if (!(target.legacyKeys || [target.storageKey]).includes(section.key)) throw new Error(`Unmapped section: ${section.key}`);
     }
   }
   function resolveHref(href) {
     const [file, anchor] = href.split('#');
-    return anchor ? aliases.get(file.replace(/\.html$/, '') + '.' + anchor)?.url || href : href;
+    const legacy = anchor && aliases.get(file.replace(/\.html$/, '') + '.' + anchor);
+    const node = byUrl.get(file);
+    return legacy?.url || (node?.kind === 'alias' ? byId.get(node.aliasOf).url : href);
   }
   function links(items) {
     return items.map(({ id, label, children }) => {
@@ -82,6 +86,8 @@ function createRegistry({ nodes, navigation }) {
     id: n.id, key: n.storageKey, page: byId.get(n.parentId).url, title: n.title, layout: n.layout,
     slug: n.url.replace(/\.html$/, ''), url: n.url, anchor: n.anchor, position: n.order,
     watermark: n.watermark, sort: n.sort || 'manual', service: !!n.service, legacyKeys: [...n.legacyKeys], active: route(n).active, parents: route(n).parents,
+    legacyUrls: nodes.filter(a => a.aliasOf === n.id).map(a => a.url).sort(),
+    listed: n.listed !== false,
   }));
   return { nodes, byId, byUrl, route, detail, resolveHref, collections,
     siteConfiguration: { navigation: nav.map(([url,label]) => [url,label]),

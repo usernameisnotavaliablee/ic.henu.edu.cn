@@ -16,7 +16,7 @@ def items(request, key):
         return []
     result = []
     for entry_key, entry in published(request).items():
-        belongs = entry.get('collection') == collection['key'] or entry_key in collection['legacyKeys']
+        belongs = entry.get('collection') in collection['legacyKeys'] or entry_key in collection['legacyKeys']
         if belongs and entry.get('is_visible', True):
             row = dict(entry, key=entry_key)
             row['url'] = entry_key + '.html' if entry_key.startswith('entry-') else 'record-' + entry_key.replace('.', '-') + '.html'

@@ -1,0 +1,58 @@
+/* 联系页的两组链接共用一个抽屉组件，交互由 disclosures.js 渐进增强。 */
+.friendly-links {
+  margin-top: 40px;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  align-items: start;
+  gap: 40px;
+}
+.link-drawer { border-block: 1px solid var(--line); background: #fff; }
+.link-drawer[data-enhanced] { overflow: hidden; }
+.link-drawer summary {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  min-height: 88px;
+  padding: 18px 24px;
+  color: var(--blue);
+  cursor: pointer;
+  list-style: none;
+  transition: background .25s ease, color .25s ease;
+}
+.link-drawer summary::-webkit-details-marker { display: none; }
+.link-drawer summary:focus-visible { outline-offset: -4px; }
+.link-drawer-label { display: grid; gap: 4px; }
+.link-drawer-title { font-size: 20px; font-weight: 500; transform-origin: left center; transition: transform .25s ease; }
+.link-drawer-english { font-size: 10px; letter-spacing: .16em; color: var(--muted); }
+.link-drawer-icon {
+  position: relative;
+  flex: 0 0 32px;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: var(--pale);
+  transition: transform .36s cubic-bezier(.22,.61,.36,1), background .25s ease, color .25s ease;
+}
+.link-drawer-icon::before, .link-drawer-icon::after { content: ''; position: absolute; inset: 15px 10px; background: currentColor; }
+.link-drawer-icon::after { transform: rotate(90deg); }
+.link-drawer[data-expanded='true'] .link-drawer-icon,
+.link-drawer:not([data-enhanced])[open] .link-drawer-icon { transform: rotate(45deg); color: #fff; background: var(--blue); }
+.link-drawer summary:focus-visible .link-drawer-title { transform: scale(1.04); }
+.link-drawer-panel { padding: 0 24px 8px; }
+.friendly-links ul { border-top: 1px solid var(--line); }
+.friendly-links a { display: flex; align-items: center; min-height: 44px; padding: 12px 0; border-bottom: 1px solid var(--line); color: var(--blue); }
+.friendly-links li:last-child a { border-bottom: 0; }
+@media (hover: hover) {
+  .link-drawer summary:hover { color: var(--accent); background: var(--pale); }
+  .link-drawer summary:hover .link-drawer-title { transform: scale(1.04); }
+}
+@media (max-width: 600px) {
+  .friendly-links { grid-template-columns: 1fr; gap: 20px; margin-top: 32px; }
+  .link-drawer summary { min-height: 80px; padding: 14px 20px; }
+  .link-drawer-panel { padding-inline: 20px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .link-drawer summary, .link-drawer-title, .link-drawer-icon { transition: none; }
+  .link-drawer summary:is(:hover,:focus-visible) .link-drawer-title { transform: none; }
+}

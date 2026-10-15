@@ -1,4 +1,4 @@
-<section class="collection-preview overview-section{% if collection.position|divisibleby:2 %} overview-section--muted{% endif %}" id="{{ collection.anchor }}" data-overview-section data-collection="{{ collection.key }}">
+<section class="collection-preview overview-section{% if about %} about-section{% endif %}{% if collection.position|divisibleby:2 %} overview-section--muted{% endif %}" id="{{ collection.anchor }}" data-overview-section data-collection="{{ collection.key }}">
 <span class="section-watermark section-watermark--{% if collection.position|divisibleby:2 %}left{% else %}right{% endif %}" aria-hidden="true">{{ collection.watermark }}</span>
 <div class="container"><div class="editorial-heading"><div><span lang="en">{{ collection.watermark }}</span><h2>{{ collection.title }}</h2></div><a href="/{{ collection.url }}">查看全部（{{ total }}）</a></div>
 {% include "site/collection_items.html" %}

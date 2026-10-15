@@ -119,8 +119,8 @@ class ContentEntry(models.Model):
         allowed = catalog()['slots']
         if self.key != 'site' and self.key not in allowed and not re.fullmatch(r'(teacher|entry)-[a-z0-9]+(?:-[a-z0-9]+)*', self.key):
             raise ValidationError({'key': '请选择现有栏目位置，或使用 teacher- 开头的教师标识。'})
-        collections = {c['key']: c for c in catalog().get('collections', [])}
-        categories = {c['id'] for c in catalog().get('facultyCategories', [])}
+        collections = {key: c for c in catalog().get('collections', []) for key in c['legacyKeys']}
+        categories = {c['id'] for c in catalog().get('facultyCategories', [])} | {'other-talent'}  # retain existing unconfirmed legacy values
         if self.teacher_category and (not self.key.startswith('teacher-') or self.teacher_category not in categories):
             raise ValidationError({'teacher_category': '仅教师可选择学院师资分类。'})
         if self.service_url or self.service_label:

@@ -41,11 +41,32 @@ def teachers(request):
 
 def faculty_context(request, group=''):
     rows = teachers(request)
-    categories = [c for c in catalog()['facultyCategories'] if c['group'] == group] if group else [{'id': 'faculty-list', 'label': '教师名录'}]
+    categories = sorted((c for c in catalog()['facultyCategories'] if c['group'] == group and c.get('enabled', True)), key=lambda c: (c['priority'], c['id'])) if group else [{'id': 'faculty-list', 'label': '教师名录', 'display': 'home'}]
+    sections = []
+    for category in categories:
+        members = []
+        for teacher in rows:
+            awards = [a for a in teacher_awards(teacher) if a['categoryId'] == category['id']]
+            if not group or awards:
+                members.append(dict(teacher, award_year=awards[0].get('year') if awards else None))
+        if members or category.get('showWhenEmpty') is True:
+            sections.append(dict(category, teachers=members))
     return {
-        'faculty_sections': [dict(c, teachers=[t for t in rows if not group or t.get('teacher_category') == c['id']],
-             description='分类名单以学院审定资料为准。' if group else '完整个人资料统一维护，人才分类审定后归入相应栏目。') for c in categories],
+        'faculty_sections': sections,
+        'faculty_empty_key': 'faculty.' + group,
         'faculty_tabs': [{'href': '/' + slug + '.html', 'label': route['title'] if route['facultyFilter'] else '教师名录'}
                          for slug, route in catalog()['routes'].items() if route.get('kind') == 'page' and 'facultyFilter' in route],
-        'show_vacancies': not group,
     }
+
+
+def teacher_awards(row):
+    """Preview compatibility only: existing admin still edits a single category, not multi-title relations."""
+    if row.get('teacher_category'):
+        return [{'categoryId': row['teacher_category'], 'year': None}]
+    return row.get('awards', [])
+
+
+def home_teachers(request):
+    priorities = {c['id']: c['priority'] for c in catalog()['facultyCategories'] if c.get('enabled', True)}
+    rows = teachers(request)  # already deduplicated by stable key and sorted manually
+    return sorted(rows, key=lambda row: min((priorities.get(a['categoryId'], 10**9) for a in teacher_awards(row)), default=10**9))[:3]

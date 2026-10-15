@@ -9,9 +9,10 @@ function currentAttribute(href, depth) {
   return `{% if ${depth === 0 ? `active_page == "${href}"` : `request.path == "/${href}"`} %} aria-current="page"{% endif %}`;
 }
 function contentSlot(slot) {
-  if (slot.collection) return slot.key === slot.collection ? `{% collection_preview '${slot.collection}' %}` : slot.html;
+  if (slot.collection) return slot.key === slot.collection ? `{% collection_preview '${slot.collection}' anchor='${slot.anchor}' position=${slot.position} about=${slot.about?'True':'False'} %}` : slot.html;
   const component = slot.overview ? 'overview_content_block' : 'content_block';
-  const parameters = slot.overview ? ` heading="${slot.title}" watermark="${slot.watermark}" muted=${slot.muted ? 'True' : 'False'}` : '';
+  const fallback=slot.fallbackMedia;
+  const parameters = slot.overview ? ` heading="${slot.title}" watermark="${slot.watermark}" muted=${slot.muted ? 'True' : 'False'} management_links=${slot.organization?'True':'False'}` + (fallback ? ` fallback_image=${JSON.stringify('/'+fallback.image)} fallback_alt=${JSON.stringify(fallback.alt || '')} fallback_caption=${JSON.stringify(fallback.caption || '')} fallback_source=${JSON.stringify('/'+fallback.source)}` : '') : '';
   return `{% content_block '${slot.key}' as entry %}{% if entry %}{% include "site/${component}.html" with anchor="${slot.anchor}"${parameters} %}{% else %}${slot.html}{% endif %}`;
 }
 function slide(values, {key,isChip,mediaStatus}, renderComponent) {
@@ -23,17 +24,31 @@ function slide(values, {key,isChip,mediaStatus}, renderComponent) {
   });
 }
 function cards(renderComponent, media) {
+  const person = display => renderComponent('faculty-person', {
+    href:'/{{ teacher.key }}.html',title:'{{ teacher.title }}{% if teacher.award_year %}（{{ teacher.award_year }}）{% endif %}',display,
+    image:display==='names'?'':'{% if teacher.image %}'+media({src:'/assets/{{ teacher.image }}',alt:'{{ teacher.title }}照片',width:display==='portrait'?240:64,height:display==='portrait'?320:64})+'{% endif %}',
+    subtitle:display==='names'?'':'{% if teacher.subtitle %}<p class="teacher-title">{{ teacher.subtitle }}</p>{% endif %}',
+    summary:display==='portrait'?'{% if teacher.summary %}<p class="teacher-intro">{{ teacher.summary }}</p>{% endif %}':'',
+  });
   return {
-    faculty_sections:'{% for section in faculty_sections %}' + renderComponent('faculty-section', {id:'{{ section.id }}',title:'{{ section.label }}',description:'{{ section.description }}',cards:'{% if section.teachers %}{% include "site/teachers.html" with teachers=section.teachers %}{% else %}<div class="collection-empty-state"><p>名单待学院审定，后续陆续更新。</p></div>{% endif %}'}) + '{% endfor %}',
+    empty_state:renderComponent('empty-state',{description:'{% if description %}<p class="empty-state-description">{{ description }}</p>{% endif %}',message:'{{ message }}'}),
+    overview_block:'{% load content_slots %}'+renderComponent('overview-block', {
+      anchor:'{{ anchor }}',key:'{{ entry.key }}',mutedClass:'{% if muted %} overview-section--muted{% endif %}',side:'{% if muted %}left{% else %}right{% endif %}',watermark:'{{ watermark }}',title:'{{ heading }}',
+      action:'{% if management_links %}<a href="/management.html">查看全部</a>{% endif %}',
+      body:'{% if entry.is_visible %}{% if entry.title != heading %}<h3>{{ entry.title }}</h3>{% endif %}{% include "site/entry_body.html" with hide_image=True %}{% else %}{% empty_content entry.key %}{% endif %}',
+      photo:'{% if entry.is_visible and entry.image %}<figure class="overview-photo">'+media({src:'/assets/{{ entry.image }}',alt:'{{ entry.image_alt }}',width:1269,height:714})+'</figure>{% elif fallback_image %}<figure class="overview-photo">'+media({src:'{{ fallback_image }}',alt:'{{ fallback_alt }}',width:1269,height:714})+'<figcaption>{{ fallback_caption }} · <a href="{{ fallback_source }}">图片来源与授权</a></figcaption></figure>{% endif %}',
+      related:'{% if management_links %}{% include "site/generated/overview_management_links.html" %}{% endif %}',
+    }),
+    faculty_sections:'{% load content_slots %}{% for section in faculty_sections %}' + renderComponent('faculty-section', {id:'{{ section.id }}',title:'{{ section.label }}',description:'',display:'{{ section.display }}',cards:'{% if section.display == "home" %}{% include "site/teachers.html" with teachers=section.teachers %}{% else %}{% for teacher in section.teachers %}{% if section.display == "portrait" %}'+person('portrait')+'{% elif section.display == "compact" %}'+person('compact')+'{% else %}'+person('names')+'{% endif %}{% empty %}{% empty_content section.id %}{% endfor %}{% endif %}'}) + '{% empty %}{% empty_content faculty_empty_key %}{% endfor %}',
     teachers:'{% for teacher in teachers %}' + renderComponent('teacher-card', {
       href:'/{{ teacher.key }}.html',title:'{{ teacher.title }}',subtitle:'{{ teacher.subtitle }}',summary:'{{ teacher.summary }}',
       image:'{% if teacher.image %}' + media({src:'/assets/{{ teacher.image }}',alt:'{{ teacher.title }}照片',width:100,height:132}) + '{% endif %}',
-    }) + '{% endfor %}',
-    collection_items:'<div class="collection-items collection-items--{{ collection.layout }}">{% for item in items %}' + renderComponent('collection-card', {
+    }) + '{% empty %}<div class="collection-empty-state"><p>相关内容正在整理中</p></div>{% endfor %}',
+    collection_items:'{% load content_slots %}<div class="collection-items collection-items--{{ collection.layout }}">{% for item in items %}' + renderComponent('collection-card', {
       href:'/{{ item.url }}',title:'{{ item.title }}',summary:'{{ item.summary|truncatechars:140 }}',action:'查看详情',
       meta:"{{ item.date|default:'日期待提供' }}{% if item.source_label %} · {{ item.source_label }}{% endif %}",
       image:'{% if collection.layout == \'cards\' %}{% if item.image %}' + media({src:'/assets/{{ item.image }}',alt:'{{ item.image_alt }}',width:640,height:360}) + '{% else %}<div class="collection-cover" aria-hidden="true">{{ collection.title }}</div>{% endif %}{% endif %}',
-    }) + '{% empty %}<div class="collection-empty-state"><p>暂无已发布内容，资料将陆续更新。</p></div>{% endfor %}</div>',
+    }) + '{% empty %}{% empty_content collection.key %}{% endfor %}</div>',
   };
 }
 module.exports={chrome,currentAttribute,contentSlot,slide,cards};

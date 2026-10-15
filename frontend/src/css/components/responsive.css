@@ -7,7 +7,7 @@
   .news-select > div { display: block; }
   .news-select > div > span { display: block; margin-top: 5px; }
   .feature-layout { gap: 40px; }
-  .faculty-card { gap: 16px; }
+  .faculty-card { gap: 16px; padding: 20px; }
   .faculty-card :is(img, .media-frame) { width: 95px; height: 126px; }
   .editorial-notices { gap: 25px; }
 }
@@ -56,7 +56,8 @@
   .feature-intro { font-size: 22px; }
   .feature-row { gap: 15px; }
   .feature-row h3 { font-size: 17px; }
-  .faculty-card { display: block; }
+  .faculty-card { display: flex; flex-direction: column; }
+  .faculty-card > div { flex: 1; }
   .faculty-card :is(img, .media-frame) { width: 120px; height: 156px; margin-bottom: 18px; }
 }
 @media (max-width: 600px) {
@@ -117,7 +118,7 @@
   .research-art figcaption, .education-art figcaption { font-size: 19px; padding: 40px 20px 20px; }
   .section-watermark { top: 6px; font-size: clamp(36px, 10vw, 56px); }
   .faculty-grid { grid-template-columns: 1fr; gap: 26px; }
-  .faculty-card { display: flex; gap: 24px; padding-bottom: 24px; }
+  .faculty-card { flex-direction: row; gap: 16px; padding: 18px; }
   .faculty-card :is(img, .media-frame) { width: 98px; height: 130px; margin: 0; }
   .quick-links { grid-template-columns: 1fr; margin-block: 15px; }
   .quick-links a { min-height: 70px; padding: 16px 5px; border-bottom: 1px solid var(--line); }

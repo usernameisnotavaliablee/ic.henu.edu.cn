@@ -23,6 +23,10 @@ class ContentEntryForm(forms.ModelForm):
                 self.fields['key'].choices.append((self.instance.key, self.instance.title))
         if 'collection' in self.fields:
             self.fields['collection'] = forms.ChoiceField(label='所属列表栏目', required=False, choices=[('', '固定位置或教师无需选择')] + [(c['key'], catalog()['slots'][c['key']]) for c in catalog().get('collections', [])])
+            if self.instance.collection and self.instance.collection not in dict(self.fields['collection'].choices):
+                legacy = next((c for c in catalog()['collections'] if self.instance.collection in c['legacyKeys']), None)
+                if legacy:
+                    self.fields['collection'].choices.append((self.instance.collection, legacy['title'] + '（旧归属，内容保留）'))
         if 'direction' in self.fields:
             choices = [('', '暂不关联')]
             for row in ContentEntry.objects.exclude(published={}):
@@ -34,6 +38,8 @@ class ContentEntryForm(forms.ModelForm):
             self.fields['direction'] = forms.ChoiceField(label='课题组关联研究方向', required=False, choices=choices)
         if 'teacher_category' in self.fields:
             self.fields['teacher_category'] = forms.ChoiceField(label='师资分类', required=False, choices=[('', '待学院确认／暂未分类')] + [(c['id'], c['label']) for c in catalog()['facultyCategories']])
+            if self.instance.teacher_category == 'other-talent':
+                self.fields['teacher_category'].choices.append(('other-talent', '其他高层次人才（旧分类，待确认）'))
         for name in ('image', 'qr_image', 'website_qr_image'):
             if name in self.fields:
                 self.fields[name] = forms.ChoiceField(label=self.fields[name].label, choices=asset_choices(), required=False, help_text='从本站已归档图片选择。新照片或二维码放入运行版 assets 后刷新此页面即可选取。')

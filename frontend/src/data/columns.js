@@ -24,6 +24,12 @@ module.exports = {
           "anchor": "section-1"
         },
         {
+          "id": "academic-committee",
+          "label": "学术委员会",
+          "key": "management.section-2",
+          "anchor": "academic-committee"
+        },
+        {
           "id": "organization",
           "label": "管理机构",
           "key": "about.section-2",
@@ -44,6 +50,13 @@ module.exports = {
           "label": "研究方向",
           "key": "science-innovation.section-1",
           "anchor": "section-1"
+        },
+        {
+          "id": "group-directory",
+          "label": "课题组",
+          "key": "research-groups.section-1",
+          "anchor": "research-groups",
+          "reference": true
         },
         {
           "id": "research-progress",
@@ -68,6 +81,18 @@ module.exports = {
       "parentId": null,
       "sections": [
         {
+          "id": "undergraduate-admissions",
+          "label": "本科生招生",
+          "key": "admissions.section-1",
+          "anchor": "undergraduate-admissions"
+        },
+        {
+          "id": "graduate-admissions",
+          "label": "研究生招生",
+          "key": "admissions.section-2",
+          "anchor": "graduate-admissions"
+        },
+        {
           "id": "disciplines",
           "label": "学科与专业",
           "key": "talent-cultivation.section-1",
@@ -84,6 +109,12 @@ module.exports = {
           "label": "工程教育认证",
           "key": "talent-cultivation.section-3",
           "anchor": "section-3"
+        },
+        {
+          "id": "employment-guidance",
+          "label": "就业指导",
+          "key": "admissions.section-3",
+          "anchor": "employment-guidance"
         }
       ]
     },
@@ -141,19 +172,11 @@ module.exports = {
     },
     {
       "id": "services",
-      "kind": "overview",
       "url": "public-service.html",
-      "title": "公共服务",
-      "english": "PUBLIC SERVICE",
-      "parentId": null,
-      "sections": [
-        {
-          "id": "service-guides",
-          "label": "公共服务信息",
-          "key": "public-service.section-1",
-          "anchor": "section-1"
-        }
-      ]
+      "title": "服务指南",
+      "kind": "alias",
+      "aliasOf": "service-guides",
+      "parentId": "community"
     },
     {
       "id": "careers",
@@ -225,25 +248,11 @@ module.exports = {
     },
     {
       "id": "regulations",
-      "kind": "overview",
       "url": "regulations.html",
       "title": "规章与办事",
-      "english": "",
-      "parentId": "services",
-      "sections": [
-        {
-          "id": "regulation-records",
-          "label": "行政规章制度",
-          "key": "regulations.section-1",
-          "anchor": "section-1"
-        },
-        {
-          "id": "service-procedures",
-          "label": "办事流程",
-          "key": "regulations.section-2",
-          "anchor": "section-2"
-        }
-      ]
+      "kind": "alias",
+      "aliasOf": "student-regulations",
+      "parentId": "community"
     },
     {
       "id": "admissions",
@@ -257,21 +266,25 @@ module.exports = {
           "id": "undergraduate-admissions",
           "label": "本科生招生",
           "key": "admissions.section-1",
-          "anchor": "section-1"
+          "anchor": "section-1",
+          "reference": true
         },
         {
           "id": "graduate-admissions",
           "label": "研究生招生",
           "key": "admissions.section-2",
-          "anchor": "section-2"
+          "anchor": "section-2",
+          "reference": true
         },
         {
           "id": "employment-guidance",
           "label": "就业指导",
           "key": "admissions.section-3",
-          "anchor": "section-3"
+          "anchor": "section-3",
+          "reference": true
         }
-      ]
+      ],
+      "listed": false
     },
     {
       "id": "community",
@@ -292,6 +305,12 @@ module.exports = {
           "label": "学生风采",
           "key": "community.section-2",
           "anchor": "section-2"
+        },
+        {
+          "id": "youth-league",
+          "label": "团学建设",
+          "key": "community.section-4",
+          "anchor": "section-4"
         },
         {
           "id": "student-regulations",
@@ -365,7 +384,7 @@ module.exports = {
       "url": "site-map.html",
       "title": "网站导航",
       "english": "SITE MAP",
-      "parentId": "services"
+      "parentId": null
     },
     {
       "id": "credits",
@@ -373,7 +392,7 @@ module.exports = {
       "url": "image-credits.html",
       "title": "图片来源与授权",
       "english": "IMAGE CREDITS",
-      "parentId": "services"
+      "parentId": null
     },
     {
       "id": "research-directions",
@@ -454,33 +473,19 @@ module.exports = {
     },
     {
       "id": "regulation-records",
-      "kind": "collection",
-      "parentId": "regulations",
-      "title": "行政规章制度",
       "url": "regulations-section-1.html",
-      "storageKey": "regulations.section-1",
-      "anchor": "section-1",
-      "order": 1,
-      "layout": "list",
-      "watermark": "POLICY",
-      "legacyKeys": [
-        "regulations.section-1"
-      ]
+      "title": "行政规章制度",
+      "kind": "alias",
+      "aliasOf": "student-regulations",
+      "parentId": "community"
     },
     {
       "id": "service-procedures",
-      "kind": "collection",
-      "parentId": "regulations",
-      "title": "办事流程",
       "url": "regulations-section-2.html",
-      "storageKey": "regulations.section-2",
-      "anchor": "section-2",
-      "order": 2,
-      "layout": "list",
-      "watermark": "SERVICES",
-      "legacyKeys": [
-        "regulations.section-2"
-      ]
+      "title": "办事流程",
+      "kind": "alias",
+      "aliasOf": "student-regulations",
+      "parentId": "community"
     },
     {
       "id": "party-news",
@@ -515,11 +520,11 @@ module.exports = {
     {
       "id": "undergraduate-admissions",
       "kind": "collection",
-      "parentId": "admissions",
+      "parentId": "education",
       "title": "本科生招生",
       "url": "admissions-section-1.html",
       "storageKey": "admissions.section-1",
-      "anchor": "section-1",
+      "anchor": "undergraduate-admissions",
       "order": 1,
       "layout": "list",
       "watermark": "ADMISSIONS",
@@ -530,11 +535,11 @@ module.exports = {
     {
       "id": "graduate-admissions",
       "kind": "collection",
-      "parentId": "admissions",
+      "parentId": "education",
       "title": "研究生招生",
       "url": "admissions-section-2.html",
       "storageKey": "admissions.section-2",
-      "anchor": "section-2",
+      "anchor": "graduate-admissions",
       "order": 2,
       "layout": "list",
       "watermark": "GRADUATE",
@@ -545,12 +550,12 @@ module.exports = {
     {
       "id": "employment-guidance",
       "kind": "collection",
-      "parentId": "admissions",
+      "parentId": "education",
       "title": "就业指导",
       "url": "admissions-section-3.html",
       "storageKey": "admissions.section-3",
-      "anchor": "section-3",
-      "order": 3,
+      "anchor": "employment-guidance",
+      "order": 6,
       "layout": "list",
       "watermark": "CAREERS",
       "legacyKeys": [
@@ -640,7 +645,7 @@ module.exports = {
       "url": "talent-cultivation-section-1.html",
       "storageKey": "talent-cultivation.section-1",
       "anchor": "section-1",
-      "order": 1,
+      "order": 3,
       "layout": "cards",
       "watermark": "EDUCATION",
       "legacyKeys": [
@@ -655,7 +660,7 @@ module.exports = {
       "url": "talent-cultivation-section-2.html",
       "storageKey": "talent-cultivation.section-2",
       "anchor": "section-2",
-      "order": 2,
+      "order": 4,
       "layout": "list",
       "watermark": "CURRICULUM",
       "legacyKeys": [
@@ -664,8 +669,9 @@ module.exports = {
     },
     {
       "id": "service-guides",
+      "listed": false,
       "kind": "collection",
-      "parentId": "services",
+      "parentId": "community",
       "title": "服务指南",
       "url": "public-service-section-1.html",
       "storageKey": "public-service.section-1",
@@ -723,16 +729,22 @@ module.exports = {
           "anchor": "section-1"
         },
         {
-          "id": "academic-committee",
-          "label": "学术委员会",
-          "key": "management.section-2",
-          "anchor": "section-2"
-        },
-        {
           "id": "administrative-offices",
           "label": "党政机构",
           "key": "management.section-3",
           "anchor": "section-3"
+        },
+        {
+          "id": "professors-committee",
+          "label": "教授委员会",
+          "key": "management.section-4",
+          "anchor": "section-4"
+        },
+        {
+          "id": "trade-union",
+          "label": "工会",
+          "key": "management.section-5",
+          "anchor": "section-5"
         }
       ]
     },
@@ -762,11 +774,11 @@ module.exports = {
     {
       "id": "academic-committee",
       "kind": "collection",
-      "parentId": "organization",
+      "parentId": "about",
       "title": "学术委员会",
       "url": "management-committee.html",
       "storageKey": "management.section-2",
-      "anchor": "section-2",
+      "anchor": "academic-committee",
       "order": 2,
       "layout": "list",
       "watermark": "COMMITTEE",
@@ -782,7 +794,7 @@ module.exports = {
       "url": "management-offices.html",
       "storageKey": "management.section-3",
       "anchor": "section-3",
-      "order": 3,
+      "order": 2,
       "layout": "list",
       "watermark": "OFFICES",
       "legacyKeys": [
@@ -797,7 +809,7 @@ module.exports = {
       "url": "engineering-accreditation.html",
       "storageKey": "talent-cultivation.section-3",
       "anchor": "section-3",
-      "order": 3,
+      "order": 5,
       "layout": "list",
       "watermark": "ACCREDITATION",
       "legacyKeys": [
@@ -812,11 +824,13 @@ module.exports = {
       "url": "student-regulations.html",
       "storageKey": "community.section-3",
       "anchor": "section-3",
-      "order": 3,
+      "order": 4,
       "layout": "list",
       "watermark": "REGULATIONS",
       "legacyKeys": [
-        "community.section-3"
+        "community.section-3",
+        "regulations.section-1",
+        "regulations.section-2"
       ],
       "sort": "date-desc"
     },
@@ -869,6 +883,54 @@ module.exports = {
       "url": "faculty-teachers.html",
       "english": "FACULTY",
       "facultyFilter": "regular"
+    },
+    {
+      "id": "professors-committee",
+      "title": "教授委员会",
+      "url": "management-professors.html",
+      "storageKey": "management.section-4",
+      "anchor": "section-4",
+      "order": 3,
+      "watermark": "PROFESSORS",
+      "kind": "collection",
+      "parentId": "organization",
+      "layout": "list",
+      "legacyKeys": [
+        "management.section-4"
+      ],
+      "sort": "date-desc"
+    },
+    {
+      "id": "trade-union",
+      "title": "工会",
+      "url": "management-union.html",
+      "storageKey": "management.section-5",
+      "anchor": "section-5",
+      "order": 4,
+      "watermark": "UNION",
+      "kind": "collection",
+      "parentId": "organization",
+      "layout": "list",
+      "legacyKeys": [
+        "management.section-5"
+      ],
+      "sort": "date-desc"
+    },
+    {
+      "id": "youth-league",
+      "title": "团学建设",
+      "url": "community-youth.html",
+      "storageKey": "community.section-4",
+      "anchor": "section-4",
+      "order": 3,
+      "watermark": "YOUTH",
+      "kind": "collection",
+      "parentId": "community",
+      "layout": "list",
+      "legacyKeys": [
+        "community.section-4"
+      ],
+      "sort": "date-desc"
     }
   ],
   "navigation": [
@@ -882,16 +944,22 @@ module.exports = {
           "id": "school-introduction"
         },
         {
+          "id": "academic-committee"
+        },
+        {
           "id": "organization",
           "children": [
             {
               "id": "leadership"
             },
             {
-              "id": "academic-committee"
+              "id": "administrative-offices"
             },
             {
-              "id": "administrative-offices"
+              "id": "professors-committee"
+            },
+            {
+              "id": "trade-union"
             }
           ]
         }
@@ -904,30 +972,10 @@ module.exports = {
           "id": "research-directions"
         },
         {
-          "id": "platforms",
-          "children": [
-            {
-              "id": "platform-directory",
-              "label": "平台概览"
-            },
-            {
-              "id": "platform-directory",
-              "label": "平台介绍"
-            }
-          ]
+          "id": "platforms"
         },
         {
-          "id": "groups",
-          "children": [
-            {
-              "id": "group-directory",
-              "label": "团队概览"
-            },
-            {
-              "id": "group-directory",
-              "label": "课题组介绍"
-            }
-          ]
+          "id": "groups"
         },
         {
           "id": "research-progress"
@@ -947,6 +995,12 @@ module.exports = {
       "id": "education",
       "children": [
         {
+          "id": "undergraduate-admissions"
+        },
+        {
+          "id": "graduate-admissions"
+        },
+        {
           "id": "disciplines"
         },
         {
@@ -956,18 +1010,7 @@ module.exports = {
           "id": "engineering-accreditation"
         },
         {
-          "id": "admissions",
-          "children": [
-            {
-              "id": "undergraduate-admissions"
-            },
-            {
-              "id": "graduate-admissions"
-            },
-            {
-              "id": "employment-guidance"
-            }
-          ]
+          "id": "employment-guidance"
         },
         {
           "id": "community",
@@ -977,6 +1020,9 @@ module.exports = {
             },
             {
               "id": "student-stories"
+            },
+            {
+              "id": "youth-league"
             },
             {
               "id": "student-regulations"
@@ -996,9 +1042,6 @@ module.exports = {
         },
         {
           "id": "faculty-directory"
-        },
-        {
-          "id": "careers"
         }
       ]
     },
@@ -1025,29 +1068,6 @@ module.exports = {
         },
         {
           "id": "party-learning"
-        }
-      ]
-    },
-    {
-      "id": "services",
-      "children": [
-        {
-          "id": "regulations",
-          "label": "制度与办事",
-          "children": [
-            {
-              "id": "regulation-records"
-            },
-            {
-              "id": "service-procedures"
-            }
-          ]
-        },
-        {
-          "id": "service-guides"
-        },
-        {
-          "id": "sitemap"
         }
       ]
     },

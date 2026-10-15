@@ -3,63 +3,137 @@
     {
       "id": "national-leading",
       "label": "国家级领军人才",
-      "group": "talent"
+      "group": "talent",
+      "priority": 1,
+      "display": "portrait",
+      "enabled": true,
+      "showWhenEmpty": true
     },
     {
       "id": "national-young",
       "label": "国家级青年人才",
-      "group": "talent"
+      "group": "talent",
+      "priority": 2,
+      "display": "portrait",
+      "enabled": true,
+      "showWhenEmpty": true
     },
     {
       "id": "provincial-professor",
       "label": "河南省特聘教授",
-      "group": "talent"
+      "group": "talent",
+      "priority": 3,
+      "display": "compact",
+      "enabled": true
     },
     {
-      "id": "other-talent",
-      "label": "其他高层次人才",
-      "group": "talent"
+      "id": "yellow-river-mingde",
+      "label": "河南大学“黄河学者”/明德特聘教授",
+      "group": "talent",
+      "priority": 4,
+      "display": "compact",
+      "enabled": true
+    },
+    {
+      "id": "university-professor",
+      "label": "河南大学校特聘教授",
+      "group": "talent",
+      "priority": 5,
+      "display": "compact",
+      "enabled": true
+    },
+    {
+      "id": "hundred-talents",
+      "label": "河南大学百人计划",
+      "group": "talent",
+      "priority": 6,
+      "display": "compact",
+      "enabled": true
     },
     {
       "id": "regular",
       "label": "普通教师",
-      "group": "regular"
+      "group": "regular",
+      "priority": 100,
+      "display": "names",
+      "enabled": true
     }
   ],
+  "emptyContent": {
+    "message": "相关内容正在整理中",
+    "descriptions": {
+      "about.section-1": "从一枚芯片到一个系统，集成电路与微纳电子连接着材料、器件、电路和应用。本栏目将介绍学院的建设概况、学科特色与育人理念，帮助读者进一步了解学院。",
+      "about.section-2": "在这里了解学院的管理与服务机构。下方入口分别介绍领导班子、党政机构、教授委员会和工会，具体名单、分工及联系方式将随正式资料更新。",
+      "about.section-3": "本栏目用于介绍学院领导班子成员及工作分工。成员名单、任职信息和公开联系方式将在学院核准后更新。",
+      "management.section-2": "本栏目将集中介绍学术委员会的组成、章程与相关工作信息。委员名单和职责以学院正式公布的文件为准。",
+      "management.section-3": "学院日常管理与服务信息将在这里集中呈现，包括机构设置、业务分工与公开联系渠道，方便师生查找对应的办事入口。",
+      "management.section-4": "本栏目预留教授委员会的成员介绍和工作信息。委员会名称、组成与职责将按照学院审定的材料展示。",
+      "management.section-5": "关注教职工服务与校园文化生活。本栏目将介绍工会相关信息，并逐步补充活动安排和服务事项。",
+      "science-innovation.section-1": "从芯片设计到微纳器件，研究工作贯穿基础问题与应用探索。本栏目将按方向介绍研究主题、相关团队与代表性工作，方便读者了解各方向之间的联系。",
+      "science-innovation.section-2": "关注研究工作中的新问题、新方法与新进展。后续将在这里展示经审核的成果介绍、论文解读与项目动态，并保留可查阅的资料来源。",
+      "science-innovation.section-3": "学术交流让不同研究思路相遇。本栏目将发布学术报告、专题研讨与交流活动的信息，帮助师生了解报告主题和参与方式。",
+      "research-platforms.section-1": "科研平台为研究与实践提供支撑。本栏目将介绍平台的研究领域、条件设施与服务范围，具体开放规则和联系渠道以正式资料为准。",
+      "research-groups.section-1": "围绕共同的科学问题，课题组连接不同背景的研究者。这里将按团队展示研究主题、负责人、成员与代表性工作，点击条目可进一步阅读完整介绍。",
+      "instruments.section-1": "了解仪器的主要用途、技术特点与共享服务。本栏目将补充设备图片、规格说明和使用指引，已核准的预约平台入口也将在对应条目中提供。",
+      "admissions.section-1": "了解本科阶段的专业学习与成长路径。本栏目将集中提供招生介绍、专业说明和报考参考，具体招生计划与要求以学校当年公布的信息为准。",
+      "admissions.section-2": "从研究兴趣出发，了解研究生培养与报考信息。本栏目将汇集招生简章、研究方向和相关通知，专业目录、报考条件及安排以正式发布为准。",
+      "admissions.section-3": "连接专业学习与职业发展。本栏目将陆续整理职业规划、求职准备和就业服务信息，帮助同学们了解行业、认识岗位并做好发展规划。",
+      "talent-cultivation.section-1": "认识学科基础与专业特色，是规划学习的起点。本栏目将介绍专业设置、知识结构和学习方向，具体内容以学院核准的介绍为准。",
+      "talent-cultivation.section-2": "课程学习与实践环节共同构成人才培养的路径。本栏目将提供课程介绍、培养目标和培养方案，方便学生按适用年级查阅正式文件。",
+      "talent-cultivation.section-3": "工程教育关注知识、实践与解决问题的能力。本栏目预留工程教育认证相关介绍、工作信息及公开材料；当前占位不代表学院专业已获得认证。",
+      "community.section-1": "记录课堂之外的交流与成长。本栏目将展示学术分享、文体活动和校园实践，呈现师生共同参与的校园生活。",
+      "community.section-2": "每一次探索与坚持，都值得记录。本栏目将逐步呈现学生的学习经历、实践作品与成长故事，正式人物资料和图片经确认后发布。",
+      "community.section-3": "将制度文件与办事指引放在容易查找的位置。本栏目汇集培养、考核、管理制度和相关流程，正式文件按发布日期排列，适用范围以文件正文为准。",
+      "community.section-4": "在集体活动与社会实践中交流、协作、成长。本栏目将展示团学组织相关信息，以及主题活动、志愿服务和实践记录。",
+      "party-building.section-1": "本栏目将集中展示党建工作、主题活动和组织生活动态。正式报道将补充活动时间、内容与经审核的图片，便于持续了解相关工作。",
+      "party-building.section-2": "汇集理论学习资料、专题内容与学习交流。本栏目将提供清晰的资料来源和阅读入口，方便师生按主题查阅。",
+      "ic-world.section-1": "芯片如何处理信息，微小器件怎样影响日常生活？这里将以通俗的文字和图示介绍基础概念、技术发展与常见应用。",
+      "ic-world.section-2": "从晶圆上的微细结构，到电子系统中的协同工作，本栏目将通过图文专题带读者认识芯片与微纳世界，逐步补充经审核的科普内容。",
+      "media.section-1": "从不同视角了解学院与学科。本栏目将汇集公开媒体报道、校园影像和相关专题，提供原始来源及进一步阅读的入口。",
+      "public-service.section-1": "将常用事项的办理步骤、所需材料与联系渠道集中整理，方便师生快速查阅。相关制度与办事信息已统一归入师生园地的制度建设栏目。",
+      "careers.section-1": "关注教学、科研与人才发展的机会。本栏目将发布经核准的岗位需求和招聘信息，岗位条件、申请方式与时间安排以正式公告为准。",
+      "national-leading": "本栏目预留国家级领军人才的照片、研究方向和个人简介。相关人才名单与称号信息经核准后，将在此展示并链接至完整个人介绍。",
+      "national-young": "本栏目预留国家级青年人才的照片、研究方向和个人简介。相关人才名单与称号信息经核准后，将在此展示并链接至完整个人介绍。",
+      "faculty.regular": "普通教师资料将在归类核准后展示。现有公开教师介绍可先通过教师名录查阅，后续更新将沿用同一份个人资料。"
+    }
+  },
   "slots": {
     "about.section-1": "学院概况 / 学院简介",
+    "management.section-2": "学术委员会",
     "about.section-2": "学院概况 / 管理机构",
-    "science-innovation.section-1": "科学与创新 / 研究方向",
-    "science-innovation.section-2": "科学与创新 / 研究进展",
-    "science-innovation.section-3": "科学与创新 / 学术交流",
-    "talent-cultivation.section-1": "人才培养 / 学科与专业",
-    "talent-cultivation.section-2": "人才培养 / 课程与培养方案",
-    "talent-cultivation.section-3": "人才培养 / 工程教育认证",
-    "party-building.section-1": "党建党务 / 党建动态",
-    "party-building.section-2": "党建党务 / 学习园地",
-    "public-service.section-1": "公共服务 / 公共服务信息",
-    "careers.section-1": "人才招聘 / 人才招聘信息",
-    "research-platforms.section-1": "研究平台 / 平台概览",
-    "research-platforms.section-2": "研究平台 / 平台介绍",
-    "research-groups.section-1": "课题组 / 团队概览",
-    "research-groups.section-2": "课题组 / 课题组介绍",
-    "regulations.section-1": "规章与办事 / 行政规章制度",
-    "regulations.section-2": "规章与办事 / 办事流程",
-    "admissions.section-1": "招生就业 / 本科生招生",
-    "admissions.section-2": "招生就业 / 研究生招生",
-    "admissions.section-3": "招生就业 / 就业指导",
-    "community.section-1": "师生园地 / 师生活动",
-    "community.section-2": "师生园地 / 学生风采",
-    "community.section-3": "师生园地 / 制度建设",
-    "ic-world.section-1": "芯片天地 / 学科科普",
-    "ic-world.section-2": "芯片天地 / 芯片与微纳世界",
-    "media.section-1": "媒体掠影 / 媒体报道",
-    "about.section-3": "管理机构 / 领导班子",
-    "management.section-2": "管理机构 / 学术委员会",
-    "management.section-3": "管理机构 / 党政机构",
-    "instruments.section-1": "大型仪器 / 仪器与共享服务",
-    "home.slide-1": "首页轮播 / 第1张",
-    "home.slide-2": "首页轮播 / 第2张",
+    "science-innovation.section-1": "研究方向",
+    "science-innovation.section-2": "研究进展",
+    "science-innovation.section-3": "学术交流",
+    "admissions.section-1": "本科生招生",
+    "admissions.section-2": "研究生招生",
+    "talent-cultivation.section-1": "学科与专业",
+    "talent-cultivation.section-2": "课程与培养方案",
+    "talent-cultivation.section-3": "工程教育认证",
+    "admissions.section-3": "就业指导",
+    "party-building.section-1": "党建动态",
+    "party-building.section-2": "学习园地",
+    "careers.section-1": "人才招聘信息",
+    "research-platforms.section-1": "研究平台",
+    "research-platforms.section-2": "研究平台（兼容旧位置）",
+    "research-groups.section-1": "课题组",
+    "research-groups.section-2": "课题组（兼容旧位置）",
+    "community.section-1": "师生活动",
+    "community.section-2": "学生风采",
+    "community.section-4": "团学建设",
+    "community.section-3": "制度建设",
+    "ic-world.section-1": "学科科普",
+    "ic-world.section-2": "芯片与微纳世界",
+    "media.section-1": "媒体报道",
+    "about.section-3": "领导班子",
+    "management.section-3": "党政机构",
+    "management.section-4": "教授委员会",
+    "management.section-5": "工会",
+    "instruments.section-1": "仪器与共享服务",
+    "public-service.section-1": "服务指南",
+    "regulations.section-1": "制度建设（兼容旧位置）",
+    "regulations.section-2": "制度建设（兼容旧位置）",
+    "home.slide-2": "首页轮播 / 第1张",
+    "home.slide-1": "首页轮播 / 第2张",
     "home.slide-3": "首页轮播 / 第3张",
     "home.slide-4": "首页轮播 / 第4张",
     "home.slide-5": "首页轮播 / 第5张",
@@ -98,14 +172,6 @@
       "active": "party-building.html",
       "parents": []
     },
-    "public-service": {
-      "id": "services",
-      "kind": "overview",
-      "title": "公共服务",
-      "english": "PUBLIC SERVICE",
-      "active": "public-service.html",
-      "parents": []
-    },
     "careers": {
       "id": "careers",
       "kind": "overview",
@@ -137,19 +203,6 @@
         {
           "href": "science-innovation.html",
           "label": "科学与创新"
-        }
-      ]
-    },
-    "regulations": {
-      "id": "regulations",
-      "kind": "overview",
-      "title": "规章与办事",
-      "english": "",
-      "active": "public-service.html",
-      "parents": [
-        {
-          "href": "public-service.html",
-          "label": "公共服务"
         }
       ]
     },
@@ -304,40 +357,6 @@
         }
       ]
     },
-    "regulations-section-1": {
-      "id": "regulation-records",
-      "kind": "collection",
-      "title": "行政规章制度",
-      "english": "",
-      "active": "public-service.html",
-      "parents": [
-        {
-          "href": "public-service.html",
-          "label": "公共服务"
-        },
-        {
-          "href": "regulations.html",
-          "label": "规章与办事"
-        }
-      ]
-    },
-    "regulations-section-2": {
-      "id": "service-procedures",
-      "kind": "collection",
-      "title": "办事流程",
-      "english": "",
-      "active": "public-service.html",
-      "parents": [
-        {
-          "href": "public-service.html",
-          "label": "公共服务"
-        },
-        {
-          "href": "regulations.html",
-          "label": "规章与办事"
-        }
-      ]
-    },
     "party-building-section-1": {
       "id": "party-news",
       "kind": "collection",
@@ -374,10 +393,6 @@
         {
           "href": "talent-cultivation.html",
           "label": "人才培养"
-        },
-        {
-          "href": "admissions.html",
-          "label": "招生就业"
         }
       ]
     },
@@ -391,10 +406,6 @@
         {
           "href": "talent-cultivation.html",
           "label": "人才培养"
-        },
-        {
-          "href": "admissions.html",
-          "label": "招生就业"
         }
       ]
     },
@@ -408,10 +419,6 @@
         {
           "href": "talent-cultivation.html",
           "label": "人才培养"
-        },
-        {
-          "href": "admissions.html",
-          "label": "招生就业"
         }
       ]
     },
@@ -531,11 +538,15 @@
       "kind": "collection",
       "title": "服务指南",
       "english": "",
-      "active": "public-service.html",
+      "active": "talent-cultivation.html",
       "parents": [
         {
-          "href": "public-service.html",
-          "label": "公共服务"
+          "href": "talent-cultivation.html",
+          "label": "人才培养"
+        },
+        {
+          "href": "community.html",
+          "label": "师生园地"
         }
       ]
     },
@@ -579,10 +590,6 @@
         {
           "href": "about.html",
           "label": "学院概况"
-        },
-        {
-          "href": "management.html",
-          "label": "管理机构"
         }
       ]
     },
@@ -650,6 +657,57 @@
         }
       ]
     },
+    "management-professors": {
+      "id": "professors-committee",
+      "kind": "collection",
+      "title": "教授委员会",
+      "english": "",
+      "active": "about.html",
+      "parents": [
+        {
+          "href": "about.html",
+          "label": "学院概况"
+        },
+        {
+          "href": "management.html",
+          "label": "管理机构"
+        }
+      ]
+    },
+    "management-union": {
+      "id": "trade-union",
+      "kind": "collection",
+      "title": "工会",
+      "english": "",
+      "active": "about.html",
+      "parents": [
+        {
+          "href": "about.html",
+          "label": "学院概况"
+        },
+        {
+          "href": "management.html",
+          "label": "管理机构"
+        }
+      ]
+    },
+    "community-youth": {
+      "id": "youth-league",
+      "kind": "collection",
+      "title": "团学建设",
+      "english": "",
+      "active": "talent-cultivation.html",
+      "parents": [
+        {
+          "href": "talent-cultivation.html",
+          "label": "人才培养"
+        },
+        {
+          "href": "community.html",
+          "label": "师生园地"
+        }
+      ]
+    },
     "news": {
       "id": "news",
       "kind": "page",
@@ -657,102 +715,6 @@
       "english": "NEWS",
       "active": "news.html",
       "parents": []
-    },
-    "news-preview-1": {
-      "id": "news-preview-1",
-      "kind": "detail",
-      "title": "学院新闻标题（待提供）",
-      "english": "INFORMATION",
-      "active": "news.html",
-      "parents": [
-        {
-          "href": "news.html",
-          "label": "学院新闻"
-        }
-      ],
-      "parentId": "news",
-      "previewParents": [
-        {
-          "href": "news.html",
-          "label": "新闻通知"
-        },
-        {
-          "href": "news.html",
-          "label": "学院新闻"
-        }
-      ]
-    },
-    "news-preview-2": {
-      "id": "news-preview-2",
-      "kind": "detail",
-      "title": "学院动态标题（待提供）",
-      "english": "INFORMATION",
-      "active": "news.html",
-      "parents": [
-        {
-          "href": "news.html",
-          "label": "学院新闻"
-        }
-      ],
-      "parentId": "news",
-      "previewParents": [
-        {
-          "href": "news.html",
-          "label": "新闻通知"
-        },
-        {
-          "href": "news.html",
-          "label": "学院新闻"
-        }
-      ]
-    },
-    "news-preview-3": {
-      "id": "news-preview-3",
-      "kind": "detail",
-      "title": "学术交流标题（待提供）",
-      "english": "INFORMATION",
-      "active": "news.html",
-      "parents": [
-        {
-          "href": "news.html",
-          "label": "学院新闻"
-        }
-      ],
-      "parentId": "news",
-      "previewParents": [
-        {
-          "href": "news.html",
-          "label": "新闻通知"
-        },
-        {
-          "href": "news.html",
-          "label": "学院新闻"
-        }
-      ]
-    },
-    "news-preview-4": {
-      "id": "news-preview-4",
-      "kind": "detail",
-      "title": "教学科研新闻标题（待提供）",
-      "english": "INFORMATION",
-      "active": "news.html",
-      "parents": [
-        {
-          "href": "news.html",
-          "label": "学院新闻"
-        }
-      ],
-      "parentId": "news",
-      "previewParents": [
-        {
-          "href": "news.html",
-          "label": "新闻通知"
-        },
-        {
-          "href": "news.html",
-          "label": "学院新闻"
-        }
-      ]
     },
     "notices": {
       "id": "notices",
@@ -776,60 +738,6 @@
           "label": "新闻通知"
         }
       ]
-    },
-    "notice-preview-1": {
-      "id": "notice-preview-1",
-      "kind": "detail",
-      "title": "学院通知标题（待提供）",
-      "english": "INFORMATION",
-      "active": "news.html",
-      "parents": [
-        {
-          "href": "news.html",
-          "label": "新闻通知"
-        },
-        {
-          "href": "notices.html",
-          "label": "通知公告"
-        }
-      ],
-      "parentId": "notices"
-    },
-    "notice-preview-2": {
-      "id": "notice-preview-2",
-      "kind": "detail",
-      "title": "教学通知标题（待提供）",
-      "english": "INFORMATION",
-      "active": "news.html",
-      "parents": [
-        {
-          "href": "news.html",
-          "label": "新闻通知"
-        },
-        {
-          "href": "notices.html",
-          "label": "通知公告"
-        }
-      ],
-      "parentId": "notices"
-    },
-    "notice-preview-3": {
-      "id": "notice-preview-3",
-      "kind": "detail",
-      "title": "学术活动通知标题（待提供）",
-      "english": "INFORMATION",
-      "active": "news.html",
-      "parents": [
-        {
-          "href": "news.html",
-          "label": "新闻通知"
-        },
-        {
-          "href": "notices.html",
-          "label": "通知公告"
-        }
-      ],
-      "parentId": "notices"
     },
     "faculty": {
       "id": "faculty",
@@ -883,10 +791,10 @@
       "facultyFilter": "",
       "parentId": "faculty"
     },
-    "teacher-zhang-jinlong": {
-      "id": "teacher-zhang-jinlong",
+    "teacher-zheng-haiwu": {
+      "id": "teacher-zheng-haiwu",
       "kind": "detail",
-      "title": "张锦龙",
+      "title": "郑海务",
       "english": "FACULTY",
       "active": "faculty.html",
       "parents": [
@@ -898,10 +806,10 @@
       "facultyFilter": "",
       "parentId": "faculty"
     },
-    "teacher-zheng-haiwu": {
-      "id": "teacher-zheng-haiwu",
+    "teacher-zhang-jinlong": {
+      "id": "teacher-zhang-jinlong",
       "kind": "detail",
-      "title": "郑海务",
+      "title": "张锦龙",
       "english": "FACULTY",
       "active": "faculty.html",
       "parents": [
@@ -926,38 +834,91 @@
       "kind": "page",
       "title": "网站导航",
       "english": "SITE MAP",
-      "active": "public-service.html",
-      "parents": [
-        {
-          "href": "public-service.html",
-          "label": "公共服务"
-        }
-      ]
+      "active": "site-map.html",
+      "parents": []
     },
     "image-credits": {
       "id": "credits",
       "kind": "page",
       "title": "图片来源与授权",
       "english": "IMAGE CREDITS",
-      "active": "public-service.html",
+      "active": "image-credits.html",
+      "parents": []
+    },
+    "public-service": {
+      "id": "service-guides",
+      "kind": "collection",
+      "title": "服务指南",
+      "english": "",
+      "active": "talent-cultivation.html",
       "parents": [
         {
-          "href": "public-service.html",
-          "label": "公共服务"
+          "href": "talent-cultivation.html",
+          "label": "人才培养"
+        },
+        {
+          "href": "community.html",
+          "label": "师生园地"
         }
-      ]
+      ],
+      "aliasOf": "service-guides"
+    },
+    "regulations": {
+      "id": "student-regulations",
+      "kind": "collection",
+      "title": "制度建设",
+      "english": "",
+      "active": "talent-cultivation.html",
+      "parents": [
+        {
+          "href": "talent-cultivation.html",
+          "label": "人才培养"
+        },
+        {
+          "href": "community.html",
+          "label": "师生园地"
+        }
+      ],
+      "aliasOf": "student-regulations"
+    },
+    "regulations-section-1": {
+      "id": "student-regulations",
+      "kind": "collection",
+      "title": "制度建设",
+      "english": "",
+      "active": "talent-cultivation.html",
+      "parents": [
+        {
+          "href": "talent-cultivation.html",
+          "label": "人才培养"
+        },
+        {
+          "href": "community.html",
+          "label": "师生园地"
+        }
+      ],
+      "aliasOf": "student-regulations"
+    },
+    "regulations-section-2": {
+      "id": "student-regulations",
+      "kind": "collection",
+      "title": "制度建设",
+      "english": "",
+      "active": "talent-cultivation.html",
+      "parents": [
+        {
+          "href": "talent-cultivation.html",
+          "label": "人才培养"
+        },
+        {
+          "href": "community.html",
+          "label": "师生园地"
+        }
+      ],
+      "aliasOf": "student-regulations"
     }
   },
   "defaults": {
-    "home.slide-1": {
-      "key": "home.slide-1",
-      "title": "集成电路与微纳电子学院 (筹)",
-      "subtitle": "HENAN UNIVERSITY · INTEGRATED CIRCUITS",
-      "summary": "从集成电路，探索微纳世界",
-      "body": "芯片概念示意 · 非实物与电气设计",
-      "image": "",
-      "image_alt": "蓝白芯片与信号光流，原创学科示意"
-    },
     "home.slide-2": {
       "key": "home.slide-2",
       "title": "集成电路与微纳电子学院 (筹)",
@@ -966,6 +927,15 @@
       "body": "校园图片示意 · 待替换高清素材",
       "image": "campus-gate.jpg",
       "image_alt": "河南大学牌坊，来自低空参考包的校园图片"
+    },
+    "home.slide-1": {
+      "key": "home.slide-1",
+      "title": "集成电路与微纳电子学院 (筹)",
+      "subtitle": "HENAN UNIVERSITY · INTEGRATED CIRCUITS",
+      "summary": "从集成电路，探索微纳世界",
+      "body": "芯片概念示意 · 非实物与电气设计",
+      "image": "",
+      "image_alt": "蓝白芯片与信号光流，原创学科示意"
     },
     "home.slide-3": {
       "key": "home.slide-3",
@@ -1027,7 +997,9 @@
           "href": "science-innovation.html",
           "label": "科学与创新"
         }
-      ]
+      ],
+      "legacyUrls": [],
+      "listed": true
     },
     {
       "id": "research-progress",
@@ -1051,7 +1023,9 @@
           "href": "science-innovation.html",
           "label": "科学与创新"
         }
-      ]
+      ],
+      "legacyUrls": [],
+      "listed": true
     },
     {
       "id": "academic-exchanges",
@@ -1075,7 +1049,9 @@
           "href": "science-innovation.html",
           "label": "科学与创新"
         }
-      ]
+      ],
+      "legacyUrls": [],
+      "listed": true
     },
     {
       "id": "platform-directory",
@@ -1104,7 +1080,9 @@
           "href": "research-platforms.html",
           "label": "研究平台"
         }
-      ]
+      ],
+      "legacyUrls": [],
+      "listed": true
     },
     {
       "id": "group-directory",
@@ -1133,63 +1111,9 @@
           "href": "research-groups.html",
           "label": "课题组"
         }
-      ]
-    },
-    {
-      "id": "regulation-records",
-      "key": "regulations.section-1",
-      "page": "regulations.html",
-      "title": "行政规章制度",
-      "layout": "list",
-      "slug": "regulations-section-1",
-      "url": "regulations-section-1.html",
-      "anchor": "section-1",
-      "position": 1,
-      "watermark": "POLICY",
-      "sort": "manual",
-      "service": false,
-      "legacyKeys": [
-        "regulations.section-1"
       ],
-      "active": "public-service.html",
-      "parents": [
-        {
-          "href": "public-service.html",
-          "label": "公共服务"
-        },
-        {
-          "href": "regulations.html",
-          "label": "规章与办事"
-        }
-      ]
-    },
-    {
-      "id": "service-procedures",
-      "key": "regulations.section-2",
-      "page": "regulations.html",
-      "title": "办事流程",
-      "layout": "list",
-      "slug": "regulations-section-2",
-      "url": "regulations-section-2.html",
-      "anchor": "section-2",
-      "position": 2,
-      "watermark": "SERVICES",
-      "sort": "manual",
-      "service": false,
-      "legacyKeys": [
-        "regulations.section-2"
-      ],
-      "active": "public-service.html",
-      "parents": [
-        {
-          "href": "public-service.html",
-          "label": "公共服务"
-        },
-        {
-          "href": "regulations.html",
-          "label": "规章与办事"
-        }
-      ]
+      "legacyUrls": [],
+      "listed": true
     },
     {
       "id": "party-news",
@@ -1213,7 +1137,9 @@
           "href": "party-building.html",
           "label": "党建党务"
         }
-      ]
+      ],
+      "legacyUrls": [],
+      "listed": true
     },
     {
       "id": "party-learning",
@@ -1237,17 +1163,19 @@
           "href": "party-building.html",
           "label": "党建党务"
         }
-      ]
+      ],
+      "legacyUrls": [],
+      "listed": true
     },
     {
       "id": "undergraduate-admissions",
       "key": "admissions.section-1",
-      "page": "admissions.html",
+      "page": "talent-cultivation.html",
       "title": "本科生招生",
       "layout": "list",
       "slug": "admissions-section-1",
       "url": "admissions-section-1.html",
-      "anchor": "section-1",
+      "anchor": "undergraduate-admissions",
       "position": 1,
       "watermark": "ADMISSIONS",
       "sort": "manual",
@@ -1260,22 +1188,20 @@
         {
           "href": "talent-cultivation.html",
           "label": "人才培养"
-        },
-        {
-          "href": "admissions.html",
-          "label": "招生就业"
         }
-      ]
+      ],
+      "legacyUrls": [],
+      "listed": true
     },
     {
       "id": "graduate-admissions",
       "key": "admissions.section-2",
-      "page": "admissions.html",
+      "page": "talent-cultivation.html",
       "title": "研究生招生",
       "layout": "list",
       "slug": "admissions-section-2",
       "url": "admissions-section-2.html",
-      "anchor": "section-2",
+      "anchor": "graduate-admissions",
       "position": 2,
       "watermark": "GRADUATE",
       "sort": "manual",
@@ -1288,23 +1214,21 @@
         {
           "href": "talent-cultivation.html",
           "label": "人才培养"
-        },
-        {
-          "href": "admissions.html",
-          "label": "招生就业"
         }
-      ]
+      ],
+      "legacyUrls": [],
+      "listed": true
     },
     {
       "id": "employment-guidance",
       "key": "admissions.section-3",
-      "page": "admissions.html",
+      "page": "talent-cultivation.html",
       "title": "就业指导",
       "layout": "list",
       "slug": "admissions-section-3",
       "url": "admissions-section-3.html",
-      "anchor": "section-3",
-      "position": 3,
+      "anchor": "employment-guidance",
+      "position": 6,
       "watermark": "CAREERS",
       "sort": "manual",
       "service": false,
@@ -1316,12 +1240,10 @@
         {
           "href": "talent-cultivation.html",
           "label": "人才培养"
-        },
-        {
-          "href": "admissions.html",
-          "label": "招生就业"
         }
-      ]
+      ],
+      "legacyUrls": [],
+      "listed": true
     },
     {
       "id": "campus-activities",
@@ -1349,7 +1271,9 @@
           "href": "community.html",
           "label": "师生园地"
         }
-      ]
+      ],
+      "legacyUrls": [],
+      "listed": true
     },
     {
       "id": "student-stories",
@@ -1377,7 +1301,9 @@
           "href": "community.html",
           "label": "师生园地"
         }
-      ]
+      ],
+      "legacyUrls": [],
+      "listed": true
     },
     {
       "id": "science-outreach",
@@ -1405,7 +1331,9 @@
           "href": "ic-world.html",
           "label": "芯片天地"
         }
-      ]
+      ],
+      "legacyUrls": [],
+      "listed": true
     },
     {
       "id": "micro-nano-world",
@@ -1433,7 +1361,9 @@
           "href": "ic-world.html",
           "label": "芯片天地"
         }
-      ]
+      ],
+      "legacyUrls": [],
+      "listed": true
     },
     {
       "id": "media-reports",
@@ -1461,7 +1391,9 @@
           "href": "media.html",
           "label": "媒体掠影"
         }
-      ]
+      ],
+      "legacyUrls": [],
+      "listed": true
     },
     {
       "id": "disciplines",
@@ -1472,7 +1404,7 @@
       "slug": "talent-cultivation-section-1",
       "url": "talent-cultivation-section-1.html",
       "anchor": "section-1",
-      "position": 1,
+      "position": 3,
       "watermark": "EDUCATION",
       "sort": "manual",
       "service": false,
@@ -1485,7 +1417,9 @@
           "href": "talent-cultivation.html",
           "label": "人才培养"
         }
-      ]
+      ],
+      "legacyUrls": [],
+      "listed": true
     },
     {
       "id": "curriculum",
@@ -1496,7 +1430,7 @@
       "slug": "talent-cultivation-section-2",
       "url": "talent-cultivation-section-2.html",
       "anchor": "section-2",
-      "position": 2,
+      "position": 4,
       "watermark": "CURRICULUM",
       "sort": "manual",
       "service": false,
@@ -1509,12 +1443,14 @@
           "href": "talent-cultivation.html",
           "label": "人才培养"
         }
-      ]
+      ],
+      "legacyUrls": [],
+      "listed": true
     },
     {
       "id": "service-guides",
       "key": "public-service.section-1",
-      "page": "public-service.html",
+      "page": "community.html",
       "title": "服务指南",
       "layout": "list",
       "slug": "public-service-section-1",
@@ -1527,13 +1463,21 @@
       "legacyKeys": [
         "public-service.section-1"
       ],
-      "active": "public-service.html",
+      "active": "talent-cultivation.html",
       "parents": [
         {
-          "href": "public-service.html",
-          "label": "公共服务"
+          "href": "talent-cultivation.html",
+          "label": "人才培养"
+        },
+        {
+          "href": "community.html",
+          "label": "师生园地"
         }
-      ]
+      ],
+      "legacyUrls": [
+        "public-service.html"
+      ],
+      "listed": false
     },
     {
       "id": "job-openings",
@@ -1557,7 +1501,9 @@
           "href": "careers.html",
           "label": "人才招聘"
         }
-      ]
+      ],
+      "legacyUrls": [],
+      "listed": true
     },
     {
       "id": "leadership",
@@ -1585,17 +1531,19 @@
           "href": "management.html",
           "label": "管理机构"
         }
-      ]
+      ],
+      "legacyUrls": [],
+      "listed": true
     },
     {
       "id": "academic-committee",
       "key": "management.section-2",
-      "page": "management.html",
+      "page": "about.html",
       "title": "学术委员会",
       "layout": "list",
       "slug": "management-committee",
       "url": "management-committee.html",
-      "anchor": "section-2",
+      "anchor": "academic-committee",
       "position": 2,
       "watermark": "COMMITTEE",
       "sort": "manual",
@@ -1608,12 +1556,10 @@
         {
           "href": "about.html",
           "label": "学院概况"
-        },
-        {
-          "href": "management.html",
-          "label": "管理机构"
         }
-      ]
+      ],
+      "legacyUrls": [],
+      "listed": true
     },
     {
       "id": "administrative-offices",
@@ -1624,7 +1570,7 @@
       "slug": "management-offices",
       "url": "management-offices.html",
       "anchor": "section-3",
-      "position": 3,
+      "position": 2,
       "watermark": "OFFICES",
       "sort": "manual",
       "service": false,
@@ -1641,7 +1587,9 @@
           "href": "management.html",
           "label": "管理机构"
         }
-      ]
+      ],
+      "legacyUrls": [],
+      "listed": true
     },
     {
       "id": "engineering-accreditation",
@@ -1652,7 +1600,7 @@
       "slug": "engineering-accreditation",
       "url": "engineering-accreditation.html",
       "anchor": "section-3",
-      "position": 3,
+      "position": 5,
       "watermark": "ACCREDITATION",
       "sort": "manual",
       "service": false,
@@ -1665,7 +1613,9 @@
           "href": "talent-cultivation.html",
           "label": "人才培养"
         }
-      ]
+      ],
+      "legacyUrls": [],
+      "listed": true
     },
     {
       "id": "student-regulations",
@@ -1676,12 +1626,14 @@
       "slug": "student-regulations",
       "url": "student-regulations.html",
       "anchor": "section-3",
-      "position": 3,
+      "position": 4,
       "watermark": "REGULATIONS",
       "sort": "date-desc",
       "service": false,
       "legacyKeys": [
-        "community.section-3"
+        "community.section-3",
+        "regulations.section-1",
+        "regulations.section-2"
       ],
       "active": "talent-cultivation.html",
       "parents": [
@@ -1693,7 +1645,13 @@
           "href": "community.html",
           "label": "师生园地"
         }
-      ]
+      ],
+      "legacyUrls": [
+        "regulations-section-1.html",
+        "regulations-section-2.html",
+        "regulations.html"
+      ],
+      "listed": true
     },
     {
       "id": "instrument-directory",
@@ -1721,7 +1679,99 @@
           "href": "instruments.html",
           "label": "大型仪器"
         }
-      ]
+      ],
+      "legacyUrls": [],
+      "listed": true
+    },
+    {
+      "id": "professors-committee",
+      "key": "management.section-4",
+      "page": "management.html",
+      "title": "教授委员会",
+      "layout": "list",
+      "slug": "management-professors",
+      "url": "management-professors.html",
+      "anchor": "section-4",
+      "position": 3,
+      "watermark": "PROFESSORS",
+      "sort": "date-desc",
+      "service": false,
+      "legacyKeys": [
+        "management.section-4"
+      ],
+      "active": "about.html",
+      "parents": [
+        {
+          "href": "about.html",
+          "label": "学院概况"
+        },
+        {
+          "href": "management.html",
+          "label": "管理机构"
+        }
+      ],
+      "legacyUrls": [],
+      "listed": true
+    },
+    {
+      "id": "trade-union",
+      "key": "management.section-5",
+      "page": "management.html",
+      "title": "工会",
+      "layout": "list",
+      "slug": "management-union",
+      "url": "management-union.html",
+      "anchor": "section-5",
+      "position": 4,
+      "watermark": "UNION",
+      "sort": "date-desc",
+      "service": false,
+      "legacyKeys": [
+        "management.section-5"
+      ],
+      "active": "about.html",
+      "parents": [
+        {
+          "href": "about.html",
+          "label": "学院概况"
+        },
+        {
+          "href": "management.html",
+          "label": "管理机构"
+        }
+      ],
+      "legacyUrls": [],
+      "listed": true
+    },
+    {
+      "id": "youth-league",
+      "key": "community.section-4",
+      "page": "community.html",
+      "title": "团学建设",
+      "layout": "list",
+      "slug": "community-youth",
+      "url": "community-youth.html",
+      "anchor": "section-4",
+      "position": 3,
+      "watermark": "YOUTH",
+      "sort": "date-desc",
+      "service": false,
+      "legacyKeys": [
+        "community.section-4"
+      ],
+      "active": "talent-cultivation.html",
+      "parents": [
+        {
+          "href": "talent-cultivation.html",
+          "label": "人才培养"
+        },
+        {
+          "href": "community.html",
+          "label": "师生园地"
+        }
+      ],
+      "legacyUrls": [],
+      "listed": true
     }
   ],
   "site": {
@@ -1747,21 +1797,9 @@
       "image_alt": "程纲照片",
       "source_url": "https://lab.henu.edu.cn/zw/ktz/c_g_Cheng_G/ktzzjj.htm",
       "source_label": "河南大学程纲课题组公开介绍",
-      "sort_order": 0,
-      "is_visible": true
-    },
-    {
-      "key": "teacher-zhang-jinlong",
-      "title": "张锦龙",
-      "subtitle": "教授 · 博士生导师 · 光纤传感与光子芯片",
-      "summary": "北京邮电大学电磁场与微波技术专业博士。研究光纤传感与光子芯片及其在电力电子、生物医学工程等领域的应用。",
-      "body": "## 个人简介\n\n北京邮电大学电磁场与微波技术专业博士。研究光纤传感与光子芯片及其在电力电子、生物医学工程等领域的应用。\n\n## 教育经历\n\n1995—1999年，长沙理工大学，物理教育学士。\n\n2002—2005年，河南大学，光学工程硕士。\n\n2006—2009年，北京邮电大学，电磁场与微波技术博士。\n\n## 研究与教学\n\n研究光纤传感、光子芯片及相关传感应用。现有资料列有河南省特聘教授、河南省高层次人才、河南省高校科技创新团队带头人等称号。\n\n本科课程：《电路原理》《电子测量》《现代交换原理》。\n\n研究生课程：《新型光传感技术及其应用》。\n\n## 公开资料所列科研情况\n\n来源资料记载发表论文40余篇、授权国家发明专利16件、主持国家基金面上项目2项、省部级项目1项和企业委托开发等项目10余项；数字与现任职务待本人核对更新。\n\n基于阵列波导光栅的IGBT功率模块结温监测，电工技术学报，2024。\n\n呼吸声分类技术研究及检测系统设计，应用声学，2023。\n\n二维分布式光纤形状传感应变传递研究，传感器与微系统，2022。\n\n基于光纤光栅的机器人腕部多维力传感器，半导体光电，2021。\n\n## 教学与学生指导\n\n公开资料列有9门课程的授课经历、主持河南大学教改项目1项、发表教改论文2篇。指导学生参加互联网+、大学生创新创业大赛，并引导卓越工程师班学生参与或主持科研项目。上述信息为来源页历史记载。\n\n## 联系方式\n\n电子邮箱：zjl@henu.edu.cn\n\n联系电话：135-6950-9930",
-      "image": "teacher-zhang.jpg",
-      "image_alt": "张锦龙照片",
-      "source_url": "https://phye.henu.edu.cn/info/1159/5480.htm",
-      "source_label": "河南大学物理与电子学院公开教师页",
-      "sort_order": 1,
-      "is_visible": true
+      "sort_order": 10,
+      "is_visible": true,
+      "awards": []
     },
     {
       "key": "teacher-zheng-haiwu",
@@ -1773,8 +1811,23 @@
       "image_alt": "郑海务照片",
       "source_url": "https://phye.henu.edu.cn/info/1159/5688.htm",
       "source_label": "河南大学物理与电子学院公开教师页",
-      "sort_order": 2,
-      "is_visible": true
+      "sort_order": 20,
+      "is_visible": true,
+      "awards": []
+    },
+    {
+      "key": "teacher-zhang-jinlong",
+      "title": "张锦龙",
+      "subtitle": "教授 · 博士生导师 · 光纤传感与光子芯片",
+      "summary": "北京邮电大学电磁场与微波技术专业博士。研究光纤传感与光子芯片及其在电力电子、生物医学工程等领域的应用。",
+      "body": "## 个人简介\n\n北京邮电大学电磁场与微波技术专业博士。研究光纤传感与光子芯片及其在电力电子、生物医学工程等领域的应用。\n\n## 教育经历\n\n1995—1999年，长沙理工大学，物理教育学士。\n\n2002—2005年，河南大学，光学工程硕士。\n\n2006—2009年，北京邮电大学，电磁场与微波技术博士。\n\n## 研究与教学\n\n研究光纤传感、光子芯片及相关传感应用。现有资料列有河南省特聘教授、河南省高层次人才、河南省高校科技创新团队带头人等称号。\n\n本科课程：《电路原理》《电子测量》《现代交换原理》。\n\n研究生课程：《新型光传感技术及其应用》。\n\n## 公开资料所列科研情况\n\n来源资料记载发表论文40余篇、授权国家发明专利16件、主持国家基金面上项目2项、省部级项目1项和企业委托开发等项目10余项；数字与现任职务待本人核对更新。\n\n基于阵列波导光栅的IGBT功率模块结温监测，电工技术学报，2024。\n\n呼吸声分类技术研究及检测系统设计，应用声学，2023。\n\n二维分布式光纤形状传感应变传递研究，传感器与微系统，2022。\n\n基于光纤光栅的机器人腕部多维力传感器，半导体光电，2021。\n\n## 教学与学生指导\n\n公开资料列有9门课程的授课经历、主持河南大学教改项目1项、发表教改论文2篇。指导学生参加互联网+、大学生创新创业大赛，并引导卓越工程师班学生参与或主持科研项目。上述信息为来源页历史记载。\n\n## 联系方式\n\n电子邮箱：zjl@henu.edu.cn\n\n联系电话：135-6950-9930",
+      "image": "teacher-zhang.jpg",
+      "image_alt": "张锦龙照片",
+      "source_url": "https://phye.henu.edu.cn/info/1159/5480.htm",
+      "source_label": "河南大学物理与电子学院公开教师页",
+      "sort_order": 30,
+      "is_visible": true,
+      "awards": []
     }
   ]
 }

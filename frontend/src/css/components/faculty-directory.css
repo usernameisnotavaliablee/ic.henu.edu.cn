@@ -1,4 +1,23 @@
 /* 师资分类复用教师卡片；没有审定分类时仅列入完整教师名录。 */
+.faculty-people { display: grid; gap: 28px; }
+.faculty-people--home { grid-template-columns: repeat(3,minmax(0,1fr)); }
+.faculty-people--portrait { grid-template-columns: repeat(2,minmax(0,1fr)); }
+.faculty-people--compact { grid-template-columns: repeat(3,minmax(0,1fr)); }
+.faculty-people--names { grid-template-columns: repeat(auto-fill,minmax(120px,1fr)); gap: 12px 24px; }
+.faculty-person { display: flex; align-items: center; min-width: 0; gap: 24px; padding-block: 20px; border-bottom: 1px solid var(--line); color: var(--blue); }
+.faculty-person > div { min-width: 0; }
+.faculty-person h3 { font-size: 21px; font-weight: 500; line-height: 1.6; overflow-wrap: anywhere; }
+.faculty-person p { font-size: 13px; color: var(--muted); }
+.faculty-person .teacher-intro { -webkit-line-clamp: 3; }
+.faculty-person--portrait :is(.media-frame,img) { width: 150px; height: 200px; flex-shrink: 0; object-fit: cover; object-position: center 20%; }
+.faculty-person--compact :is(.media-frame,img) { width: 64px; height: 64px; border-radius: 50%; flex-shrink: 0; object-fit: cover; object-position: center 20%; }
+.faculty-person--names { padding: 8px 0; min-height: 44px; }
+.faculty-person--names h3 { font-size: 18px; }
+.faculty-section-heading h2 { overflow-wrap: anywhere; }
+.footer-wechat:empty { display: none; }
+@media(max-width:1100px) { .faculty-people--home,.faculty-people--compact { grid-template-columns: repeat(2,minmax(0,1fr)); } }
+@media(max-width:900px) { .faculty-people--portrait { grid-template-columns: 1fr; } }
+@media(max-width:600px) { .faculty-people--home,.faculty-people--compact { grid-template-columns: 1fr; } .faculty-person--portrait { gap: 16px; } .faculty-person--portrait :is(.media-frame,img) { width: 96px; height: 128px; } }
 .faculty-tabs { display: flex; flex-wrap: wrap; gap: 10px; padding-bottom: 24px; border-bottom: 1px solid var(--line); }
 .faculty-tabs a { display: inline-flex; align-items: center; min-height: 44px; padding: 8px 22px; border: 1px solid var(--line); color: var(--blue); }
 .faculty-tabs a[aria-current="page"] { color: #fff; background: var(--blue); border-color: var(--blue); }
@@ -10,7 +29,6 @@
 .faculty-section-heading p { color: var(--muted); margin-top: 8px; }
 .faculty-section .faculty-grid:has(> .collection-empty-state) { grid-template-columns: 1fr; }
 .faculty-section .collection-empty-state { grid-column: 1 / -1; }
-.contact-qr-codes { display: grid; gap: 20px; }
 .footer-wechat:has(.website-code) { display: flex; gap: 24px; flex-wrap: wrap; justify-content: center; }
 .external-service { display: inline-flex; align-items: center; min-height: 44px; margin-block: 20px; padding: 10px 24px; background: var(--blue); color: #fff; }
 .external-service:hover { background: var(--blue-dark); color: #fff; }

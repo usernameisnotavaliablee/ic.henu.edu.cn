@@ -1,0 +1,49 @@
+{
+  "date": "2026-10-15",
+  "branch": "codex/frontend-refactor",
+  "base": "f59755f3141b31b77361cb8eeeb3f27a38ec8d6f",
+  "workingTree": "uncommitted",
+  "scope": "confirmed frontend requirements; retain main visual design; no deployment, Boda login or existing business database writes",
+  "static": {
+    "pages": 98,
+    "localLinks": 6777,
+    "structureChecks": 122,
+    "fontCharacters": 116,
+    "originalUrlsPreserved": 73,
+    "ordinarySuitesPassed": 18
+  },
+  "hover": {
+    "inventoriedPages": 98,
+    "linkFamilies": 27,
+    "checksPassed": 98,
+    "timedComponents": 22
+  },
+  "django": {
+    "presentationChecks": 172,
+    "businessTests": 53,
+    "newMigration": false,
+    "database": "isolated new test databases only"
+  },
+  "confirmedContracts": 17,
+  "presentationContracts": 11,
+  "confirmedBrowserChecks": 117,
+  "meetingBrowserChecks": 128,
+  "evidence": {
+    "frontend": "sandbox/frontend-implementation-20261015/browser-hover-final/frontend-checks.json",
+    "hover": "sandbox/frontend-implementation-20261015/hover-settled/hover-audit.json",
+    "django": "sandbox/frontend-implementation-20261015/django-final-counts/django-presentation.json"
+  },
+  "retries": "Initial sandbox browser spawn EPERM retained; approved runs passed. Hover initial sampling overlapped section/header movement; isolated hover measurement after settling passed. Earlier reports retained unchanged.",
+  "reviewLinksValid": true,
+  "preexistingDocumentBackupsVerified": 13,
+  "notVerified": [
+    "physical phones/tablets",
+    "Boda dynamic publishing",
+    "new API implementation",
+    "live server state",
+    "security专项",
+    "multi-role manual review",
+    "weak-network frame rates",
+    "real business database recovery"
+  ]
+}

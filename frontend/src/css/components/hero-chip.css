@@ -43,6 +43,7 @@ html[data-motion-paused='true'] .hero-image { animation-play-state: paused; }
 /* 仅分配版面高度；滚轮不设强制停靠，由 JS 在手势结束后柔和对齐。 */
 @media (min-width: 1100px) and (min-height: 600px) and (hover: hover) and (pointer: fine) {
   [data-page='home'] .hero-slide { min-height: max(440px, calc(100svh - var(--header-expanded-height))); }
-  [data-page='home'] [data-home-section] { min-height: calc(100svh - var(--header-compact-height)); display: flex; align-items: center; }
+  /* 保留首页整屏节奏，栏目标题与右侧入口始终从区块顶部排列。 */
+  [data-page='home'] [data-home-section] { min-height: calc(100svh - var(--header-compact-height)); display: flex; align-items: flex-start; }
 }
 

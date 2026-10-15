@@ -1,7 +1,9 @@
 [
-  {"id":"national-leading","label":"国家级领军人才","group":"talent"},
-  {"id":"national-young","label":"国家级青年人才","group":"talent"},
-  {"id":"provincial-professor","label":"河南省特聘教授","group":"talent"},
-  {"id":"other-talent","label":"其他高层次人才","group":"talent"},
-  {"id":"regular","label":"普通教师","group":"regular"}
+  {"id":"national-leading","label":"国家级领军人才","group":"talent","priority":1,"display":"portrait","enabled":true,"showWhenEmpty":true},
+  {"id":"national-young","label":"国家级青年人才","group":"talent","priority":2,"display":"portrait","enabled":true,"showWhenEmpty":true},
+  {"id":"provincial-professor","label":"河南省特聘教授","group":"talent","priority":3,"display":"compact","enabled":true},
+  {"id":"yellow-river-mingde","label":"河南大学“黄河学者”/明德特聘教授","group":"talent","priority":4,"display":"compact","enabled":true},
+  {"id":"university-professor","label":"河南大学校特聘教授","group":"talent","priority":5,"display":"compact","enabled":true},
+  {"id":"hundred-talents","label":"河南大学百人计划","group":"talent","priority":6,"display":"compact","enabled":true},
+  {"id":"regular","label":"普通教师","group":"regular","priority":100,"display":"names","enabled":true}
 ]

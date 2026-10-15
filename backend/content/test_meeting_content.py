@@ -48,11 +48,11 @@ class MeetingContentTests(TestCase):
     def test_default_teachers_preserved_without_inferred_honours(self):
         html = self.client.get('/faculty.html').content.decode()
         self.assertLess(html.index('teacher-cheng-gang.html'), html.index('teacher-zhang-jinlong.html'))
-        self.assertLess(html.index('teacher-zhang-jinlong.html'), html.index('teacher-zheng-haiwu.html'))
+        self.assertLess(html.index('teacher-zheng-haiwu.html'), html.index('teacher-zhang-jinlong.html'))
         self.assertNotContains(self.client.get('/faculty-talents.html'), 'class="faculty-card"')
         self.assertContains(self.client.get('/teacher-cheng-gang.html'), '更多代表论文')
 
-    def test_student_regulations_sort_by_date_and_admin_records_stay_separate(self):
+    def test_regulations_merge_legacy_collections_and_sort_by_publication_date(self):
         for key, title, day, order, collection in [
             ('entry-old-rule', '旧学生制度', date(2026, 9, 1), 0, 'community.section-3'),
             ('entry-new-rule', '新学生制度', date(2026, 10, 15), 999, 'community.section-3'),
@@ -61,7 +61,7 @@ class MeetingContentTests(TestCase):
             self.publish(ContentEntry.objects.create(key=key,title=title,date=day,sort_order=order,collection=collection))
         html = self.client.get('/student-regulations.html').content.decode()
         self.assertLess(html.index('新学生制度'), html.index('旧学生制度'))
-        self.assertNotIn('行政制度测试', html)
+        self.assertLess(html.index('行政制度测试'), html.index('新学生制度'))
         self.assertContains(self.client.get('/regulations-section-1.html'), '行政制度测试')
         self.assertContains(self.client.get('/entry-new-rule.html'), 'href="community.html"')
 
