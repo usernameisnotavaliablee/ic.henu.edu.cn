@@ -48,14 +48,14 @@ class EditableContentTests(TestCase):
         self.assertContains(response, '【演示】学院简介')
         self.assertContains(response, '&lt;script&gt;alert(1)&lt;/script&gt;')
         self.assertNotContains(response, '<script>alert(1)</script>')
-        self.assertContains(response, 'data-overview-section', count=3)
+        self.assertContains(response, 'data-overview-section', count=2)
         self.assertContains(response, '<span lang="en">INTRODUCTION</span>')
         self.assertContains(response, '<h2>学院简介</h2>')
         entry.is_visible = False
         entry.save()
         self.publish(entry)
         response = self.client.get('/about.html')
-        self.assertContains(response, 'data-overview-section', count=3)
+        self.assertContains(response, 'data-overview-section', count=2)
         self.assertNotContains(response, '【演示】学院简介')
         self.assertContains(response, '本栏目资料待更新。')
 

@@ -39,7 +39,7 @@ const server = http.createServer(async (request, response) => {
     }
     await new Promise((resolve, reject) => { server.once('error', reject); server.listen(0, '127.0.0.1', resolve); });
     const base = `http://127.0.0.1:${server.address().port}`;
-    for (const script of ['check-navigation-state.cjs', 'check-nav-toggle.cjs', 'check-current-design.cjs', 'check-design-merge.cjs', 'check-navigation-fixes.cjs', 'check-overview-typography.cjs']) {
+    for (const script of ['check-navigation-state.cjs', 'check-nav-toggle.cjs', 'check-current-design.cjs', 'check-design-merge.cjs', 'check-navigation-fixes.cjs', 'check-overview-typography.cjs', 'check-meeting-design.cjs']) {
       await run(process.execPath, ['frontend/scripts/' + script, base]);
     }
   } finally {

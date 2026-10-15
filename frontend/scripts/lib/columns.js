@@ -62,6 +62,7 @@ function createRegistry({ nodes, navigation }) {
     const chain = ancestors(node);
     return { id: node.id, kind: node.kind, title: node.title, english: node.english || '', active: (chain[0] || node).url,
       parents: chain.map(parent => ({ href: parent.url, label: parent.navTitle || parent.title })),
+      ...(Object.hasOwn(node, 'facultyFilter') ? {facultyFilter: node.facultyFilter} : {}),
       ...(node.previewBreadcrumbs?.page ? {previewParents: previewParents(node, 'page')} : {}) };
   }
   function detail(parentId, title) {
@@ -80,7 +81,7 @@ function createRegistry({ nodes, navigation }) {
   const collections = nodes.filter(n => n.kind === 'collection').map(n => ({
     id: n.id, key: n.storageKey, page: byId.get(n.parentId).url, title: n.title, layout: n.layout,
     slug: n.url.replace(/\.html$/, ''), url: n.url, anchor: n.anchor, position: n.order,
-    watermark: n.watermark, legacyKeys: [...n.legacyKeys], active: route(n).active, parents: route(n).parents,
+    watermark: n.watermark, sort: n.sort || 'manual', service: !!n.service, legacyKeys: [...n.legacyKeys], active: route(n).active, parents: route(n).parents,
   }));
   return { nodes, byId, byUrl, route, detail, resolveHref, collections,
     siteConfiguration: { navigation: nav.map(([url,label]) => [url,label]),

@@ -1,13 +1,40 @@
 {
+  "facultyCategories": [
+    {
+      "id": "national-leading",
+      "label": "国家级领军人才",
+      "group": "talent"
+    },
+    {
+      "id": "national-young",
+      "label": "国家级青年人才",
+      "group": "talent"
+    },
+    {
+      "id": "provincial-professor",
+      "label": "河南省特聘教授",
+      "group": "talent"
+    },
+    {
+      "id": "other-talent",
+      "label": "其他高层次人才",
+      "group": "talent"
+    },
+    {
+      "id": "regular",
+      "label": "普通教师",
+      "group": "regular"
+    }
+  ],
   "slots": {
     "about.section-1": "学院概况 / 学院简介",
-    "about.section-2": "学院概况 / 组织机构",
-    "about.section-3": "学院概况 / 领导班子",
+    "about.section-2": "学院概况 / 管理机构",
     "science-innovation.section-1": "科学与创新 / 研究方向",
     "science-innovation.section-2": "科学与创新 / 研究进展",
     "science-innovation.section-3": "科学与创新 / 学术交流",
     "talent-cultivation.section-1": "人才培养 / 学科与专业",
     "talent-cultivation.section-2": "人才培养 / 课程与培养方案",
+    "talent-cultivation.section-3": "人才培养 / 工程教育认证",
     "party-building.section-1": "党建党务 / 党建动态",
     "party-building.section-2": "党建党务 / 学习园地",
     "public-service.section-1": "公共服务 / 公共服务信息",
@@ -16,16 +43,21 @@
     "research-platforms.section-2": "研究平台 / 平台介绍",
     "research-groups.section-1": "课题组 / 团队概览",
     "research-groups.section-2": "课题组 / 课题组介绍",
-    "regulations.section-1": "制度建设 / 规章制度",
-    "regulations.section-2": "制度建设 / 办事流程",
+    "regulations.section-1": "规章与办事 / 行政规章制度",
+    "regulations.section-2": "规章与办事 / 办事流程",
     "admissions.section-1": "招生就业 / 本科生招生",
     "admissions.section-2": "招生就业 / 研究生招生",
     "admissions.section-3": "招生就业 / 就业指导",
     "community.section-1": "师生园地 / 师生活动",
     "community.section-2": "师生园地 / 学生风采",
+    "community.section-3": "师生园地 / 制度建设",
     "ic-world.section-1": "芯片天地 / 学科科普",
     "ic-world.section-2": "芯片天地 / 芯片与微纳世界",
     "media.section-1": "媒体掠影 / 媒体报道",
+    "about.section-3": "管理机构 / 领导班子",
+    "management.section-2": "管理机构 / 学术委员会",
+    "management.section-3": "管理机构 / 党政机构",
+    "instruments.section-1": "大型仪器 / 仪器与共享服务",
     "home.slide-1": "首页轮播 / 第1张",
     "home.slide-2": "首页轮播 / 第2张",
     "home.slide-3": "首页轮播 / 第3张",
@@ -111,7 +143,7 @@
     "regulations": {
       "id": "regulations",
       "kind": "overview",
-      "title": "制度建设",
+      "title": "规章与办事",
       "english": "",
       "active": "public-service.html",
       "parents": [
@@ -170,6 +202,32 @@
         {
           "href": "news.html",
           "label": "新闻通知"
+        }
+      ]
+    },
+    "management": {
+      "id": "organization",
+      "kind": "overview",
+      "title": "管理机构",
+      "english": "ADMINISTRATION",
+      "active": "about.html",
+      "parents": [
+        {
+          "href": "about.html",
+          "label": "学院概况"
+        }
+      ]
+    },
+    "instruments": {
+      "id": "instruments",
+      "kind": "overview",
+      "title": "大型仪器",
+      "english": "SHARED INSTRUMENTS",
+      "active": "science-innovation.html",
+      "parents": [
+        {
+          "href": "science-innovation.html",
+          "label": "科学与创新"
         }
       ]
     },
@@ -249,7 +307,7 @@
     "regulations-section-1": {
       "id": "regulation-records",
       "kind": "collection",
-      "title": "规章制度",
+      "title": "行政规章制度",
       "english": "",
       "active": "public-service.html",
       "parents": [
@@ -259,7 +317,7 @@
         },
         {
           "href": "regulations.html",
-          "label": "制度建设"
+          "label": "规章与办事"
         }
       ]
     },
@@ -276,7 +334,7 @@
         },
         {
           "href": "regulations.html",
-          "label": "制度建设"
+          "label": "规章与办事"
         }
       ]
     },
@@ -494,6 +552,104 @@
         }
       ]
     },
+    "management-leadership": {
+      "id": "leadership",
+      "kind": "collection",
+      "title": "领导班子",
+      "english": "",
+      "active": "about.html",
+      "parents": [
+        {
+          "href": "about.html",
+          "label": "学院概况"
+        },
+        {
+          "href": "management.html",
+          "label": "管理机构"
+        }
+      ]
+    },
+    "management-committee": {
+      "id": "academic-committee",
+      "kind": "collection",
+      "title": "学术委员会",
+      "english": "",
+      "active": "about.html",
+      "parents": [
+        {
+          "href": "about.html",
+          "label": "学院概况"
+        },
+        {
+          "href": "management.html",
+          "label": "管理机构"
+        }
+      ]
+    },
+    "management-offices": {
+      "id": "administrative-offices",
+      "kind": "collection",
+      "title": "党政机构",
+      "english": "",
+      "active": "about.html",
+      "parents": [
+        {
+          "href": "about.html",
+          "label": "学院概况"
+        },
+        {
+          "href": "management.html",
+          "label": "管理机构"
+        }
+      ]
+    },
+    "engineering-accreditation": {
+      "id": "engineering-accreditation",
+      "kind": "collection",
+      "title": "工程教育认证",
+      "english": "",
+      "active": "talent-cultivation.html",
+      "parents": [
+        {
+          "href": "talent-cultivation.html",
+          "label": "人才培养"
+        }
+      ]
+    },
+    "student-regulations": {
+      "id": "student-regulations",
+      "kind": "collection",
+      "title": "制度建设",
+      "english": "",
+      "active": "talent-cultivation.html",
+      "parents": [
+        {
+          "href": "talent-cultivation.html",
+          "label": "人才培养"
+        },
+        {
+          "href": "community.html",
+          "label": "师生园地"
+        }
+      ]
+    },
+    "instruments-directory": {
+      "id": "instrument-directory",
+      "kind": "collection",
+      "title": "仪器与共享服务",
+      "english": "",
+      "active": "science-innovation.html",
+      "parents": [
+        {
+          "href": "science-innovation.html",
+          "label": "科学与创新"
+        },
+        {
+          "href": "instruments.html",
+          "label": "大型仪器"
+        }
+      ]
+    },
     "news": {
       "id": "news",
       "kind": "page",
@@ -681,7 +837,36 @@
       "title": "师资队伍",
       "english": "FACULTY",
       "active": "faculty.html",
-      "parents": []
+      "parents": [],
+      "facultyFilter": ""
+    },
+    "faculty-talents": {
+      "id": "faculty-talents",
+      "kind": "page",
+      "title": "高层次人才",
+      "english": "FACULTY",
+      "active": "faculty.html",
+      "parents": [
+        {
+          "href": "faculty.html",
+          "label": "师资队伍"
+        }
+      ],
+      "facultyFilter": "talent"
+    },
+    "faculty-teachers": {
+      "id": "faculty-teachers",
+      "kind": "page",
+      "title": "普通教师",
+      "english": "FACULTY",
+      "active": "faculty.html",
+      "parents": [
+        {
+          "href": "faculty.html",
+          "label": "师资队伍"
+        }
+      ],
+      "facultyFilter": "regular"
     },
     "teacher-cheng-gang": {
       "id": "teacher-cheng-gang",
@@ -695,6 +880,7 @@
           "label": "师资队伍"
         }
       ],
+      "facultyFilter": "",
       "parentId": "faculty"
     },
     "teacher-zhang-jinlong": {
@@ -709,6 +895,7 @@
           "label": "师资队伍"
         }
       ],
+      "facultyFilter": "",
       "parentId": "faculty"
     },
     "teacher-zheng-haiwu": {
@@ -723,6 +910,7 @@
           "label": "师资队伍"
         }
       ],
+      "facultyFilter": "",
       "parentId": "faculty"
     },
     "contact": {
@@ -828,6 +1016,8 @@
       "anchor": "section-1",
       "position": 1,
       "watermark": "RESEARCH",
+      "sort": "manual",
+      "service": false,
       "legacyKeys": [
         "science-innovation.section-1"
       ],
@@ -850,6 +1040,8 @@
       "anchor": "section-2",
       "position": 2,
       "watermark": "PROGRESS",
+      "sort": "manual",
+      "service": false,
       "legacyKeys": [
         "science-innovation.section-2"
       ],
@@ -872,6 +1064,8 @@
       "anchor": "section-3",
       "position": 3,
       "watermark": "EXCHANGE",
+      "sort": "manual",
+      "service": false,
       "legacyKeys": [
         "science-innovation.section-3"
       ],
@@ -894,6 +1088,8 @@
       "anchor": "section-1",
       "position": 1,
       "watermark": "PLATFORMS",
+      "sort": "manual",
+      "service": false,
       "legacyKeys": [
         "research-platforms.section-1",
         "research-platforms.section-2"
@@ -921,6 +1117,8 @@
       "anchor": "section-1",
       "position": 1,
       "watermark": "TEAMS",
+      "sort": "manual",
+      "service": false,
       "legacyKeys": [
         "research-groups.section-1",
         "research-groups.section-2"
@@ -941,13 +1139,15 @@
       "id": "regulation-records",
       "key": "regulations.section-1",
       "page": "regulations.html",
-      "title": "规章制度",
+      "title": "行政规章制度",
       "layout": "list",
       "slug": "regulations-section-1",
       "url": "regulations-section-1.html",
       "anchor": "section-1",
       "position": 1,
       "watermark": "POLICY",
+      "sort": "manual",
+      "service": false,
       "legacyKeys": [
         "regulations.section-1"
       ],
@@ -959,7 +1159,7 @@
         },
         {
           "href": "regulations.html",
-          "label": "制度建设"
+          "label": "规章与办事"
         }
       ]
     },
@@ -974,6 +1174,8 @@
       "anchor": "section-2",
       "position": 2,
       "watermark": "SERVICES",
+      "sort": "manual",
+      "service": false,
       "legacyKeys": [
         "regulations.section-2"
       ],
@@ -985,7 +1187,7 @@
         },
         {
           "href": "regulations.html",
-          "label": "制度建设"
+          "label": "规章与办事"
         }
       ]
     },
@@ -1000,6 +1202,8 @@
       "anchor": "section-1",
       "position": 1,
       "watermark": "PARTY",
+      "sort": "manual",
+      "service": false,
       "legacyKeys": [
         "party-building.section-1"
       ],
@@ -1022,6 +1226,8 @@
       "anchor": "section-2",
       "position": 2,
       "watermark": "LEARNING",
+      "sort": "manual",
+      "service": false,
       "legacyKeys": [
         "party-building.section-2"
       ],
@@ -1044,6 +1250,8 @@
       "anchor": "section-1",
       "position": 1,
       "watermark": "ADMISSIONS",
+      "sort": "manual",
+      "service": false,
       "legacyKeys": [
         "admissions.section-1"
       ],
@@ -1070,6 +1278,8 @@
       "anchor": "section-2",
       "position": 2,
       "watermark": "GRADUATE",
+      "sort": "manual",
+      "service": false,
       "legacyKeys": [
         "admissions.section-2"
       ],
@@ -1096,6 +1306,8 @@
       "anchor": "section-3",
       "position": 3,
       "watermark": "CAREERS",
+      "sort": "manual",
+      "service": false,
       "legacyKeys": [
         "admissions.section-3"
       ],
@@ -1122,6 +1334,8 @@
       "anchor": "section-1",
       "position": 1,
       "watermark": "CAMPUS",
+      "sort": "manual",
+      "service": false,
       "legacyKeys": [
         "community.section-1"
       ],
@@ -1148,6 +1362,8 @@
       "anchor": "section-2",
       "position": 2,
       "watermark": "STUDENTS",
+      "sort": "manual",
+      "service": false,
       "legacyKeys": [
         "community.section-2"
       ],
@@ -1174,6 +1390,8 @@
       "anchor": "section-1",
       "position": 1,
       "watermark": "SCIENCE",
+      "sort": "manual",
+      "service": false,
       "legacyKeys": [
         "ic-world.section-1"
       ],
@@ -1200,6 +1418,8 @@
       "anchor": "section-2",
       "position": 2,
       "watermark": "MICRO NANO",
+      "sort": "manual",
+      "service": false,
       "legacyKeys": [
         "ic-world.section-2"
       ],
@@ -1226,6 +1446,8 @@
       "anchor": "section-1",
       "position": 1,
       "watermark": "MEDIA",
+      "sort": "manual",
+      "service": false,
       "legacyKeys": [
         "media.section-1"
       ],
@@ -1252,6 +1474,8 @@
       "anchor": "section-1",
       "position": 1,
       "watermark": "EDUCATION",
+      "sort": "manual",
+      "service": false,
       "legacyKeys": [
         "talent-cultivation.section-1"
       ],
@@ -1274,6 +1498,8 @@
       "anchor": "section-2",
       "position": 2,
       "watermark": "CURRICULUM",
+      "sort": "manual",
+      "service": false,
       "legacyKeys": [
         "talent-cultivation.section-2"
       ],
@@ -1296,6 +1522,8 @@
       "anchor": "section-1",
       "position": 1,
       "watermark": "SERVICES",
+      "sort": "manual",
+      "service": false,
       "legacyKeys": [
         "public-service.section-1"
       ],
@@ -1318,6 +1546,8 @@
       "anchor": "section-1",
       "position": 1,
       "watermark": "CAREERS",
+      "sort": "manual",
+      "service": false,
       "legacyKeys": [
         "careers.section-1"
       ],
@@ -1326,6 +1556,170 @@
         {
           "href": "careers.html",
           "label": "人才招聘"
+        }
+      ]
+    },
+    {
+      "id": "leadership",
+      "key": "about.section-3",
+      "page": "management.html",
+      "title": "领导班子",
+      "layout": "cards",
+      "slug": "management-leadership",
+      "url": "management-leadership.html",
+      "anchor": "section-1",
+      "position": 1,
+      "watermark": "LEADERSHIP",
+      "sort": "manual",
+      "service": false,
+      "legacyKeys": [
+        "about.section-3"
+      ],
+      "active": "about.html",
+      "parents": [
+        {
+          "href": "about.html",
+          "label": "学院概况"
+        },
+        {
+          "href": "management.html",
+          "label": "管理机构"
+        }
+      ]
+    },
+    {
+      "id": "academic-committee",
+      "key": "management.section-2",
+      "page": "management.html",
+      "title": "学术委员会",
+      "layout": "list",
+      "slug": "management-committee",
+      "url": "management-committee.html",
+      "anchor": "section-2",
+      "position": 2,
+      "watermark": "COMMITTEE",
+      "sort": "manual",
+      "service": false,
+      "legacyKeys": [
+        "management.section-2"
+      ],
+      "active": "about.html",
+      "parents": [
+        {
+          "href": "about.html",
+          "label": "学院概况"
+        },
+        {
+          "href": "management.html",
+          "label": "管理机构"
+        }
+      ]
+    },
+    {
+      "id": "administrative-offices",
+      "key": "management.section-3",
+      "page": "management.html",
+      "title": "党政机构",
+      "layout": "list",
+      "slug": "management-offices",
+      "url": "management-offices.html",
+      "anchor": "section-3",
+      "position": 3,
+      "watermark": "OFFICES",
+      "sort": "manual",
+      "service": false,
+      "legacyKeys": [
+        "management.section-3"
+      ],
+      "active": "about.html",
+      "parents": [
+        {
+          "href": "about.html",
+          "label": "学院概况"
+        },
+        {
+          "href": "management.html",
+          "label": "管理机构"
+        }
+      ]
+    },
+    {
+      "id": "engineering-accreditation",
+      "key": "talent-cultivation.section-3",
+      "page": "talent-cultivation.html",
+      "title": "工程教育认证",
+      "layout": "list",
+      "slug": "engineering-accreditation",
+      "url": "engineering-accreditation.html",
+      "anchor": "section-3",
+      "position": 3,
+      "watermark": "ACCREDITATION",
+      "sort": "manual",
+      "service": false,
+      "legacyKeys": [
+        "talent-cultivation.section-3"
+      ],
+      "active": "talent-cultivation.html",
+      "parents": [
+        {
+          "href": "talent-cultivation.html",
+          "label": "人才培养"
+        }
+      ]
+    },
+    {
+      "id": "student-regulations",
+      "key": "community.section-3",
+      "page": "community.html",
+      "title": "制度建设",
+      "layout": "list",
+      "slug": "student-regulations",
+      "url": "student-regulations.html",
+      "anchor": "section-3",
+      "position": 3,
+      "watermark": "REGULATIONS",
+      "sort": "date-desc",
+      "service": false,
+      "legacyKeys": [
+        "community.section-3"
+      ],
+      "active": "talent-cultivation.html",
+      "parents": [
+        {
+          "href": "talent-cultivation.html",
+          "label": "人才培养"
+        },
+        {
+          "href": "community.html",
+          "label": "师生园地"
+        }
+      ]
+    },
+    {
+      "id": "instrument-directory",
+      "key": "instruments.section-1",
+      "page": "instruments.html",
+      "title": "仪器与共享服务",
+      "layout": "cards",
+      "slug": "instruments-directory",
+      "url": "instruments-directory.html",
+      "anchor": "section-1",
+      "position": 1,
+      "watermark": "INSTRUMENTS",
+      "sort": "manual",
+      "service": true,
+      "legacyKeys": [
+        "instruments.section-1"
+      ],
+      "active": "science-innovation.html",
+      "parents": [
+        {
+          "href": "science-innovation.html",
+          "label": "科学与创新"
+        },
+        {
+          "href": "instruments.html",
+          "label": "大型仪器"
         }
       ]
     }
@@ -1339,7 +1733,8 @@
     "phone": "",
     "email": "",
     "account_name": "",
-    "qr_image": ""
+    "qr_image": "",
+    "website_qr_image": ""
   },
   "teachers": [
     {

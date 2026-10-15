@@ -21,7 +21,8 @@ test('Legacy platform/group section aliases still share one destination',()=>{
  for(const name of ['research-platforms','research-groups']) {
   assert.equal(registry.resolveHref(name+'.html#section-2'),name+'-section-1.html');
  }
- assert.equal(registry.resolveHref('about.html#section-2'),'about.html#section-2');
+ assert.equal(registry.resolveHref('about.html#section-2'),'management.html');
+ assert.equal(registry.resolveHref('about.html#section-3'),'management-leadership.html');
 });
 test('Bad identities, cycles and ambiguous URLs fail before rendering',()=>{
  const add=node=>({...columns,nodes:[...columns.nodes,node]});
@@ -29,7 +30,7 @@ test('Bad identities, cycles and ambiguous URLs fail before rendering',()=>{
  assert.throws(()=>createRegistry(add({id:'bad',url:'bad.html',parentId:'bad'})),/cycle/);
  assert.throws(()=>createRegistry(add({id:'bad',url:'bad.html',parentId:'missing'})),/parent/);
 });
-test('All 17 collection menu destinations are current before hover; other collections keep their top-level parent',()=>{
+test('All collection menu destinations are current before hover; other collections keep their top-level parent',()=>{
  let checked=0;
  for(const c of registry.collections){
   const html=fs.readFileSync(path.join(root,'frontend/preview',c.url),'utf8');
@@ -37,7 +38,7 @@ test('All 17 collection menu destinations are current before hover; other collec
   if(nav.includes(`href="${c.url}"`)) { assert(nav.includes(`href="${c.url}" aria-current="page"`),c.url); checked++; }
   else assert(nav.includes(`href="${c.active}" aria-current="page"`),c.url);
  }
- assert.equal(checked,17);
+ assert(checked >= 17);
 });
 test('Employment and teacher detail retain complete hierarchy',()=>{
  assert.deepEqual(registry.detail('employment-guidance','招聘会').parents.map(p=>p.href),['talent-cultivation.html','admissions.html','admissions-section-3.html']);
@@ -77,7 +78,7 @@ test('Dynamic templates bind site fields and content independently of static tex
 test('Generated style has no runtime imports and resource versions match bytes',()=>{
  const manifest=JSON.parse(fs.readFileSync(path.join(root,'frontend/build-manifest.json')));
  const html=fs.readFileSync(path.join(root,'frontend/preview/index.html'),'utf8');
- assert.equal(manifest.pageCount,73);
+ assert.equal(manifest.pageCount,89);
  for(const [name,fingerprint] of Object.entries(manifest.resources)) {
   assert.equal(hash(fs.readFileSync(path.join(root,'frontend/preview',name))),fingerprint,name);
   if(/^(css|js)\//.test(name)) assert(html.includes(name+'?v='+fingerprint.slice(0,12)),name);

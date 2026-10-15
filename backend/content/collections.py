@@ -25,7 +25,8 @@ def items(request, key):
     # 相同排序值按日期倒序，标识作稳定次序；不读取未发布的字段。
     result.sort(key=lambda r: r['key'])
     result.sort(key=lambda r: r.get('date') or '', reverse=True)
-    result.sort(key=lambda r: r.get('sort_order', 100))
+    if collection.get('sort') != 'date-desc':
+        result.sort(key=lambda r: r.get('sort_order', 100))
     return result
 
 

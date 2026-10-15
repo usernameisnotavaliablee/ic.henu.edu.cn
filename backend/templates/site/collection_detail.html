@@ -1,4 +1,5 @@
 {% extends "site/generated/frame.html" %}
 {% block body %}<article class="article"><h2>{{ entry.title }}</h2>{% include "site/entry_body.html" %}
+{% if collection.service and entry.service_url %}<p><a class="external-service" href="{{ entry.service_url }}" target="_blank" rel="noopener noreferrer">{{ entry.service_label|default:'进入仪器共享服务平台' }}（外部网站）</a></p>{% endif %}
 {% if related %}<section class="related-groups"><h2>相关课题组</h2>{% include "site/collection_items.html" with items=related collection=group_collection %}</section>{% endif %}
 <a class="back-link" href="/{{ collection.url }}">返回{{ collection.title }}</a></article>{% endblock %}

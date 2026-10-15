@@ -5,7 +5,7 @@ from django.http import FileResponse, Http404, HttpResponse, JsonResponse
 from django.shortcuts import get_object_or_404, render
 from django.views.decorators.http import require_safe
 from .models import Publication
-from .editable import teachers, catalog
+from .editable import teachers, catalog, faculty_context
 from .presentation import page_context
 
 # Only explicit fixed routes are public static pages; detail/publication URLs remain gated below.
@@ -51,8 +51,9 @@ def detail_or_page(request, slug):
             'page_heading': entry['title'], 'active_page': collection['active'],
             'breadcrumbs': collection['parents'] + [{'href': collection['url'], 'label': collection['title']}],
         })
-    if slug == 'faculty':
-        return render(request, 'site/faculty.html', {**page_context('faculty'), 'teachers': teachers(request)})
+    route = catalog()['routes'].get(slug, {})
+    if route.get('kind') == 'page' and 'facultyFilter' in route:
+        return render(request, 'site/faculty.html', {**page_context(slug), **faculty_context(request, route['facultyFilter'])})
     if slug.startswith('teacher-'):
         teacher = next((t for t in teachers(request) if t['key'] == slug), None)
         if teacher is None:

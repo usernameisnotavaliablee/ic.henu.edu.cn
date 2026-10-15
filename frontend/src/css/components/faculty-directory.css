@@ -1,0 +1,19 @@
+/* 师资分类复用教师卡片；没有审定分类时仅列入完整教师名录。 */
+.faculty-tabs { display: flex; flex-wrap: wrap; gap: 10px; padding-bottom: 24px; border-bottom: 1px solid var(--line); }
+.faculty-tabs a { display: inline-flex; align-items: center; min-height: 44px; padding: 8px 22px; border: 1px solid var(--line); color: var(--blue); }
+.faculty-tabs a[aria-current="page"] { color: #fff; background: var(--blue); border-color: var(--blue); }
+.faculty-tabs a:hover { background: var(--pale); color: var(--blue); }
+.faculty-section { padding: 32px; margin-top: 28px; background: #f3f6fa; border-left: 3px solid #b6c9dd; }
+.faculty-section:nth-of-type(even) { background: #fff; }
+.faculty-section-heading { margin-bottom: 24px; }
+.faculty-section-heading h2 { color: var(--blue); font-size: 24px; }
+.faculty-section-heading p { color: var(--muted); margin-top: 8px; }
+.faculty-section .faculty-grid:has(> .collection-empty-state) { grid-template-columns: 1fr; }
+.faculty-section .collection-empty-state { grid-column: 1 / -1; }
+.contact-qr-codes { display: grid; gap: 20px; }
+.footer-wechat:has(.website-code) { display: flex; gap: 24px; flex-wrap: wrap; justify-content: center; }
+.external-service { display: inline-flex; align-items: center; min-height: 44px; margin-block: 20px; padding: 10px 24px; background: var(--blue); color: #fff; }
+.external-service:hover { background: var(--blue-dark); color: #fff; }
+.management-entry { margin-top: 20px; }
+.management-entry a { display: inline-flex; min-height: 44px; align-items: center; color: var(--blue); border-bottom: 1px solid var(--line); }
+@media(max-width:600px) { .faculty-section { padding: 22px 16px; } .faculty-tabs { gap: 8px; } .faculty-tabs a { flex: 1; justify-content: center; padding-inline: 10px; } }

@@ -80,6 +80,10 @@ CONTENT_FIELDS = ('slug', 'category', 'title', 'summary', 'body', 'source', 'dat
 
 
 class ContentEntry(models.Model):
+    teacher_category = models.CharField('师资分类', max_length=40, blank=True, help_text='仅教师使用，按学院审定分类填写；留空仍展示在完整教师名录。')
+    service_url = models.URLField('外部服务平台', blank=True, help_text='大型仪器的预约或共享平台，仅接受 HTTP/HTTPS 地址。')
+    service_label = models.CharField('服务入口名称', max_length=80, blank=True)
+    website_qr_image = models.CharField('学院网站二维码图片', max_length=100, blank=True)
     collection = models.CharField('所属列表栏目', max_length=100, blank=True, help_text='新增栏目文章、方向、平台或团队时选择；每个栏目可新增多条。')
     direction = models.CharField('关联研究方向', max_length=100, blank=True, help_text='课题组可关联一条已发布的研究方向。')
     key = models.CharField('内容位置', max_length=100, unique=True, help_text='从页面位置选择；新增教师使用 teacher- 开头的英文标识。保存后不可更换。')
@@ -116,6 +120,21 @@ class ContentEntry(models.Model):
         if self.key != 'site' and self.key not in allowed and not re.fullmatch(r'(teacher|entry)-[a-z0-9]+(?:-[a-z0-9]+)*', self.key):
             raise ValidationError({'key': '请选择现有栏目位置，或使用 teacher- 开头的教师标识。'})
         collections = {c['key']: c for c in catalog().get('collections', [])}
+        categories = {c['id'] for c in catalog().get('facultyCategories', [])}
+        if self.teacher_category and (not self.key.startswith('teacher-') or self.teacher_category not in categories):
+            raise ValidationError({'teacher_category': '仅教师可选择学院师资分类。'})
+        if self.service_url or self.service_label:
+            from django.core.validators import URLValidator
+            if self.collection != 'instruments.section-1' and self.key != 'instruments.section-1':
+                raise ValidationError({'service_url': '外部服务入口仅用于大型仪器栏目。'})
+            if not self.service_url:
+                raise ValidationError({'service_url': '请填写对应服务平台地址。'})
+            try:
+                URLValidator(schemes=['http', 'https'])(self.service_url)
+            except ValidationError:
+                raise ValidationError({'service_url': '请使用有效的 HTTP 或 HTTPS 地址。'})
+        if self.website_qr_image and self.key != 'site':
+            raise ValidationError({'website_qr_image': '网站二维码仅在站点信息中维护。'})
         if self.key.startswith('entry-') and self.collection not in collections:
             raise ValidationError({'collection': '新增条目必须选择有效栏目。'})
         if not self.key.startswith('entry-') and self.collection:
@@ -129,7 +148,7 @@ class ContentEntry(models.Model):
         if self.pk and type(self).objects.filter(pk=self.pk).exclude(key=self.key).exists():
             raise ValidationError({'key': '内容位置不能更换，请新增对应条目。'})
         assets = dict(asset_choices())
-        for field in ('image', 'qr_image'):
+        for field in ('image', 'qr_image', 'website_qr_image'):
             if getattr(self, field) not in assets:
                 raise ValidationError({field: '请选择已归档到本站 assets 的图片。'})
 

@@ -68,7 +68,7 @@ education = top[labels.index('人才培养')]
 service = top[labels.index('公共服务')]
 check('师生园地只归人才培养', len(education.all(lambda n: n.tag == 'a' and n.attrs.get('href') == 'community.html')) == 1 and not service.all(lambda n: n.attrs.get('href') == 'community.html'))
 faculty = top[labels.index('师资队伍')]
-check('师资子菜单仅教师名录和人才招聘', [a.label() for a in faculty.all(lambda n: n.has('subnav'))[0].all(lambda n: n.tag == 'a')] == ['教师名录', '人才招聘'])
+check('师资分类、完整名录和招聘入口均保留', [a.label() for a in faculty.all(lambda n: n.has('subnav'))[0].all(lambda n: n.tag == 'a')] == ['高层次人才', '普通教师', '教师名录', '人才招聘'])
 check('三级招生菜单进入三个独立列表', len(education.all(lambda n: n.has('subnav'))) >= 3 and len(education.all(lambda n: n.attrs.get('href', '').startswith('admissions-section-'))) == 3)
 for name, page in pages.items():
     ids = {n.attrs['id'] for n in page.all(lambda n: 'id' in n.attrs)}
@@ -101,8 +101,9 @@ for key in catalog['slots']:
     if key.startswith('home.'):
         assert "content_block '" + key + "'" in server_home, key
     else:
-        generated = (DOCS / 'backend/templates/site/generated' / (key.split('.')[0] + '.html')).read_text(encoding='utf-8')
         collection = next((c for c in catalog['collections'] if key in c['legacyKeys']), None)
+        page = collection['page'] if collection else key.split('.')[0] + '.html'
+        generated = (DOCS / 'backend/templates/site/generated' / page).read_text(encoding='utf-8')
         assert ("collection_preview '" + collection['key'] + "'" if collection else "content_block '" + key + "'") in generated, key
 check('后台目录每个内容位置都有前台读取入口', True)
 check('动态页面共享公众号与备案配置', 'site/wechat.html' in frame and 'site/wechat.html' in server_home and 'site_info.body' in frame)

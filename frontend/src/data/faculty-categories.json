@@ -1,0 +1,7 @@
+[
+  {"id":"national-leading","label":"国家级领军人才","group":"talent"},
+  {"id":"national-young","label":"国家级青年人才","group":"talent"},
+  {"id":"provincial-professor","label":"河南省特聘教授","group":"talent"},
+  {"id":"other-talent","label":"其他高层次人才","group":"talent"},
+  {"id":"regular","label":"普通教师","group":"regular"}
+]

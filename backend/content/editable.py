@@ -37,3 +37,15 @@ def teachers(request):
         if key.startswith('teacher-'):
             rows[key] = dict(value, key=key)
     return sorted((row for row in rows.values() if row.get('is_visible', True)), key=lambda row: (row.get('sort_order', 100), row['key']))
+
+
+def faculty_context(request, group=''):
+    rows = teachers(request)
+    categories = [c for c in catalog()['facultyCategories'] if c['group'] == group] if group else [{'id': 'faculty-list', 'label': '教师名录'}]
+    return {
+        'faculty_sections': [dict(c, teachers=[t for t in rows if not group or t.get('teacher_category') == c['id']],
+             description='分类名单以学院审定资料为准。' if group else '完整个人资料统一维护，人才分类审定后归入相应栏目。') for c in categories],
+        'faculty_tabs': [{'href': '/' + slug + '.html', 'label': route['title'] if route['facultyFilter'] else '教师名录'}
+                         for slug, route in catalog()['routes'].items() if route.get('kind') == 'page' and 'facultyFilter' in route],
+        'show_vacancies': not group,
+    }

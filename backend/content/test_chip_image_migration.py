@@ -18,7 +18,8 @@ class ChipImageMigrationTests(TransactionTestCase):
 
     def tearDown(self):
         try:
-            MigrationExecutor(connection).migrate(self.migrate_to)
+            executor = MigrationExecutor(connection)
+            executor.migrate(executor.loader.graph.leaf_nodes())
         finally:
             super().tearDown()
 

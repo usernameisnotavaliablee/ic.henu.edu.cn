@@ -1,3 +1,3 @@
 /* 新愚公装甲宋A（衍自思源宋体）· SIL OFL 1.1；固定标题子集，授权见 frontend/licenses。 */
-@font-face { font-family: "IC ZhuangSong"; font-style: normal; font-weight: 400; font-display: swap; src: url("../assets/ic-zhuangsong-headings-6fb1877d1f0b.ttf") format("truetype"); }
-.brand-motto, .editorial-heading h2, .feature-intro, .footer-motto { font-family: var(--font-display); font-weight: 400; font-synthesis: none; }
+@font-face { font-family: "IC ZhuangSong"; font-style: normal; font-weight: 400; font-display: swap; src: url("../assets/ic-zhuangsong-headings-ea0562844c79.ttf") format("truetype"); }
+.editorial-heading h2, .feature-intro, .footer-motto { font-family: var(--font-display); font-weight: 400; font-synthesis: none; }

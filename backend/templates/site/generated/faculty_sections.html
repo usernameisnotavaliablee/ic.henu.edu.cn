@@ -1,0 +1,2 @@
+{% for section in faculty_sections %}<section class="faculty-section" id="{{ section.id }}" aria-labelledby="{{ section.id }}-title"><div class="faculty-section-heading"><h2 id="{{ section.id }}-title">{{ section.label }}</h2><p>{{ section.description }}</p></div><div class="faculty-grid">{% if section.teachers %}{% include "site/teachers.html" with teachers=section.teachers %}{% else %}<div class="collection-empty-state"><p>名单待学院审定，后续陆续更新。</p></div>{% endif %}</div></section>
+{% endfor %}

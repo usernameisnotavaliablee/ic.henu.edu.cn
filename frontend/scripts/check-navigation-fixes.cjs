@@ -28,8 +28,8 @@ const base = process.argv[2] || 'http://127.0.0.1:8766';
     await page.goto(base + '/talent-cultivation.html');
     const backgrounds = await page.locator('.collection-preview').evaluateAll(es => es.map(e => getComputedStyle(e).backgroundColor));
     assert.equal(new Set(backgrounds).size, 2);
-    assert.deepEqual(backgrounds, ['rgb(255, 255, 255)', 'rgb(243, 246, 250)']);
-    assert.equal(await page.locator('.overview-sections .section-watermark').count(), 2);
+    assert.deepEqual(backgrounds, ['rgb(255, 255, 255)', 'rgb(243, 246, 250)', 'rgb(255, 255, 255)']);
+    assert.equal(await page.locator('.overview-sections .section-watermark').count(), 3);
     assert.equal(await page.locator('.research-topics').count(), 0);
     // 吸附落点 = 元素顶 - 该元素自己的 scroll-margin-top（CSS 里绑 --header-compact-height）。读计算值，别再写死 91。
     const stop = await page.locator('[data-overview-section]').first().evaluate(e => e.getBoundingClientRect().top + scrollY - parseFloat(getComputedStyle(e).scrollMarginTop));

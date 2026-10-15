@@ -16,7 +16,7 @@ LICENSE_FILE = ROOT / 'licenses' / 'XinYuGongZhangJiaSongA-OFL.txt'
 MANIFEST = ROOT / 'licenses' / 'zhuangsong-manifest.txt'
 FAMILY = 'IC ZhuangSong'
 STYLE_FILE = ROOT / 'src' / 'css' / 'fonts.css'
-SELECTORS = '.brand-motto, .editorial-heading h2, .feature-intro, .footer-motto'
+SELECTORS = '.editorial-heading h2, .feature-intro, .footer-motto'
 ASSET_DIRS = (ROOT / 'src' / 'assets', ROOT / 'preview' / 'assets')
 ASSET_PATTERNS = ('ic-zhuangsong-headings-*.ttf', 'ic-kai-headings-*.ttf')
 
@@ -29,7 +29,7 @@ class HeadingText(HTMLParser):
 
     def handle_starttag(self, tag, attrs):
         classes = set(dict(attrs).get('class', '').split())
-        selected = bool(classes & {'brand-motto', 'feature-intro', 'footer-motto'})
+        selected = bool(classes & {'feature-intro', 'footer-motto'})
         selected |= tag == 'h2' and any('editorial-heading' in item[1] for item in self.stack)
         selected |= any(item[2] for item in self.stack)
         if tag not in {'area', 'base', 'br', 'col', 'embed', 'hr', 'img', 'input', 'link', 'meta', 'param', 'source', 'track', 'wbr'}:

@@ -32,7 +32,9 @@ class ContentEntryForm(forms.ModelForm):
             if self.instance.direction and self.instance.direction not in dict(choices):
                 choices.append((self.instance.direction, self.instance.direction + '（已撤下，请调整关联）'))
             self.fields['direction'] = forms.ChoiceField(label='课题组关联研究方向', required=False, choices=choices)
-        for name in ('image', 'qr_image'):
+        if 'teacher_category' in self.fields:
+            self.fields['teacher_category'] = forms.ChoiceField(label='师资分类', required=False, choices=[('', '待学院确认／暂未分类')] + [(c['id'], c['label']) for c in catalog()['facultyCategories']])
+        for name in ('image', 'qr_image', 'website_qr_image'):
             if name in self.fields:
                 self.fields[name] = forms.ChoiceField(label=self.fields[name].label, choices=asset_choices(), required=False, help_text='从本站已归档图片选择。新照片或二维码放入运行版 assets 后刷新此页面即可选取。')
         if self.instance.key == 'site' or self.initial.get('key') == 'site' or self.data.get('key') == 'site':
@@ -80,9 +82,13 @@ class ContentEntryAdmin(admin.ModelAdmin):
         if not obj:
             fields.append('teacher_slug')
         if key == 'site':
-            fields += ['college', 'english', 'motto', 'image', 'image_alt', 'address', 'phone', 'email', 'account_name', 'qr_image', 'body']
+            fields += ['college', 'english', 'motto', 'image', 'image_alt', 'address', 'phone', 'email', 'account_name', 'qr_image', 'website_qr_image', 'body']
         else:
             fields += ['collection', 'direction', 'subtitle', 'summary', 'body', 'date', 'image', 'image_alt', 'source_label', 'source_url', 'sort_order', 'is_visible']
+            if key.startswith('teacher-') or key == '__new_teacher__' or not key:
+                fields.insert(fields.index('subtitle'), 'teacher_category')
+            if not key.startswith('teacher-') and key != '__new_teacher__':
+                fields += ['service_url', 'service_label']
         return fields + ['publication_state', 'updated_at']
 
     def get_changeform_initial_data(self, request):

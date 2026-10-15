@@ -3,7 +3,7 @@ function chrome() {
   return {name:'{{ site_info.name }}', college:'{{ site_info.college }}', english:'{{ site_info.english }}',
     logo:'/assets/{{ site_info.image }}', logoAlt:"{{ site_info.image_alt|default:'河南大学校徽' }}",
     motto:'{{ site_info.motto }}', footerEnglish:'{{ site_info.english }}',
-    filing:"{{ site_info.body|default:'正式网站备案与平台信息待学校配置' }}", wechat:'{% include "site/wechat.html" %}'};
+    filing:"{{ site_info.body|default:'正式网站备案与平台信息待学校配置' }}", wechat:'{% include "site/wechat.html" %}{% include "site/website_qr.html" %}'};
 }
 function currentAttribute(href, depth) {
   return `{% if ${depth === 0 ? `active_page == "${href}"` : `request.path == "/${href}"`} %} aria-current="page"{% endif %}`;
@@ -24,6 +24,7 @@ function slide(values, {key,isChip,mediaStatus}, renderComponent) {
 }
 function cards(renderComponent, media) {
   return {
+    faculty_sections:'{% for section in faculty_sections %}' + renderComponent('faculty-section', {id:'{{ section.id }}',title:'{{ section.label }}',description:'{{ section.description }}',cards:'{% if section.teachers %}{% include "site/teachers.html" with teachers=section.teachers %}{% else %}<div class="collection-empty-state"><p>名单待学院审定，后续陆续更新。</p></div>{% endif %}'}) + '{% endfor %}',
     teachers:'{% for teacher in teachers %}' + renderComponent('teacher-card', {
       href:'/{{ teacher.key }}.html',title:'{{ teacher.title }}',subtitle:'{{ teacher.subtitle }}',summary:'{{ teacher.summary }}',
       image:'{% if teacher.image %}' + media({src:'/assets/{{ teacher.image }}',alt:'{{ teacher.title }}照片',width:100,height:132}) + '{% endif %}',

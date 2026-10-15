@@ -1,5 +1,4 @@
-// 栏目唯一声明。id 不随排序变化；storageKey、旧锚点和 URL 是持久化兼容边界。
-// navigation 仅描述入口顺序和复用标签，实际地址/层级来自 nodes。
+// 栏目唯一声明。稳定 ID、内容 key、旧 URL 和锚点用于兼容已有资料。
 module.exports = {
   "nodes": [
     {
@@ -26,15 +25,9 @@ module.exports = {
         },
         {
           "id": "organization",
-          "label": "组织机构",
+          "label": "管理机构",
           "key": "about.section-2",
           "anchor": "section-2"
-        },
-        {
-          "id": "leadership",
-          "label": "领导班子",
-          "key": "about.section-3",
-          "anchor": "section-3"
         }
       ]
     },
@@ -85,6 +78,12 @@ module.exports = {
           "label": "课程与培养方案",
           "key": "talent-cultivation.section-2",
           "anchor": "section-2"
+        },
+        {
+          "id": "engineering-accreditation",
+          "label": "工程教育认证",
+          "key": "talent-cultivation.section-3",
+          "anchor": "section-3"
         }
       ]
     },
@@ -94,6 +93,7 @@ module.exports = {
       "url": "faculty.html",
       "title": "师资队伍",
       "english": "FACULTY",
+      "facultyFilter": "",
       "parentId": null
     },
     {
@@ -103,7 +103,16 @@ module.exports = {
       "title": "学院新闻",
       "navTitle": "新闻通知",
       "previewBreadcrumbs": {
-        "detail": [{ "id": "news", "label": "新闻通知" }, { "id": "news", "label": "学院新闻" }]
+        "detail": [
+          {
+            "id": "news",
+            "label": "新闻通知"
+          },
+          {
+            "id": "news",
+            "label": "学院新闻"
+          }
+        ]
       },
       "english": "NEWS",
       "parentId": null
@@ -218,13 +227,13 @@ module.exports = {
       "id": "regulations",
       "kind": "overview",
       "url": "regulations.html",
-      "title": "制度建设",
+      "title": "规章与办事",
       "english": "",
       "parentId": "services",
       "sections": [
         {
           "id": "regulation-records",
-          "label": "规章制度",
+          "label": "行政规章制度",
           "key": "regulations.section-1",
           "anchor": "section-1"
         },
@@ -283,6 +292,12 @@ module.exports = {
           "label": "学生风采",
           "key": "community.section-2",
           "anchor": "section-2"
+        },
+        {
+          "id": "student-regulations",
+          "label": "制度建设",
+          "key": "community.section-3",
+          "anchor": "section-3"
         }
       ]
     },
@@ -327,7 +342,16 @@ module.exports = {
     {
       "id": "notices",
       "previewBreadcrumbs": {
-        "page": [{ "id": "news", "label": "新闻通知" }, { "id": "news", "label": "新闻通知" }]
+        "page": [
+          {
+            "id": "news",
+            "label": "新闻通知"
+          },
+          {
+            "id": "news",
+            "label": "新闻通知"
+          }
+        ]
       },
       "kind": "page",
       "url": "notices.html",
@@ -432,7 +456,7 @@ module.exports = {
       "id": "regulation-records",
       "kind": "collection",
       "parentId": "regulations",
-      "title": "规章制度",
+      "title": "行政规章制度",
       "url": "regulations-section-1.html",
       "storageKey": "regulations.section-1",
       "anchor": "section-1",
@@ -680,23 +704,52 @@ module.exports = {
     },
     {
       "id": "organization",
-      "kind": "section",
+      "kind": "overview",
       "parentId": "about",
-      "title": "组织机构",
-      "url": "about.html#section-2",
+      "title": "管理机构",
+      "url": "management.html",
       "storageKey": "about.section-2",
       "anchor": "section-2",
-      "watermark": "ORGANIZATION"
+      "watermark": "ORGANIZATION",
+      "english": "ADMINISTRATION",
+      "legacyKeys": [
+        "about.section-2"
+      ],
+      "sections": [
+        {
+          "id": "leadership",
+          "label": "领导班子",
+          "key": "about.section-3",
+          "anchor": "section-1"
+        },
+        {
+          "id": "academic-committee",
+          "label": "学术委员会",
+          "key": "management.section-2",
+          "anchor": "section-2"
+        },
+        {
+          "id": "administrative-offices",
+          "label": "党政机构",
+          "key": "management.section-3",
+          "anchor": "section-3"
+        }
+      ]
     },
     {
       "id": "leadership",
-      "kind": "section",
-      "parentId": "about",
+      "kind": "collection",
+      "parentId": "organization",
       "title": "领导班子",
-      "url": "about.html#section-3",
+      "url": "management-leadership.html",
       "storageKey": "about.section-3",
-      "anchor": "section-3",
-      "watermark": "LEADERSHIP"
+      "anchor": "section-1",
+      "watermark": "LEADERSHIP",
+      "order": 1,
+      "layout": "cards",
+      "legacyKeys": [
+        "about.section-3"
+      ]
     },
     {
       "id": "faculty-directory",
@@ -705,6 +758,117 @@ module.exports = {
       "url": "faculty.html#faculty-list",
       "title": "教师名录",
       "anchor": "faculty-list"
+    },
+    {
+      "id": "academic-committee",
+      "kind": "collection",
+      "parentId": "organization",
+      "title": "学术委员会",
+      "url": "management-committee.html",
+      "storageKey": "management.section-2",
+      "anchor": "section-2",
+      "order": 2,
+      "layout": "list",
+      "watermark": "COMMITTEE",
+      "legacyKeys": [
+        "management.section-2"
+      ]
+    },
+    {
+      "id": "administrative-offices",
+      "kind": "collection",
+      "parentId": "organization",
+      "title": "党政机构",
+      "url": "management-offices.html",
+      "storageKey": "management.section-3",
+      "anchor": "section-3",
+      "order": 3,
+      "layout": "list",
+      "watermark": "OFFICES",
+      "legacyKeys": [
+        "management.section-3"
+      ]
+    },
+    {
+      "id": "engineering-accreditation",
+      "kind": "collection",
+      "parentId": "education",
+      "title": "工程教育认证",
+      "url": "engineering-accreditation.html",
+      "storageKey": "talent-cultivation.section-3",
+      "anchor": "section-3",
+      "order": 3,
+      "layout": "list",
+      "watermark": "ACCREDITATION",
+      "legacyKeys": [
+        "talent-cultivation.section-3"
+      ]
+    },
+    {
+      "id": "student-regulations",
+      "kind": "collection",
+      "parentId": "community",
+      "title": "制度建设",
+      "url": "student-regulations.html",
+      "storageKey": "community.section-3",
+      "anchor": "section-3",
+      "order": 3,
+      "layout": "list",
+      "watermark": "REGULATIONS",
+      "legacyKeys": [
+        "community.section-3"
+      ],
+      "sort": "date-desc"
+    },
+    {
+      "id": "instruments",
+      "kind": "overview",
+      "title": "大型仪器",
+      "url": "instruments.html",
+      "english": "SHARED INSTRUMENTS",
+      "parentId": "research",
+      "sections": [
+        {
+          "id": "instrument-directory",
+          "label": "仪器与共享服务",
+          "key": "instruments.section-1",
+          "anchor": "section-1"
+        }
+      ]
+    },
+    {
+      "id": "instrument-directory",
+      "kind": "collection",
+      "parentId": "instruments",
+      "title": "仪器与共享服务",
+      "url": "instruments-directory.html",
+      "storageKey": "instruments.section-1",
+      "anchor": "section-1",
+      "order": 1,
+      "layout": "cards",
+      "watermark": "INSTRUMENTS",
+      "legacyKeys": [
+        "instruments.section-1"
+      ],
+      "service": true
+    },
+    {
+      "id": "faculty-talents",
+      "kind": "page",
+      "parentId": "faculty",
+      "title": "高层次人才",
+      "url": "faculty-talents.html",
+      "english": "FACULTY",
+      "facultyFilter": "talent"
+    },
+    {
+      "id": "faculty-teachers",
+      "kind": "page",
+      "parentId": "faculty",
+      "title": "普通教师",
+      "url": "faculty-teachers.html",
+      "english": "FACULTY",
+      "facultyFilter": "regular"
     }
   ],
   "navigation": [
@@ -718,10 +882,18 @@ module.exports = {
           "id": "school-introduction"
         },
         {
-          "id": "organization"
-        },
-        {
-          "id": "leadership"
+          "id": "organization",
+          "children": [
+            {
+              "id": "leadership"
+            },
+            {
+              "id": "academic-committee"
+            },
+            {
+              "id": "administrative-offices"
+            }
+          ]
         }
       ]
     },
@@ -765,6 +937,9 @@ module.exports = {
         },
         {
           "id": "ic-world"
+        },
+        {
+          "id": "instruments"
         }
       ]
     },
@@ -776,6 +951,9 @@ module.exports = {
         },
         {
           "id": "curriculum"
+        },
+        {
+          "id": "engineering-accreditation"
         },
         {
           "id": "admissions",
@@ -799,6 +977,9 @@ module.exports = {
             },
             {
               "id": "student-stories"
+            },
+            {
+              "id": "student-regulations"
             }
           ]
         }
@@ -807,6 +988,12 @@ module.exports = {
     {
       "id": "faculty",
       "children": [
+        {
+          "id": "faculty-talents"
+        },
+        {
+          "id": "faculty-teachers"
+        },
         {
           "id": "faculty-directory"
         },

@@ -23,7 +23,7 @@ assert(fontBytes <= 150 * 1024, `标题字体子集过大：${fontBytes} 字节`
     const cdp = await page.context().newCDPSession(page);
     await cdp.send('DOM.enable');
     await cdp.send('CSS.enable');
-    const titleSelector = '.brand-motto, .editorial-heading h2, .feature-intro, .footer-motto';
+    const titleSelector = '.editorial-heading h2, .feature-intro, .footer-motto';
     const platformFonts = async () => {
       const dom = await cdp.send('DOM.getDocument');
       const { nodeIds } = await cdp.send('DOM.querySelectorAll', { nodeId: dom.root.nodeId, selector: titleSelector });
@@ -54,8 +54,8 @@ assert(fontBytes <= 150 * 1024, `标题字体子集过大：${fontBytes} 字节`
       report.pages.push(file);
     }
     await page.goto(base + '/about.html');
-    assert.equal(await page.locator('[data-overview-section]').count(), 3);
-    assert.deepEqual(await page.locator('.editorial-heading h2').allTextContents(), ['学院简介', '组织机构', '领导班子']);
+    assert.equal(await page.locator('[data-overview-section]').count(), 2);
+    assert.deepEqual(await page.locator('.editorial-heading h2').allTextContents(), ['学院简介', '管理机构']);
     // 吸附落点 = 元素顶 - 该元素自己的 scroll-margin-top（CSS 里绑 --header-compact-height）。读计算值，别再写死 91。
     const stop = await page.locator('[data-overview-section]').first().evaluate(e => e.getBoundingClientRect().top + scrollY - parseFloat(getComputedStyle(e).scrollMarginTop));
     await page.evaluate(y => scrollTo(0, y - 110), stop);

@@ -1,0 +1,67 @@
+{
+  "date": "2026-10-15",
+  "base": "821a6e1",
+  "scope": "Isolated candidate; Edge simulated widths, Django test client/admin forms and temporary test databases. No production or physical-device acceptance.",
+  "frontendInitial": {
+    "passed": 12,
+    "total": 15,
+    "failures": [
+      "check-current-structure.py",
+      "check-navigation-fixes.cjs",
+      "check-overview-typography.cjs"
+    ]
+  },
+  "correctedAssertions": [
+    "Leadership slot moved to management overview",
+    "Cultivation now has three sections",
+    "About now has two sections"
+  ],
+  "reruns": [
+    {
+      "script": "check-current-structure.py",
+      "passed": true
+    },
+    {
+      "script": "check-navigation-fixes.cjs",
+      "passed": true
+    },
+    {
+      "script": "check-overview-typography.cjs",
+      "passed": true
+    },
+    {
+      "script": "meeting-browser",
+      "passed": true
+    }
+  ],
+  "final": {
+    "staticPages": 89,
+    "localReferences": 6604,
+    "structureChecks": 112,
+    "fontCharacters": 120,
+    "presentationContracts": 11,
+    "controllerChecks": 16,
+    "meetingBrowserChecks": 128,
+    "dynamicPresentationChecks": 167,
+    "djangoTests": 53,
+    "releaseAssetTests": 7,
+    "packageFiles": 271
+  },
+  "evidenceDirectory": "sandbox/meeting-updates-20261015/",
+  "notes": [
+    "Initial failed reports retained; only corrected assertions were rerun, plus new meeting browser test.",
+    "Faculty route metadata unified after browser checks; static markup unchanged, presentation contracts and Django checks rerun successfully.",
+    "Desktop/mobile screenshots visually reviewed.",
+    "All 73 old preview URLs, ten navigation roots and complete three-teacher source data preserved."
+  ],
+  "notRun": [
+    "Physical devices",
+    "Reading mode",
+    "Production latency/frame-rate",
+    "Security audit",
+    "Multi-role manual acceptance",
+    "Existing business database restore",
+    "Boda platform integration",
+    "Deployment"
+  ]
+}

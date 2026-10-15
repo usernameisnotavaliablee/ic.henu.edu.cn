@@ -33,6 +33,8 @@
 | storageKey / legacyKeys | 当前预览库的兼容映射，例如 admissions.section-3；不是新后端必须沿用的主键 |
 | sections | 显式 id、key、anchor、label；调整展示顺序仍保持旧锚点和内容归属 |
 | order / layout / watermark | 集合展示顺序、cards/list 版式、装饰字；不决定身份 |
+| sort / service | date-desc 表示学生制度以日期倒序为主；service 表示允许仪器详情的外部服务入口 |
+| facultyFilter | 仅师资页面声明；空值为完整名录，talent / regular 对应分组；静态生成及 Django 路由和标签均读该声明 |
 | previewBreadcrumbs | 可选的静态预览面包屑投影，page/detail 各自引用 id 和显示 label；保持 main 的展示顺序，包括通知静态页现有的重复父项，不改变 parentId 或动态页面的 parents |
 
 构建产出的 `backend/content-catalog.json` 是现有 Django 的本地适配输入，不是公开网络接口。`backend/content/presentation.py` 读取同一份路由来提供标题、当前顶层栏目与面包屑；固定页面白名单也从目录投影。文章和教师详情仍受原有发布/撤下逻辑控制，不因存在静态占位而公开。
@@ -45,6 +47,7 @@
 |---|---|
 | teacher-card | href、title、subtitle、summary、image（已经渲染的图片组件或空字符串） |
 | collection-card | href、title、summary、meta、action、image |
+| faculty-section | id、title、description、cards；静态与动态分类共用分区；cards 是复用教师卡或空态 |
 | media | src、alt、width、height、loading、共享状态组件；一幅图片对应一个 data-media 容器 |
 | slide | 标题、眉题、正文、图注、视觉内容、序号、总数和可见状态 |
 | error-body | heading、message、homeUrl、sitemapUrl；静态404与动态错误页共用正文，HTTP状态由服务器决定 |
@@ -55,7 +58,9 @@
 
 ## 缺省和空值
 
-本轮保留现有业务含义，未把重构当作数据库或发布规则迁移：未提供固定内容显示占位；空集合显示暂无已发布内容；教师撤下不展示；轮播 `is_visible=false` 仍回退默认；站点部分空字符串仍回退默认。后两项是已有能力限制，不能描述为支持主动清空或真正隐藏轮播。将来改变这些语义，需要适配器与内容维护流程一起升级。
+结构重构保留原发布含义；后续会议需求另加 0008 可空字段，未改发布状态机：未提供固定内容显示占位；空集合显示暂无已发布内容；教师撤下不展示；轮播 `is_visible=false` 仍回退默认；站点部分空字符串仍回退默认。后两项是已有能力限制，不能描述为支持主动清空或真正隐藏轮播。将来改变这些语义，需要适配器与内容维护流程一起升级。
+
+教师分类来自 `src/data/faculty-categories.json`，一位教师的一条资料可同时出现在完整名录与相应分类页，未填分类不丢失名录入口。站点网站二维码与公众号二维码独立；管理机构旧领导插槽保留兼容。新增字段及路由详见[会议调整与字段交接](../docs/会议调整与字段交接_20261015.md)。
 
 ## 资源与适配边界
 
