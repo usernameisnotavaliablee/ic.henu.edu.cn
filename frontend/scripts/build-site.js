@@ -12,7 +12,6 @@ const collectionHref = href => {
   const [page, anchor] = href.split('#');
   return anchor ? collectionFor(page.replace('.html', '') + '.' + anchor)?.url || href : href;
 };
-require('./build-chip-art');
 const read = relative => fs.readFileSync(path.join(src, relative), 'utf8');
 const escape = value => String(value).replace(/[&<>"']/g, char => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[char]));
 
@@ -31,13 +30,11 @@ const teacherHref = teacher => `teacher-${teacher.slug}.html`;
 const mediaStatus = '<span class="media-status" data-media-status hidden><span class="media-spinner" aria-hidden="true"></span><span data-media-label>图片加载中…</span></span>';
 // 骨架尺寸随 HTML 一起生成；JS 只负责加载状态，无 JS 时仍显示原图和替代文字。
 function loadingMedia(html) {
-  return html.replace(/<img\b[^>]*>/g, img => img.includes('class="hero-image"') ? img : `<span class="media-frame" data-media>${img}${mediaStatus}</span>`);
+  return html.replace(/<img\b[^>]*>/g, img => (img.includes('class="hero-image"') || img.includes('data-no-media')) ? img : `<span class="media-frame" data-media>${img}${mediaStatus}</span>`);
 }
-let chipId = 0;
+// 管理站不收 SVG；芯片示意统一用栅格化的 assets/chip-banner.jpg，原内联 SVG 动画随之移除。
 function chipArt(mode = 'wide') {
-  const prefix = `chip-${++chipId}-`;
-  const svg = read('templates/partials/chip-art.svg').replace(/id="([^"]+)"/g, (_, id) => `id="${prefix}${id}"`).replace(/url\(#([^)]+)\)/g, (_, id) => `url(#${prefix}${id})`);
-  return `<div class="chip-visual chip-visual--${mode}" data-chip-visual aria-hidden="true">${svg}</div>`;
+  return `<div class="chip-visual chip-visual--${mode}" aria-hidden="true"><img src="assets/chip-banner.jpg" data-no-media alt="" width="1600" height="800"></div>`;
 }
 function teacherCards() {
   return site.teachers.map(teacher => `<a class="faculty-card" href="${teacherHref(teacher)}"><img src="${escape(teacher.image)}" alt="${escape(teacher.name)}照片" width="100" height="132" loading="lazy"><div><h3>${escape(teacher.name)}</h3><p class="teacher-title">${escape(teacher.title)}</p><p class="teacher-intro">${escape(teacher.intro)}</p><span class="teacher-link">查看教师介绍</span></div></a>`).join('\n');

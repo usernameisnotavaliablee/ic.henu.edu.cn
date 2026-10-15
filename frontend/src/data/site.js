@@ -32,9 +32,9 @@ module.exports = {
   cms: { adminUrl: null, siteId: null, newsColumnId: null, noticeColumnId: null, searchUrl: null },
   contact: { address: '待提供', phone: '待提供', email: '待提供' },
   slides: [
-    { image: 'assets/chip-banner.svg', alt: '蓝白芯片与信号光流，原创学科示意',
+    { image: 'assets/chip-banner.jpg', alt: '蓝白芯片与信号光流，原创学科示意',
       eyebrow: 'HENAN UNIVERSITY · INTEGRATED CIRCUITS', title: '集成电路与微纳电子学院 (筹)',
-      text: '从集成电路，探索微纳世界', note: '芯片概念动效 · 非实物与电气设计', theme: 'chip' },
+      text: '从集成电路，探索微纳世界', note: '芯片概念示意 · 非实物与电气设计', theme: 'chip' },
     { image: 'assets/campus-gate.jpg', alt: '河南大学牌坊，来自低空参考包的校园图片',
       eyebrow: 'HENAN UNIVERSITY', title: '集成电路与微纳电子学院 (筹)',
       text: '河南大学', note: '校园图片示意 · 待替换高清素材', theme: 'campus' },
@@ -55,7 +55,7 @@ module.exports = {
     { slug: 'news-preview-1', title: '学院新闻标题（待提供）', summary: '这里展示学院新闻摘要，正式报道与配图待学院提供。', image: 'assets/campus-gate.jpg', imageAlt: '校园牌坊示意配图，非新闻现场' },
     { slug: 'news-preview-2', title: '学院动态标题（待提供）', summary: '这里展示学院动态摘要，具体内容以审定材料为准。', image: 'assets/campus-courtyard.jpg', imageAlt: '校园庭院示意配图，非新闻现场' },
     { slug: 'news-preview-3', title: '学术交流标题（待提供）', summary: '这里展示学术交流摘要，标题、日期与正文待补充。', image: 'assets/campus-landscape.jpg', imageAlt: '校园风光示意配图，非新闻现场' },
-    { slug: 'news-preview-4', title: '教学科研新闻标题（待提供）', summary: '这里展示教学科研新闻摘要，正式材料待学院提供。', image: 'assets/chip-banner.svg', imageAlt: '原创芯片概念示意，非新闻现场' },
+    { slug: 'news-preview-4', title: '教学科研新闻标题（待提供）', summary: '这里展示教学科研新闻摘要，正式材料待学院提供。', image: 'assets/chip-banner.jpg', imageAlt: '原创芯片概念示意，非新闻现场' },
   ],
   notices: [
     { slug: 'notice-preview-1', title: '学院通知标题（待提供）', summary: '通知正文、发布日期和附件待提供。' },
