@@ -60,7 +60,7 @@ NOTICES = [
 
 
 def demo_records():
-    images = [('chip-banner.svg', '原创芯片示意，非活动现场'), ('wafer-closeup.jpg', '晶圆学科示意，非本学院成果'), ('campus-courtyard.jpg', '校园视觉示意，非活动现场')]
+    images = [('chip-banner.jpg', '原创芯片示意，非活动现场'), ('wafer-closeup.jpg', '晶圆学科示意，非本学院成果'), ('campus-courtyard.jpg', '校园视觉示意，非活动现场')]
     for category, rows in [('news', NEWS), ('notice', NOTICES)]:
         for number, (title, summary, detail) in enumerate(rows, 1):
             image, alt = images[(number - 1) % len(images)]

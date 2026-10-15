@@ -115,7 +115,7 @@ class WorkflowTests(TestCase):
         self.article.image = '../../sandbox/data/secret.key'
         with self.assertRaises(ValidationError):
             save_draft(self.article, self.article.revision, self.editor)
-        self.article.image = 'chip-banner.svg'
+        self.article.image = 'chip-banner.jpg'
         self.article.slug = 'about'
         with self.assertRaises(ValidationError):
             save_draft(self.article, self.article.revision, self.editor)
@@ -132,7 +132,7 @@ class WorkflowTests(TestCase):
 
     def test_real_admin_post_saves_submits_then_reviews(self):
         self.client.force_login(self.editor)
-        data = dict(category='news', slug='news-from-form', title='通过表单新增', summary='表单摘要', body='表单正文', source='内部测试', date='', image='chip-banner.svg', image_alt='测试示意', is_placeholder='on', expected_revision=0, submit_for_review='on', _save='保存')
+        data = dict(category='news', slug='news-from-form', title='通过表单新增', summary='表单摘要', body='表单正文', source='内部测试', date='', image='chip-banner.jpg', image_alt='测试示意', is_placeholder='on', expected_revision=0, submit_for_review='on', _save='保存')
         response = self.client.post(reverse('admin:content_article_add'), data)
         self.assertEqual(response.status_code, 302)
         obj = Article.objects.get(slug='news-from-form')
@@ -147,7 +147,7 @@ class WorkflowTests(TestCase):
         old = self.article.revision
         self.article.title = '新版本'
         save_draft(self.article, old, self.editor)
-        response = self.client.post(reverse('admin:content_article_change', args=[self.article.pk]), dict(category='news', title='旧表单', summary='摘要', body='正文', source='测试', date='', image='chip-banner.svg', image_alt='图', expected_revision=old, _save='保存'))
+        response = self.client.post(reverse('admin:content_article_change', args=[self.article.pk]), dict(category='news', title='旧表单', summary='摘要', body='正文', source='测试', date='', image='chip-banner.jpg', image_alt='图', expected_revision=old, _save='保存'))
         self.assertContains(response, '本次没有保存')
         self.article.refresh_from_db()
         self.assertEqual(self.article.title, '新版本')
@@ -184,7 +184,7 @@ class WorkflowTests(TestCase):
         self.assertEqual(self.client.get('/', HTTP_HOST='malicious.example').status_code, 400)
 
     def test_empty_home_static_pages_and_assets_are_available(self):
-        for url in ['/', '/about.html', '/teacher-zhang-jinlong.html', '/css/style.css', '/assets/chip-banner.svg', '/js/main.js', '/js/media-loading.js', '/js/header-motion.js', '/robots.txt', '/healthz',
+        for url in ['/', '/about.html', '/teacher-zhang-jinlong.html', '/css/style.css', '/assets/chip-banner.jpg', '/js/main.js', '/js/media-loading.js', '/js/header-motion.js', '/robots.txt', '/healthz',
                     '/research-platforms.html', '/research-groups.html', '/regulations.html', '/party-building.html', '/admissions.html', '/community.html', '/ic-world.html', '/media.html']:
             self.assertEqual(self.client.get(url).status_code, 200, url)
 

@@ -41,7 +41,7 @@ class Command(BaseCommand):
                 article, created = Article.objects.get_or_create(slug=item['slug'], defaults={
                     'category': category, 'title': item['title'], 'summary': item['summary'],
                     'body': item['summary'] + '\n\n正文待提供。本页仅用于内部确认文章排版。',
-                    'source': '内部示例 · 非正式发布', 'image': Path(item.get('image', 'chip-banner.svg')).name,
+                    'source': '内部示例 · 非正式发布', 'image': Path(item.get('image', 'chip-banner.jpg')).name,
                     'image_alt': item.get('imageAlt', '原创芯片学科示意，非新闻现场'),
                     'state': 'approved', 'is_placeholder': True,
                 })

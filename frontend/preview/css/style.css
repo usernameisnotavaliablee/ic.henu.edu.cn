@@ -182,31 +182,11 @@ html[data-motion-paused='true'] .hero-image { animation-play-state: paused; }
 .hero-slide--chip { background: #071e3d; }
 .hero-slide--chip .hero-image { opacity: 0; }
 .chip-visual { position: absolute; inset: 0; z-index: -2; overflow: hidden; pointer-events: none; }
-.chip-visual svg { width: 100%; height: 100%; object-fit: cover; }
-.hero-slide--chip > .chip-visual svg { min-width: 100%; width: auto; position: absolute; right: 0; }
-.chip-signals { opacity: 1; }
-.chip-signal { opacity: 0; animation: chip-signal-out 16s linear infinite; animation-delay: var(--signal-delay); animation-play-state: paused; }
-.chip-signal--in { animation-name: chip-signal-in; }
-.chip-aura { animation: chip-breathe 8s ease-in-out infinite; animation-play-state: paused; }
-.chip-core-ring { animation: chip-ring-breathe 8s ease-in-out infinite; animation-play-state: paused; }
-.chip-visual.is-animating :is(.chip-signal, .chip-aura, .chip-core-ring) { animation-play-state: running; }
-@keyframes chip-signal-out {
-  0% { opacity: 0; stroke-dashoffset: 0; }
-  3%, 18% { opacity: .85; }
-  22% { opacity: 0; stroke-dashoffset: -99; }
-  100% { opacity: 0; stroke-dashoffset: -99; }
-}
-@keyframes chip-signal-in {
-  0% { opacity: 0; stroke-dashoffset: -99; }
-  3%, 18% { opacity: .85; }
-  22% { opacity: 0; stroke-dashoffset: 0; }
-  100% { opacity: 0; stroke-dashoffset: 0; }
-}
-@keyframes chip-breathe { 0%, 100% { opacity: .38; } 50% { opacity: .7; } }
-@keyframes chip-ring-breathe { 0%, 100% { stroke-opacity: .3; } 50% { stroke-opacity: .65; } }
+.chip-visual img { width: 100%; height: 100%; object-fit: cover; }
+.hero-slide--chip > .chip-visual img { min-width: 100%; width: auto; position: absolute; right: 0; }
 .research-art { position: relative; isolation: isolate; background: #071e3d; }
 .research-art .chip-visual { position: absolute; z-index: 0; }
-.research-art .chip-visual svg { position: absolute; width: 180%; max-width: none; height: 120%; right: -6%; top: -9%; }
+.research-art .chip-visual img { position: absolute; width: 180%; max-width: none; height: 120%; right: -6%; top: -9%; }
 .research-art figcaption { position: relative; z-index: 1; }
 .hero-slide::before { content: ''; position: absolute; z-index: -1; inset: 0; pointer-events: none; background: linear-gradient(90deg, #080f1d 0%, rgb(8 15 29 / 90%) 20%, rgb(8 15 29 / 30%) 55%, transparent 75%); }
 .hero-slide--campus::before { background: linear-gradient(90deg, rgb(5 30 53 / 82%), rgb(5 30 53 / 35%) 60%, transparent); }
@@ -350,7 +330,7 @@ html.snap-enabled[data-motion-paused='true'] { scroll-snap-type: none; }
 /* 4. 内页通用版式 */
 .page-banner { position: relative; isolation: isolate; overflow: hidden; padding-block: 34px 40px; color: #fff; background: #071e3d; }
 .page-banner .chip-visual { z-index: -1; opacity: .65; }
-.page-banner .chip-visual svg { position: absolute; width: 100%; height: auto; min-height: 100%; top: 50%; transform: translateY(-50%); }
+.page-banner .chip-visual img { position: absolute; width: 100%; height: auto; min-height: 100%; top: 50%; transform: translateY(-50%); }
 .page-banner p { color: #b3d0ed; font-size: 11px; letter-spacing: .12em; }
 .page-banner h1 { font-size: 32px; font-weight: 500; margin-top: 4px; }
 .page-body { padding-bottom: 70px; min-height: 470px; }
@@ -562,7 +542,7 @@ html.snap-enabled[data-motion-paused='true'] { scroll-snap-type: none; }
   .hero h2 { font-size: 29px; max-width: 320px; line-height: 1.5; }
   .hero-description { font-size: 14px; letter-spacing: .07em; margin-top: 16px; }
   .hero-slide--chip::before { background: linear-gradient(180deg, #080f1d 0%, rgb(8 15 29 / 85%) 25%, transparent 56%, rgb(8 15 29 / 40%) 100%); }
-  .hero-slide--chip > .chip-visual svg { width: 760px; min-width: 760px; height: 380px; right: calc(50% - 237.5px); top: 155px; }
+  .hero-slide--chip > .chip-visual img { width: 760px; min-width: 760px; height: 380px; right: calc(50% - 237.5px); top: 155px; }
   .hero-slide--campus::before { background: linear-gradient(180deg, rgb(5 30 53 / 82%), rgb(5 30 53 / 25%)); }
   .hero-note { bottom: 9px; right: 16px; font-size: 8px; }
   .carousel-controls { bottom: 32px; gap: 4px; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); max-width: 390px; }
