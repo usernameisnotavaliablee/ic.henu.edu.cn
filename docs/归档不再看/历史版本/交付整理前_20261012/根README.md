@@ -1,6 +1,6 @@
 # 河南大学集成电路与微纳电子学院 (筹)
 
-## School of Integrated Circuits and Micro-Nano Electronics, Henan University, Henan University, Henan University
+## School of Integrated Circuits and Micro-Nano Electronics, Henan University, Henan University
 
 `ic.henu.edu.cn` · 私有仓库 `usernameisnotavaliablee/ic.henu.edu.cn`
 

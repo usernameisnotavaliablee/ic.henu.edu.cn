@@ -2,7 +2,7 @@
 module.exports = {
   name: '河南大学集成电路与微纳电子学院 (筹)',
   college: '集成电路与微纳电子学院 (筹)',
-  english: 'School of Integrated Circuits and Micro-Nano Electronics, Henan University, Henan University',
+  english: 'School of Integrated Circuits and Micro-Nano Electronics, Henan University',
   navigation: [
     ['index.html', '首页'], ['about.html', '学院概况'],
     ['science-innovation.html', '科学与创新'], ['talent-cultivation.html', '人才培养'],
