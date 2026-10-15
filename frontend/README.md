@@ -18,7 +18,7 @@
 | 菜单状态、键盘操作、菜单文字动画 | src/js/navigation.js |
 | 轮播、吸附和装饰动效 | src/js/main.js |
 | 页头、页面过渡、图片反馈 | src/js/header-motion.js、page-transition.js、media-loading.js |
-| 构建与原创芯片 SVG | scripts/build-site.js、scripts/build-chip-art.js |
+| 构建与芯片 JPG 展示 | scripts/build-site.js、src/assets/chip-banner.jpg；按 main 使用静态图片 |
 | 运行素材 | src/assets；来源记录放 docs/assets 或 docs/内部资料 |
 
 ## 构建和查看
@@ -47,7 +47,7 @@
 
 菜单专项：`node frontend/scripts/check-navigation-state.cjs [站点根URL]`；不传URL时检查静态文件，传入自己的隔离 Django 服务地址可核验动态外框。它覆盖快速点击、逐级 Escape、焦点、减少动态效果、屏宽切换、动画降级和脚本不可用时的链接可访问性。模拟浏览器检查不能替代真机验收。
 
-数据/模板/产物回归：`node frontend/scripts/check-presentation-contracts.cjs`。动态展示：用项目隔离 Python 执行 `frontend/scripts/check-django-presentation.py`；脚本强制新建 sandbox 空数据目录，仅运行迁移、内存展示夹具和原有业务测试，不读取现有录入库、不 seed/bootstrap、不发布演示内容。其 46 项业务测试会使用独立测试库。
+数据/模板/产物回归：`node frontend/scripts/check-presentation-contracts.cjs`。动态展示：用项目隔离 Python 执行 `frontend/scripts/check-django-presentation.py`；脚本强制新建 sandbox 空数据目录，仅运行迁移、内存展示夹具和原有业务测试，不读取现有录入库、不 seed/bootstrap、不发布演示内容。其 47 项业务测试（含从 0005 升级至 0007 的发布快照兼容测试）会使用独立测试库。
 
 `check-navigation-fixes.cjs` 和 `check-overview-typography.cjs` 的吸附目标读取当前收缩高度；`check-current-design.cjs` 按队友当前品牌区收起及悬浮按钮设计验收。字体CSS和许可证由 .gitattributes 固定 LF，保持原始字节哈希校验，不忽略校验失败。
 

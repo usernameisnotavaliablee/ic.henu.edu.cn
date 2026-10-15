@@ -5,7 +5,7 @@ from django.db import models
 from django.urls import reverse
 
 IMAGE_CHOICES = [
-    ('chip-banner.svg', '原创芯片示意'), ('campus-gate.jpg', '校园牌坊（占位）'),
+    ('chip-banner.jpg', '原创芯片示意'), ('campus-gate.jpg', '校园牌坊（占位）'),
     ('campus-courtyard.jpg', '校园庭院（占位）'), ('campus-landscape.jpg', '校园风光（占位）'),
     ('campus-building.jpg', '校园楼宇（占位）'), ('wafer-closeup.jpg', '硅晶圆（学科示意）'),
     ('cleanroom-lcn.jpg', '校外洁净室（示意）'),
@@ -23,7 +23,7 @@ class ArticleFields(models.Model):
     body = models.TextField('正文', validators=[MaxLengthValidator(30000)], help_text='纯文本，空行分段；小标题独占一段，以 ## 加空格开头，前后用空行分隔；HTML会作为文字显示，不运行脚本。')
     source = models.CharField('来源', max_length=100, default='学院提供（待核对）')
     date = models.DateField('展示日期', null=True, blank=True)
-    image = models.CharField('配图', max_length=80, choices=IMAGE_CHOICES, default='chip-banner.svg')
+    image = models.CharField('配图', max_length=80, choices=IMAGE_CHOICES, default='chip-banner.jpg')
     image_alt = models.CharField('图片说明', max_length=200, default='原创芯片学科示意，非新闻现场')
     is_placeholder = models.BooleanField('示例内容（待学院确认）', default=True)
 

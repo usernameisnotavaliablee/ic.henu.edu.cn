@@ -11,7 +11,6 @@ const collectionFor = key => collections.find(c => c.legacyKeys.includes(key));
 const registry = require('./lib/columns');
 const django = require('./adapters/django');
 const collectionHref = registry.resolveHref;
-require('./build-chip-art');
 const {hash, walk, collectResources, createWriter} = require('./lib/artifacts');
 const resources = collectResources(src);
 const writer = createWriter(path.resolve(root, '..'), path.join(root, 'build-manifest.json'));
@@ -31,13 +30,11 @@ const teacherHref = teacher => `teacher-${teacher.slug}.html`;
 const mediaStatus = components.read('components/media-status.html').trim();
 // 骨架尺寸随 HTML 一起生成；JS 只负责加载状态，无 JS 时仍显示原图和替代文字。
 function loadingMedia(html) {
-  return html.replace(/<img\b[^>]*>/g, img => (img.includes('class="hero-image"') || img.includes('data-framed')) ? img : `<span class="media-frame" data-media>${img}${mediaStatus}</span>`);
+  return html.replace(/<img\b[^>]*>/g, img => (img.includes('class="hero-image"') || img.includes('data-framed') || img.includes('data-no-media')) ? img : `<span class="media-frame" data-media>${img}${mediaStatus}</span>`);
 }
-let chipId = 0;
+// 管理站不收 SVG；芯片示意与 main 一致使用静态 JPG。
 function chipArt(mode = 'wide') {
-  const prefix = `chip-${++chipId}-`;
-  const svg = read('templates/partials/chip-art.svg').replace(/id="([^"]+)"/g, (_, id) => `id="${prefix}${id}"`).replace(/url\(#([^)]+)\)/g, (_, id) => `url(#${prefix}${id})`);
-  return `<div class="chip-visual chip-visual--${mode}" data-chip-visual aria-hidden="true">${svg}</div>`;
+  return `<div class="chip-visual chip-visual--${mode}" aria-hidden="true"><img src="assets/chip-banner.jpg" data-no-media alt="" width="1600" height="800"></div>`;
 }
 function teacherCards() {
   return site.teachers.map(t => renderComponent('teacher-card', {
@@ -53,7 +50,7 @@ const explicitRoutes = new Map();
 function crumbs(file, title, active) {
   const route = explicitRoutes.get(file) || registry.route(file) || {parents: [], active};
   routeCatalog[file.replace('.html', '')] = {...route, id: route.id || file.replace('.html', ''), title, english: ''};
-  return route.parents.map(p => `<a href="${escape(p.href)}">${escape(p.label)}</a><span aria-hidden="true"> / </span>`).join('') + `<span aria-current="page">${escape(title)}</span>`;
+  return (route.previewParents || route.parents).map(p => `<a href="${escape(p.href)}">${escape(p.label)}</a><span aria-hidden="true"> / </span>`).join('') + `<span aria-current="page">${escape(route.breadcrumbLabel || title)}</span>`;
 }
 
 function navigationItems(items, active, prefix = 'nav', depth = 0, currentFile = active, target = 'preview') {
@@ -77,7 +74,7 @@ function page(file, title, content, active = file, options = {}) {
     const shared = dynamic ? django.chrome() : {
       ...Object.fromEntries(Object.entries({name: site.name, college: site.college, english: site.english, ...site.contact}).map(([key,value])=>[key,escape(value)])),
       logo: 'assets/henu-logo.png', logoAlt: '河南大学校徽', motto: '明德 · 新民 · 止于至善',
-      footerEnglish: 'School of Integrated Circuits<br>and Micro-Nano Electronics',
+      footerEnglish: 'School of Integrated Circuits<br>and Micro-Nano Electronics, Henan University',
       filing: '正式网站备案与平台信息待学校配置', wechat: wechatPlaceholder,
     };
     const html = render(read('templates/document.html'), {
@@ -187,7 +184,7 @@ for (const c of collections) {
   const empty = '<p class="page-note">本地版式预览：以下是布局占位，不是已发布的业务内容。运行版从后台读取真实条目。</p>' + previewItems(c, detailFile);
   inner(c.url, c.title, '', `${c.page === 'media.html' ? newsTabs('media.html') : ''}<div class="${side ? 'collection-layout' : 'collection-single'}">${side}<div>${empty}</div></div>`, c.active);
   c.parents = routeCatalog[c.slug].parents;
-  explicitRoutes.set(detailFile, registry.detail(c.id, c.title + '详情版式'));
+  explicitRoutes.set(detailFile, {...registry.detail(c.id, c.title + '详情版式'), breadcrumbLabel: '详情版式'});
   inner(detailFile, c.title + '详情版式', '', `<article class="article"><p class="page-note">此页面只用于检查栏目到详情的层级。正式正文由后台录入。</p><h2>内容标题待填写</h2><p class="article-meta">日期待填写 · 来源待填写</p><p>这里展示完整内容；列表页只展示标题、摘要和配图，不再直接铺开全文。</p>${c.key === 'science-innovation.section-1' ? '<h2>相关课题组</h2><p>在后台为多个课题组选择这个研究方向后，这里显示相应卡片。</p><a href="research-groups-section-1.html">查看课题组列表</a>' : ''}<a class="back-link" href="${c.url}">返回${escape(c.title)}</a></article>`, c.active);
   delete routeCatalog[detailFile.replace('.html', '')];
 }

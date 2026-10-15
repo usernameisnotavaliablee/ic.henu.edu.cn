@@ -45,6 +45,15 @@ test('Employment and teacher detail retain complete hierarchy',()=>{
  const html=fs.readFileSync(path.join(root,'frontend/preview/teacher-cheng-gang.html'),'utf8');
  assert.match(html,/<nav class="breadcrumb"[^>]*>.*?href="faculty.html">师资队伍<.*?程纲/s);
 });
+test('Main preview breadcrumbs do not alter dynamic news hierarchy',()=>{
+ const names=parents=>parents.map(p=>p.label);
+ assert.deepEqual(names(registry.route('notices.html').previewParents),['新闻通知','新闻通知']);
+ assert.deepEqual(names(registry.route('notices.html').parents),['新闻通知']);
+ assert.deepEqual(names(registry.detail('news','新闻详情').previewParents),['新闻通知','学院新闻']);
+ assert.deepEqual(names(registry.detail('news','新闻详情').parents),['学院新闻']);
+ assert.deepEqual(names(registry.detail('notices','通知详情').parents),['新闻通知','通知公告']);
+ assert(!registry.detail('notices','通知详情').previewParents);
+});
 test('Slots are explicit, independent of placeholder whitespace and fail on missing names',()=>{
  const templates=createTemplates(path.join(root,'frontend/src/templates'));
  const marker=templates.slot('qr','\n <aside>待提供</aside>\n','{% include "site/wechat.html" %}');

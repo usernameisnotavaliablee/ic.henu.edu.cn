@@ -102,6 +102,9 @@ module.exports = {
       "url": "news.html",
       "title": "学院新闻",
       "navTitle": "新闻通知",
+      "previewBreadcrumbs": {
+        "detail": [{ "id": "news", "label": "新闻通知" }, { "id": "news", "label": "学院新闻" }]
+      },
       "english": "NEWS",
       "parentId": null
     },
@@ -323,6 +326,9 @@ module.exports = {
     },
     {
       "id": "notices",
+      "previewBreadcrumbs": {
+        "page": [{ "id": "news", "label": "新闻通知" }, { "id": "news", "label": "新闻通知" }]
+      },
       "kind": "page",
       "url": "notices.html",
       "title": "通知公告",

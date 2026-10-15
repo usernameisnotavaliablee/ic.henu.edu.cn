@@ -81,7 +81,7 @@
   .hero h2 { font-size: 29px; max-width: 320px; line-height: 1.5; }
   .hero-description { font-size: 14px; letter-spacing: .07em; margin-top: 16px; }
   .hero-slide--chip::before { background: linear-gradient(180deg, #080f1d 0%, rgb(8 15 29 / 85%) 25%, transparent 56%, rgb(8 15 29 / 40%) 100%); }
-  .hero-slide--chip > .chip-visual svg { width: 760px; min-width: 760px; height: 380px; right: calc(50% - 237.5px); top: 155px; }
+  .hero-slide--chip > .chip-visual img { width: 760px; min-width: 760px; height: 380px; right: calc(50% - 237.5px); top: 155px; }
   .hero-slide--campus::before { background: linear-gradient(180deg, rgb(5 30 53 / 82%), rgb(5 30 53 / 25%)); }
   .hero-note { bottom: 9px; right: 16px; font-size: 8px; }
   .carousel-controls { bottom: 32px; gap: 4px; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); max-width: 390px; }

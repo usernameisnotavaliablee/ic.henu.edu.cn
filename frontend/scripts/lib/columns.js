@@ -47,18 +47,30 @@ function createRegistry({ nodes, navigation }) {
       return [node.url, label || node.navTitle || node.title, ...(children ? [links(children)] : [])];
     });
   }
+  // main 的静态预览与动态新闻页有既有展示差异；只投影显示，不改变业务父级。
+  function previewParents(node, mode) {
+    const items = node.previewBreadcrumbs?.[mode];
+    return items?.map(({id, label}) => {
+      const parent = byId.get(id);
+      if (!parent) throw new Error(`Unknown preview breadcrumb: ${id}`);
+      return {href: parent.url, label: label || parent.navTitle || parent.title};
+    });
+  }
   function route(nodeOrUrl) {
     const node = typeof nodeOrUrl === 'string' ? byUrl.get(resolveHref(nodeOrUrl)) : nodeOrUrl;
     if (!node) return null;
     const chain = ancestors(node);
     return { id: node.id, kind: node.kind, title: node.title, english: node.english || '', active: (chain[0] || node).url,
-      parents: chain.map(parent => ({ href: parent.url, label: parent.navTitle || parent.title })) };
+      parents: chain.map(parent => ({ href: parent.url, label: parent.navTitle || parent.title })),
+      ...(node.previewBreadcrumbs?.page ? {previewParents: previewParents(node, 'page')} : {}) };
   }
   function detail(parentId, title) {
     const parent = byId.get(parentId);
     if (!parent) throw new Error(`Unknown detail parent: ${parentId}`);
     const info = route(parent);
-    return { ...info, id: null, kind: 'detail', parentId, title, parents: [...info.parents, { href: parent.url, label: parent.title }] };
+    const {previewParents: pagePreviewParents, ...detailInfo} = info;
+    return { ...detailInfo, id: null, kind: 'detail', parentId, title, parents: [...info.parents, { href: parent.url, label: parent.title }],
+      ...(parent.previewBreadcrumbs?.detail ? {previewParents: previewParents(parent, 'detail')} : {}) };
   }
   const nav = links(navigation);
   const pages = Object.fromEntries(nodes.filter(n => n.kind === 'overview').map(n => [n.url, {

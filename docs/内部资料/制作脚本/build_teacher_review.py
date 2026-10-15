@@ -57,7 +57,7 @@ for style in doc.styles:
     for border in list(style.element.iter(qn('w:pBdr'))):
         border.getparent().remove(border)
 doc.core_properties.title = "三位教师简历与照片核验稿"
-doc.core_properties.subject = "河南大学集成电路与微纳电子学院官网师资资料人工核验"
+doc.core_properties.subject = "河南大学集成电路与微纳电子学院 (筹)官网师资资料人工核验"
 doc.core_properties.author = "网站建设资料整理"
 doc.core_properties.keywords = "张锦龙 郑海务 程纲 人工核验"
 doc.core_properties.created = datetime(2026, 10, 11, tzinfo=timezone.utc)

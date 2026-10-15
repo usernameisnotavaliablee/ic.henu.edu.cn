@@ -33,6 +33,7 @@
 | storageKey / legacyKeys | 当前预览库的兼容映射，例如 admissions.section-3；不是新后端必须沿用的主键 |
 | sections | 显式 id、key、anchor、label；调整展示顺序仍保持旧锚点和内容归属 |
 | order / layout / watermark | 集合展示顺序、cards/list 版式、装饰字；不决定身份 |
+| previewBreadcrumbs | 可选的静态预览面包屑投影，page/detail 各自引用 id 和显示 label；保持 main 的展示顺序，包括通知静态页现有的重复父项，不改变 parentId 或动态页面的 parents |
 
 构建产出的 `backend/content-catalog.json` 是现有 Django 的本地适配输入，不是公开网络接口。`backend/content/presentation.py` 读取同一份路由来提供标题、当前顶层栏目与面包屑；固定页面白名单也从目录投影。文章和教师详情仍受原有发布/撤下逻辑控制，不因存在静态占位而公开。
 

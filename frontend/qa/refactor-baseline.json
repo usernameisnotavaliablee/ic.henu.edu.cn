@@ -1,7 +1,7 @@
 {
-  "sourceCommit": "94cc22774f25de2f6fff74573bdf73f78bbd62c6",
-  "date": "2026-10-14",
-  "scope": "Stable inputs and original preview URLs; not a browser acceptance report",
+  "sourceCommit": "c66b15c",
+  "date": "2026-10-15",
+  "scope": "Main UI content at c66b15c; existing routes, full teacher records and refactor architecture preserved",
   "pages": [
     "404.html",
     "about.html",
@@ -122,12 +122,12 @@
   "teachersSha256": "19d93cde92a0c80796c4b1ded1ffc3e3134658ffca8703141fd138a63548eae7",
   "slides": [
     {
-      "image": "assets/chip-banner.svg",
-      "title": "集成电路与微纳电子学院"
+      "image": "assets/chip-banner.jpg",
+      "title": "集成电路与微纳电子学院 (筹)"
     },
     {
       "image": "assets/campus-gate.jpg",
-      "title": "集成电路与微纳电子学院"
+      "title": "集成电路与微纳电子学院 (筹)"
     },
     {
       "image": "assets/campus-landscape.jpg",

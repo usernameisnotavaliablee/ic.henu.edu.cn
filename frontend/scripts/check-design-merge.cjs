@@ -1,4 +1,4 @@
-// Verify teammate ac0b9a2's footer, news overlay and 404 design after the structural refactor.
+// Verify teammate b32d95a's footer, news overlay and 404 design after the structural refactor.
 const fs = require('node:fs');
 const path = require('node:path');
 const assert = require('node:assert/strict');
@@ -45,11 +45,11 @@ const check=(name,condition)=>{assert(condition,name);report.checks.push(name);c
    await page.goto(base+'/404.html');
    check(width+' 404 retains both teammate links and text wrapper',JSON.stringify(await page.locator('.error-text a').allTextContents())===JSON.stringify(['返回首页','网站导航']));
    const errorStyle=await page.locator('.error-text').evaluate(el=>{
-    const title=getComputedStyle(el.querySelector('.error-title')),message=getComputedStyle(el.querySelector('.error-message'));
-    const actions=el.querySelector('.error-actions');
-    return {centered:getComputedStyle(el).textAlign==='center',titleLarger:parseFloat(title.fontSize)>parseFloat(message.fontSize),titleColor:title.color,wrap:getComputedStyle(actions).flexWrap,targets:[...actions.querySelectorAll('a')].every(a=>a.getBoundingClientRect().height>=44)};
+    const paragraphs=[...el.querySelectorAll(':scope > p')];
+    const title=getComputedStyle(paragraphs[0]),message=getComputedStyle(paragraphs[1]);
+    return {centered:getComputedStyle(el).textAlign==='center',rows:paragraphs.length,titleSize:title.fontSize,messageSize:message.fontSize,titleColor:title.color,messageColor:message.color,linkGap:getComputedStyle(paragraphs[2].querySelector('a + a')).marginLeft};
    });
-   check(width+' 404 title, explanation and actions have loaded styles',errorStyle.centered && errorStyle.titleLarger && errorStyle.titleColor==='rgb(18, 62, 112)' && errorStyle.wrap==='wrap' && errorStyle.targets);
+   check(width+' 404 preserves main text size, color and link spacing',errorStyle.centered && errorStyle.rows===3 && errorStyle.titleSize==='16px' && errorStyle.messageSize==='16px' && errorStyle.titleColor===errorStyle.messageColor && errorStyle.linkGap==='28px');
    check(width+' 404 has no horizontal overflow',await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth));
    const errorShot=`merge-404-${width}.png`;
    await page.screenshot({path:path.join(output,errorShot),fullPage:true});

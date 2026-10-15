@@ -112,8 +112,8 @@
   reducedMotion.addEventListener('change', () => { motionPaused = reducedMotion.matches; syncMotion(); });
   syncMotion();
 
-  // 芯片光流与内页背景字共用可见性控制；离屏、后台和减少动态效果时停止。
-  const animatedVisuals = [...document.querySelectorAll('[data-chip-visual], [data-overview-section]')];
+  // 内页背景字可见性控制；离屏、后台和减少动态效果时停止。（芯片图已改为静态 JPG）
+  const animatedVisuals = [...document.querySelectorAll('[data-overview-section]')];
   const syncVisuals = () => animatedVisuals.forEach(el => {
     el.classList.toggle('is-animating', el.dataset.inView === 'true' && !document.hidden && !motionPaused && !reducedMotion.matches);
   });

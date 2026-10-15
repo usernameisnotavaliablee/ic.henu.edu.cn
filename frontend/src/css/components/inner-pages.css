@@ -1,7 +1,7 @@
 /* 4. 内页通用版式 */
 .page-banner { position: relative; isolation: isolate; overflow: hidden; padding-block: 34px 40px; color: #fff; background: #071e3d; }
 .page-banner .chip-visual { z-index: -1; opacity: .65; }
-.page-banner .chip-visual svg { position: absolute; width: 100%; height: auto; min-height: 100%; top: 50%; transform: translateY(-50%); }
+.page-banner .chip-visual img { position: absolute; width: 100%; height: auto; min-height: 100%; top: 50%; transform: translateY(-50%); }
 .page-banner p { color: #b3d0ed; font-size: 11px; letter-spacing: .12em; }
 .page-banner h1 { font-size: 32px; font-weight: 500; margin-top: 4px; }
 .page-body { padding-bottom: 70px; min-height: 470px; }
