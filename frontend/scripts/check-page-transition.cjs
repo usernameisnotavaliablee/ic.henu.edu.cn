@@ -39,4 +39,6 @@ test('历史缓存恢复和系统设置变化清理淡入', () => {
 test('直接打开本地HTML使用无等待降级', () => {
   const f = fixture({ native: true, protocol: 'file:' }); assert.ok(f.classes.has('page-entering')); assert.equal(f.events.click, undefined);
 });
-fs.writeFileSync(path.join(__dirname, '../qa/page-transition-unit.json'), JSON.stringify({ scope: 'offline navigation controller, not visual or performance QA', count: checks.length, checks }, null, 2) + '\n');
+const output = path.resolve(process.env.IC_TEST_OUTPUT || path.join(__dirname, '../../sandbox/frontend-checks'));
+fs.mkdirSync(output, { recursive: true });
+fs.writeFileSync(path.join(output, 'page-transition-unit.json'), JSON.stringify({ scope: 'offline navigation controller, not visual or performance QA', count: checks.length, checks }, null, 2) + '\n');

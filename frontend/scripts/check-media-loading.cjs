@@ -50,4 +50,6 @@ test('无观察器环境和缓存失败均能回退', () => {
   assert.equal(fixture({ lazy: true, observer: false }).frame.dataset.mediaState, 'loading');
   assert.equal(fixture({ complete: true }).frame.dataset.mediaState, 'error');
 });
-fs.writeFileSync(path.join(__dirname, '../qa/media-loading-unit.json'), JSON.stringify({ scope: 'offline state machine, not browser QA', checks, count: checks.length }, null, 2) + '\n');
+const output = path.resolve(process.env.IC_TEST_OUTPUT || path.join(__dirname, '../../sandbox/frontend-checks'));
+fs.mkdirSync(output, { recursive: true });
+fs.writeFileSync(path.join(output, 'media-loading-unit.json'), JSON.stringify({ scope: 'offline state machine, not browser QA', checks, count: checks.length }, null, 2) + '\n');

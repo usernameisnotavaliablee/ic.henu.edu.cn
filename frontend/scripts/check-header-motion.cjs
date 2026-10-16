@@ -34,4 +34,6 @@ test('离页取消后返回仍能到达目标', () => {
   f.motion.stop(); f.tick(1000); assert.equal(f.last().value, mid);
   f.motion.to(1); f.tick(1000); assert.equal(f.last().value, 1);
 });
-fs.writeFileSync(path.join(__dirname, '../qa/header-motion-unit.json'), JSON.stringify({ scope: 'offline frame controller, not browser visual QA', count: checks.length, checks }, null, 2) + '\n');
+const output = path.resolve(process.env.IC_TEST_OUTPUT || path.join(__dirname, '../../sandbox/frontend-checks'));
+fs.mkdirSync(output, { recursive: true });
+fs.writeFileSync(path.join(output, 'header-motion-unit.json'), JSON.stringify({ scope: 'offline frame controller, not browser visual QA', count: checks.length, checks }, null, 2) + '\n');

@@ -1,6 +1,7 @@
 """检查构建后的栏目树、模板一致性、图片反馈结构及服务器白名单；不代替浏览器验收。"""
 import ast
 import json
+import os
 from html.parser import HTMLParser
 from pathlib import Path
 
@@ -112,5 +113,7 @@ for file in ['home_pictures.html', 'detail.html']:
     source = (DOCS / 'backend/templates/site' / file).read_text(encoding='utf-8')
     check(file + '数据库图片复用加载反馈', 'data-media' in source and 'site/media_status.html' in source)
 result = {'scope': 'offline generated structure, not browser or Django runtime', 'count': len(checks), 'checks': checks}
-(ROOT / 'qa/current-structure.json').write_text(json.dumps(result, ensure_ascii=False, indent=2) + '\n', encoding='utf-8')
+output = Path(os.environ.get('IC_TEST_OUTPUT') or DOCS / 'sandbox/frontend-checks').resolve()
+output.mkdir(parents=True, exist_ok=True)
+(output / 'current-structure.json').write_text(json.dumps(result, ensure_ascii=False, indent=2) + '\n', encoding='utf-8')
 print(f'通过：{len(checks)} 项生成结构与运行文件检查。')

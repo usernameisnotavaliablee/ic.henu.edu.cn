@@ -32,7 +32,7 @@ const server = http.createServer(async (request, response) => {
   try {
     if (!await run(process.execPath, ['frontend/scripts/build-site.js'])) return;
     for (const args of [
-      ['frontend/scripts/check-preview.py'], ['frontend/scripts/check-current-structure.py'], ['frontend/scripts/prepare-fonts.py', '--check'],
+      ['frontend/scripts/check-preview.py'], ['frontend/scripts/check-current-structure.py'], ['frontend/scripts/check-test-output.py'], ['frontend/scripts/prepare-fonts.py', '--check'],
     ]) await run(python, args);
     for (const script of ['check-refactor-baseline.cjs', 'check-presentation-contracts.cjs', 'check-header-motion.cjs', 'check-media-loading.cjs', 'check-page-transition.cjs']) {
       await run(process.execPath, ['frontend/scripts/' + script]);

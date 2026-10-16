@@ -21,12 +21,29 @@
 - 用 Issues 分任务、Projects 看进度。
 - **开工前必做：先看队友干了什么。** 不做这一步 → 容易重复劳动、覆盖队友成果、按过时假设干活。
 
-  ```bash
-  git pull                      # 先同步
-  git log --oneline -15         # 看最近提交都做了什么
-  git log --oneline @{1}..HEAD  # 只看上次自己操作后新增的
-  git diff HEAD@{1} HEAD --stat # 看改了哪些文件
+  Windows（PowerShell）：
+
+  ```powershell
+  git status --short --branch
+  git rev-parse HEAD
+  git fetch origin
+  git log --oneline HEAD..origin/main  # 远端主线新增提交
+  git log --oneline origin/main..HEAD  # 本地独有提交
+  git diff HEAD origin/main --stat
   ```
+
+  macOS/Linux（zsh/bash）：
+
+  ```bash
+  git status --short --branch
+  git rev-parse HEAD
+  git fetch origin
+  git log --oneline HEAD..origin/main  # 远端主线新增提交
+  git log --oneline origin/main..HEAD  # 本地独有提交
+  git diff HEAD origin/main --stat
+  ```
+
+  **先保护现场 → 获取远端 → 比较明确范围 → 决定同步。** 上面比较的是团队主线，不代表当前功能分支可直接合并。仅在工作区干净、当前为 main 且只落后时考虑快进同步；有未提交内容或分叉时停止自动同步，先确认处理方式。fetch 失败不得据本地旧远端引用声称已核验最新状态；不用 reflog 的“上一次操作”推测队友新增提交。
 
 - 队友改动影响当前任务 → 先读相关文件与回执再动手。队友的新成果、新状态、新待办 → **顺手整合进 [STATUS.md](STATUS.md)**，已写过的不重复记。不整合 → 文档漂移 → 后来者按过时结论干活。
 - **提交前逐项确认 `git status`，不要用 `git add -A`。** 两人可能在同一工作目录里同时改文件，`git add -A` 会把对方未完成的改动扫进自己的提交（`75b43c9` 发生过一次）。
@@ -80,14 +97,23 @@
 
 构建只使用 Node 内置模块，不需要 npm install。在仓库根目录执行：
 
+Windows（PowerShell，使用已有隔离解释器）：
+
+```powershell
+node frontend/scripts/build-site.js
+& sandbox/.venv/Scripts/python.exe -m http.server 8766 --bind 127.0.0.1 --directory frontend/preview
+```
+
+macOS/Linux（zsh/bash，python3 指向本机已有解释器）：
+
 ```bash
 node frontend/scripts/build-site.js
-python -m http.server 8766 --bind 127.0.0.1 --directory frontend/preview
+python3 -m http.server 8766 --bind 127.0.0.1 --directory frontend/preview
 ```
 
 第二条命令仅启动静态版式预览，不读取后台正文。需要查看发布数据、分页与动态详情时使用 Django，详见 [后台说明](backend/README.md)。
 
-解释器按各自平台用：Windows 用 PowerShell 调 `sandbox/.venv/Scripts/python.exe`；macOS/Linux 用自己隔离环境里的 `python3`。**不要求两人采用相同安装目录**，本机实际路径记在各自本地的 `AGENTS.md`（不入库）。
+解释器按各自平台用：Windows 用 PowerShell 调 `sandbox/.venv/Scripts/python.exe`；macOS/Linux 用本机已配置的 `python3`（运行后台须满足其依赖要求）。**不要求两人采用相同安装目录**，本机实际路径记在各自本地的 `AGENTS.md`（不入库）。
 
 ## 当前资料入口
 

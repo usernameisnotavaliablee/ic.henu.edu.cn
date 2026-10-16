@@ -26,7 +26,7 @@
 
 在仓库根目录执行 `node frontend/scripts/build-site.js`，生成静态预览页面（当前数量见 STATUS）（含 `404.html`）、backend/templates/site/generated、content-catalog.json 等配套文件。`404.html` 不进路由目录，故不出现在站点地图与栏目清单里；后台 404 走 `backend/templates/site/error.html`。静态预览里的新闻和栏目条目是占位；后台发布不回写这些 HTML。
 
-运行 `python -m http.server 8766 --bind 127.0.0.1 --directory frontend/preview`，打开 <http://127.0.0.1:8766/>。不要直接修改 preview 或 generated；手写 Django 模板应在 backend/templates/site 的非 generated 文件中改。
+静态服务的 Windows 与 macOS/Linux 成对命令见 [根目录开发入口](../README.md#开始开发)，打开 <http://127.0.0.1:8766/>。不要直接修改 preview 或 generated；手写 Django 模板应在 backend/templates/site 的非 generated 文件中改。
 
 修改布局时兼顾静态输出和动态模板；尤其 collection_preview.html、overview_content_block.html、entry_body.html 等来自运行时数据。
 
@@ -44,7 +44,35 @@
 
 ## 验证
 
-统一入口：`node frontend/scripts/check-frontend.cjs`。先设置 `IC_TEST_MODULES` 为已有 Playwright 所在 node_modules；可通过 `IC_PYTHON` 指定项目隔离 Python，默认使用 sandbox/.venv。入口会构建、检查原有 URL/教师完整资料/轮播输入、链接与结构、字体、控制器，以及菜单、页头、响应式和概览浏览器行为。使用自动分配的本地端口，退出后关闭，不读取业务库；不会安装依赖。截图和汇总默认写入 sandbox/frontend-checks，可用 `IC_TEST_OUTPUT` 指定独立目录。
+统一入口：`node frontend/scripts/check-frontend.cjs`。先显式设置 `IC_PYTHON` 为本机已有 Python（需满足字体检查依赖）、`IC_TEST_MODULES` 为已有 Playwright 所在 node_modules；使用已有 Edge，不安装任何依赖。不要求两人安装目录相同。未配置 `IC_PYTHON` 时仍兼容 sandbox/.venv 的旧默认值，但该环境不保证存在。
+
+以下均在仓库根目录执行；路径示例应替换为本机已有位置。
+
+Windows（PowerShell）：
+
+```powershell
+$env:IC_PYTHON = (Resolve-Path sandbox/.venv/Scripts/python.exe).Path
+$env:IC_TEST_MODULES = 'C:\已有环境\node_modules'
+node frontend/scripts/check-frontend.cjs
+# 仅复跑输出隔离检查（已有构建产物即可）
+& $env:IC_PYTHON frontend/scripts/check-test-output.py
+```
+
+macOS/Linux（zsh/bash）：
+
+```bash
+export IC_PYTHON="$(command -v python3)"
+export IC_TEST_MODULES='/已有环境/node_modules'
+node frontend/scripts/check-frontend.cjs
+# 仅复跑输出隔离检查（已有构建产物即可）
+"$IC_PYTHON" frontend/scripts/check-test-output.py
+```
+
+入口会构建、检查原有 URL/教师完整资料/轮播输入、链接与结构、字体、控制器及输出隔离，以及菜单、页头、响应式和概览浏览器行为。使用自动分配的本地端口，退出后关闭，不读取业务库。
+
+**报告与基线分开：**统一入口的截图和报告默认写入仓库根目录的 sandbox/frontend-checks；`IC_TEST_OUTPUT` 可指定独立目录。结构、页头、媒体加载、页面切换四个离线检查也遵循此规则：变量未设置或为空用上述默认值；显式相对路径以调用时工作目录解析，绝对路径直接使用；自动创建目录，写入失败非零退出，不回退写入 frontend/qa。四个检查从其他目录调用也不会改变默认位置。
+
+`check-test-output.py` 使用标准库、已有 Node 与 Git，已纳入统一入口：覆盖默认/空值、异地调用、带空格的相对/绝对路径、目录不可写入，并核对受跟踪 frontend/qa 文件哈希。它会特意验证默认目录（即使入口设置了自定义输出），其他隔离样本在 sandbox/tmp 内创建并自动清理。历史报告与 refactor-baseline.json 留在 frontend/qa；后者是测试输入，不是缓存。正式验收再人工选取汇总入库，不自动覆盖历史报告。
 
 会议栏目与响应式专项：`node frontend/scripts/check-meeting-design.cjs [站点根URL]`；检查管理机构三级导航、教师分类、工程认证、制度、仪器及二维码。它已纳入统一入口。新字段与后台发布方式见[会议调整与字段交接](../docs/会议调整与字段交接_20261015.md)。
 
