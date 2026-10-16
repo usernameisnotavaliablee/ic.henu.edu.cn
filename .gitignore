@@ -67,3 +67,7 @@ storage/uploads/
 # 不使用 git add -f 重新提交；团队共享说明以 README.md 与 STATUS.md 为准。
 # 注意：忽略规则不会自动移除已跟踪文件，已用 git rm --cached 停止跟踪。
 /AGENTS.md
+
+# 原始会议资料与未采用的建筑审核素材保持本地，不混入源码交付。
+/会议录音/
+/docs/assets/河大建筑SVG/

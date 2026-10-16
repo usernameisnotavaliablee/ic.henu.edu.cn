@@ -4,10 +4,10 @@
   "source_file": "docs/assets/fonts/新愚公装甲宋A.ttf",
   "source_sha256": "64e2fe1aa83246ccd9aa6b1c33a88a65d181092c7678de45729063fe60214b27",
   "name_ids": "*",
-  "characters": " ·与专世业习事于交享人介从仪伍会体信党公共养创到制办务动南台向告员善器园地培委媒子学导就展工师平度建微德态思息成所才报招指探政教新方明普有服本术机构案止民活流片班理生界知研科程究章简管索纳组聘育至芯行观规认设证课资进通道采闻队院集领题风，",
+  "characters": " ·与专世业习于交享人介从仪伍会体信党公共养创到制务动台向告员善器团园地培委媒子学导就展工师平度建微德态思息成所才报招指授探政教新方明普有服本术机构案止民活流片班理生界知研科程究简管索纳组聘育至芯观认设证课资进通道采闻队院集领题风，",
   "files": {
-    "src/assets/ic-zhuangsong-headings-ea0562844c79.ttf": "ea0562844c799e10bd9cb09b653f5476904da186b8e2b72c77548a7980a1adf0",
-    "src/css/fonts.css": "07113d0407b375153d4a72d743591da82fc15798f4188e47a9db677af2017def",
+    "src/assets/ic-zhuangsong-headings-95384a94a4c2.ttf": "95384a94a4c272eb4f5341fb58536e23875b35fa140d051baec53d9954b7329a",
+    "src/css/fonts.css": "008b0a42329c308d381c7641d56b1e9f5530a94a3193fd0270c3ed669a255480",
     "licenses/XinYuGongZhangJiaSongA-OFL.txt": "c489813e3a86c7c8cd85dbeea75c380e394c85b9db1da01837e1aba609bcb989"
   }
 }

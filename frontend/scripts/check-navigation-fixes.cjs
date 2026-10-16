@@ -28,8 +28,9 @@ const base = process.argv[2] || 'http://127.0.0.1:8766';
     await page.goto(base + '/talent-cultivation.html');
     const backgrounds = await page.locator('.collection-preview').evaluateAll(es => es.map(e => getComputedStyle(e).backgroundColor));
     assert.equal(new Set(backgrounds).size, 2);
-    assert.deepEqual(backgrounds, ['rgb(255, 255, 255)', 'rgb(243, 246, 250)', 'rgb(255, 255, 255)']);
-    assert.equal(await page.locator('.overview-sections .section-watermark').count(), 3);
+    const sections = require('../src/data/columns').nodes.find(n=>n.id==='education').sections;
+    assert.deepEqual(backgrounds, sections.map((_,i)=>i%2?'rgb(243, 246, 250)':'rgb(255, 255, 255)'));
+    assert.equal(await page.locator('.overview-sections .section-watermark').count(), sections.length);
     assert.equal(await page.locator('.research-topics').count(), 0);
     // 吸附落点 = 元素顶 - 该元素自己的 scroll-margin-top（CSS 里绑 --header-compact-height）。读计算值，别再写死 91。
     const stop = await page.locator('[data-overview-section]').first().evaluate(e => e.getBoundingClientRect().top + scrollY - parseFloat(getComputedStyle(e).scrollMarginTop));
@@ -48,11 +49,24 @@ const base = process.argv[2] || 'http://127.0.0.1:8766';
     assert(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth));
     assert.equal(await page.locator('.footer-support').getAttribute('href'), 'https://hdwzgzs.cn/');
     await page.screenshot({ path: path.join(output, 'overview-mobile.png') });
-    for (const file of ['science-innovation', 'admissions', 'community', 'regulations', 'party-building', 'ic-world', 'research-platforms', 'research-groups', 'public-service', 'careers']) {
+    for (const file of ['science-innovation', 'admissions', 'community', 'management', 'party-building', 'ic-world', 'research-platforms', 'research-groups', 'careers']) {
       await page.goto(base + '/' + file + '.html');
       assert(await page.locator('[data-overview-section]').count());
       assert(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth), file);
     }
+    await page.goto(base + '/science-innovation.html');
+    assert.deepEqual(await page.locator('.overview-sections .editorial-heading h2').allTextContents(), ['研究方向','课题组','研究进展','学术交流']);
+    const group = page.locator('#research-groups[data-collection="research-groups.section-1"]');
+    assert.equal(await group.locator('.editorial-heading a').getAttribute('href'), 'research-groups-section-1.html');
+    assert.equal(await page.locator('.overview-related a[href="research-groups.html"]').count(), 0);
+    for(const width of [1440,768,390]) {
+      await page.setViewportSize({width,height:900});
+      await group.scrollIntoViewIfNeeded();
+      assert(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth), `research groups at ${width}`);
+      await group.screenshot({path:path.join(output,`research-groups-${width}.png`)});
+    }
+    await group.locator('.editorial-heading a').click();
+    await page.waitForURL('**/research-groups-section-1.html');
     await page.goto(base + '/admissions-section-3.html');
     assert.equal(await page.locator('[data-overview-section]').count(), 0);
     await page.goto(base + '/media-section-1.html');

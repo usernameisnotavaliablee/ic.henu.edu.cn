@@ -1,0 +1,40 @@
+/* 静态与动态联系页共用布局；可选二维码不改变文字列的对齐。 */
+.contact-layout {
+  --contact-gutter: 24px;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 240px;
+  gap: 40px;
+  padding: var(--contact-gutter);
+  border: 1px solid var(--line);
+  background: #fff;
+}
+.contact-layout:not(:has(.contact-qr-codes)) { grid-template-columns: 1fr; }
+.contact-list { min-width: 0; margin: 0; display: grid; align-content: center; }
+.contact-list > div {
+  display: grid;
+  grid-template-columns: 88px minmax(0, 1fr);
+  align-items: baseline;
+  gap: 16px;
+  min-height: 64px;
+  padding: 18px 0;
+  border-bottom: 1px solid var(--line);
+}
+.contact-list > div:last-child { border-bottom: 0; }
+.contact-list dt { color: var(--blue); font-size: 14px; }
+.contact-list dd { margin: 0; color: var(--muted); overflow-wrap: anywhere; }
+.contact-list > div:first-child dd { color: var(--blue); }
+.contact-qr-codes { display: grid; align-content: center; gap: 28px; padding: 24px; background: var(--pale); }
+.contact-layout .wechat-panel { gap: 16px; color: var(--blue); }
+.contact-layout .wechat-caption { color: var(--muted); opacity: 1; }
+@media (max-width: 800px) {
+  .contact-layout { grid-template-columns: minmax(0, 1fr) 200px; gap: 24px; }
+  .contact-list > div { grid-template-columns: 72px minmax(0, 1fr); gap: 12px; }
+}
+@media (max-width: 600px) {
+  .contact-layout { --contact-gutter: 20px; grid-template-columns: 1fr; gap: 20px; }
+  .contact-list > div { min-height: 56px; padding-block: 14px; }
+  .contact-qr-codes { padding: 20px 16px; }
+  .contact-layout .wechat-panel { flex-direction: row; text-align: left; gap: 16px; }
+  .contact-layout .wechat-panel > div:last-child { min-width: 0; }
+  .contact-layout :is(.wechat-placeholder, .wechat-code) { flex: 0 0 88px; width: 88px; height: 88px; font-size: 12px; }
+}

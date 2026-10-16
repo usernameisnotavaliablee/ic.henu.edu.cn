@@ -16,9 +16,9 @@ fs.mkdirSync(out,{recursive:true});
     check(`${file} ${width} no overflow`,await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth));
     check(`${file} ${width} title visible`,await page.locator('.page-banner h1').isVisible());
     check(`${file} ${width} no duplicate ids`,await page.evaluate(()=>{const ids=[...document.querySelectorAll('[id]')].map(e=>e.id);return new Set(ids).size===ids.length;}));
-    if(file==='faculty')check(`${width} teacher order`,JSON.stringify(await page.locator('.faculty-card').evaluateAll(es=>es.map(e=>e.getAttribute('href'))))===JSON.stringify(['teacher-cheng-gang.html','teacher-zhang-jinlong.html','teacher-zheng-haiwu.html']));
-    if(file==='faculty-talents')check(`${width} unconfirmed talent groups`,await page.locator('.faculty-section').count()===4 && await page.locator('.faculty-card').count()===0);
-    if(file==='contact')check(`${width} both QR slots`,await page.locator('.contact-qr-codes .wechat-panel').count()===2);
+    if(file==='faculty')check(`${width} teacher order`,JSON.stringify(await page.locator('.faculty-card').evaluateAll(es=>es.map(e=>e.getAttribute('href'))))===JSON.stringify(['teacher-cheng-gang.html','teacher-zheng-haiwu.html','teacher-zhang-jinlong.html']));
+    if(file==='faculty-talents')check(`${width} national headings retained without unconfirmed teachers`,await page.locator('.faculty-section').count()===2 && await page.locator('#national-leading,#national-young').count()===2 && await page.locator('.faculty-card,.faculty-person').count()===0);
+    if(file==='contact')check(`${width} WeChat QR placeholder; no empty website card; 11 verified links`,await page.locator('.contact-qr-codes .wechat-placeholder').count()===1 && await page.locator('.contact-qr-codes .website-code').count()===0 && await page.locator('.friendly-links a').count()===11);
     if([1440,390].includes(width) && ['management','faculty','faculty-talents','contact'].includes(file)){
      await page.screenshot({path:path.join(out,`${file}-${width}.png`),fullPage:true});
     }
@@ -31,10 +31,10 @@ fs.mkdirSync(out,{recursive:true});
     await about.locator(':scope > .nav-item-heading > button').click();
     const manage=about.locator('.nav-item').filter({has:page.locator(':scope > .nav-item-heading > a[href="management.html"]')});
     await manage.locator(':scope > .nav-item-heading > button').click();
-    const link=manage.locator('a[href="management-committee.html"]');
+    const link=manage.locator('a[href="management-professors.html"]');
     await link.click();
-    await page.waitForURL('**/management-committee.html');
-    check(`${width} mobile third-level route`,await page.locator('.page-banner h1').textContent()==='学术委员会');
+    await page.waitForURL('**/management-professors.html');
+    check(`${width} mobile third-level route`,await page.locator('.page-banner h1').textContent()==='教授委员会');
    }
    await page.close();
   }

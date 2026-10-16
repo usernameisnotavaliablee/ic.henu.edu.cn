@@ -84,7 +84,7 @@ const menuSelector = `${itemSelector} > .subnav`;
     await test('三级菜单Escape逐级返回，最后返回汉堡按钮', async page => {
       await page.locator('.nav-toggle').click();
       const education = page.locator('.nav-item').filter({ has: page.locator(':scope > .nav-item-heading > a[href$="talent-cultivation.html"]') });
-      const admission = education.locator('.nav-item').filter({ has: page.locator(':scope > .nav-item-heading > a[href$="admissions.html"]') });
+      const admission = education.locator('.nav-item').filter({ has: page.locator(':scope > .nav-item-heading > a[href$="community.html"]') });
       const parentButton = education.locator(':scope > .nav-item-heading > button');
       const childButton = admission.locator(':scope > .nav-item-heading > button');
       await parentButton.click();
@@ -158,6 +158,8 @@ const menuSelector = `${itemSelector} > .subnav`;
       await page.emulateMedia({ reducedMotion: 'no-preference' });
       assert.equal(await footer.locator('.footer-drawer, [data-back-top], .nav-flip-char').count(), 0);
       assert(await footer.locator('.footer-motto').isVisible());
+      assert.equal(await footer.locator('.wechat-placeholder').count(),1);
+      assert.equal(await footer.locator('.website-code').count(),0);
       assert(await footer.locator('.footer-row .footer-wechat').isVisible());
       assert.equal(await footer.innerHTML(), before);
     });

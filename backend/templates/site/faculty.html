@@ -1,2 +1,2 @@
 {% extends "site/generated/frame.html" %}
-{% block body %}<p class="page-note">教师资料以学院及本人审定内容为准。</p><nav class="faculty-tabs" aria-label="师资分类">{% for tab in faculty_tabs %}<a href="{{ tab.href }}"{% if request.path == tab.href %} aria-current="page"{% endif %}>{{ tab.label }}</a>{% endfor %}</nav>{% include "site/generated/faculty_sections.html" %}{% if show_vacancies %}{% include "site/vacancies.html" %}{% endif %}{% endblock %}
+{% block body %}<p class="page-note">教师资料以学院及本人审定内容为准。</p><nav class="faculty-tabs" aria-label="师资分类">{% for tab in faculty_tabs %}<a href="{{ tab.href }}"{% if request.path == tab.href %} aria-current="page"{% endif %}>{{ tab.label }}</a>{% endfor %}</nav>{% include "site/generated/faculty_sections.html" %}{% endblock %}

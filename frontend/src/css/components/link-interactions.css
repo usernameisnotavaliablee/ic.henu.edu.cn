@@ -1,0 +1,47 @@
+/* 悬停与键盘焦点都提示“这里可以点击”；触屏不依赖悬停操作。 */
+.main-nav a, .editorial-heading > a, .back-link, .utility-inner a, .list-tabs a, .breadcrumb a, .overview-prose a, .placeholder-block a, .collection-sidebar a, .overview-related a, .research-links a, .site-map-grid a, .faculty-tabs a, .friendly-links a, .topic-source { transition: color .2s, border-color .2s, background .2s, transform .25s ease, min-height .65s ease, padding .65s ease, font-size .65s ease; }
+/* 已用底线或边框表示入口的组件只强化原线条；正文链接仍保留文字下划线。 */
+.editorial-heading > a, .list-tabs a, .faculty-tabs a, .friendly-links a, .management-entry a { --interaction-underline: none; }
+.editorial-heading > a, .back-link, .utility-inner a, .collection-sidebar a, .overview-related a, .research-links a, .site-map-grid a, .faculty-tabs a, .friendly-links a, .topic-source { transform-origin: left center; }
+.news-select h3, .editorial-notices h3, .feature-row h3, .faculty-card h3, .faculty-person h3, .topic-label, .quick-links h2, .article-list h2, .collection-item h3, .research-topics h3, .visual-topics h3, .picture-caption h3, .collection-read, .teacher-link, .research-topics span { display: block; transform-origin: left center; transition: transform .25s ease, color .2s; }
+.quick-links a { transition: transform .3s ease, box-shadow .3s ease, background .3s ease; }
+.faculty-card::before { transition: transform .25s ease, border-color .25s ease, box-shadow .25s ease, background-color .25s ease; }
+.faculty-card > div, .faculty-person > div { transform-origin: left center; transition: transform .25s ease; }
+.faculty-card p, .faculty-person p { transition: color .25s ease; }
+:is(.faculty-card,.faculty-person) > :is(.media-frame,img) { transform-origin: center; transition: transform .25s ease; }
+:is(.news-select, .editorial-notices a, .feature-row, .quick-links a, .article-list a, .collection-item, .research-topics a, .topic-destination):focus-visible :is(h2, h3, .topic-label, .collection-read, .teacher-link, .research-topics span) { color: var(--accent); transform: translateX(3px) scale(1.055); text-decoration: underline; text-underline-offset: 6px; }
+:is(.main-nav a, .editorial-heading > a, .back-link, .utility-inner a, .list-tabs a, .breadcrumb a, .overview-prose a, .placeholder-block a, .collection-sidebar a, .overview-related a, .research-links a, .site-map-grid a, .faculty-tabs a, .friendly-links a, .topic-source):focus-visible { color: var(--accent); transform: translateY(-2px) scale(1.04); text-decoration: var(--interaction-underline, underline); text-underline-offset: 6px; }
+:is(.editorial-heading > a,.list-tabs a,.faculty-tabs a,.friendly-links a,.management-entry a):focus-visible { border-bottom-color: currentColor; }
+/* 深色底（导航带、页脚、已选中栏目）上的键盘焦点保持白字：高亮蓝对比度不足，只留位移与下划线。 */
+.main-nav a:focus-visible, .site-footer a:focus-visible, .collection-sidebar a[aria-current]:focus-visible { color: #fff; }
+@media (hover: hover) {
+  :is(.news-select, .editorial-notices a, .feature-row, .quick-links a, .article-list a, .collection-item, .research-topics a, .topic-destination):hover :is(h2, h3, .topic-label, .collection-read, .teacher-link, .research-topics span) { color: var(--accent); transform: translateX(3px) scale(1.055); text-decoration: underline; text-underline-offset: 6px; }
+  :is(.main-nav a, .editorial-heading > a, .back-link, .utility-inner a, .list-tabs a, .breadcrumb a, .overview-prose a, .placeholder-block a, .collection-sidebar a, .overview-related a, .research-links a, .site-map-grid a, .faculty-tabs a, .friendly-links a, .topic-source):hover { color: var(--accent); transform: translateY(-2px) scale(1.04); text-decoration: var(--interaction-underline, underline); text-underline-offset: 6px; }
+  :is(.editorial-heading > a,.list-tabs a,.faculty-tabs a,.friendly-links a,.management-entry a):hover { border-bottom-color: currentColor; }
+  .quick-links a:hover { transform: translateY(-6px); background: #fff; box-shadow: 0 16px 28px rgb(18 62 112 / 12%); }
+  .faculty-card:hover::before { transform: scale(1.035); background: #fff; border-color: #8daac7; box-shadow: 0 5px 18px rgb(18 62 112 / 8%); }
+  :is(.faculty-card,.faculty-person):hover > div { transform: scale(1.035); }
+  :is(.faculty-card,.faculty-person):hover > :is(.media-frame,img) { transform: scale(1.04); }
+  :is(.faculty-card,.faculty-person):hover h3 { color: var(--accent); }
+  :is(.faculty-card,.faculty-person):hover p { color: #385b7c; }
+  :is(.faculty-card,.faculty-person):hover .teacher-link { color: var(--accent); text-decoration: underline; text-underline-offset: 5px; }
+  /* 导航条与已选中栏目保留自身底色反馈：不画下划线、不上浮（导航条没有位移动画，会跳），深底上也保持白字。 */
+  .main-nav a:hover, .main-nav a:focus-visible { text-decoration: none; transform: none; }
+  .collection-sidebar a[aria-current]:hover { color: #fff; }
+}
+
+.breadcrumb a, .overview-prose a, .placeholder-block a { display: inline-block; max-width: 100%; transform-origin: left center; }
+/* 导航保留主线的底色反馈，键盘和触屏均不额外位移。 */
+.main-nav a:is(:hover,:focus-visible) { transform: none; text-decoration: none; }
+.faculty-card:focus-visible::before { transform: scale(1.035); background: #fff; border-color: #8daac7; box-shadow: 0 5px 18px rgb(18 62 112 / 8%); }
+:is(.faculty-card,.faculty-person):focus-visible > div { transform: scale(1.035); }
+:is(.faculty-card,.faculty-person):focus-visible > :is(.media-frame,img) { transform: scale(1.04); }
+:is(.faculty-card,.faculty-person):focus-visible h3 { color: var(--accent); }
+:is(.faculty-card,.faculty-person):focus-visible p { color: #385b7c; }
+:is(.faculty-card,.faculty-person):focus-visible .teacher-link { color: var(--accent); text-decoration: underline; text-underline-offset: 5px; }
+@media (prefers-reduced-motion: reduce) {
+  :is(.faculty-card,.faculty-person):is(:hover,:focus-visible) > :is(div,.media-frame,img) { transform: none; }
+  .faculty-card:is(:hover,:focus-visible)::before { transform: none; }
+  :is(.news-select,.news-picture,.editorial-notices a,.feature-row,.faculty-card,.faculty-person,.article-list a,.collection-item,.research-topics a,.topic-destination):is(:hover,:focus-visible) :is(h2,h3,img,.topic-label,.collection-read,.teacher-link),
+  :is(.faculty-card,.editorial-heading > a,.back-link,.utility-inner a,.list-tabs a,.breadcrumb a,.overview-prose a,.placeholder-block a,.collection-sidebar a,.overview-related a,.research-links a,.site-map-grid a,.faculty-tabs a,.friendly-links a,.topic-source):is(:hover,:focus-visible) { transform: none; }
+}

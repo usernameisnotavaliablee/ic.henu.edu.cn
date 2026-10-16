@@ -28,8 +28,9 @@ class EditableContentTests(TestCase):
         entry = ContentEntry.objects.create(key='teacher-demo', title='【演示】教师样例', summary='教学简介', body='## 研究方向\n\n内容样例')
         self.assertEqual(self.client.get('/teacher-demo.html').status_code, 404)
         self.publish(entry)
-        for url in ['/', '/faculty.html', '/teacher-demo.html']:
+        for url in ['/faculty.html', '/teacher-demo.html']:
             self.assertContains(self.client.get(url), '【演示】教师样例')
+        self.assertNotContains(self.client.get('/'), '【演示】教师样例')  # default order follows the three home selections
         entry.title = '未发布修改'
         entry.save()
         self.assertNotContains(self.client.get('/faculty.html'), '未发布修改')
@@ -48,16 +49,16 @@ class EditableContentTests(TestCase):
         self.assertContains(response, '【演示】学院简介')
         self.assertContains(response, '&lt;script&gt;alert(1)&lt;/script&gt;')
         self.assertNotContains(response, '<script>alert(1)</script>')
-        self.assertContains(response, 'data-overview-section', count=2)
+        self.assertContains(response, 'data-overview-section', count=3)
         self.assertContains(response, '<span lang="en">INTRODUCTION</span>')
         self.assertContains(response, '<h2>学院简介</h2>')
         entry.is_visible = False
         entry.save()
         self.publish(entry)
         response = self.client.get('/about.html')
-        self.assertContains(response, 'data-overview-section', count=2)
+        self.assertContains(response, 'data-overview-section', count=3)
         self.assertNotContains(response, '【演示】学院简介')
-        self.assertContains(response, '本栏目资料待更新。')
+        self.assertContains(response, '相关内容正在整理中')
 
     def test_site_contact_and_qr_shared_across_pages(self):
         entry = ContentEntry.objects.create(key='site', title='站点资料', address='【演示】联系地址', account_name='【演示】公众号', qr_image='campus-gate.jpg')
@@ -72,6 +73,8 @@ class EditableContentTests(TestCase):
         entry.save()
         self.publish(entry)
         self.assertContains(self.client.get('/contact.html'), '二维码<br>待提供')
+        self.assertContains(self.client.get('/contact.html'), 'aria-label="学院微信公众号"')
+        self.assertNotContains(self.client.get('/contact.html'), 'class="wechat-code"')
 
     def test_editor_cannot_publish_by_forged_admin_action(self):
         editor = User.objects.create_user('test-editor', password='test-only-long-password', is_staff=True)

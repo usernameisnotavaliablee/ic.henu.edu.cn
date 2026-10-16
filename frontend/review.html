@@ -1,38 +1,43 @@
 <!doctype html>
 <html lang="zh-CN">
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>重构合并与会议调整验收</title>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>确认需求 · 本地前端验收</title>
 <style>
-*{box-sizing:border-box}body{margin:0;background:#f3f6fa;color:#25384b;font:16px/1.8 system-ui,"Microsoft YaHei",sans-serif}main{max-width:1050px;margin:auto;padding:48px 24px}h1,h2,p{margin:0 0 16px}h1{color:#123e70;font-size:32px}h2{font-size:21px}section{background:white;border:1px solid #dde5ed;border-radius:12px;padding:28px;margin:24px 0}a{color:#123e70;text-underline-offset:4px}li{margin:14px 0}.notice{border-left:4px solid #af7b2c;background:#fffaf0;padding:16px 20px}.muted{color:#667889}code{word-break:break-all}.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:16px}.grid a{display:block;padding:20px;background:#f3f6fa;border-radius:8px;text-decoration:none}.grid strong,.grid span{display:block}.grid span{font-size:14px;color:#667889}footer{font-size:14px;color:#667889}
+*{box-sizing:border-box}body{margin:0;background:#f3f6fa;color:#25384b;font:16px/1.8 system-ui,"Microsoft YaHei",sans-serif}main{max-width:1050px;margin:auto;padding:48px 24px}h1,h2,p{margin:0 0 16px}h1{color:#123e70;font-size:32px}h2{font-size:21px}section{background:white;border:1px solid #dde5ed;border-radius:12px;padding:28px;margin:24px 0}a{color:#123e70;text-underline-offset:4px}li{margin:14px 0}.notice{border-left:4px solid #af7b2c;background:#fffaf0;padding:16px 20px}.muted{color:#667889}code{word-break:break-all}.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(240px,100%),1fr));gap:16px}.grid a{display:block;padding:20px;background:#f3f6fa;border-radius:8px;text-decoration:none}.grid strong,.grid span{display:block}.grid span{font-size:14px;color:#667889}footer{font-size:14px;color:#667889}
 </style>
 <main>
-<p class="muted">河南大学集成电路与微纳电子学院 · 本地开发验收 · 2026-10-15</p>
-<h1>主线设计 + 重构组件 + 会议栏目调整</h1>
-<p>入口指向当前工作区静态预览；已有公网与学校平台未更新。后台发布数据请在隔离 Django 预览中查看。</p>
-<p class="notice"><strong>本地功能与浏览器已验证。</strong>已检查主线页头动画、导航、页脚与 404；新栏目覆盖 1440 / 768 / 390 / 320 模拟宽度。后台分类、服务链接与二维码另经隔离库保存/发布测试；静态占位不代表正式学院资料。真机、博达和公网更新仍待后续。</p>
-<section><h2>本次会议调整</h2><div class="grid">
-<a href="preview/management.html"><strong>管理机构</strong><span>领导班子、学术委员会、党政机构，独立列表与详情</span></a>
-<a href="preview/faculty-talents.html"><strong>高层次人才</strong><span>四类人才位置；未审定名单暂留空位</span></a>
-<a href="preview/faculty-teachers.html"><strong>普通教师</strong><span>与完整名录复用同一份教师资料</span></a>
-<a href="preview/engineering-accreditation.html"><strong>工程教育认证</strong><span>人才培养下的独立栏目</span></a>
-<a href="preview/student-regulations.html"><strong>制度建设</strong><span>师生园地下学生培养与考核制度，动态内容按日期倒序</span></a>
-<a href="preview/instruments.html"><strong>大型仪器</strong><span>仪器概览与详情；后台可配置外部服务平台</span></a>
-<a href="preview/contact.html"><strong>联系我们</strong><span>公众号与官网二维码独立位置</span></a>
-</div></section><section><h2>主线设计复核</h2><ol>
-<li><a href="preview/index.html">首页</a>：队友新版图片新闻控制条、链接高亮/下划线/缩放、紧凑校园页脚；轮播操作按钮保留，装饰箭头、抽屉和返回顶部未恢复。</li>
-<li><a href="preview/admissions-section-3.html">招生就业 → 就业指导</a>：导航当前项在悬停前正确；面包屑保留“人才培养 / 招生就业 / 就业指导”；旧网址可继续访问。</li>
-<li><a href="preview/science-innovation.html">科学与创新</a>：栏目概览仍展示列表/卡片，点击进入独立栏目和详情版式；原有背景字、分区与装饰保留。</li>
-<li><a href="preview/faculty.html">师资队伍</a>与<a href="preview/teacher-cheng-gang.html">程纲详情</a>：三位教师完整公开资料、顺序、空位及父级面包屑保留；动态卡片与静态卡片共用图片加载反馈。</li>
-<li><a href="preview/about.html">学院概况</a>与<a href="preview/404.html">404 页面</a>：新版排版和入口保持；404 仍有“返回首页”和“网站导航”。</li>
-</ol><p class="muted">本轮浏览器复核已覆盖 1440 / 768 / 390 / 320 宽度；检查窄屏开关、快速反复操作、Escape、减少动态效果和横向溢出。</p></section>
-<section><h2>代码与验证资料</h2><div class="grid">
-<a href="../docs/接口文档.md"><strong>后端接口文档</strong><span>HTTP 路由、后台表单、权限、错误码与更换后端的数据边界</span></a>
-<a href="CONTRACTS.md"><strong>前端展示契约</strong><span>栏目、组件、具名槽位、数据适配和兼容边界</span></a>
-<a href="BODA-HANDOFF.md"><strong>学校前端适配</strong><span>可交接材料与博达首页—列表—详情试点</span></a>
-<a href="../STATUS.md"><strong>当前进度</strong><span>本地、提交、推送、部署分别记录</span></a>
-<a href="../docs/会议调整与字段交接_20261015.md"><strong>会议字段与材料交接</strong><span>栏目地址、后台发布、旧内容兼容及博达待办</span></a>
+<p class="muted">河南大学集成电路与微纳电子学院 · 本地审核 · 2026-10-15</p>
+<h1>确认需求的前端效果</h1>
+<p>沿用队友主线设计，更新栏目、师资展示和内容接入。开发分支为 <code>codex/frontend-refactor</code>；提交、交付包与部署状态统一见 <a href="../STATUS.md">STATUS.md</a>。</p>
+<p class="notice">先看<a href="preview/index.html">首页</a>。新闻、通知和媒体掠影有明确标注【演示】的条目，带日期、摘要与全文；它们仅用于审核。真实教师称号尚未核准，国家级两栏保留整理中提示，其余空人才分类隐藏；下方独立样式页可检查有内容的效果。</p>
+<section><h2>栏目与内容</h2><div class="grid">
+<a href="examples/content-density/index.html"><strong>少量与大量内容排版演示</strong><span>1条短内容对比8条长内容；概览只显示前三条，查看全部和详情可点击</span></a>
+<a href="preview/about.html"><strong>学院概况</strong><span>简介图文对齐；管理机构收紧留白，四个子栏目卡片</span></a>
+<a href="preview/science-innovation.html#research-groups"><strong>课题组独立区块</strong><span>科学与创新正文展示预览及查看全部，不再放在相关栏目</span></a>
+<a href="preview/talent-cultivation.html"><strong>人才培养与招生入口</strong><span>本科、研究生招生直接展开可见，进入页面即可阅读对应区块</span></a>
+<a href="preview/management.html"><strong>管理机构</strong><span>领导班子、党政机构、教授委员会、工会；背景交替</span></a>
+<a href="preview/community.html"><strong>师生园地</strong><span>师生活动、学生风采、团学建设、制度建设</span></a>
+<a href="preview/student-regulations.html"><strong>统一制度建设</strong><span>承接学生及行政制度、办事流程；按发布日期倒序</span></a>
+<a href="preview/regulations-section-2.html"><strong>旧链接兼容</strong><span>原办事流程地址可访问，归入统一制度栏目</span></a>
+<a href="preview/contact.html"><strong>联系与友情链接</strong><span>两组抽屉，点击平滑展开；公众号保留虚线框，学院网站空二维码卡片已移除</span></a>
+<a href="preview/news.html"><strong>学院新闻演示</strong><span>四条图文，点击可查看日期、正文与来源说明</span></a>
+<a href="preview/notices.html"><strong>通知公告演示</strong><span>三条通知；内容后保留整理中提示</span></a>
+<a href="preview/media.html"><strong>媒体掠影演示</strong><span>三条媒体图文，不冒称真实媒体报道</span></a>
 </div></section>
-<footer>本页仅为本地验收入口，不属于网站生产页面或学校模板。重构已合入 main；以 STATUS.md 和实际 Git 状态为准。</footer>
-</main>
-</html>
+<section><h2>师资与交互</h2><div class="grid">
+<a href="preview/faculty.html"><strong>完整教师名录</strong><span>卡片对齐；文字与边框联动放大，照片轻微放大，完整资料保留</span></a>
+<a href="preview/faculty-talents.html"><strong>人才分类的空态</strong><span>国家级领军、国家级青年两栏保留；其他类别无人则隐藏</span></a>
+<a href="examples/faculty-states.html"><strong>三档师资有内容的效果</strong><span>隔离样式样例：国家级大照片、其他人才圆头像、普通教师姓名；不代表真实归类</span></a>
+<a href="preview/index.html#home-research"><strong>科研三卡与 hover</strong><span>只点完整文字区跳转，图片不跳；标题平滑放大，来源单独可点</span></a>
+<a href="preview/site-map.html"><strong>网站导航</strong><span>核对完整栏目树和各级入口</span></a>
+<a href="preview/404.html"><strong>404 与返回入口</strong><span>保持主线版式、返回首页及网站导航</span></a>
+</div><p class="muted">桌面可检查标题、卡片与文字入口的悬停过渡；导航及页脚保持队友原有反馈。手机菜单、键盘焦点、系统减少动态效果分别验证，模拟浏览器不等于手机真机。</p></section>
+<section><h2>维护与交接</h2><div class="grid">
+<a href="CONTENT-MAINTENANCE.md"><strong>内容维护对照</strong><span>每个可更新位置的数据入口、字段、排序、空态及平台边界</span></a>
+<a href="CONTRACTS.md"><strong>共享组件与展示契约</strong><span>唯一栏目定义、教师模型、具名槽位及后端适配</span></a>
+<a href="../docs/接口文档.md"><strong>前端给后端的接口文档</strong><span>现有接口与从零实现方案分开；JSON API尚未实现</span></a>
+<a href="BODA-HANDOFF.md"><strong>博达接入说明</strong><span>招生入口已上移；招生与培养最终命名、平台分工暂缓，后台发布联动未验证</span></a>
+<a href="../STATUS.md"><strong>当前进度与验证结果</strong><span>本地改动、检查证据、历史部署与未完成项</span></a>
+</div></section>
+<footer>本页是本地审核入口，不属于正式官网或博达模板。本轮没有改业务数据、没有给真实教师编造称号；学校上线内容仍需学院审定。</footer>
+</main></html>

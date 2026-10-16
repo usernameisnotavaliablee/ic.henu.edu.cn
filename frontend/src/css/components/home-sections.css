@@ -13,6 +13,9 @@
 .editorial-heading > a { display: inline-flex; align-items: center; gap: 24px; padding: 10px 0; border-bottom: 1px solid #b1c1d2; font-size: 13px; color: var(--blue); white-space: nowrap; min-height: 44px; }
 .section-news { background: #f8fafc; }
 .editorial-news { display: grid; grid-template-columns: 1fr 1.05fr; gap: 42px; align-items: start; }
+.editorial-news:not(:has(.news-picture)) { grid-template-columns: 1fr; }
+.news-gallery:not(:has(.news-picture)) { display: none; }
+.editorial-notices:not(:has(a)) { grid-template-columns: 1fr; }
 .editorial-news-list { padding-top: 2px; }
 .news-select { display: block; padding: 22px 24px; margin-inline: -24px 0; transition: background .25s, box-shadow .25s, color .25s; }
 .news-select > div { display: flex; justify-content: space-between; align-items: baseline; gap: 18px; }
@@ -24,14 +27,15 @@
 .news-gallery { position: relative; }
 .news-picture { display: block; position: relative; background: #12334d; aspect-ratio: 1.35; overflow: hidden; box-shadow: 0 18px 34px rgb(16 48 77 / 14%); }
 .news-picture img { width: 100%; height: 100%; object-fit: cover; transition: transform .6s ease; }
-.news-picture:hover img, .news-picture:focus-visible img { transform: scale(1.06); }
+.news-picture:focus-visible img { transform: scale(1.06); }
+@media (hover: hover) { .news-picture:hover img { transform: scale(1.06); } }
 .news-picture:not([hidden]) { animation: picture-in .55s ease both; }
 @keyframes picture-in { from { opacity: .45; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
 .picture-caption { position: absolute; bottom: 0; inset-inline: 0; padding: 52px 28px 64px; color: #fff; background: linear-gradient(transparent, rgb(4 25 43 / 88%)); }
 .picture-caption > span { color: #c8d9eb; font-size: 11px; letter-spacing: .13em; }
 .picture-caption h3 { font-size: 20px; font-weight: 400; line-height: 1.45; margin-top: 6px; }
 /* 说明文字压在深色渐隐层上：白字 + 放大 + 下划线，不换高亮蓝（对比度不足）。 */
-.news-picture:hover .picture-caption h3, .news-picture:focus-visible .picture-caption h3 { transform: translateX(3px) scale(1.055); text-decoration: underline; text-underline-offset: 6px; }
+.news-picture:focus-visible .picture-caption h3 { transform: translateX(3px) scale(1.055); text-decoration: underline; text-underline-offset: 6px; }
 .picture-note { position: absolute; top: 15px; right: 15px; background: rgb(4 25 43 / 65%); color: #fff; font-size: 10px; padding: 4px 9px; }
 .news-picture-controls { position: absolute; z-index: 2; inset-inline: 0; bottom: 0; display: flex; gap: 4px; align-items: center; padding: 0 24px 12px; color: #fff; pointer-events: none; }
 .news-picture-controls button { border: 0; background: none; color: inherit; pointer-events: auto; min-width: 44px; min-height: 44px; font-size: 20px; }
@@ -68,7 +72,11 @@
 .section-faculty { background: #f5f8fb; }
 .section-note { font-size: 13px; margin-bottom: 28px; }
 .faculty-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 35px; }
-.faculty-card { display: flex; gap: 22px; align-items: center; min-width: 0; border-bottom: 2px solid #c8d6e5; padding: 0 0 28px; }
+.faculty-card { position: relative; isolation: isolate; display: flex; gap: 22px; align-items: flex-start; min-width: 0; border: 1px solid transparent; border-bottom-width: 2px; padding: 24px; }
+.faculty-card::before { content: ''; position: absolute; inset: -1px; z-index: -1; pointer-events: none; border: 1px solid #dce5ee; border-bottom: 2px solid #c8d6e5; background: rgb(255 255 255 / 72%); }
+.faculty-card > div { display: flex; flex-direction: column; min-width: 0; align-self: stretch; }
+.faculty-card .teacher-intro { min-height: 7.2em; line-height: 1.8; }
+.faculty-card .teacher-link { margin-top: auto; padding-top: 18px; }
 .faculty-card :is(img, .media-frame) { width: 122px; height: 160px; flex: 0 0 auto; object-fit: cover; object-position: center 20%; background: #e5edf6; filter: saturate(.85); }
 .faculty-card h3 { font-size: 23px; font-weight: 500; color: var(--blue); margin-bottom: 10px; }
 .faculty-card p { font-size: 12px; color: var(--muted); }
@@ -85,25 +93,10 @@ html[data-motion-paused='false'] .home-section.is-reveal-ready:not(.has-entered)
 .home-section.has-entered .editorial-heading { animation: section-in 1.4s cubic-bezier(.22,.61,.36,1) both; }
 .home-section.has-entered > .container > :not(.editorial-heading) { animation: section-in 1.4s cubic-bezier(.22,.61,.36,1) .18s both; }
 @keyframes section-in { from { opacity: 0; transform: translateY(36px) scale(.96); } to { opacity: 1; transform: translateY(0) scale(1); } }
-/* 悬停与键盘焦点都提示“这里可以点击”；触屏不依赖悬停操作。 */
-.main-nav a, .editorial-heading > a, .back-link, .utility-inner a, .list-tabs a, .collection-sidebar a, .overview-related a, .research-links a, .site-map-grid a { transition: color .2s, background .2s, transform .25s ease, min-height .65s ease, padding .65s ease, font-size .65s ease; }
-.editorial-heading > a, .back-link, .utility-inner a, .collection-sidebar a, .overview-related a, .research-links a, .site-map-grid a { transform-origin: left center; }
-.news-select h3, .editorial-notices h3, .feature-row h3, .faculty-card h3, .quick-links h2, .article-list h2, .collection-item h3, .research-topics h3, .visual-topics h3, .picture-caption h3, .collection-read, .teacher-link, .research-topics span { display: block; transform-origin: left center; transition: transform .25s ease, color .2s; }
-.faculty-card, .quick-links a { transition: transform .3s ease, box-shadow .3s ease, background .3s ease; }
-:is(.news-select, .editorial-notices a, .feature-row, .faculty-card, .quick-links a, .article-list a, .collection-item, .research-topics a, .visual-topics figure > a):focus-visible :is(h2, h3, .collection-read, .teacher-link, .research-topics span) { color: var(--accent); transform: translateX(3px) scale(1.055); text-decoration: underline; text-underline-offset: 6px; }
-:is(.main-nav a, .editorial-heading > a, .back-link, .utility-inner a, .list-tabs a, .breadcrumb a, .overview-prose a, .placeholder-block a, .collection-sidebar a, .overview-related a, .research-links a, .site-map-grid a):focus-visible { color: var(--accent); transform: translateY(-2px) scale(1.04); text-decoration: underline; text-underline-offset: 6px; }
-/* 深色底（导航带、页脚、已选中栏目）上的键盘焦点保持白字：高亮蓝对比度不足，只留位移与下划线。 */
-.main-nav a:focus-visible, .site-footer a:focus-visible, .collection-sidebar a[aria-current]:focus-visible { color: #fff; }
-@media (hover: hover) {
-  :is(.news-select, .editorial-notices a, .feature-row, .faculty-card, .quick-links a, .article-list a, .collection-item, .research-topics a, .visual-topics figure > a):hover :is(h2, h3, .collection-read, .teacher-link, .research-topics span) { color: var(--accent); transform: translateX(3px) scale(1.055); text-decoration: underline; text-underline-offset: 6px; }
-  :is(.main-nav a, .editorial-heading > a, .back-link, .utility-inner a, .list-tabs a, .breadcrumb a, .overview-prose a, .placeholder-block a, .collection-sidebar a, .overview-related a, .research-links a, .site-map-grid a):hover { color: var(--accent); transform: translateY(-2px) scale(1.04); text-decoration: underline; text-underline-offset: 6px; }
-  .faculty-card:hover, .quick-links a:hover { transform: translateY(-6px); background: #fff; box-shadow: 0 16px 28px rgb(18 62 112 / 12%); }
-  /* 导航条与已选中栏目保留自身底色反馈：不画下划线、不上浮（导航条没有位移动画，会跳），深底上也保持白字。 */
-  .main-nav a:hover, .main-nav a:focus-visible { text-decoration: none; transform: none; }
-  .collection-sidebar a[aria-current]:hover { color: #fff; }
-}
 html[data-motion-paused='true'] .home-section *, html[data-motion-paused='true'] .home-section *::before { animation: none !important; transition: none !important; }
 html[data-motion-paused='true'] a, html[data-motion-paused='true'] a * { transition: none !important; }
 html[data-motion-paused='true'] .site-header * { transition: none !important; }
 html.snap-enabled[data-motion-paused='true'] { scroll-snap-type: none; }
 
+
+@media (hover: hover) { .news-picture:hover .picture-caption h3 { transform: translateX(3px) scale(1.055); text-decoration: underline; text-underline-offset: 6px; } }

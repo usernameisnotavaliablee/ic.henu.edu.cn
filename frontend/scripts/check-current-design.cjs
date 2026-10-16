@@ -16,20 +16,21 @@ const check = (name, ok) => { assert.ok(ok, name); checks.push(name); console.lo
     const page = await context.newPage();
     page.on('pageerror', e => errors.push(e.message));
     await page.goto(base + '/index.html');
-    check('包含首页的十个导航按既有顺序保留', await page.locator('.main-nav > ul > li > .nav-item-heading > a').allTextContents().then(labels => JSON.stringify(labels) === JSON.stringify(['首页', '学院概况', '科学与创新', '人才培养', '师资队伍', '新闻通知', '党建党务', '公共服务', '人才招聘', '联系我们'])));
+    check('移除公共服务后九个导航按确认顺序保留', await page.locator('.main-nav > ul > li > .nav-item-heading > a').allTextContents().then(labels => JSON.stringify(labels) === JSON.stringify(['首页', '学院概况', '科学与创新', '人才培养', '师资队伍', '新闻通知', '党建党务', '人才招聘', '联系我们'])));
     check('删除两类暂停按钮', await page.locator('[data-pause], [data-motion-toggle]').count() === 0);
     check('自托管装甲宋标题字体实际加载', await page.evaluate(async () => (await document.fonts.load('400 30px "IC ZhuangSong"', '学院新闻')).length > 0));
     check('程老师首位', await page.locator('.faculty-card h3').first().textContent() === '程纲');
     check('技术支持链接正确', await page.getByRole('link', { name: '技术支持：河南大学网站工作室' }).getAttribute('href') === 'https://hdwzgzs.cn/');
     const education = page.locator('.main-nav > ul > .nav-item').filter({ has: page.locator(':scope > .nav-item-heading > a[href="talent-cultivation.html"]') });
     await education.locator(':scope > .nav-item-heading > a').hover();
-    const admissions = education.locator('.nav-item').filter({ has: page.locator(':scope > .nav-item-heading > a[href="admissions.html"]') });
-    await admissions.locator(':scope > .nav-item-heading > a').hover();
-    await admissions.getByRole('link', { name: '研究生招生', exact: true }).waitFor({ state: 'visible' });
-    check('三级招生菜单展开且父菜单保留', await admissions.getByRole('link', { name: '研究生招生', exact: true }).isVisible());
-    await admissions.locator(':scope > .nav-item-heading > .subnav-toggle').press('Escape');
-    await admissions.getByRole('link', { name: '研究生招生', exact: true }).waitFor({ state: 'hidden' });
-    check('Escape逐级关闭，父菜单仍可见', !await admissions.getByRole('link', { name: '研究生招生', exact: true }).isVisible() && await education.getByRole('link', { name: '招生就业', exact: true }).isVisible());
+    check('本研与就业指导无需第二次展开', await education.getByRole('link', {name:'本科生招生',exact:true}).isVisible() && await education.getByRole('link', {name:'研究生招生',exact:true}).isVisible() && await education.getByRole('link', {name:'就业指导',exact:true}).isVisible());
+    const community = education.locator('.nav-item').filter({ has: page.locator(':scope > .nav-item-heading > a[href="community.html"]') });
+    await community.locator(':scope > .nav-item-heading > a').hover();
+    await community.getByRole('link', { name: '师生活动', exact: true }).waitFor({ state: 'visible' });
+    check('师生园地三级菜单展开且父菜单保留', await community.getByRole('link', { name: '师生活动', exact: true }).isVisible());
+    await community.locator(':scope > .nav-item-heading > .subnav-toggle').press('Escape');
+    await community.getByRole('link', { name: '师生活动', exact: true }).waitFor({ state: 'hidden' });
+    check('Escape逐级关闭，父菜单仍可见', !await community.getByRole('link', { name: '师生活动', exact: true }).isVisible() && await education.getByRole('link', { name: '研究生招生', exact: true }).isVisible());
     // 展开态量品牌区：收缩态品牌区高度归零，此处必须先在顶部量，否则量到的是被裁掉的框。
     // 注意等「实际高度」而不是 dataset.headerAnimation==='idle'——后者在滚动监听启动前就已经是 idle。
     await page.evaluate(() => { document.activeElement.blur(); scrollTo(0, 0); });
@@ -71,8 +72,9 @@ const check = (name, ok) => { assert.ok(ok, name); checks.push(name); console.lo
         check(`${width}px悬浮菜单按钮完整可见`, await page.locator('.nav-toggle').evaluate(el => { const r = el.getBoundingClientRect(); return !el.closest('[inert]') && r.width > 0 && r.left >= 0 && r.right <= innerWidth && r.top >= 0; }));
         await page.locator('.nav-toggle').click();
         await education.locator(':scope > .nav-item-heading > .subnav-toggle').click();
-        await admissions.locator(':scope > .nav-item-heading > .subnav-toggle').click();
-        check(`${width}px移动端三级菜单可访问`, await admissions.getByRole('link', { name: '研究生招生', exact: true }).isVisible());
+        check(`${width}px本研招生首次展开即见`, await education.getByRole('link', {name:'本科生招生',exact:true}).isVisible() && await education.getByRole('link', {name:'研究生招生',exact:true}).isVisible());
+        await community.locator(':scope > .nav-item-heading > .subnav-toggle').click();
+        check(`${width}px移动端三级菜单可访问`, await community.getByRole('link', { name: '师生活动', exact: true }).isVisible());
       }
       await page.screenshot({ path: path.join(output, `current-${width}.png`) });
     }
@@ -85,8 +87,9 @@ const check = (name, ok) => { assert.ok(ok, name); checks.push(name); console.lo
     const held = new Promise(resolve => { release = resolve; });
     await slow.route('**/assets/campus-gate.jpg', async route => { await held; await route.continue(); });
     await slow.goto(base + '/index.html', { waitUntil: 'domcontentloaded' });
-    await slow.locator('[data-dot]').nth(1).click();
-    const slide = slow.locator('[data-slide]').nth(1);
+    const slide = slow.locator('[data-slide]').filter({has: slow.locator('img[src$="campus-gate.jpg"]')});
+    const campusIndex = await slide.evaluate(el => [...document.querySelectorAll('[data-slide]')].indexOf(el));
+    await slow.locator('[data-dot]').nth(campusIndex).click();
     check('弱网时有图片反馈，手动换图仍可用', await slide.locator('[data-media-status]').isVisible() && await slow.locator('[data-next]').isEnabled());
     await slow.screenshot({ path: path.join(output, 'current-slow-media.png') });
     release();
@@ -96,8 +99,8 @@ const check = (name, ok) => { assert.ok(ok, name); checks.push(name); console.lo
     const broken = await context.newPage();
     await broken.route('**/assets/campus-gate.jpg', route => route.abort());
     await broken.goto(base + '/index.html');
-    await broken.locator('[data-dot]').nth(1).click();
-    check('图片失败后提示重试，正文不被阻塞', await broken.locator('[data-slide]').nth(1).getAttribute('data-media-state') === 'error');
+    await broken.locator('[data-dot]').nth(campusIndex).click();
+    check('图片失败后提示重试，正文不被阻塞', await broken.locator('[data-slide]').filter({has: broken.locator('img[src$="campus-gate.jpg"]')}).getAttribute('data-media-state') === 'error');
     await broken.close();
     await page.emulateMedia({ reducedMotion: 'no-preference' });
     await page.goto(base + '/index.html');

@@ -4,6 +4,7 @@
 @import "./components/header-navigation.css";
 @import "./components/hero-chip.css";
 @import "./components/home-sections.css";
+@import "./components/link-interactions.css";
 @import "./components/inner-pages.css";
 @import "./components/footer.css";
 @import "./components/responsive.css";
@@ -12,3 +13,6 @@
 @import "./components/error-page.css";
 
 @import "./components/faculty-directory.css";
+@import "./components/friendly-links.css";
+@import "./components/contact-page.css";
+@import "./components/about-page.css";
