@@ -12,7 +12,9 @@
 >
 > 协作规则、工作方式与硬约束的**单点**在 [README.md](README.md) 的对应三节；根目录 `AGENTS.md` 是各人本机私有指令（不入库），不另维护一份规则。
 
-更新：2026-10-16（本轮把 origin/codex/frontend-refactor（bfbd813）合入 main，队友的栏目调整、文档索引与历史归档随之进入主线；尚未部署）。本文汇总开发进度、后台能力、待办缺口与验收证据。设计正文见 [DESIGN.md](DESIGN.md)，入门见 [README.md](README.md)，文档分类见 [文档索引](docs/README.md)。
+更新：2026-10-17（新增根目录唯一后端交付文档，旧后端/API/部署文档移入 `docs/归档不再看/后端交付旧文档/`；未部署）。本文汇总开发进度、后台能力、待办缺口与验收证据。设计正文见 [DESIGN.md](DESIGN.md)，入门见 [README.md](README.md)，文档分类见 [文档索引](docs/README.md)。
+
+当前后端交付入口：[后端交付文档：博达接入与预览部署](后端交付文档_博达接入与预览部署.md)。下一阶段主线：取得博达真实配置，跑通一条新闻完整闭环。Django 继续只做本地预览和联调，不扩建为正式 CMS。
 
 ### 输出检查补齐（2026-10-17）
 
@@ -45,7 +47,7 @@
 1. 读 [README.md](README.md)、[DESIGN.md](DESIGN.md) 和本文件。
 2. 按 README 的唯一同步流程核对本地分支、未提交内容与远端。重构与会议调整已纳入 main 的历史结论见上节；当前检出状态以实际核对为准，不沿用历史回执中的“原目录旧分支”描述。本地视觉入口为当前检出工作区的 frontend/review.html；构建与查看方式见 frontend/README.md，不依赖另一个工作区存在。
 3. 公网 <http://47.94.146.53:8099/> 的部署记录与证据见上节；本轮未复核服务器。仓库合并不会自动改变服务器版本。
-4. 先复现本地静态版式，再按 `backend/README.md` 起自己的隔离开发库。动态内容必须走 Django 看，静态 preview 证明不了发布效果。
+4. 先复现本地静态版式，再按[后端交付文档](后端交付文档_博达接入与预览部署.md)起自己的隔离开发库。动态内容必须走 Django 看，静态 preview 证明不了发布效果。
 5. 按第三节待办表承接开发与测试，尤其安全专项、多人权限、真机与恢复演练。
 
 ## 一 现在的真实完成度
@@ -65,7 +67,7 @@
 | 迁移 | 0001—0008（0008 为四个可空字段，未填业务数据；只在隔离库验证，现有业务库未操作） |
 | 服务器 | `/srv/ic-college/releases/<版本>`，`current` 指向运行版；venv、`shared/{data,backups}`；公网 8099（nginx 只代理 8096 只读前台），私有 8095 仅回环 |
 | 本地入口 | frontend/review.html（审核导航）、frontend/preview/index.html（网页）；构建与查看方式见 frontend/README.md |
-| 完整源码交付 | sandbox/deliverables/20261015/ic-college-full-source.zip 及同名 .zip.sha256；见[部署指引](docs/完整源码与部署指引.md)，frontend/src 单独不是完整工程 |
+| 完整源码交付 | sandbox/deliverables/20261015/ic-college-full-source.zip 及同名 .zip.sha256；完整后端操作见[后端交付文档](后端交付文档_博达接入与预览部署.md)，frontend/src 单独不是完整工程 |
 | 学校平台 | 用户已验证 icme.henu.edu.cn 整站预览；资料源绑定与新增/修改/撤下链路未验证，不是已完成的博达导入包 |
 
 ### 当前实现
