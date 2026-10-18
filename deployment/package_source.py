@@ -7,11 +7,23 @@ import subprocess
 import zipfile
 
 ROOT = Path(__file__).resolve().parent.parent
-TOP_FILES = {'.gitignore', '.gitattributes', 'README.md', 'STATUS.md', 'DESIGN.md', 'sandbox/README.md'}
-NEW_FILES = {'docs/README.md', 'docs/完整源码与部署指引.md', 'deployment/package_source.py',
-             'frontend/scripts/build-layout-examples.py', 'frontend/qa/README.md',
-             'docs/内部资料/完整源码交付核验_20261015.json'}
-NEW_DIRS = ('frontend/examples/', 'frontend/scripts/archive/', 'docs/归档不再看/历史版本/目录整理前_20261015/')
+TOP_FILES = {'.gitignore', '.gitattributes', 'README.md', 'STATUS.md', 'DESIGN.md',
+             '后端交付文档_博达接入与预览部署.md', 'sandbox/README.md'}
+# Current handoff additions may not be tracked yet; archived migration exceptions are tracked.
+NEW_FILES = {'deployment/test_package_source.py', 'docs/内部资料/本机交付验收_20261018.json'}
+REQUIRED_FILES = {
+    '后端交付文档_博达接入与预览部署.md', 'docs/README.md', 'docs/归档不再看/README.md',
+    'frontend/README.md', 'frontend/CONTRACTS.md', 'frontend/CONTENT-MAINTENANCE.md',
+    'frontend/BODA-HANDOFF.md', 'frontend/src/data/site.js', 'frontend/scripts/build-site.js',
+    'frontend/build-manifest.json', 'frontend/preview/index.html',
+    'frontend/licenses/zhuangsong-manifest.txt', 'frontend/licenses/XinYuGongZhangJiaSongA-OFL.txt',
+    'frontend/licenses/magicui-MIT.txt', 'frontend/licenses/uiverse-mit.txt',
+    'backend/manage.py', 'backend/requirements.lock', 'backend/templates/site/generated/frame.html',
+    'deployment/package_preview.py', 'docs/assets/fonts/新愚公装甲宋A.ttf',
+}
+RUNTIME_DIRS = {'.git', '.venv', 'venv', 'node_modules', '__pycache__', 'uploads',
+                '.cache', '.pytest_cache', '.mypy_cache', '.ruff_cache', '.tox', '.nox',
+                'logs', 'backups'}
 
 def git(*args):
     return subprocess.check_output(['git', '-C', str(ROOT), *args]).decode('utf-8')
@@ -24,30 +36,34 @@ def export(output):
         raise FileExistsError('Existing export will not be overwritten: ' + str(output))
     names = set(git('ls-files', '-z').split('\0')) - {''}
     names.update(NEW_FILES)
-    for directory in NEW_DIRS:
-        names.update(file.relative_to(ROOT).as_posix() for file in (ROOT / directory).rglob('*') if file.is_file())
     files = []
     for name in sorted(names):
         file = ROOT / name
-        if not file.exists():  # tracked old paths that were deliberately archived
-            continue
         if name not in TOP_FILES and not name.startswith(('frontend/', 'backend/', 'deployment/', 'docs/')):
             continue
         if file.is_symlink() or not file.resolve().is_relative_to(ROOT):
             raise ValueError('Symlink/outside path: ' + name)
-        if any(p in {'.git', '.venv', 'venv', 'node_modules', '__pycache__', 'uploads'} for p in file.parts):
+        if not file.exists():  # tracked old paths that were deliberately archived
+            continue
+        if not file.is_file():
+            raise ValueError('Not a regular file: ' + name)
+        parts = file.relative_to(ROOT).parts
+        if any(p.lower() in RUNTIME_DIRS for p in parts) or name.startswith('backend/media/'):
             raise ValueError('Runtime directory: ' + name)
-        example = name.endswith('.example')
-        if (file.suffix.lower() in {'.sqlite', '.sqlite3', '.db', '.key', '.pem', '.pfx', '.p12', '.log', '.pyc'}
-            or (not example and (file.name == '.env' or file.name.endswith('.env') or file.name.startswith('.env.')))
-            or file.name.startswith(('id_rsa', 'id_ed25519', 'access.txt'))):
+        filename = file.name.lower()
+        example = filename.endswith('.example')
+        database = any(filename.endswith(ext) or ext + '-' in filename
+                       for ext in ('.sqlite', '.sqlite3', '.db'))
+        if (database or file.suffix.lower() in {'.key', '.pem', '.pfx', '.p12', '.log', '.pyc', '.pyo', '.bak'}
+            or '.log.' in filename or filename == '.ds_store'
+            or (not example and (filename == '.env' or filename.endswith('.env') or filename.startswith('.env.')))
+            or filename.startswith(('id_rsa', 'id_ed25519', 'id_ecdsa', 'access.txt'))):
             raise ValueError('Private/runtime file: ' + name)
         files.append(file)
-    required = ['frontend/src/data/site.js', 'frontend/scripts/build-site.js', 'frontend/preview/index.html',
-                'frontend/licenses/zhuangsong-manifest.txt', 'backend/manage.py', 'backend/requirements.lock',
-                'deployment/package_preview.py', 'docs/assets/fonts/新愚公装甲宋A.ttf', 'docs/完整源码与部署指引.md']
     included = {f.relative_to(ROOT).as_posix() for f in files}
-    assert set(required) <= included, 'Missing build/runtime requirements'
+    missing = sorted(REQUIRED_FILES - included)
+    if missing:
+        raise ValueError('Missing build/runtime requirements: ' + ', '.join(missing))
     manifest = {'base_commit':git('rev-parse', 'HEAD').strip(), 'branch':git('branch', '--show-current').strip(),
                 'scope':'Full source, static output, Django, deployment tools and documentation; no business data or credentials',
                 'includes_working_tree_changes':bool(git('status', '--porcelain', '--untracked-files=no').strip()),
@@ -59,9 +75,13 @@ def export(output):
             archive.write(file, 'ic-college/' + file.relative_to(ROOT).as_posix())
         archive.writestr('ic-college/PACKAGE-MANIFEST.json', json.dumps(manifest, ensure_ascii=False, indent=2) + '\n')
     with zipfile.ZipFile(output) as archive:
-        assert archive.testzip() is None
+        corrupt = archive.testzip()
+        if corrupt is not None:
+            raise ValueError('Corrupt archive member: ' + corrupt)
         for item in manifest['files']:
-            assert hashlib.sha256(archive.read('ic-college/' + item['path'])).hexdigest() == item['sha256']
+            data = archive.read('ic-college/' + item['path'])
+            if len(data) != item['bytes'] or hashlib.sha256(data).hexdigest() != item['sha256']:
+                raise ValueError('Archive content changed: ' + item['path'])
     digest = hashlib.sha256(output.read_bytes()).hexdigest()
     output.with_suffix('.zip.sha256').write_text(digest + '  ' + output.name + '\n', encoding='utf-8')
     print(json.dumps({'path':str(output), 'files':len(files), 'bytes':output.stat().st_size, 'sha256':digest}, ensure_ascii=False))

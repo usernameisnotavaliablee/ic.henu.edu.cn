@@ -113,6 +113,23 @@ const menuSelector = `${itemSelector} > .subnav`;
       await page.locator(buttonSelector).click();
       await visibleText(page);
     });
+    await test('959/960断点归还导航焦点，菜单外焦点不被抢走', async page => {
+      await page.locator(buttonSelector).press('ArrowDown');
+      await page.setViewportSize({ width: 959, height: 900 });
+      await page.waitForFunction(() => document.activeElement === document.querySelector('.nav-toggle'));
+      await page.setViewportSize({ width: 960, height: 900 });
+      await page.locator('.skip-link').focus();
+      await page.setViewportSize({ width: 959, height: 900 });
+      await page.waitForFunction(() => document.querySelector('.main-nav').inert);
+      assert(await page.locator('.skip-link').evaluate(e => e === document.activeElement));
+    }, 960);
+    await test('主动移开导航焦点后切换断点不拉回焦点', async page => {
+      await page.locator(buttonSelector).press('ArrowDown');
+      await page.evaluate(() => document.activeElement.blur());
+      await page.setViewportSize({ width: 390, height: 900 });
+      await page.waitForFunction(() => document.querySelector('.main-nav').inert);
+      assert(await page.evaluate(() => document.activeElement === document.body));
+    }, 1440);
     await test('键盘打开桌面菜单并逐级关闭', async page => {
       const button = page.locator(buttonSelector);
       await button.focus();

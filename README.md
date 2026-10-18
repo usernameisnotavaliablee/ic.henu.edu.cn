@@ -4,20 +4,17 @@
 
 **后端交付从[后端交付文档：博达接入与预览部署](后端交付文档_博达接入与预览部署.md)开始。** 该文档是当前唯一后端交付入口，覆盖前端契约、Django 预览、博达接入、后台管理、部署前置和验收。`frontend/src`只是修改入口；完整工程还需要构建器、运行成品、后端、部署工具和许可文档。当前文档统一从[docs/README.md](docs/README.md)查找，历史过程放归档。
 
-本地验收从 [frontend/review.html](frontend/review.html) 进入；直接查看首页用 [frontend/preview/index.html](frontend/preview/index.html)。原项目目录已同步主线基线，本轮在 codex/frontend-refactor 开发；平台手册等本地资料按各自机器环境交接，不作为仓库入口。
+本地验收从 [frontend/review.html](frontend/review.html) 进入；直接查看首页用 [frontend/preview/index.html](frontend/preview/index.html)。修改位置、构建和检查命令见 [frontend/README.md](frontend/README.md)。
 
-## 当前交接状态（2026-10-15）
+## 当前交接状态（2026-10-18）
 
-- 公网预览：<http://47.94.146.53:8099/>。
-- 最新分支合并、部署回执与验证限制统一见 [STATUS.md](STATUS.md)。本轮整合 main 设计与重构架构，并落实会议栏目调整，不部署；仓库提交不会自动改变服务器版本。
-- 团队主线为 `main`；前端重构已按用户要求合入 main，本轮确认需求在原 codex/frontend-refactor 分支开发，不直接修改 main。`main` 不设保护、可直接推送；需要并行开发时自行开 `feature/xxx`。
-- 已实现前端版式、新闻通知审核发布、教师/栏目/轮播/站点资料发布快照、分页及栏目详情、404 页、窄屏汉堡导航、页头收缩动画、自托管标题字体。
-- 前端统一检查见 [frontend/README.md](frontend/README.md)，可替换后端的展示边界见 [frontend/CONTRACTS.md](frontend/CONTRACTS.md)。
-- 交接目标是队友继续开发完善，不是正式上线验收完成。安全专项测试、多人权限人工验证交给队友；真机、阅读模式、真实业务库恢复等仍待验证。
+- 本机工程检查通过：导航焦点、LF/CRLF 构建一致性和源码打包已修复；统一前端 21/21、Django 53 项、动态展示 182 项、Edge 补验 108 项通过。
+- 完整源码、静态成品、Django 预览运行包及 SHA256 放在 `sandbox/deliverables/20261018/`；解包复现结果见随包 `验收记录.json`。代码与已执行检查摘要见[本机验收记录](docs/内部资料/本机交付验收_20261018.json)。
+- 本轮验收以本地 `main` 和本轮修复为基线。验收时远程 fetch 失败，未确认远端最新状态；后续提交与同步情况以 Git 记录为准，本轮未部署。
+- 下一阶段由后端、学校管理员和博达实施方取得真实配置，完成新闻、通知和搜索接入。Django 仅用于预览联调。
+- Windows、手机/Pad 真机、浏览器阅读模式、学院材料审批和博达正式发布仍待外部验收；公网预览历史地址为 <http://47.94.146.53:8099/>，本轮未复核。
 
-先读 [STATUS.md](STATUS.md)：项目状态、后台能改什么、待办缺口与验收证据都在那里。
-
-注意：前端已集中可更新内容输入、分类排序与空态规则，见 [内容接入与维护对照](frontend/CONTENT-MAINTENANCE.md)。这不等于博达或旧 Django 已具备所有维护能力；多称号/年份、轮播启停与平台绑定仍按 STATUS 分别记录。
+内容输入和平台差距见[内容接入与维护对照](frontend/CONTENT-MAINTENANCE.md)；当前状态与接手角色只维护在 [STATUS.md](STATUS.md)。
 
 ## 协作与 Git 工作流
 

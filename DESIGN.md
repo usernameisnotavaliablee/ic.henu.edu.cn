@@ -6,7 +6,7 @@
 
 ## 产品与技术边界
 
-正式官网优先使用学校博达站群。现有团队预览使用 Django 5.2 + SQLite + Waitress；Node 构建 HTML/CSS/JS 和 Django 公共外框，运行时注入已发布数据，不采用 SPA。后端可能重写，前端重构将展示契约与后端适配分离；当前已独立的导航模块及后续边界见 [前端契约](frontend/CONTRACTS.md)。无学校 CMS API、统一认证、站内搜索或正式双语切换。
+正式官网优先使用学校博达站群。现有团队预览使用 Django 5.2 + SQLite + Waitress；Node 构建 HTML/CSS/JS 和 Django 公共外框，运行时注入已发布数据，不采用 SPA。正式运行由学校站群承接，展示契约与后端适配分离；当前已独立的导航模块及后续边界见 [前端契约](frontend/CONTRACTS.md)。无学校 CMS API、统一认证、站内搜索或正式双语切换。
 
 ## 栏目与页面
 

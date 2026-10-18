@@ -19,12 +19,12 @@ const collectionFor = key => collections.find(c => c.legacyKeys.includes(key));
 const registry = require('./lib/columns');
 const django = require('./adapters/django');
 const collectionHref = registry.resolveHref;
-const {hash, walk, collectResources, createWriter} = require('./lib/artifacts');
+const {hash, walk, readText, readInput, collectResources, createWriter} = require('./lib/artifacts');
 const resources = collectResources(src);
 const writer = createWriter(path.resolve(root, '..'), path.join(root, 'build-manifest.json'));
 const resourceVersions = Object.fromEntries([...resources].map(([name, body]) => [name, hash(body)]));
 const assetUrl = name => name + '?v=' + resourceVersions[name].slice(0, 12);
-const read = relative => fs.readFileSync(path.join(src, relative), 'utf8');
+const read = relative => readText(path.join(src, relative));
 const {escape, render, createTemplates} = require('./lib/templates');
 const components = createTemplates(path.join(src, 'templates'));
 const dynamicPages = new Map();
@@ -290,5 +290,6 @@ writer.write(path.join(server, 'content-catalog.json'), JSON.stringify({
 }, null, 2) + '\n');
 writer.write(path.join(server, 'seed-content.json'), JSON.stringify({ news: site.news, notices: site.notices }, null, 2) + '\n');
 
-const inputs = Object.fromEntries([...walk(src), ...walk(path.join(root, 'scripts')).filter(file => !file.includes('__pycache__') && !file.endsWith('.pyc'))].map(file => [path.relative(path.resolve(root, '..'), file).split(path.sep).join('/'), hash(fs.readFileSync(file))]));
+const scripts = [__filename, ...['lib','adapters'].flatMap(folder => walk(path.join(__dirname, folder)).filter(file => /\.[cm]?js$/.test(file)))];
+const inputs = Object.fromEntries([...walk(src), ...scripts, path.resolve(root, '../docs/assets/site-media/additional-media.json')].map(file => [path.relative(path.resolve(root, '..'), file).split(path.sep).join('/'), hash(readInput(file))]).sort());
 writer.finish({inputs, resources: resourceVersions, pageCount: pages.size - 1});

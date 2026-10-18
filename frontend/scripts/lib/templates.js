@@ -1,4 +1,4 @@
-const fs = require('node:fs');
+const {readText} = require('./artifacts');
 const path = require('node:path');
 const escape = value => String(value ?? '').replace(/[&<>"']/g, char => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[char]));
 function render(template, values) {
@@ -10,7 +10,7 @@ function render(template, values) {
 function createTemplates(directory) {
   const cache = new Map();
   const read = name => {
-    if (!cache.has(name)) cache.set(name, fs.readFileSync(path.join(directory, name), 'utf8'));
+    if (!cache.has(name)) cache.set(name, readText(path.join(directory, name)));
     return cache.get(name);
   };
   const slots = new Map();

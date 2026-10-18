@@ -4,7 +4,7 @@
 
 完整后端交付、Django 预览和博达接入见根目录[后端交付文档](../后端交付文档_博达接入与预览部署.md)，不要只交 `src` 目录。审核样例统一在[examples](examples/README.md)，不再依赖某台电脑sandbox中的绝对路径；正式静态成品仍在preview。
 
-只交前端、后端从零开发时，读根目录[后端交付文档](../后端交付文档_博达接入与预览部署.md)：含前端字段、新闻发布、博达配置、后台管理和联调契约。`frontend` 本身没有独立管理后台；历史 API/Django 细节见[归档目录](../docs/归档不再看/后端交付旧文档/)。
+后端接手学校平台适配时，读根目录[后端交付文档](../后端交付文档_博达接入与预览部署.md)：含前端字段、新闻发布、博达配置、后台管理和联调契约。`frontend` 本身没有独立管理后台；历史 API/Django 细节见[归档目录](../docs/归档不再看/后端交付旧文档/)。
 
 ## 修改位置
 
@@ -53,7 +53,7 @@
 
 标题区域（`.editorial-heading h2`、`.feature-intro`、`.footer-motto`）统一使用自托管「新愚公装甲宋A」子集，CSS 族名 `IC ZhuangSong`，由 `--font-display` 引用。全部字形随站分发，不依赖访客本机字体，跨系统渲染一致；正文、导航和顶栏（含 `.brand-motto` 校训）使用微软雅黑优先的系统字体栈，未安装时回退；不分发微软雅黑字体文件。字体衍自思源宋体（SIL OFL 1.1，保留字体名 `Source`），授权全文见 `licenses/XinYuGongZhangJiaSongA-OFL.txt`。
 
-固定标题子集覆盖及大小见 STATUS 与 licenses/zhuangsong-manifest.txt；母版是 `docs/assets/fonts/新愚公装甲宋A.ttf`（18 MB，不入运行目录）。改标题或校训后：先 `node frontend/scripts/build-site.js`，再 `python frontend/scripts/prepare-fonts.py`，再构建一次。`--check` 离线核对母版 sha256、子集 sha256 与字符覆盖。子集化需要本机 `fontTools`（`pyftsubset`），脚本不联网也不自动安装。不要将商业系统字体复制入库。
+固定标题子集覆盖及大小见 STATUS 与 licenses/zhuangsong-manifest.txt；母版是 `docs/assets/fonts/新愚公装甲宋A.ttf`（18 MB，不入运行目录）。改标题或校训后：先 `node frontend/scripts/build-site.js`，再生成字体子集（macOS/Linux：`python3 frontend/scripts/prepare-fonts.py`；Windows PowerShell：`python frontend/scripts/prepare-fonts.py`），再构建一次。`--check` 离线核对母版 sha256、子集 sha256 与字符覆盖。子集化需要本机 `fontTools`（`pyftsubset`），脚本不联网也不自动安装。不要将商业系统字体复制入库。
 
 仅调整字体 CSS 选择器且没有新增字符时，可用 `--style-only`：先验证母版、现有子集、许可证和字符覆盖，再生成 CSS 并更新其哈希；不会重新生成字体，也不会跳过字形校验。
 

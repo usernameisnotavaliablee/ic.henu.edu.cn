@@ -1,0 +1,194 @@
+{
+  "date": "2026-10-18",
+  "decision": "本机工程通过；后端可按主文档接入。最终交付包校验与独立解包结果见同目录验收记录.json。",
+  "code": {
+    "branch": "main",
+    "baseCommit": "67162d427da3dbd78b87ae075490520816856e75",
+    "workingTreeChangesIncluded": true,
+    "remoteLatestVerified": false,
+    "fetchFailure": "HTTP2 framing error; HTTP/1.1 retry empty reply",
+    "committedOrDeployed": false
+  },
+  "environment": {
+    "os": "macOS",
+    "python": "3.14.6",
+    "node": "26.8.2",
+    "django": "5.2.18",
+    "edge": "155.0.4283.62",
+    "dependencies": "复用已有锁定依赖、Playwright、Edge；未新增依赖"
+  },
+  "checks": {
+    "frontend": {
+      "status": "通过",
+      "commands": 21,
+      "navigationCases": 14
+    },
+    "django": {
+      "status": "通过",
+      "tests": 53,
+      "presentationCases": 182,
+      "systemCheck": true,
+      "migrationDrift": false
+    },
+    "browser": {
+      "status": "通过",
+      "cases": 108,
+      "widths": [
+        320,
+        390,
+        768,
+        1024,
+        1440
+      ],
+      "scope": "Edge 模拟宽度、长文、空态、404、键盘、减少动态效果、图片字体失败；不替代真机",
+      "uncaughtErrors": [],
+      "controlledNetwork": {
+        "network": {
+          "latencyMs": 150,
+          "downloadKiBPerSecond": 200,
+          "uploadKiBPerSecond": 90
+        },
+        "domContentLoadedMs": 5490.300000011921,
+        "loadMs": 7464.600000023842,
+        "longTasks": [],
+        "meanFps": 59.99835620941893
+      },
+      "performanceMeaning": "DCL/load/rAF为本机测量，无设定性能预算；rAF在加载后采样，不代表整段动画或公网结果"
+    },
+    "workflow": {
+      "status": "通过",
+      "cases": 88,
+      "roles": [
+        "独立编辑",
+        "独立审核"
+      ],
+      "sequence": [
+        "草稿",
+        "提交",
+        "批准",
+        "首页列表详情",
+        "后台标题摘要检索",
+        "修改保留旧发布",
+        "再次批准",
+        "撤稿后404"
+      ],
+      "auditEvents": 7,
+      "publicSearch": "未实现；由学校博达提供"
+    },
+    "build": {
+      "status": "通过",
+      "passed": true,
+      "manifestSha256": "75068bebb9223f1551feab826868c0ae59e3e6244c557442ac1310dd002c8dc5",
+      "inputs": 81,
+      "outputs": 196,
+      "pageCount": 98,
+      "buildOutput": "已生成 98 个预览页面：/Users/mac/Desktop/ic.henu.edu.cn/frontend/preview/index.html",
+      "inputNoise": [],
+      "fixtures": "现有契约回归覆盖 LF/CRLF、杂项/验收脚本隔离、CSS导入、二进制/许可原字节"
+    },
+    "sourcePackager": {
+      "status": "通过",
+      "tests": 5,
+      "runtimePreflightFiles": 283,
+      "scope": "新主文档、锁定依赖、许可、构建产物及逐文件哈希；排除数据库/凭据/缓存"
+    },
+    "testDatabaseRecovery": {
+      "status": "通过",
+      "passed": true,
+      "scope": "disposable workflow DB, never business DB",
+      "counts": {
+        "articles": 1,
+        "publications": 0,
+        "audit": 7,
+        "entries": 2,
+        "users": 2
+      },
+      "exactRowsAndPublishedSnapshotsMatch": true,
+      "teacherAndSitePages": [
+        "/",
+        "/teacher-delivery-restore.html",
+        "/news-workflow-20261018.html"
+      ],
+      "imageBytesMatch": true,
+      "editorAndReviewerLogin": true,
+      "integrityAndForeignKeys": true
+    },
+    "preserved": {
+      "status": "通过",
+      "passed": true,
+      "businessFiles": 1,
+      "trackedQaFiles": 79,
+      "changed": {
+        "business_files": [],
+        "qa": []
+      }
+    },
+    "contentInventory": {
+      "status": "通过",
+      "path": "docs/内部资料/IC学院官网所需素材.md",
+      "columns": [
+        "页面位置",
+        "缺失材料",
+        "来源/授权",
+        "确认角色",
+        "录入位置"
+      ],
+      "approval": "待学院确认"
+    }
+  },
+  "evidence": {
+    "localDetailedDirectory": "sandbox/tmp/delivery-20261018",
+    "portableBundle": "sandbox/deliverables/20261018/验收记录.json",
+    "firstRunsPreserved": [
+      "sandbox/tmp/handoff-preflight-20261018",
+      "sandbox/tmp/delivery-20261018/browser/browser.json"
+    ],
+    "harnessCorrections": [
+      "慢网等待改为等待已增强导航节点挂载；窄屏导航关闭时本应隐藏",
+      "调用虚拟环境解释器时保留链接路径；恢复脚本使用settings定义的数据库文件名"
+    ],
+    "credentialsAndTestDatabasesIncluded": false
+  },
+  "pending": [
+    {
+      "status": "待外部验收",
+      "item": "Windows解包构建启动",
+      "owner": "Windows后端同学"
+    },
+    {
+      "status": "待外部验收",
+      "item": "手机/Pad真机触控、横竖屏、字形、长文、二维码",
+      "owner": "前端与学院验收人"
+    },
+    {
+      "status": "待外部验收",
+      "item": "阅读模式：本机Edge无菜单入口且F9无变化，正式URL另验",
+      "owner": "前端"
+    },
+    {
+      "status": "待外部验收",
+      "item": "正式内容、人才称号、机构、联系、二维码与图片授权",
+      "owner": "学院指定确认人"
+    },
+    {
+      "status": "待外部验收",
+      "item": "博达真实配置、栏目模板、上传附件、搜索、缓存、旧链与新闻完整闭环",
+      "owner": "后端、学校管理员、博达实施方"
+    },
+    {
+      "status": "待外部验收",
+      "item": "正式域名HTTPS/权限安全/公网弱网/生产备份恢复和回退",
+      "owner": "学校平台管理员与运维"
+    }
+  ],
+  "handoff": {
+    "mainDocument": "后端交付文档_博达接入与预览部署.md",
+    "nextStep": "取得博达真实配置，完成一条新闻含搜索与撤稿的完整闭环",
+    "limits": [
+      "Django仅预览，不扩建生产CMS",
+      "不与博达同步或自建搜索",
+      "不复制其他站点ID/owner/token",
+      "未提交推送，未操作服务器或现有业务库"
+    ]
+  }
+}

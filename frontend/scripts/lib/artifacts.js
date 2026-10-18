@@ -2,24 +2,28 @@ const fs = require('node:fs');
 const path = require('node:path');
 const {createHash} = require('node:crypto');
 const hash = body => createHash('sha256').update(body).digest('hex');
+const lf = text => text.replace(/\r\n?/g,'\n');
+const readText = file => lf(fs.readFileSync(file,'utf8'));
+const readInput = file => /\.(?:[cm]?js|css|html?|json|svg|txt|xml|map|md|ya?ml|csv)$/i.test(file) ? Buffer.from(readText(file)) : fs.readFileSync(file);
 function walk(directory) {
   return fs.readdirSync(directory, {withFileTypes:true}).sort((a,b)=>a.name.localeCompare(b.name,'en')).flatMap(entry => {
     const file = path.join(directory,entry.name);
     if (entry.isSymbolicLink()) throw new Error(`Symlink is not a build input: ${file}`);
+    if (entry.name.startsWith('.') || ['thumbs.db','desktop.ini','__pycache__','node_modules'].includes(entry.name.toLowerCase()) || /^(?:~\$|#)|(?:~|\.sw[opx]|\.tmp|\.bak|\.py[co]|\.tsbuildinfo)$/i.test(entry.name)) return [];
     return entry.isDirectory() ? walk(file) : [file];
   });
 }
 function compileStyles(file, stack = []) {
   const resolved = path.resolve(file);
   if (stack.includes(resolved)) throw new Error('Circular style import: ' + file);
-  return fs.readFileSync(resolved,'utf8').replace(/^@import "(\.\/components\/[a-z0-9-]+\.css)";$/gm, (_, relative) => compileStyles(path.resolve(path.dirname(resolved),relative),[...stack,resolved]));
+  return readText(resolved).replace(/^@import "(\.\/components\/[a-z0-9-]+\.css)";$/gm, (_, relative) => compileStyles(path.resolve(path.dirname(resolved),relative),[...stack,resolved]));
 }
 function collectResources(src) {
   const result = new Map();
   for (const folder of ['css','js','assets']) for (const file of walk(path.join(src,folder))) {
     const name = path.relative(src,file).split(path.sep).join('/');
     if (name.startsWith('css/components/')) continue;
-    result.set(name, name === 'css/style.css' ? Buffer.from(compileStyles(file).trimEnd() + '\n') : fs.readFileSync(file));
+    result.set(name, name === 'css/style.css' ? Buffer.from(compileStyles(file).trimEnd() + '\n') : readInput(file));
   }
   return result;
 }
@@ -49,7 +53,7 @@ function createWriter(root, manifestFile) {
     const key = relative(file);
     const full = target(key);
     fs.mkdirSync(path.dirname(full),{recursive:true});
-    const data = Buffer.isBuffer(body) ? body : Buffer.from(body);
+    const data = Buffer.isBuffer(body) ? body : Buffer.from(lf(body));
     if (!fs.existsSync(full) || !fs.readFileSync(full).equals(data)) fs.writeFileSync(full,data);
     outputs[key] = hash(data);
   }
@@ -69,4 +73,4 @@ function createWriter(root, manifestFile) {
   }
   return {write, finish};
 }
-module.exports={hash,walk,compileStyles,collectResources,createWriter};
+module.exports={hash,walk,readText,readInput,compileStyles,collectResources,createWriter};

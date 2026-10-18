@@ -15,6 +15,7 @@
     parent: item.parentElement.closest('.nav-item'),
   }]));
   let menuOpen = false;
+  let hiddenNavigationHadFocus = false;
 
   // 保留现有逐字模糊效果和时序。每个作用域拥有自己的动画，取消时清除填充终态。
   const timing = { duration: 245, character: 8.9, link: 26.7 };
@@ -156,10 +157,17 @@
   document.addEventListener('click', event => {
     if (!nav.contains(event.target) && !toggle.contains(event.target)) setMenu(false);
   });
+  // CSS may hide the desktop menu and blur it before the media-query callback runs.
+  nav.addEventListener('focusout', event => {
+    if (!event.relatedTarget && smallScreen.matches && !menuOpen) hiddenNavigationHadFocus = true;
+  });
+  document.addEventListener('focusin', () => { hiddenNavigationHadFocus = false; });
   smallScreen.addEventListener('change', () => {
     const focused = document.activeElement;
+    const restoreFocus = nav.contains(focused) || (focused === document.body && hiddenNavigationHadFocus);
+    hiddenNavigationHadFocus = false;
     if (!smallScreen.matches && focused === toggle) nav.querySelector('a')?.focus({ preventScroll: true });
-    setMenu(false, smallScreen.matches && nav.contains(focused));
+    setMenu(false, smallScreen.matches && restoreFocus);
   });
   const settleMotion = () => {
     if (motionAllowed()) return;

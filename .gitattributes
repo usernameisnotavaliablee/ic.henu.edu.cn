@@ -1,9 +1,16 @@
-# 原样归档参考源码，避免换行转换破坏解压清单的 SHA256。
-docs/内部资料/参考源码/低空学院/** -text
+# 构建文本统一 LF；auto 保留图片等二进制原始字节。
+frontend/src/** text=auto eol=lf
+frontend/scripts/** text=auto eol=lf
+frontend/preview/** text=auto eol=lf
+frontend/build-manifest.json text eol=lf
+backend/templates/site/generated/** text eol=lf
+backend/content-catalog.json text eol=lf
+backend/seed-content.json text eol=lf
+docs/assets/site-media/additional-media.json text eol=lf
 
-# 字体清单按原始字节校验；所有平台保持生成CSS与许可证的LF换行。
-frontend/src/css/fonts.css text eol=lf
-frontend/preview/css/fonts.css text eol=lf
-frontend/licenses/*.txt text eol=lf
+# 原件与字体许可清单按原始字节校验，不做换行转换。
+docs/内部资料/参考源码/低空学院/** -text
+docs/内部资料/低空学院参考/** -text
+frontend/licenses/** -text
 *.ttf binary
 *.woff2 binary
