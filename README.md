@@ -4,7 +4,7 @@
 
 **看页面：** [首页](frontend/preview/index.html) · [审核与样例入口](frontend/review.html)
 
-**给学长：** [哪些页面需要后台管理](docs/前端页面与后台动态维护对照.md) · [博达接入与部署说明](后端交付文档_博达接入与预览部署.md)
+**给学长：** [哪些页面需要后台管理](docs/前端页面与后台动态维护对照.md) · [博达接入与部署说明](docs/后端交付文档_博达接入与预览部署.md)
 
 ## 做到哪一步了
 
@@ -35,7 +35,7 @@ macOS / Linux（已有 Python）：
 python3 -m http.server 8766 --bind 127.0.0.1 --directory frontend/preview
 ```
 
-浏览器打开 <http://127.0.0.1:8766/>，结束时按 `Ctrl+C`。解释器路径以本机为准；静态预览不读取后台文章，查看发布数据和动态详情要按[后端交付文档](后端交付文档_博达接入与预览部署.md)启动 Django。
+浏览器打开 <http://127.0.0.1:8766/>，结束时按 `Ctrl+C`。解释器路径以本机为准；静态预览不读取后台文章，查看发布数据和动态详情要按[后端交付文档](docs/后端交付文档_博达接入与预览部署.md)启动 Django。
 
 前端修改入口是 `frontend/src`，修改后用下面的命令构建，不需要 `npm install`：
 
@@ -52,7 +52,7 @@ node frontend/scripts/build-site.js
 | 想做什么 | 看哪份 |
 |---|---|
 | 让学长知道哪些位置要接后台 | [前端页面与后台动态维护对照](docs/前端页面与后台动态维护对照.md) |
-| 接博达、启动预览后台、部署联调 | [后端交付文档](后端交付文档_博达接入与预览部署.md) |
+| 接博达、启动预览后台、部署联调 | [后端交付文档](docs/后端交付文档_博达接入与预览部署.md) |
 | 查当前进度、待办和验证结果 | [STATUS.md](STATUS.md) |
 | 改前端或理解现有设计 | [前端说明](frontend/README.md)、[DESIGN.md](DESIGN.md) |
 | 查数据字段及模板要求 | [内容维护对照](frontend/CONTENT-MAINTENANCE.md)、[展示契约](frontend/CONTRACTS.md) |

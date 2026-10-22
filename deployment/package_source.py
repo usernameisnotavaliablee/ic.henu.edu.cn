@@ -8,11 +8,12 @@ import zipfile
 
 ROOT = Path(__file__).resolve().parent.parent
 TOP_FILES = {'.gitignore', '.gitattributes', 'README.md', 'STATUS.md', 'DESIGN.md',
-             '后端交付文档_博达接入与预览部署.md', 'sandbox/README.md'}
+             'sandbox/README.md'}
 # Current handoff additions may not be tracked yet; archived migration exceptions are tracked.
-NEW_FILES = {'deployment/test_package_source.py', 'docs/内部资料/本机交付验收_20261018.json'}
+NEW_FILES = {'deployment/test_package_source.py', 'docs/内部资料/本机交付验收_20261018.json',
+             'docs/后端交付文档_博达接入与预览部署.md'}
 REQUIRED_FILES = {
-    '后端交付文档_博达接入与预览部署.md', 'docs/README.md', 'docs/归档不再看/README.md',
+    'docs/后端交付文档_博达接入与预览部署.md', 'docs/README.md', 'docs/归档不再看/README.md',
     'frontend/README.md', 'frontend/CONTRACTS.md', 'frontend/CONTENT-MAINTENANCE.md',
     'frontend/BODA-HANDOFF.md', 'frontend/src/data/site.js', 'frontend/scripts/build-site.js',
     'frontend/build-manifest.json', 'frontend/preview/index.html',

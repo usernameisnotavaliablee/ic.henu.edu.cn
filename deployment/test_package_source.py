@@ -12,7 +12,7 @@ import zipfile
 import package_source
 
 REPO = Path(__file__).resolve().parents[1]
-MAIN_DOC = '后端交付文档_博达接入与预览部署.md'
+MAIN_DOC = 'docs/后端交付文档_博达接入与预览部署.md'
 NEW_TEST = 'deployment/test_package_source.py'
 NEW_REPORT = 'docs/内部资料/本机交付验收_20261018.json'
 FIXTURE_FILES = {
@@ -40,7 +40,7 @@ class SourcePackageTests(unittest.TestCase):
         self.addCleanup(self.temp.cleanup)
         self.root = Path(self.temp.name).resolve()
         self.assertTrue(self.root.is_relative_to(temporary_root.resolve()))
-        self.tracked = FIXTURE_FILES - {NEW_TEST, NEW_REPORT}
+        self.tracked = FIXTURE_FILES - {NEW_TEST, NEW_REPORT, MAIN_DOC}
         for name in FIXTURE_FILES | {'AGENTS.md', 'sandbox/private.sqlite3'}:
             self.write_fixture(name)
         self.tracked |= {'AGENTS.md', 'sandbox/private.sqlite3'}
@@ -75,6 +75,7 @@ class SourcePackageTests(unittest.TestCase):
     def test_current_delivery_and_untracked_additions_have_verifiable_hashes(self):
         self.assertNotIn(NEW_TEST, self.tracked)
         self.assertNotIn(NEW_REPORT, self.tracked)
+        self.assertNotIn(MAIN_DOC, self.tracked)
         result = self.export()
         with zipfile.ZipFile(self.output) as archive:
             self.assertIsNone(archive.testzip())
@@ -82,6 +83,7 @@ class SourcePackageTests(unittest.TestCase):
             paths = {item['path'] for item in manifest['files']}
             self.assertEqual(paths, FIXTURE_FILES)
             self.assertNotIn('docs/完整源码与部署指引.md', paths)
+            self.assertNotIn('后端交付文档_博达接入与预览部署.md', paths)
             self.assertEqual(set(archive.namelist()),
                              {'ic-college/' + name for name in paths} | {'ic-college/PACKAGE-MANIFEST.json'})
             for item in manifest['files']:
